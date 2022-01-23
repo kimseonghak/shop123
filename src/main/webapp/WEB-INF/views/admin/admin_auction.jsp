@@ -46,7 +46,7 @@
 				<form>
 					<fieldset>
 						<legend>경매 1번</legend>
-						
+						asdf
 					</fieldset>
 				</form>
 				</div>
