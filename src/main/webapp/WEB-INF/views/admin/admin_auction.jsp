@@ -78,93 +78,97 @@
 			<div class="auctionWrap">
 				<div class="auctionFormWrap">
 <%-- 경매 폼 1번 --%>
-				<form>
+				<form action="/admin/auctionInput.do" method="post">
 					<fieldset class="auctionFieldset">
 						<legend>경매 1번</legend>
+						<input type="hidden" name="auctionNo" value="1">
 						<div class="auctionHalfWrap">
-							<span class="auctionText" >경매 상품</span>
-							<input type="text" class="auctionInput">
-							<span class="auctionText" >시작 날짜</span>
-							<input type="text" class="auctionInput">
-							<span class="auctionText" >종료 날짜</span>
-							<input type="text" class="auctionInput">
-							<span class="auctionText" >경매 가격</span>
-							<input type="text" class="auctionInput">
+							<span class="auctionText">경매 상품</span>
+							<input type="text" class="auctionInput" name="auctionProduct" readonly="readonly">
+							<span class="auctionText">시작 날짜</span>
+							<input type="text" class="auctionInput" name="auctionStart" readonly="readonly">
+							<span class="auctionText">종료 날짜</span>
+							<input type="text" class="auctionInput" name="auctionEnd" readonly="readonly">
+							<span class="auctionText">경매 가격</span>
+							<input type="text" class="auctionInput" name="auctionPrice" readonly="readonly">
 							<span class="auctionText" id="auctionYN">종료 여부</span>
-							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.3vmin; height:1.3vmin;"></label>
-							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.3vmin; height:1.3vmin;"></label>
+							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
+							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
 							<span class="auctionText" >추가 농가2</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput" name="farmNo2" readonly="readonly">
 							<span class="auctionText" >추가 상품2</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput" name="auctionCount2" readonly="readonly">
 							<span class="auctionText" >추가 농가3</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput" name="farmNo3" readonly="readonly">
 							<span class="auctionText" >추가 상품3</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput" name="auctionCount3" readonly="readonly">
+							<button type="button" class="submitButton" number="0">입력</button>
 						</div>
 					</fieldset>
 				</form>
 				</div>
 				<div class="auctionFormWrap">
 <%-- 경매 폼 2번 --%>
-				<form>
+				<form action="/admin/auction.do" method="post">
 					<fieldset class="auctionFieldset">
 						<legend>경매 2번</legend>
+						<input type="hidden" name="auctionNo" value="2">
 						<div class="auctionHalfWrap">
-							<span class="auctionText" >경매 상품</span>
-							<input type="text" class="auctionInput">
-							<span class="auctionText" >시작 날짜</span>
-							<input type="text" class="auctionInput">
-							<span class="auctionText" >종료 날짜</span>
-							<input type="text" class="auctionInput">
-							<span class="auctionText" >경매 가격</span>
-							<input type="text" class="auctionInput">
+							<span class="auctionText">경매 상품</span>
+							<input type="text" class="auctionInput" name="auctionProduct">
+							<span class="auctionText">시작 날짜</span>
+							<input type="text" class="auctionInput" name="auctionStart">
+							<span class="auctionText">종료 날짜</span>
+							<input type="text" class="auctionInput" name="auctionEnd">
+							<span class="auctionText">경매 가격</span>
+							<input type="text" class="auctionInput" name="auctionPrice">
 							<span class="auctionText" id="auctionYN">종료 여부</span>
-							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.3vmin; height:1.3vmin;"></label>
-							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.3vmin; height:1.3vmin;"></label>
+							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
+							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
 							<span class="auctionText" >추가 농가2</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput" name="farmNo2">
 							<span class="auctionText" >추가 상품2</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput" name="auctionCount2">
 							<span class="auctionText" >추가 농가3</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput" name="farmNo3">
 							<span class="auctionText" >추가 상품3</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput" name="auctionCount3">
 						</div>
 					</fieldset>
 				</form>
 				</div>
 				<div class="auctionFormWrap">
 <%-- 경매 폼 3번 --%>
-				<form>
+				<form action="/admin/auction.do" method="post">
 					<fieldset class="auctionFieldset">
 						<legend>경매 3번</legend>
+						<input type="hidden" name="auctionNo" value="3">
 						<div class="auctionHalfWrap">
-							<span class="auctionText" >경매 상품</span>
-							<input type="text" class="auctionInput">
-							<span class="auctionText" >시작 날짜</span>
-							<input type="text" class="auctionInput">
-							<span class="auctionText" >종료 날짜</span>
-							<input type="text" class="auctionInput">
-							<span class="auctionText" >경매 가격</span>
-							<input type="text" class="auctionInput">
+							<span class="auctionText">경매 상품</span>
+							<input type="text" class="auctionInput" name="auctionProduct">
+							<span class="auctionText">시작 날짜</span>
+							<input type="text" class="auctionInput" name="auctionStart">
+							<span class="auctionText">종료 날짜</span>
+							<input type="text" class="auctionInput" name="auctionEnd">
+							<span class="auctionText">경매 가격</span>
+							<input type="text" class="auctionInput" name="auctionPrice">
 							<span class="auctionText" id="auctionYN">종료 여부</span>
-							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.3vmin; height:1.3vmin;"></label>
-							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.3vmin; height:1.3vmin;"></label>
+							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
+							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
 							<span class="auctionText" >추가 농가2</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput" name="farmNo2">
 							<span class="auctionText" >추가 상품2</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput" name="auctionCount2">
 							<span class="auctionText" >추가 농가3</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput" name="farmNo3">
 							<span class="auctionText" >추가 상품3</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput" name="auctionCount3">
 						</div>
 					</fieldset>
 				</form>
@@ -187,8 +191,8 @@
 							<span class="auctionText" >판매 가격</span>
 							<input type="text" class="auctionInput">
 							<span class="auctionText" id="auctionYN">종료 여부</span>
-							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.3vmin; height:1.3vmin;"></label>
-							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.3vmin; height:1.3vmin;"></label>
+							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
+							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
 							<span class="auctionText" >경매 번호</span>
@@ -214,8 +218,8 @@
 							<span class="auctionText" >판매 가격</span>
 							<input type="text" class="auctionInput">
 							<span class="auctionText" id="auctionYN">종료 여부</span>
-							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.3vmin; height:1.3vmin;"></label>
-							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.3vmin; height:1.3vmin;"></label>
+							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
+							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
 							<span class="auctionText" >경매 번호</span>
@@ -241,8 +245,8 @@
 							<span class="auctionText" >판매 가격</span>
 							<input type="text" class="auctionInput">
 							<span class="auctionText" id="auctionYN">종료 여부</span>
-							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.3vmin; height:1.3vmin;"></label>
-							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.3vmin; height:1.3vmin;"></label>
+							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
+							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 							<div class="auctionHalfWrap">
 							<span class="auctionText" >경매 번호</span>
@@ -262,6 +266,14 @@
 			$('#mainUl>li').eq(1).css('background-color', '#34734e');
 			$('#mainUl>li').eq(1).css('color', 'white');
 			$('#mainUl>li').eq(1).css('font-weight','bolder');
+		});
+		$('.submitButton').click(function(){
+			if($(this).html()=='입력'){
+				$(this).html('입력완료');
+				$(this).parents('form').find('.auctionInput').attr('readonly',false);
+			}else{
+				$(this).parents('form').submit();
+			}
 		});
 	</script>
 </body>
