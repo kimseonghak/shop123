@@ -7,12 +7,12 @@
 		<ul id="mainUl">
 			<li><a href="/admin/adminDashboardPage.do">Main</a></li>
 			<li><a href="/admin/adminAuctionPage.do">Auction</a></li>
-			<li>farmQNA</li>
-			<li>userQNA</li>
-			<li>Refund</li>
-			<li>AD</li>
-			<li>Member</li>
-			<li>board</li>
+			<li><a>farmQNA</a></li>
+			<li><a>userQNA</a></li>
+			<li><a>Refund</a></li>
+			<li><a>AD</a></li>
+			<li><a>Member</a></li>
+			<li><a>board</a></li>
 		</ul>
 	</div>
 	<div id="sideWrap3"></div>

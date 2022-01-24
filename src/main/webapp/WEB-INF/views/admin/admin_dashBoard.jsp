@@ -70,9 +70,9 @@
 	</div>
 	<script>
 		$(function() {
-			$('#mainUl>li').eq(0).css('background-color', 'white');
-			$('#mainUl>li').eq(0).css('color', 'black');
-			$('#mainUl>li').eq(0).css('font-weight','bolder');
+			$('#mainUl>li').eq(0).css('background-color', '#34734e');
+			$('#mainUl>li>a').eq(0).css('color', 'white');
+			$('#mainUl>li>a').eq(0).css('font-weight','bolder');
 		});
 	</script>
 </body>

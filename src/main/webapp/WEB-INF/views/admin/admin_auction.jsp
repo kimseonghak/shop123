@@ -31,6 +31,32 @@
 		border-radius: 5px;
 		font-size: 1.1vw;
 	}
+	.auctionHalfWrap{
+		width:50%;
+		height:100%;
+		border:1px solid black;
+		float:left;
+	}
+	.auctionFieldset{
+		width:100%;
+		height:100%;
+	}
+	.auctionText{
+		border-radius: 10px;
+		background:linear-gradient(to top,#3cfc91,#09dbdb);
+		display:inline-block;
+		height:10%;
+		width:30%;
+		font-size: 1.8vmin;
+		overflow: hidden;
+		text-align: center;
+	}
+	.auctionInput{
+		width:50%;
+		height:10%;
+		margin: 0px;
+	}
+	
 </style>
 </head>
 <body>
@@ -44,25 +70,32 @@
 			<div class="auctionWrap">
 				<div class="auctionFormWrap">
 				<form>
-					<fieldset>
+					<fieldset class="auctionFieldset">
 						<legend>경매 1번</legend>
-						test
+						<div class="auctionHalfWrap"></div>
+						<div class="auctionHalfWrap"></div>
 					</fieldset>
 				</form>
 				</div>
 				<div class="auctionFormWrap">
 				<form>
-					<fieldset>
+					<fieldset class="auctionFieldset">
 						<legend>경매 2번</legend>
-						
+						<div class="auctionHalfWrap">
+						<span class="auctionText" >경매 상품</span>
+						<input type="text" class="auctionInput">
+						</div>
+						<div class="auctionHalfWrap">
+						</div>
 					</fieldset>
 				</form>
 				</div>
 				<div class="auctionFormWrap">
 				<form>
-					<fieldset>
+					<fieldset class="auctionFieldset">
 						<legend>경매 3번</legend>
-						
+						<div class="auctionHalfWrap"></div>
+						<div class="auctionHalfWrap"></div>
 					</fieldset>
 				</form>
 				</div>
