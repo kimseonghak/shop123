@@ -15,16 +15,20 @@
    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">
  
 	<!-- css 파일 -->
-	<link rel="stylesheet" type="text/css" href="/main/webapp/resources/farm/css/farmMain.css">
-	<link rel="stylesheet" type="text/css" href="/main/webapp/resources/farm/css/farmNoticeContent.css">
+	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmMain.css">
+	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmNoticeContent.css">
 
 </head>
 <body>
-<div id="farmMainContentWrapper">
+<%@ include file="/resources/farm/common/farmMainHeader.jsp"%>
+<%@ include file="/resources/farm/common/farmMainSidebar.jsp"%>
+
+
+ <div id="farmMainContentWrapper">
         <div id="farmContent1"></div>
         <div id="farmContent2">
             <div id="farmContentHeader">
-                <span id="contnentTitle">공지사항</span>
+                <span id="contnentTitle">문의사항</span>
             </div>
             <div id="farmContentContent">
                 <div id="serchArea">
@@ -32,6 +36,7 @@
                          <select style="width:60px;height:30px" id="serchSelect">
                             <option value="subject">제목</option> 
                             <option value="content">내용</option>
+                            <option value="content">작성자</option>
                           </select>
                     <input type="text" name="keyWord" size="30" id=serchKeyword>
                     <button type="button" class="btn btn-outline-success btn-sm">검색</button>
@@ -43,19 +48,22 @@
                     <table>
                            <tr>
                                 <th>번호</th>
-                                <th>제목</th>
-                                <th>작성일</th>
+                                <th class="subject">제목</th>
+                                <th class="writer">작성자</th>
+                                <th class="writeDate">작성일</th>
                            </tr>
                          <tbody>
                            <tr>
                                <td>1</td>
-                                <td>첫번째 공지입니다.</td>
-                                <td>2022/01/25</td>
+                                <td class="subject">배송 언제쯤 도착하나요배송 언제쯤 도착하나요배송 언제쯤 도착하나요123  </td>
+                                <td class="writer">홍길동</td>
+                                <td class="writeDate">2022/01/25</td>
                            </tr>
                             <tr>
                                <td>2</td>
-                                <td>두번째 공지입니다.</td>
-                                <td>2022/01/25</td>
+                                <td class="subject">두번째 문의</td>
+                                 <td class="writer">고길동</td>
+                                <td class="writeDate">2022/01/25</td>
                             </tr>
                           </tbody>
                     </table>
@@ -67,6 +75,7 @@
         <!--page Navi-->
         <div id="farmContent3"></div>
     </div>
+</body>
 	
 
 

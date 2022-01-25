@@ -12,15 +12,15 @@
    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">   
 
 	<!-- css 파일 -->
-	<link rel="stylesheet" type="text/css" href="/main/webapp/resources/farm/css/farmMain.css">
+	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmMain.css">
 
 </head>
 <body>
 		<div id="farmMainHeader">
             <div id="headerDiv1"></div>
             <div id="headerDiv2">
-                <img id="homeIcon" src="/assets/image/홈.png" width="30px" height="28px"/>
-                <img id="logoutIcon" src="/assets/image/로그아웃.png" width="36px" height="30px"/>
+                <img id="homeIcon" src="/resources/farm/image/홈.png" width="30px" height="28px"/>
+                <img id="logoutIcon" src="/resources/farm/image/로그아웃.png" width="36px" height="30px"/>
             </div>
         </div>
 
