@@ -65,6 +65,7 @@
 .lnb-list {
 	width: 100%;
 	height: 140px;
+	display:none;
 }
 
 .lnb-list>li {
@@ -72,14 +73,14 @@
 	height: 60px;
 	text-align: center;
 	line-height: 60px;
-	display: none;
 }
 .gnb-list>li:hover {
 	border-bottom: 3px solid #5EB656;
 }
-.gnb-list>li:hover>.lnb-list>li {
+.gnb-list>li:hover>.lnb-list{
 	display:block;
 }
+
 .lnb-list>li:first-child {
 	padding-top: 15px;
 }
