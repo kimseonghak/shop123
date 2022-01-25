@@ -1,0 +1,209 @@
+@charset "UTF-8";
+
+
+* {
+	    box-sizing: border-box;
+      }    
+    
+    body
+    {
+        margin: 0;
+        background-color: #48bb78;
+    }
+    
+    
+    #farmMainWrapper
+    {    
+    	width:100%;
+	    height:92vh;
+        background-color: #48BB78;      
+    }
+    
+    
+    #farmMainHeader
+    {
+        width: 100%;
+        height: 8vh;
+    	background-color:#48bb78;
+        
+    }
+    #farmMainSideBar
+    {
+        width: 10%;
+        height: 92vh;
+        background-color:#48bb78;
+        float: left;
+    }
+    
+    /*header 아이콘 영역*/
+    #headerDiv1
+    {
+        width: 87%;
+        height: 100%;
+        float: left;
+        
+    }
+    #headerDiv2
+    {
+        width: 13%;
+        height: 100%;
+        float: left;
+        
+    }
+    /*홈 & 로그아웃 아이콘 위치*/
+    #homeIcon
+    {
+        position: relative;
+        bottom: -20px;
+        margin-left: 13px; 
+    }
+    
+    #logoutIcon
+    {
+        position: relative;
+        bottom: -23px;
+        margin-left: 13px;
+    }
+    
+
+    
+    
+    /*사이드바 상단 랩 */
+    #sideWrap1 {
+        width: 100%;
+        height: 10%;
+        
+    }
+    
+    #logoTitle
+    {
+        width: 80%;
+        height: 100%;
+        margin: 0 auto;
+    }
+    
+    #logoTitle>p {
+        letter-spacing: 3px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 600;
+        color: white;
+        font-size: 15px;
+    }
+    
+    #logoTitle>hr{
+        
+        color: white;
+    }
+    
+    
+    
+    /* 사이드바 메뉴 랩 */
+    #sideWrap2 {
+        width: 100%;
+        height: 60%;
+        font-family: NanumSquare;
+
+       
+    }
+    /* 사이드바 하단 랩 */
+    #sideWrap3 {
+        width: 100%;
+        height: 20%;
+       
+    }
+
+    /* 사이드바 메인 UL */
+    #mainUl {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+        font-size: 1.1vw;
+        padding-top: 0.5vw; 
+        padding-left: 0.5vw;
+    }
+
+    #mainUl>li {
+        width: 100%;
+        height: 35px;
+        text-align: center;
+        line-height: 35px;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        margin: 10px 0px;
+    }
+    #mainUl>li:hover {
+        background-color: #34734e;
+        font-weight: bolder;
+    } 
+    
+    
+    #mainUl>li>a{
+        display:block;
+        text-decoration: none;
+        color:white;
+        text-align: left;
+    }
+
+    #mainUl>li>img{
+       float: left; 
+       margin-left: 20px; 
+       margin-right: 5px;
+    }
+    
+
+    #farmMainContentWrapper
+    {
+        width: 90%;
+        height: 92vh;
+        background-color:white;
+        border-top-left-radius:10px;
+        float: left;
+    }
+        /*Content 영역*/    
+    #farmContent1
+    {
+        width: 10%;
+        height: 100%;
+      
+        float: left;
+    }
+    #farmContent2
+    {
+        width: 80%;
+        height: 100%;
+       
+        float: left;
+    }
+
+    #farmContent3
+    {
+        width: 10%;
+        height: 100%;
+       
+        float: left;
+    }
+    
+    /*farmContent2 안 영역*/
+    
+    #farmContentHeader
+    {
+        
+        width: 100%;
+        height: 10vh; 
+    }
+    
+    #farmContentContent
+    {
+       
+        width: 100%;
+        height: 68vh;
+    }
+    
+    #farmContentFooter
+    {
+     
+        width: 100%;
+        height: 14vh;
+    }
+    
