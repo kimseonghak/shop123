@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Auction {
 	
-	private int auctionNo;
+	private String auctionNo;
 	private Date auctionStart;
 	private Date auctionEnd;
 	private String auctionProduct;
@@ -14,13 +14,13 @@ public class Auction {
 	private int auctionFormNo;
 	private int farmNo2;
 	private int farmNo3;
-	private int auctionProduct2;
-	private int auctionProduct3;
+	private int auctionCount2;
+	private int auctionCount3;
 	private char auctionEndYN;
 	
-	public Auction(int auctionNo, Date auctionStart, Date auctionEnd, String auctionProduct, int auctionPrice,
-			int auctionCount1, int farmNo, int auctionFormNo, int farmNo2, int farmNo3, int auctionProduct2,
-			int auctionProduct3, char auctionEndYN) {
+	public Auction(String auctionNo, Date auctionStart, Date auctionEnd, String auctionProduct, int auctionPrice,
+			int auctionCount1, int farmNo, int auctionFormNo, int farmNo2, int farmNo3, int auctionCount2,
+			int auctionCount3, char auctionEndYN) {
 		super();
 		this.auctionNo = auctionNo;
 		this.auctionStart = auctionStart;
@@ -32,18 +32,18 @@ public class Auction {
 		this.auctionFormNo = auctionFormNo;
 		this.farmNo2 = farmNo2;
 		this.farmNo3 = farmNo3;
-		this.auctionProduct2 = auctionProduct2;
-		this.auctionProduct3 = auctionProduct3;
+		this.auctionCount2 = auctionCount2;
+		this.auctionCount3 = auctionCount3;
 		this.auctionEndYN = auctionEndYN;
 	}
 	public Auction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public int getAuctionNo() {
+	public String getAuctionNo() {
 		return auctionNo;
 	}
-	public void setAuctionNo(int auctionNo) {
+	public void setAuctionNo(String auctionNo) {
 		this.auctionNo = auctionNo;
 	}
 	public Date getAuctionStart() {
@@ -100,17 +100,17 @@ public class Auction {
 	public void setFarmNo3(int farmNo3) {
 		this.farmNo3 = farmNo3;
 	}
-	public int getAuctionProduct2() {
-		return auctionProduct2;
+	public int getauctionCount2() {
+		return auctionCount2;
 	}
-	public void setAuctionProduct2(int auctionProduct2) {
-		this.auctionProduct2 = auctionProduct2;
+	public void setauctionCount2(int auctionCount2) {
+		this.auctionCount2 = auctionCount2;
 	}
-	public int getAuctionProduct3() {
-		return auctionProduct3;
+	public int getauctionCount3() {
+		return auctionCount3;
 	}
-	public void setAuctionProduct3(int auctionProduct3) {
-		this.auctionProduct3 = auctionProduct3;
+	public void setauctionCount3(int auctionCount3) {
+		this.auctionCount3 = auctionCount3;
 	}
 	public char getAuctionEndYN() {
 		return auctionEndYN;
@@ -123,7 +123,7 @@ public class Auction {
 		return "Auction [auctionNo=" + auctionNo + ", auctionStart=" + auctionStart + ", auctionEnd=" + auctionEnd
 				+ ", auctionProduct=" + auctionProduct + ", auctionPrice=" + auctionPrice + ", auctionCount1="
 				+ auctionCount1 + ", farmNo=" + farmNo + ", auctionFormNo=" + auctionFormNo + ", farmNo2=" + farmNo2
-				+ ", farmNo3=" + farmNo3 + ", auctionProduct2=" + auctionProduct2 + ", auctionProduct3="
-				+ auctionProduct3 + ", auctionEndYN=" + auctionEndYN + "]";
+				+ ", farmNo3=" + farmNo3 + ", auctionCount2=" + auctionCount2 + ", auctionCount3="
+				+ auctionCount3 + ", auctionEndYN=" + auctionEndYN + "]";
 	}
 }

@@ -3,6 +3,6 @@
 <configuration>
 	<!-- 별칭 등록 -->
 	<typeAliases>
-		
+		<typeAlias type="com.hot.shop.admin.model.vo.Auction" alias="aution"/>
 	</typeAliases>
 </configuration>

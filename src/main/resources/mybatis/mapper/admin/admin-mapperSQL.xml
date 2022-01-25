@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="admin">
+	<insert id="auctionInput" parameterType="aution">
+		INSERT INTO AUCTION VALUES(AUCTION_SEQ.NEXTVAL,#{auctionStart},#{auctionEnd},#{auctionProduct},#{auctionPrice},#{auctionCount1},#{farmNo},#{auctionFormNo},#{farmNo2},#{farmNo3},#{auctionCount2},#{auctionCount3},#{auctionEndYN})
+	</insert>
+	<select id="auctionCheck" resultType="aution">
+		select
+			auction_no as auctionNo,
+			auction_start as auctionStart,
+			auction_end as auctionEnd,
+			auction_product as auctionProudct,
+			auction_Price as auctionPrice,
+			auction_Count1 as auctionCount1,
+			farm_No as farmNo,
+			auction_Form_No as auctionFormNo,
+			farm_No2 as farmNo2,
+			farm_No3 as farmNo3,
+			auction_Count2 as auctionCount2,
+			auction_Count3 as auctionCount3,
+			auction_EndYN as auctionEndYN
+		from auction where auction_form_no=1 and to_date(auction_end)=to_date(sysdate)
+	</select>
+</mapper>
