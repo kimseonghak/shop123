@@ -1,5 +1,7 @@
 package com.hot.shop.admin.model.dao;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,11 +18,15 @@ public class AdminDAO {
 		return sql.insert("admin.auctionInput", au);
 	}
 
-	public void auctionCheck() {
+	public HashMap<String, Object> auctionCheck() {
 		Auction au1 = sql.selectOne("admin.auctionCheck",1);
 		Auction au2 = sql.selectOne("admin.auctionCheck",2);
 		Auction au3 = sql.selectOne("admin.auctionCheck",3);
-		System.out.println(au1 +" /// "+ au2 +" /// "+ au3);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("au1", au1);
+		map.put("au2", au2);
+		map.put("au3", au3);
+		return map;
 	}
 
 }

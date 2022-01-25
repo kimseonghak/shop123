@@ -22,17 +22,17 @@ public class AdminController {
 		return "admin/admin_dashBoard";
 	}
 	@RequestMapping(value="/admin/adminAuctionPage.do",method = RequestMethod.GET)
-	public String adminAuctionPage() {
+	public ModelAndView adminAuctionPage(ModelAndView mav) {
 		
-		aService.auctionCheck();
-		
-		return "admin/admin_auction";
+		HashMap<String, Object> map = aService.auctionCheck();
+		mav.addObject("map",map);
+		mav.setViewName("admin/admin_auction");
+		return mav;
 	}
 	
 	@RequestMapping(value = "/admin/auctionInput.do",method = RequestMethod.POST)
 	public ModelAndView auctionInput(Auction au,ModelAndView mav) {
 		au.setFarmNo(1);
-		System.out.println(au.toString());
 		int result = aService.auctionInput(au);
 		if(result>0) {
 			mav.addObject("msg",au.getAuctionFormNo()+"번 경매가 시작되었습니다.");
@@ -42,7 +42,7 @@ public class AdminController {
 			mav.addObject("location","/admin/adminAuctionPage.do");
 		}
 		
-		mav.setViewName("common/msg");
+		mav.setViewName("commons/msg");
 		
 		return mav;
 	}

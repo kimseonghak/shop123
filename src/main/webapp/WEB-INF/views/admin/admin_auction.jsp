@@ -78,6 +78,9 @@
 			<div class="auctionWrap">
 				<div class="auctionFormWrap">
 <%-- 경매 폼 1번 --%>
+				<c:choose>
+<%-- 경매중이 아닌 경우 --%>
+				<c:when test="${map.au1==null }">
 				<form action="/admin/auctionInput.do" method="post">
 					<fieldset class="auctionFieldset">
 						<legend>경매 1번</legend>
@@ -85,7 +88,7 @@
 						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 상품</span>
 							<input type="text" class="auctionInput" name="auctionProduct" readonly="readonly">
-							<span class="auctionText" value="">시작 날짜</span>
+							<span class="auctionText">시작 날짜</span>
 							<input type="date" class="auctionInput" name="auctionStart" readonly="readonly">
 							<span class="auctionText">종료 날짜</span>
 							<input type="date" class="auctionInput" name="auctionEnd" readonly="readonly">
@@ -108,9 +111,47 @@
 						</div>
 					</fieldset>
 				</form>
+				</c:when>
+<%-- 경매중인 경우 --%>
+				<c:otherwise>
+				<form action="/admin/auctionInput.do" method="post">
+					<fieldset class="auctionFieldset">
+						<legend>경매 1번</legend>
+						<input type="hidden" name="auctionFormNo" value="1">
+						<div class="auctionHalfWrap">
+							<span class="auctionText">경매 상품</span>
+							<input type="text" class="auctionInput" name="auctionProduct" readonly="readonly" value="${map.au1.auctionProduct }">
+							<span class="auctionText">시작 날짜</span>
+							<input type="date" class="auctionInput" name="auctionStart" readonly="readonly" value="${map.au1.auctionStart }">
+							<span class="auctionText">종료 날짜</span>
+							<input type="date" class="auctionInput" name="auctionEnd" readonly="readonly" value="${map.au1.auctionEnd }">
+							<span class="auctionText">경매 가격</span>
+							<input type="number" class="auctionInput" name="auctionPrice" readonly="readonly" value="${map.au1.auctionPrice }">
+							<span class="auctionText" id="auctionYN">종료 여부</span>
+							<label><span class="auctionRadioText">시작</span><input type="radio" value="N" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<label><span class="auctionRadioText">종료</span><input type="radio" value="Y" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
+						</div>
+						<div class="auctionHalfWrap">
+							<span class="auctionText" >추가 농가2</span>
+							<input type="number" class="auctionInput" name="farmNo2" readonly="readonly" value="${map.au1.farmNo2 }">
+							<span class="auctionText" >추가 상품2</span>
+							<input type="number" class="auctionInput" name="auctionCount2" readonly="readonly" value="${map.au1.auctionCount2 }">
+							<span class="auctionText" >추가 농가3</span>
+							<input type="number" class="auctionInput" name="farmNo3" readonly="readonly" value="${map.au1.farmNo3 }">
+							<span class="auctionText" >추가 상품3</span>
+							<input type="number" class="auctionInput" name="auctionCount3" readonly="readonly" value="${map.au1.auctionCount3 }">
+							<button type="button" class="submitButton" number="0">입력</button>
+						</div>
+					</fieldset>
+				</form>
+				</c:otherwise>
+				</c:choose>
 				</div>
 				<div class="auctionFormWrap">
 <%-- 경매 폼 2번 --%>
+				<c:choose>
+<%-- 경매중이 아닌 경우 --%>
+				<c:when test="${map.au2==null }">
 				<form action="/admin/auctionInput.do" method="post">
 					<fieldset class="auctionFieldset">
 						<legend>경매 2번</legend>
@@ -118,7 +159,7 @@
 						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 상품</span>
 							<input type="text" class="auctionInput" name="auctionProduct" readonly="readonly">
-							<span class="auctionText" value="">시작 날짜</span>
+							<span class="auctionText">시작 날짜</span>
 							<input type="date" class="auctionInput" name="auctionStart" readonly="readonly">
 							<span class="auctionText">종료 날짜</span>
 							<input type="date" class="auctionInput" name="auctionEnd" readonly="readonly">
@@ -141,9 +182,47 @@
 						</div>
 					</fieldset>
 				</form>
+				</c:when>
+<%-- 경매중인 경우 --%>
+				<c:otherwise>
+				<form action="/admin/auctionInput.do" method="post">
+					<fieldset class="auctionFieldset">
+						<legend>경매 2번</legend>
+						<input type="hidden" name="auctionFormNo" value="2">
+						<div class="auctionHalfWrap">
+							<span class="auctionText">경매 상품</span>
+							<input type="text" class="auctionInput" name="auctionProduct" readonly="readonly" value="${map.au2.auctionProduct }">
+							<span class="auctionText">시작 날짜</span>
+							<input type="date" class="auctionInput" name="auctionStart" readonly="readonly" value="${map.au2.auctionStart }">
+							<span class="auctionText">종료 날짜</span>
+							<input type="date" class="auctionInput" name="auctionEnd" readonly="readonly" value="${map.au2.auctionEnd }">
+							<span class="auctionText">경매 가격</span>
+							<input type="number" class="auctionInput" name="auctionPrice" readonly="readonly" value="${map.au2.auctionPrice }">
+							<span class="auctionText" id="auctionYN">종료 여부</span>
+							<label><span class="auctionRadioText">시작</span><input type="radio" value="N" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<label><span class="auctionRadioText">종료</span><input type="radio" value="Y" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
+						</div>
+						<div class="auctionHalfWrap">
+							<span class="auctionText" >추가 농가2</span>
+							<input type="number" class="auctionInput" name="farmNo2" readonly="readonly" value="${map.au2.farmNo2 }">
+							<span class="auctionText" >추가 상품2</span>
+							<input type="number" class="auctionInput" name="auctionCount2" readonly="readonly" value="${map.au2.auctionCount2 }">
+							<span class="auctionText" >추가 농가3</span>
+							<input type="number" class="auctionInput" name="farmNo3" readonly="readonly" value="${map.au2.farmNo3 }">
+							<span class="auctionText" >추가 상품3</span>
+							<input type="number" class="auctionInput" name="auctionCount3" readonly="readonly" value="${map.au2.auctionCount3 }">
+							<button type="button" class="submitButton" number="0">입력</button>
+						</div>
+					</fieldset>
+				</form>
+				</c:otherwise>
+				</c:choose>
 				</div>
 				<div class="auctionFormWrap">
 <%-- 경매 폼 3번 --%>
+				<c:choose>
+<%-- 경매중이 아닌 경우 --%>
+				<c:when test="${map.au3==null }">
 				<form action="/admin/auctionInput.do" method="post">
 					<fieldset class="auctionFieldset">
 						<legend>경매 3번</legend>
@@ -151,7 +230,7 @@
 						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 상품</span>
 							<input type="text" class="auctionInput" name="auctionProduct" readonly="readonly">
-							<span class="auctionText" value="">시작 날짜</span>
+							<span class="auctionText">시작 날짜</span>
 							<input type="date" class="auctionInput" name="auctionStart" readonly="readonly">
 							<span class="auctionText">종료 날짜</span>
 							<input type="date" class="auctionInput" name="auctionEnd" readonly="readonly">
@@ -174,6 +253,41 @@
 						</div>
 					</fieldset>
 				</form>
+				</c:when>
+<%-- 경매중인 경우 --%>
+				<c:otherwise>
+				<form action="/admin/auctionInput.do" method="post">
+					<fieldset class="auctionFieldset">
+						<legend>경매 3번</legend>
+						<input type="hidden" name="auctionFormNo" value="3">
+						<div class="auctionHalfWrap">
+							<span class="auctionText">경매 상품</span>
+							<input type="text" class="auctionInput" name="auctionProduct" readonly="readonly" value="${map.au3.auctionProduct }">
+							<span class="auctionText">시작 날짜</span>
+							<input type="date" class="auctionInput" name="auctionStart" readonly="readonly" value="${map.au3.auctionStart }">
+							<span class="auctionText">종료 날짜</span>
+							<input type="date" class="auctionInput" name="auctionEnd" readonly="readonly" value="${map.au3.auctionEnd }">
+							<span class="auctionText">경매 가격</span>
+							<input type="number" class="auctionInput" name="auctionPrice" readonly="readonly" value="${map.au3.auctionPrice }">
+							<span class="auctionText" id="auctionYN">종료 여부</span>
+							<label><span class="auctionRadioText">시작</span><input type="radio" value="N" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<label><span class="auctionRadioText">종료</span><input type="radio" value="Y" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
+						</div>
+						<div class="auctionHalfWrap">
+							<span class="auctionText" >추가 농가2</span>
+							<input type="number" class="auctionInput" name="farmNo2" readonly="readonly" value="${map.au3.farmNo2 }">
+							<span class="auctionText" >추가 상품2</span>
+							<input type="number" class="auctionInput" name="auctionCount2" readonly="readonly" value="${map.au3.auctionCount2 }">
+							<span class="auctionText" >추가 농가3</span>
+							<input type="number" class="auctionInput" name="farmNo3" readonly="readonly" value="${map.au3.farmNo3 }">
+							<span class="auctionText" >추가 상품3</span>
+							<input type="number" class="auctionInput" name="auctionCount3" readonly="readonly" value="${map.au3.auctionCount3 }">
+							<button type="button" class="submitButton" number="0">입력</button>
+						</div>
+					</fieldset>
+				</form>
+				</c:otherwise>
+				</c:choose>
 				</div>
 			</div>
 <%-- 판매 폼 시작 --%>
@@ -184,22 +298,22 @@
 					<fieldset class="auctionFieldset">
 						<legend>판매 1번</legend>
 						<div class="auctionHalfWrap">
-							<span class="auctionText" >판매 상품</span>
+							<span class="auctionText">판매 상품</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" >시작 날짜</span>
+							<span class="auctionText">시작 날짜</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" >종료 날짜</span>
+							<span class="auctionText">종료 날짜</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" >판매 가격</span>
+							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput">
 							<span class="auctionText" id="auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
-							<span class="auctionText" >경매 번호</span>
+							<span class="auctionText">경매 번호</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" >홍보 주소</span>
+							<span class="auctionText">홍보 주소</span>
 							<input type="text" class="auctionInput">
 						</div>
 					</fieldset>
@@ -211,22 +325,22 @@
 					<fieldset class="auctionFieldset">
 						<legend>판매 2번</legend>
 						<div class="auctionHalfWrap">
-							<span class="auctionText" >판매 상품</span>
+							<span class="auctionText">판매 상품</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" >시작 날짜</span>
+							<span class="auctionText">시작 날짜</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" >종료 날짜</span>
+							<span class="auctionText">종료 날짜</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" >판매 가격</span>
+							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput">
 							<span class="auctionText" id="auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
-							<span class="auctionText" >경매 번호</span>
+							<span class="auctionText">경매 번호</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" >홍보 주소</span>
+							<span class="auctionText">홍보 주소</span>
 							<input type="text" class="auctionInput">
 						</div>
 					</fieldset>
@@ -238,22 +352,22 @@
 					<fieldset class="auctionFieldset">
 						<legend>판매 3번</legend>
 						<div class="auctionHalfWrap">
-							<span class="auctionText" >판매 상품</span>
+							<span class="auctionText">판매 상품</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" >시작 날짜</span>
+							<span class="auctionText">시작 날짜</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" >종료 날짜</span>
+							<span class="auctionText">종료 날짜</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" >판매 가격</span>
+							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput">
 							<span class="auctionText" id="auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 							<div class="auctionHalfWrap">
-							<span class="auctionText" >경매 번호</span>
+							<span class="auctionText">경매 번호</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" >홍보 주소</span>
+							<span class="auctionText">홍보 주소</span>
 							<input type="text" class="auctionInput">
 						</div>
 					</fieldset>
@@ -272,9 +386,18 @@
 		});
 <%-- 날짜 설정 --%>
 		$(function(){
-			
-			$('input[name=auctionStart]').val(new Date().toISOString().substring(0,10));
-			$('input[name=auctionEnd]').val(new Date().toISOString().substring(0,10));
+			if($('input[name=auctionStart]').eq(0).val()==''){
+				$('input[name=auctionStart]').eq(0).val(new Date().toISOString().substring(0,10));
+				$('input[name=auctionEnd]').eq(0).val(new Date().toISOString().substring(0,10));
+			};
+			if($('input[name=auctionStart]').eq(1).val()==''){
+				$('input[name=auctionStart]').eq(1).val(new Date().toISOString().substring(0,10));
+				$('input[name=auctionEnd]').eq(1).val(new Date().toISOString().substring(0,10));
+			};
+			if($('input[name=auctionStart]').eq(2).val()==''){
+				$('input[name=auctionStart]').eq(2).val(new Date().toISOString().substring(0,10));
+				$('input[name=auctionEnd]').eq(2).val(new Date().toISOString().substring(0,10));
+			};
 		});
 		$('.submitButton').click(function(){
 			if($(this).html()=='입력'){
