@@ -28,5 +28,21 @@ public class AdminDAO {
 		map.put("au3", au3);
 		return map;
 	}
+	
+	public void BIDScheduler() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		for(int i=1; i<=3; i++) {
+			Auction au = new Auction();
+			au = sql.selectOne("admin.BIDScheduler",i);
+			map.put("bid"+i, au);
+		}
+		for(int i=1; i<=3; i++) {
+			if(map.get("bid"+i)!=null) {
+				sql.update("admin.auctionEndYN",(Auction)map.get("bid"+i));
+				sql.insert("admin.BIDinsert",(Auction)map.get("bid"+i));
+			}
+		}
+		System.out.println("예약 작업 종료");
+	}
 
 }

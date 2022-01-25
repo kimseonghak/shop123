@@ -23,5 +23,9 @@ public class AdminServiceImpl implements AdminService{
 	public HashMap<String, Object> auctionCheck() {
 		return aDAO.auctionCheck();
 	}
-
+	
+	@Override
+	public void BIDScheduler() {
+		aDAO.BIDScheduler();
+	}
 }

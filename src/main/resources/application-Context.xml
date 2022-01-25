@@ -7,5 +7,6 @@
 
 <import resource="/aop-Context.xml"/>
 <import resource="/mybatis-Context.xml"/>
+<import resource="/scheduler-Context.xml"/>
 
 </beans>

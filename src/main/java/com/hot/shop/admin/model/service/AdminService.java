@@ -9,5 +9,6 @@ public interface AdminService {
 	int auctionInput(Auction au);
 
 	HashMap<String, Object> auctionCheck();
-
+	
+	void BIDScheduler();
 }
