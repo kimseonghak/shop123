@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Auction {
 	
-	private String auctionNo;
+	private int auctionNo;
 	private Date auctionStart;
 	private Date auctionEnd;
 	private String auctionProduct;
@@ -18,7 +18,7 @@ public class Auction {
 	private int auctionCount3;
 	private char auctionEndYN;
 	
-	public Auction(String auctionNo, Date auctionStart, Date auctionEnd, String auctionProduct, int auctionPrice,
+	public Auction(int auctionNo, Date auctionStart, Date auctionEnd, String auctionProduct, int auctionPrice,
 			int auctionCount1, int farmNo, int auctionFormNo, int farmNo2, int farmNo3, int auctionCount2,
 			int auctionCount3, char auctionEndYN) {
 		super();
@@ -40,10 +40,10 @@ public class Auction {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public String getAuctionNo() {
+	public int getAuctionNo() {
 		return auctionNo;
 	}
-	public void setAuctionNo(String auctionNo) {
+	public void setAuctionNo(int auctionNo) {
 		this.auctionNo = auctionNo;
 	}
 	public Date getAuctionStart() {

@@ -4,5 +4,6 @@
 	<!-- 별칭 등록 -->
 	<typeAliases>
 		<typeAlias type="com.hot.shop.admin.model.vo.Auction" alias="auction"/>
+		<typeAlias type="com.hot.shop.admin.model.vo.BID" alias="bid"/>
 	</typeAliases>
 </configuration>

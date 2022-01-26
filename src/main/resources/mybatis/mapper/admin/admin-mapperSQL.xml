@@ -47,4 +47,33 @@
 	<update id="auctionEndYN" parameterType="auction">
 		update auction set auction_endyn='Y' where auction_no=#{auctionNo}
 	</update>
+	<select id="BIDList" parameterType="map" resultType="bid">
+		select 
+			bid_no as BIDNo,
+			auction_no as auctionNo,
+			bid_date as BIDDate,
+			bid_sell_yn as BIDSellYN
+		from (select row_number() over (order by bid_no desc) as num, bid.* from bid)
+		where num between #{start} and #{end}
+	</select>
+	<select id="BIDTotalCount" resultType="int">
+		select count(*) from bid
+	</select>
+	<select id="selectOneAuction" parameterType="integer" resultType="auction">
+		select
+			auction_no as auctionNo,
+			auction_start as auctionStart,
+			auction_end as auctionEnd,
+			auction_product as auctionProduct,
+			auction_Price as auctionPrice,
+			auction_Count1 as auctionCount1,
+			farm_No as farmNo,
+			auction_Form_No as auctionFormNo,
+			farm_No2 as farmNo2,
+			farm_No3 as farmNo3,
+			auction_Count2 as auctionCount2,
+			auction_Count3 as auctionCount3,
+			auction_EndYN as auctionEndYN
+		from auction where auction_no=#{_parameter}
+	</select>
 </mapper>
