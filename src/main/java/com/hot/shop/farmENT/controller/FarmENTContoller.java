@@ -36,6 +36,27 @@ public class FarmENTContoller {
 		return "farm/farmOrderList";
 	}
 	
+	//주문목록 게시판 팝업창 1(회원정보)
+	@RequestMapping(value="/farm/farmMemberInfoPage.do",method = RequestMethod.GET)
+	public String farmMemberInfoPage()
+	{
+		return "farm/farmMemberInfo";
+	}
+	
+	//주문목록 게시판 팝업창 2(상품정보)
+	@RequestMapping(value="/farm/farmProductInfoPage.do",method = RequestMethod.GET)
+	public String farmProductInfoPage()
+	{
+		return "farm/farmProductInfo";
+	}
+	
+	//주문목록 게시판 팝업창 3(배송입력)
+	@RequestMapping(value="/farm/farmDeliveryInput.do",method = RequestMethod.GET)
+	public String farmDeliveryInputPage()
+	{
+		return "farm/farmDeliveryInput";
+	}
+	
 	
 	
 	

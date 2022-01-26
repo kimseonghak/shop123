@@ -31,7 +31,7 @@
 <c:import url="/resources/farm/common/farmMainSidebar.jsp"/>
 
 
- <div id="farmMainContentWrapper">
+     <div id="farmMainContentWrapper">
         <div id="farmContent1"></div>
         <div id="farmContent2">
             <div id="farmContentHeader">
@@ -43,10 +43,9 @@
                          <select style="width:89px;height:30px" id="serchSelect">
                             <option value="subject">회원번호</option> 
                             <option value="content">상품명</option>
-                           
                           </select>
                     <input type="text" name="keyWord" size="30" id=serchKeyword>
-                    <button type="button" class="btn btn-outline-success btn-sm">검색</button>
+                    <button type="submit" class="btn btn-outline-success btn-sm">검색</button>
                 </form>
                     
                 </div>
@@ -66,8 +65,8 @@
                          <tbody>
                            <tr>
                                 <td>1</td>
-                                <td class="userNo">2</td>
-                                <td class="productName">감귤 3kg</td>
+                                <td class="userNo"><a type="button">2</a></td>
+                                <td class="productName"><a type="button">감귤 3kg</a></td>
                                 <td class="count">1</td>
                                 <td class="amount">25000</td>
                                 <td class="payDate">2022/02/26</td>
@@ -77,9 +76,9 @@
                                 <!--배송완료 시 배송입력 버튼 비활성화(여유있으면 속성값: disabled )-->
                            </tr>
                            <tr>
-                                <td>1</td>
-                                <td class="userNo">41</td>
-                                <td class="productName">지리산 표고버섯 2kg</td>
+                                <td>2</td>
+                                <td class="userNo"><a type="button">41</a></td>
+                                <td class="productName"><a type="button">지리산 표고버섯 2kg</a></td>
                                 <td class="count">2</td>
                                 <td class="amount">15000</td>
                                 <td class="payDate">2022/02/26</td>
@@ -97,32 +96,29 @@
         <!--page Navi-->
         <div id="farmContent3"></div>
     </div>
-   
-   
-   
     
-    <!--회원번호 마우스 오버 시 회원정보 띄우기-->
+    <!--회원번호 클릭 시 회원정보 띄우기-->
     <script>
         
-        $('.userNo').mouseover(function(){
+        $('.userNo').click(function(){
                              
-            var userNo=$(this).html();
-            //alert(userNo);
-            //window.opener();
+            var userNo=$(this).text();
+           //alert(userNo);
+           window.open("/farm/farmMemberInfoPage.do","_blank","width=400px, height=300px");
             //회원정보 불러오기 로직
         });
     
     
     </script>    
     
-    <!--상품명 마우스 오버 시 상품정보 띄우기-->
+    <!--상품명 클릭 시 상품정보 띄우기-->
     <script>
         
-        $('.productName').mouseover(function(){
+        $('.productName').click(function(){
                              
-            var productName=$(this).html();
+            var productName=$(this).text();
             //alert(productName);
-            //window.opener();
+           window.open("/farm/farmProductInfoPage.do","_blank","width=400px, height=200px");
             //상품정보 불러오기 로직
         });
     
@@ -133,13 +129,17 @@
     <script>
         
         $('.btn-success').click(function(){
-                             
-           //alert('a'); 
+                 
+      
+            var userNo=$(this).parent().prev().prev().prev().prev().prev().prev().text();
+           // alert(userNo);
+           window.open("/farm/farmDeliveryInput.do","_blank","width=600px, height=300px");
            
         });
     
     
     </script> 
+
 
 
 
