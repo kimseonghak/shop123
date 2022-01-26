@@ -29,6 +29,14 @@ public class FarmENTContoller {
 		return "farm/farmProductList";
 	}
 	
+	//주문목록 게시판
+	@RequestMapping(value="/farm/farmOrdertListPage.do",method = RequestMethod.GET)
+	public String farmOrdertListPage()
+	{
+		return "farm/farmOrderList";
+	}
+	
+	
 	
 	
 }
