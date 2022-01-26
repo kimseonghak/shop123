@@ -1,10 +1,9 @@
 package com.hot.shop.admin.model.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.hot.shop.admin.model.vo.Auction;
-import com.hot.shop.admin.model.vo.BID;
+import com.hot.shop.admin.model.vo.SellForm;
 
 public interface AdminService {
 
@@ -17,4 +16,8 @@ public interface AdminService {
 	HashMap<String, Object> BIDInfo(int currentPage);
 
 	Auction outputAucionInfo(int auctionNo);
+
+	int sellInput(SellForm sf);
+
+	HashMap<String, Object> sellFormCheck();
 }

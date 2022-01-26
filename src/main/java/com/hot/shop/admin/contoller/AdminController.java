@@ -2,7 +2,6 @@ package com.hot.shop.admin.contoller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.hot.shop.admin.model.service.AdminService;
 import com.hot.shop.admin.model.vo.Auction;
-import com.hot.shop.admin.model.vo.BID;
+import com.hot.shop.admin.model.vo.SellForm;
 
 @Controller
 public class AdminController {
@@ -36,7 +35,10 @@ public class AdminController {
 	public ModelAndView adminAuctionPage(ModelAndView mav) {
 		
 		HashMap<String, Object> map = aService.auctionCheck();
+		HashMap<String, Object> map2 = aService.sellFormCheck();
 		mav.addObject("map",map);
+		mav.addObject("map2",map2);
+		System.out.println(map2.get("sf1").toString());
 		mav.setViewName("admin/admin_auction");
 		return mav;
 	}
@@ -57,7 +59,7 @@ public class AdminController {
 		
 		return mav;
 	}
-	//낙찰 정보 가져오기
+	//낙찰 정보 가져오기(BID)
 	@RequestMapping(value = "/admin/adminAuctionInfoPage.do", method = RequestMethod.GET)
 	public ModelAndView adminAuctionInfoPage(HttpServletRequest request,ModelAndView mav,@RequestParam int formNo) {
 		int currentPage;
@@ -76,7 +78,7 @@ public class AdminController {
 		
 		return mav;
 	}
-	
+	//관리자 페이지 판매폼에 낙찰된 경매 정보 입력받는 로직(BID 경매번호 토대로 경매 정보 가져오기)
 	@RequestMapping(value = "/admin/outputAuctionInfo.do", method = RequestMethod.GET)
 	public void outputAucionInfo(@RequestParam int auctionNo,HttpServletResponse response) throws IOException{
 		Auction au = aService.outputAucionInfo(auctionNo);
@@ -84,5 +86,21 @@ public class AdminController {
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		gson.toJson(au,out);
+	}
+	//판매DB 입력 로직
+	@RequestMapping(value = "/admin/sellInput.do", method = RequestMethod.POST)
+	public ModelAndView sellInput(SellForm sf,ModelAndView mav) {
+		int result = aService.sellInput(sf);
+		if(result>1) {
+			mav.addObject("msg",sf.getSellFormNo()+"번 판매가 시작되었습니다.");
+			mav.addObject("location","/admin/adminAuctionPage.do");
+		}else {
+			mav.addObject("msg","오류가 발생하였습니다.");
+			mav.addObject("location","/admin/adminAuctionPage.do");
+		}
+		
+		mav.setViewName("commons/msg");
+		
+		return mav;
 	}
 }

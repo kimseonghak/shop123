@@ -76,4 +76,10 @@
 			auction_EndYN as auctionEndYN
 		from auction where auction_no=#{_parameter}
 	</select>
+	<insert id="sellInput" parameterType="sellForm">
+		insert into sell_form values(sell_form_seq.nextval,#{sellStart},#{sellEnd},#{auctionNo},#{sellFormNo},#{boardNo},'N')
+	</insert>
+	<update id="BIDEndYNUpdate" parameterType="integer">
+		update BID set bid_sell_yn='Y' where auction_no=#{_parameter}
+	</update>
 </mapper>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hot.shop.admin.model.dao.AdminDAO;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
+import com.hot.shop.admin.model.vo.SellForm;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -49,5 +50,15 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Auction outputAucionInfo(int auctionNo) {
 		return aDAO.outputAucionInfo(auctionNo);
+	}
+
+	@Override
+	public int sellInput(SellForm sf) {
+		return aDAO.sellInput(sf);
+	}
+
+	@Override
+	public HashMap<String, Object> sellFormCheck() {
+		return aDAO.sellFormCheck();
 	}
 }

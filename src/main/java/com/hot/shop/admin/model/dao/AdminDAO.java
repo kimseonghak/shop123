@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
+import com.hot.shop.admin.model.vo.SellForm;
 
 @Repository
 public class AdminDAO {
@@ -21,13 +22,12 @@ public class AdminDAO {
 	}
 
 	public HashMap<String, Object> auctionCheck() {
-		Auction au1 = sql.selectOne("admin.auctionCheck",1);
-		Auction au2 = sql.selectOne("admin.auctionCheck",2);
-		Auction au3 = sql.selectOne("admin.auctionCheck",3);
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("au1", au1);
-		map.put("au2", au2);
-		map.put("au3", au3);
+		for(int i=1; i<4; i++) {
+			Auction au = new Auction();
+			au = sql.selectOne("admin.auctionCheck",i);
+			map.put("au"+i, au);
+		}
 		return map;
 	}
 	
@@ -90,6 +90,25 @@ public class AdminDAO {
 
 	public Auction outputAucionInfo(int auctionNo) {
 		return sql.selectOne("admin.selectOneAuction",auctionNo);
+	}
+
+	public int sellInput(SellForm sf) {
+		return sql.insert("admin.sellInput",sf)+sql.update("admin.BIDEndYNUpdate",sf.getAuctionNo());
+	}
+
+	public HashMap<String, Object> sellFormCheck() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		for(int i=1; i<4; i++) {
+			SellForm sf = new SellForm();
+			Auction au = new Auction();
+			sf = sql.selectOne("admin.sellFormCheck",i);
+			if(sf!=null) {
+				au = sql.selectOne("admin.selectOneAuction",sf.getAuctionNo());
+				map.put("au"+i, au);
+			}
+			map.put("sf"+i, sf);
+		}
+		return map;
 	}
 
 }
