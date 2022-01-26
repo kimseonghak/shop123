@@ -107,7 +107,7 @@
 							<input type="number" class="auctionInput" name="farmNo3" readonly="readonly" value="1">
 							<span class="auctionText" >추가 상품3</span>
 							<input type="number" class="auctionInput" name="auctionCount3" readonly="readonly" value="0">
-							<button type="button" class="submitButton" number="0">입력</button>
+							<button type="button" class="submitButton">입력</button>
 						</div>
 					</fieldset>
 				</form>
@@ -140,7 +140,7 @@
 							<input type="number" class="auctionInput" name="farmNo3" readonly="readonly" value="${map.au1.farmNo3 }">
 							<span class="auctionText" >추가 상품3</span>
 							<input type="number" class="auctionInput" name="auctionCount3" readonly="readonly" value="${map.au1.auctionCount3 }">
-							<button type="button" class="submitButton" number="0">입력</button>
+							<button type="button" class="submitButton">입력</button>
 						</div>
 					</fieldset>
 				</form>
@@ -178,7 +178,7 @@
 							<input type="number" class="auctionInput" name="farmNo3" readonly="readonly" value="1">
 							<span class="auctionText" >추가 상품3</span>
 							<input type="number" class="auctionInput" name="auctionCount3" readonly="readonly" value="0">
-							<button type="button" class="submitButton" number="0">입력</button>
+							<button type="button" class="submitButton">입력</button>
 						</div>
 					</fieldset>
 				</form>
@@ -211,7 +211,7 @@
 							<input type="number" class="auctionInput" name="farmNo3" readonly="readonly" value="${map.au2.farmNo3 }">
 							<span class="auctionText" >추가 상품3</span>
 							<input type="number" class="auctionInput" name="auctionCount3" readonly="readonly" value="${map.au2.auctionCount3 }">
-							<button type="button" class="submitButton" number="0">입력</button>
+							<button type="button" class="submitButton">입력</button>
 						</div>
 					</fieldset>
 				</form>
@@ -249,7 +249,7 @@
 							<input type="number" class="auctionInput" name="farmNo3" readonly="readonly" value="1">
 							<span class="auctionText" >추가 상품3</span>
 							<input type="number" class="auctionInput" name="auctionCount3" readonly="readonly" value="0">
-							<button type="button" class="submitButton" number="0">입력</button>
+							<button type="button" class="submitButton">입력</button>
 						</div>
 					</fieldset>
 				</form>
@@ -282,7 +282,7 @@
 							<input type="number" class="auctionInput" name="farmNo3" readonly="readonly" value="${map.au3.farmNo3 }">
 							<span class="auctionText" >추가 상품3</span>
 							<input type="number" class="auctionInput" name="auctionCount3" readonly="readonly" value="${map.au3.auctionCount3 }">
-							<button type="button" class="submitButton" number="0">입력</button>
+							<button type="button" class="submitButton">입력</button>
 						</div>
 					</fieldset>
 				</form>
@@ -294,30 +294,68 @@
 			<div class="auctionWrap">
 				<div class="auctionFormWrap">
 <%-- 판매 폼 1번 --%>
-				<form>
+				<c:choose>
+<%-- 판매중이 아닌 경우 --%>
+				<c:when test="${map2.sf1==null }">
+				<form action="/admin/sellInput.do" method="post">
 					<fieldset class="auctionFieldset">
 						<legend>판매 1번</legend>
+						<input type="hidden" name="sellFormNo" value="1">
 						<div class="auctionHalfWrap">
 							<span class="auctionText">판매 상품</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput sellProduct" readonly="readonly">
 							<span class="auctionText">시작 날짜</span>
-							<input type="text" class="auctionInput">
+							<input type="date" class="auctionInput sellStartDate" name="sellStart" readonly="readonly">
 							<span class="auctionText">종료 날짜</span>
-							<input type="text" class="auctionInput">
+							<input type="date" class="auctionInput sellEndDate" name="sellEnd" readonly="readonly">
 							<span class="auctionText">판매 가격</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput sellPrice" readonly="readonly">
 							<span class="auctionText" id="auctionYN">종료 여부</span>
-							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
-							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
+							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y"  style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<label><span class="auctionRadioText">종료</span><input type="radio" value="N"  style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 번호</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput sellAuctionNo" name="auctionNo" readonly="readonly">
 							<span class="auctionText">홍보 주소</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput sellBoardNo" name="boardNo" readonly="readonly" value="0">
+							<button type="button" class="infoBtn" formNo='0'>정보 가져오기</button>
+							<button type="button" class="submitButton">입력</button>
 						</div>
 					</fieldset>
 				</form>
+				</c:when>
+				<c:otherwise>
+<%-- 판매중인 경우 --%>
+				<form action="/admin/sellInput.do" method="post">
+					<fieldset class="auctionFieldset">
+						<legend>판매 1번</legend>
+						<input type="hidden" name="sellFormNo" value="1">
+						<div class="auctionHalfWrap">
+							<span class="auctionText">판매 상품</span>
+							<input type="text" class="auctionInput sellProduct" readonly="readonly" value="${map2.au1.auctionProduct }">
+							<span class="auctionText">시작 날짜</span>
+							<input type="date" class="auctionInput sellStartDate" name="sellStart" readonly="readonly" value="${map2.sf1.sellStart }">
+							<span class="auctionText">종료 날짜</span>
+							<input type="date" class="auctionInput sellEndDate" name="sellEnd" readonly="readonly" value="${map2.sf1.sellEnd }">
+							<span class="auctionText">판매 가격</span>
+							<input type="text" class="auctionInput sellPrice" readonly="readonly" value="${map2.au1.auctionPrice }">
+							<span class="auctionText" id="auctionYN">종료 여부</span>
+							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y"  style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<label><span class="auctionRadioText">종료</span><input type="radio" value="N"  style="width:1.5vmin; height:1.5vmin;"></label>
+						</div>
+						<div class="auctionHalfWrap">
+							<span class="auctionText">경매 번호</span>
+							<input type="text" class="auctionInput sellAuctionNo" name="auctionNo" readonly="readonly" value="${map2.au1.auctionNo}">
+							<span class="auctionText">홍보 주소</span>
+							<input type="text" class="auctionInput sellBoardNo" name="boardNo" readonly="readonly" value="${map2.sf1.boardNo }">
+							<button type="button" class="infoBtn" formNo='0'>정보 가져오기</button>
+							<button type="button" class="submitButton">입력</button>
+						</div>
+					</fieldset>
+				</form>
+				</c:otherwise>
+				</c:choose>
 				</div>
 				<div class="auctionFormWrap">
 <%-- 판매 폼 2번 --%>
@@ -376,7 +414,6 @@
 			</div>
 		</div>
 	</div>
-	
 	<script>
 <%-- 사이드바 CSS --%>
 		$(function() {
@@ -386,27 +423,48 @@
 		});
 <%-- 날짜 설정 --%>
 		$(function(){
-			if($('input[name=auctionStart]').eq(0).val()==''){
-				$('input[name=auctionStart]').eq(0).val(new Date().toISOString().substring(0,10));
-				$('input[name=auctionEnd]').eq(0).val(new Date().toISOString().substring(0,10));
-			};
-			if($('input[name=auctionStart]').eq(1).val()==''){
-				$('input[name=auctionStart]').eq(1).val(new Date().toISOString().substring(0,10));
-				$('input[name=auctionEnd]').eq(1).val(new Date().toISOString().substring(0,10));
-			};
-			if($('input[name=auctionStart]').eq(2).val()==''){
-				$('input[name=auctionStart]').eq(2).val(new Date().toISOString().substring(0,10));
-				$('input[name=auctionEnd]').eq(2).val(new Date().toISOString().substring(0,10));
-			};
+			var date = new Date().toISOString().substring(0,10);
+			var date3 = new Date();
+			date3.setDate(date3.getDate()+2);
+			for(var i=0; i<3; i++){
+				if($('input[name=auctionStart]').eq(i).val()==''){
+					$('input[name=auctionStart]').eq(i).val(date);
+					$('input[name=auctionEnd]').eq(i).val(date);
+				};
+			}
+			$('.sellStartDate').val(date);
+			$('.sellEndDate').val(date3.toISOString().substring(0,10));
 		});
+<%-- 경매 입력 버튼 --%>
 		$('.submitButton').click(function(){
 			if($(this).html()=='입력'){
 				$(this).html('입력완료');
 				$(this).parents('form').find('.auctionInput').attr('readonly',false);
 			}else{
-				$(this).parents('form').eq($(this).attr('number')).submit();
+				$(this).parents('form').submit();
 			}
 		});
+<%-- 판매폼 정보 가져오기 --%>
+		$('.infoBtn').click(function(){
+			var formNo = $(this).attr('formNo');
+			window.open("/admin/adminAuctionInfoPage.do?formNo="+formNo,"_blank","width=500px, height=500px");
+		});
+		function outputAucionInfo(data,formNo){
+			$.ajax({
+				url:"/admin/outputAuctionInfo.do",
+				data:{auctionNo:data},
+				type:"get",
+				dataType:"json",
+				success:function(au){
+					$('.sellProduct').eq(formNo).val(au.auctionProduct);
+					$('.sellPrice').eq(formNo).val(au.auctionPrice);
+					$('.sellAuctionNo').eq(formNo).val(au.auctionNo);
+				},
+				error:function(){
+					alert('오류가 발생하였습니다. 개발사로 문의 바랍니다.');
+				}
+			});
+		};
 	</script>
 </body>
 </html>
