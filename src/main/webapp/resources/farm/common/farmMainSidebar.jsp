@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
-	<!-- css 파일 -->
-	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmMain.css">
-	
-</head>
-<body>
 	 <div id="farmMainSideBar">
             	<div id="sideWrap1">
                   <div id="logoTitle">
@@ -23,11 +13,11 @@
 	            	<ul id="mainUl">
                         <li>
                             <img src="/resources/farm/image/공지사항.png" width="30px" height="28px"/>
-                            <a href="">공지사항</a>
+                            <a href="/farm/farmNoticePage.do">공지사항</a>
                         </li>
                         <li>
                            <img src="/resources/farm/image/문의사항.png" width="30px" height="28px"/>
-                            <a href="">문의사항</a>
+                            <a href="/farm/farmQnaPage.do">문의사항</a>
                         </li>
                         <li>
                            <img src="/resources/farm/image/주문목록.png" width="30px" height="28px"/>
@@ -43,7 +33,7 @@
                         </li>
                         <li>
                            <img src="/resources/farm/image/낙찰.png" width="30px" height="28px"/>
-                            <a href="">낙찰목록</a>
+                            <a href="/farm/farmProductListPage.do">낙찰목록</a>
                         </li>
 		            </ul>
 	            </div>
@@ -51,5 +41,3 @@
             
             
         </div>
-</body>
-</html>

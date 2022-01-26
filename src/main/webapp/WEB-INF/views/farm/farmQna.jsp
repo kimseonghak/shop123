@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<!-- jstl 라이브러리 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%--jQuery 라이브러리 --%>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,8 +27,8 @@
 
 </head>
 <body>
-<%@ include file="/resources/farm/common/farmMainHeader.jsp"%>
-<%@ include file="/resources/farm/common/farmMainSidebar.jsp"%>
+<c:import url="/resources/farm/common/farmMainHeader.jsp"/>
+<c:import url="/resources/farm/common/farmMainSidebar.jsp"/>
 
     <div id="farmMainContentWrapper">
         <div id="farmContent1"></div>
