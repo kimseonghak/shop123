@@ -45,7 +45,7 @@
 		insert into BID values(BID_SEQ.NEXTVAL,#{auctionNo},sysdate,'N')
 	</insert>
 	<update id="auctionEndYN" parameterType="auction">
-		update auction set auction_endyn='Y' where auction_no=#{auctionNo}
+		update auction set auction_endyn='Y' where to_date(auction_end) &lt; to_date(sysdate)
 	</update>
 	<select id="BIDList" parameterType="map" resultType="bid">
 		select 
@@ -77,9 +77,20 @@
 		from auction where auction_no=#{_parameter}
 	</select>
 	<insert id="sellInput" parameterType="sellForm">
-		insert into sell_form values(sell_form_seq.nextval,#{sellStart},#{sellEnd},#{auctionNo},#{sellFormNo},#{boardNo},'N')
+		insert into sell_form values(sell_form_seq.nextval,#{sellStart},#{sellEnd},#{auctionNo},#{sellFormNo},#{boardNo},#{sellEndYN})
 	</insert>
 	<update id="BIDEndYNUpdate" parameterType="integer">
 		update BID set bid_sell_yn='Y' where auction_no=#{_parameter}
 	</update>
+	<select id="sellFormCheck" parameterType="integer" resultType="sellForm">
+		select
+			sell_no as sellNo,
+			sell_start as sellStart,
+			sell_end as sellEnd,
+			auction_no as auctionNo,
+			sell_form_no as sellFormNo,
+			board_no as boardNo,
+			sell_end_yn as sellEndYN
+		from sell_form where sell_form_no=#{_parameter} and to_date(sell_end) >= to_date(sysdate) and sell_end_yn='N'
+	</select>
 </mapper>

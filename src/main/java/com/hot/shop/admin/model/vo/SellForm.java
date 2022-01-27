@@ -10,14 +10,17 @@ public class SellForm {
 	private int auctionNo;
 	private int sellFormNo;
 	private int boardNo;
-	
+	private char sellEndYN;
 	
 	
 	public SellForm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SellForm(int sellNo, Date sellStart, Date sellEnd, int auctionNo, int sellFormNo, int boardNo) {
+	
+	
+	public SellForm(int sellNo, Date sellStart, Date sellEnd, int auctionNo, int sellFormNo, int boardNo,
+			char sellEndYN) {
 		super();
 		this.sellNo = sellNo;
 		this.sellStart = sellStart;
@@ -25,6 +28,15 @@ public class SellForm {
 		this.auctionNo = auctionNo;
 		this.sellFormNo = sellFormNo;
 		this.boardNo = boardNo;
+		this.sellEndYN = sellEndYN;
+	}
+
+
+	public char getSellEndYN() {
+		return sellEndYN;
+	}
+	public void setSellEndYN(char sellEndYN) {
+		this.sellEndYN = sellEndYN;
 	}
 	public int getSellNo() {
 		return sellNo;
@@ -62,10 +74,13 @@ public class SellForm {
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
+
+
 	@Override
 	public String toString() {
 		return "SellForm [sellNo=" + sellNo + ", sellStart=" + sellStart + ", sellEnd=" + sellEnd + ", auctionNo="
-				+ auctionNo + ", sellFormNo=" + sellFormNo + ", boardNo=" + boardNo + "]";
+				+ auctionNo + ", sellFormNo=" + sellFormNo + ", boardNo=" + boardNo + ", sellEndYN=" + sellEndYN + "]";
 	}
+	
 	
 }

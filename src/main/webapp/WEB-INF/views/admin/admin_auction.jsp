@@ -58,7 +58,7 @@
 		display:block;
 		margin: 2px auto;
 	}
-	#auctionYN{
+	.auctionYN{
 		display: inline-block;
 	}
 	.auctionRadioText{
@@ -94,7 +94,7 @@
 							<input type="date" class="auctionInput" name="auctionEnd" readonly="readonly">
 							<span class="auctionText">경매 가격</span>
 							<input type="number" class="auctionInput" name="auctionPrice" readonly="readonly">
-							<span class="auctionText" id="auctionYN">종료 여부</span>
+							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span><input type="radio" value="N" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
 							<label><span class="auctionRadioText">종료</span><input type="radio" value="Y" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
@@ -127,7 +127,7 @@
 							<input type="date" class="auctionInput" name="auctionEnd" readonly="readonly" value="${map.au1.auctionEnd }">
 							<span class="auctionText">경매 가격</span>
 							<input type="number" class="auctionInput" name="auctionPrice" readonly="readonly" value="${map.au1.auctionPrice }">
-							<span class="auctionText" id="auctionYN">종료 여부</span>
+							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span><input type="radio" value="N" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
 							<label><span class="auctionRadioText">종료</span><input type="radio" value="Y" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
@@ -165,7 +165,7 @@
 							<input type="date" class="auctionInput" name="auctionEnd" readonly="readonly">
 							<span class="auctionText">경매 가격</span>
 							<input type="number" class="auctionInput" name="auctionPrice" readonly="readonly">
-							<span class="auctionText" id="auctionYN">종료 여부</span>
+							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span><input type="radio" value="N" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
 							<label><span class="auctionRadioText">종료</span><input type="radio" value="Y" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
@@ -198,7 +198,7 @@
 							<input type="date" class="auctionInput" name="auctionEnd" readonly="readonly" value="${map.au2.auctionEnd }">
 							<span class="auctionText">경매 가격</span>
 							<input type="number" class="auctionInput" name="auctionPrice" readonly="readonly" value="${map.au2.auctionPrice }">
-							<span class="auctionText" id="auctionYN">종료 여부</span>
+							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span><input type="radio" value="N" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
 							<label><span class="auctionRadioText">종료</span><input type="radio" value="Y" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
@@ -236,7 +236,7 @@
 							<input type="date" class="auctionInput" name="auctionEnd" readonly="readonly">
 							<span class="auctionText">경매 가격</span>
 							<input type="number" class="auctionInput" name="auctionPrice" readonly="readonly">
-							<span class="auctionText" id="auctionYN">종료 여부</span>
+							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span><input type="radio" value="N" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
 							<label><span class="auctionRadioText">종료</span><input type="radio" value="Y" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
@@ -269,7 +269,7 @@
 							<input type="date" class="auctionInput" name="auctionEnd" readonly="readonly" value="${map.au3.auctionEnd }">
 							<span class="auctionText">경매 가격</span>
 							<input type="number" class="auctionInput" name="auctionPrice" readonly="readonly" value="${map.au3.auctionPrice }">
-							<span class="auctionText" id="auctionYN">종료 여부</span>
+							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span><input type="radio" value="N" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
 							<label><span class="auctionRadioText">종료</span><input type="radio" value="Y" name="auctionEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
@@ -310,9 +310,12 @@
 							<input type="date" class="auctionInput sellEndDate" name="sellEnd" readonly="readonly">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput sellPrice" readonly="readonly">
-							<span class="auctionText" id="auctionYN">종료 여부</span>
-							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y"  style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
-							<label><span class="auctionRadioText">종료</span><input type="radio" value="N"  style="width:1.5vmin; height:1.5vmin;"></label>
+							
+							<span class="auctionText auctionYN">종료 여부</span>
+							<label><span class="auctionRadioText">시작</span>
+							<input type="radio" value="Y" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<label><span class="auctionRadioText">종료</span>
+							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 번호</span>
@@ -327,7 +330,7 @@
 				</c:when>
 				<c:otherwise>
 <%-- 판매중인 경우 --%>
-				<form action="/admin/sellInput.do" method="post">
+				<form action="/admin/sellUpdate.do" method="post">
 					<fieldset class="auctionFieldset">
 						<legend>판매 1번</legend>
 						<input type="hidden" name="sellFormNo" value="1">
@@ -335,22 +338,24 @@
 							<span class="auctionText">판매 상품</span>
 							<input type="text" class="auctionInput sellProduct" readonly="readonly" value="${map2.au1.auctionProduct }">
 							<span class="auctionText">시작 날짜</span>
-							<input type="date" class="auctionInput sellStartDate" name="sellStart" readonly="readonly" value="${map2.sf1.sellStart }">
+							<input type="date" class="auctionInput sellStartDate readChange" name="sellStart" readonly="readonly" value="${map2.sf1.sellStart }">
 							<span class="auctionText">종료 날짜</span>
-							<input type="date" class="auctionInput sellEndDate" name="sellEnd" readonly="readonly" value="${map2.sf1.sellEnd }">
+							<input type="date" class="auctionInput sellEndDate readChange" name="sellEnd" readonly="readonly" value="${map2.sf1.sellEnd }">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput sellPrice" readonly="readonly" value="${map2.au1.auctionPrice }">
-							<span class="auctionText" id="auctionYN">종료 여부</span>
-							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y"  style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
-							<label><span class="auctionRadioText">종료</span><input type="radio" value="N"  style="width:1.5vmin; height:1.5vmin;"></label>
+							
+							<span class="auctionText auctionYN">종료 여부</span>
+							<label><span class="auctionRadioText">시작</span>
+							<input type="radio" value="Y" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<label><span class="auctionRadioText">종료</span>
+							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 번호</span>
 							<input type="text" class="auctionInput sellAuctionNo" name="auctionNo" readonly="readonly" value="${map2.au1.auctionNo}">
 							<span class="auctionText">홍보 주소</span>
-							<input type="text" class="auctionInput sellBoardNo" name="boardNo" readonly="readonly" value="${map2.sf1.boardNo }">
-							<button type="button" class="infoBtn" formNo='0'>정보 가져오기</button>
-							<button type="button" class="submitButton">입력</button>
+							<input type="text" class="auctionInput sellBoardNo readChange" name="boardNo" readonly="readonly" value="${map2.sf1.boardNo }">
+							<button type="button" class="changeButton">정보 변경</button>
 						</div>
 					</fieldset>
 				</form>
@@ -371,7 +376,7 @@
 							<input type="text" class="auctionInput">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" id="auctionYN">종료 여부</span>
+							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
@@ -398,7 +403,7 @@
 							<input type="text" class="auctionInput">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput">
-							<span class="auctionText" id="auctionYN">종료 여부</span>
+							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
@@ -444,6 +449,19 @@
 				$(this).parents('form').submit();
 			}
 		});
+<%-- 판매 입력 버튼 --%>
+		$('.changeButton').click(function(){
+			if($(this).html()=='정보 변경'){
+				$(this).html('변경 완료');
+				$(this).parents('form').find('.readChange').attr('readonly',false);
+			}else{
+				$.ajax({
+					url:"/admin/sellFormUpdate.do",
+					
+				});
+			}
+		});
+			
 <%-- 판매폼 정보 가져오기 --%>
 		$('.infoBtn').click(function(){
 			var formNo = $(this).attr('formNo');
