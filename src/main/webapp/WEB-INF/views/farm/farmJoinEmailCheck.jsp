@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기</title>
+<title>농가 이메일 인증</title>
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 
 <style>
-@charset "UTF-8";
+
 .bg-color {
 	width: 100%;
 	height: 100vh;
@@ -157,13 +156,13 @@
 <body>
 
 	<div id="warm">
-		<c:import url="/WEB-INF/views/commons/header.jsp"/>
+		<%@ include file="/WEB-INF/views/commons/header.jsp"%>
 		
 		<div id="content">
 			<div class="bg-color">
 				<div class="box-white">
 					<div class="findId-Select">
-						<p class="title">아이디 찾기</p>
+						<p class="title">농가 이메일 인증</p>
 						<ul class="userSelUl">
 	                        <li class="user">일반 회원</li>
 	                        <li class="farm">농가 회원 </li>
@@ -179,7 +178,7 @@
 	                    	<input type="text" class="input-style-plusbtn" name="userEmail" placeholder="이메일 입력">
 	                    	<input type="button" class="btn" value="인증하기"><br>
 							<input type="password" class="input-style" name="userEmailCode" placeholder="인증번호 입력"><br>
-							<input type="submit" class="btn-submit" value="일반 아이디 찾기"><br>
+							<input type="submit" class="btn-submit" value="인증완료"><br>
 	                    </form>
                     </div>
                     
@@ -198,7 +197,7 @@
 		
 		</div>
 	
-		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
+		<%@ include file="/WEB-INF/views/commons/footer.jsp"%>
 	</div>
 	
 	<script>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 <title>회원가입 성공</title>
 
 <style>
-
+@charset "UTF-8";
 .bg-color {
 	width: 100%;
 	height: 100vh;
@@ -72,7 +73,7 @@
 <body>
 
 	<div id="warm">
-		<%@ include file="/WEB-INF/views/commons/header.jsp"%>
+		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 		
 		<div id="content">
 			<div class="bg-color">
@@ -93,7 +94,7 @@
 		
 		</div>
 	
-		<%@ include file="/WEB-INF/views/commons/footer.jsp"%>
+		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
 	
 
