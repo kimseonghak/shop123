@@ -8,9 +8,6 @@
 <style>
 
 /*Layout*/
-@charset "UTF-8";
-
-/*Layout*/
 footer {
 	width: 100%;
 	height: 240px;
@@ -18,6 +15,7 @@ footer {
 	padding-top: 50px;
 	padding-bottom: 20px;
 }
+
 .logo-footer {
 	text-align: right;
 	margin-right: 14vw;
@@ -52,6 +50,7 @@ footer {
 	text-align: left;
 	margin-left: 14vw;
 }
+
 </style>
 
 <footer>
