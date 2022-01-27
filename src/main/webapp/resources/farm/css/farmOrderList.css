@@ -83,21 +83,47 @@
         border-top:1px solid #DFDFDF;
     }
     
+    /*<td> 위치조정*/
+    
     .productName
-    {
-      position: relative;
-      left: 100px;  
-    }
-    .amount
-    {
-        position: relative;
-        left: 220px;
-    }
-
-    .soldDate
     {
         position: relative;
         left: 80px;
+        text-overflow: ellipsis; white-space: nowrap; max-width: 50px;
     }
-
+    
+    .count
+    {
+        position: relative;
+        left: 160px;
+    }
+    
+    .amount
+    {
+        position: relative;
+        left: 160px;
+    }
+    
+    .payDate
+    {
+        position: relative;
+        left: 130px;
+    }
+    
+    .shopStatus
+    {
+        position: relative;
+        left: 100px;
+    }
+    .inputBtn
+    {
+        position: relative;
+        left: 40px;
+    }
+    /*부트스트랩 버튼*/
+    .btn-success
+    {
+        font-size: 1.6vmin;
+        width: 70px; 
+    }
     

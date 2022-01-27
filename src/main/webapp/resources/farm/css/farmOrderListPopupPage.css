@@ -1,0 +1,48 @@
+@charset "UTF-8";
+    *
+    {
+        box-sizing: border-box;
+        font-family: Nanum Gothic;
+    }
+    
+    #farmMemberWrap
+    {
+        width: 100%;
+        
+    }
+    
+    fieldset
+    {
+        font-weight: bolder;
+    }
+    
+    /*Table */
+    
+    table
+    {
+        width: 100%;
+        font-size: 1.8vmin;
+        text-align: center;
+        border-top: 2px solid #5D9A71;
+        border-bottom: 2px solid #5D9A71;
+        border-spacing: 0px;
+        margin-top: 5px;
+        line-height: 35px;
+        
+    }
+    
+    tbody>tr:first-child>td
+    {
+        border-top: 1px solid #858585;
+    }
+    tbody>tr>td
+    {
+        border-top:1px solid #DFDFDF;
+    }
+    
+    #lastBtn
+    {
+        position: relative;
+        left: 45%;
+    }
+     

@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<!-- jstl 라이브러리 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+
+<%--jQuery 라이브러리 --%>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,15 +27,15 @@
 
 </head>
 <body>
-<%@ include file="/resources/farm/common/farmMainHeader.jsp"%>
-<%@ include file="/resources/farm/common/farmMainSidebar.jsp"%>
+<c:import url="/resources/farm/common/farmMainHeader.jsp"/>
+<c:import url="/resources/farm/common/farmMainSidebar.jsp"/>
 
 
  <div id="farmMainContentWrapper">
         <div id="farmContent1"></div>
         <div id="farmContent2">
             <div id="farmContentHeader">
-                <span id="contnentTitle">문의사항</span>
+                <span id="contnentTitle">공지사항</span>
             </div>
             <div id="farmContentContent">
                 <div id="serchArea">
@@ -36,7 +43,6 @@
                          <select style="width:60px;height:30px" id="serchSelect">
                             <option value="subject">제목</option> 
                             <option value="content">내용</option>
-                            <option value="content">작성자</option>
                           </select>
                     <input type="text" name="keyWord" size="30" id=serchKeyword>
                     <button type="button" class="btn btn-outline-success btn-sm">검색</button>
@@ -49,20 +55,17 @@
                            <tr>
                                 <th>번호</th>
                                 <th class="subject">제목</th>
-                                <th class="writer">작성자</th>
                                 <th class="writeDate">작성일</th>
                            </tr>
                          <tbody>
                            <tr>
                                <td>1</td>
-                                <td class="subject">배송 언제쯤 도착하나요배송 언제쯤 도착하나요배송 언제쯤 도착하나요123  </td>
-                                <td class="writer">홍길동</td>
+                                <td class="subject">첫번째공지입니다가나첫번째공지입니다가나첫번째공지입니다가나rksk</td>
                                 <td class="writeDate">2022/01/25</td>
                            </tr>
                             <tr>
                                <td>2</td>
-                                <td class="subject">두번째 문의</td>
-                                 <td class="writer">고길동</td>
+                                <td class="subject">두번째 공지입니다.</td>
                                 <td class="writeDate">2022/01/25</td>
                             </tr>
                           </tbody>
@@ -75,10 +78,6 @@
         <!--page Navi-->
         <div id="farmContent3"></div>
     </div>
-</body>
-	
-
-
 
 </body>
 </html>
