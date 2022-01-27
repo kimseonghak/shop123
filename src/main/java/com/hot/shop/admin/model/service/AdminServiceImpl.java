@@ -61,4 +61,14 @@ public class AdminServiceImpl implements AdminService{
 	public HashMap<String, Object> sellFormCheck() {
 		return aDAO.sellFormCheck();
 	}
+
+	@Override
+	public int sellUpdate(SellForm sf) {
+		return aDAO.sellUpdate(sf);
+	}
+
+	@Override
+	public void countOutput() {
+		aDAO.countOutput();
+	}
 }

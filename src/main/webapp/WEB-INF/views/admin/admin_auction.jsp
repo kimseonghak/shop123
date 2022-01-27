@@ -28,10 +28,15 @@
 	legend{
 		border:1px solid black;
 		border-radius: 5px;
-		font-size: 2vmin;
-		width:11vmin;
-		height:2.2vim;
+		font-size: 2.2vmin;
+		font-weight:bolder;
+		width:30%;
+		height:15%;
 		text-align: center;
+		overflow: hidden;
+	}
+	fieldset{
+		border-radius:10px;
 	}
 	.auctionHalfWrap{
 		width:50%;
@@ -57,14 +62,31 @@
 		height:10%;
 		display:block;
 		margin: 2px auto;
+		font-size: 1.6vmin;
 	}
 	.auctionYN{
 		display: inline-block;
 	}
 	.auctionRadioText{
-		font-size: 1.6vmin;
+		display:inline-block;
+		font-size: 1.8vmin;
+		height:10%;
+		width:13%;
+		overflow: hidden;
 	}
-	
+	.submitButton, .changeButton, .infoBtn{
+		font-size:1.6vmin;
+		display:block;
+		margin:0 auto;
+		height:13%;
+		width:60%;
+		overflow: hidden;
+		border-radius: 10px;
+		border: 2px solid #48bb78;
+		background-color: white;
+		color:black;
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -313,16 +335,18 @@
 							
 							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span>
-							<input type="radio" value="Y" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
 							<label><span class="auctionRadioText">종료</span>
-							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
+							<input type="radio" value="Y" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 번호</span>
 							<input type="text" class="auctionInput sellAuctionNo" name="auctionNo" readonly="readonly">
 							<span class="auctionText">홍보 주소</span>
 							<input type="text" class="auctionInput sellBoardNo" name="boardNo" readonly="readonly" value="0">
+							<div style="width:100%; height:25%"></div>
 							<button type="button" class="infoBtn" formNo='0'>정보 가져오기</button>
+							<div style="width:100%; height:6%"></div>
 							<button type="button" class="submitButton">입력</button>
 						</div>
 					</fieldset>
@@ -346,15 +370,16 @@
 							
 							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span>
-							<input type="radio" value="Y" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
 							<label><span class="auctionRadioText">종료</span>
-							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
+							<input type="radio" value="Y" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 번호</span>
 							<input type="text" class="auctionInput sellAuctionNo" name="auctionNo" readonly="readonly" value="${map2.au1.auctionNo}">
 							<span class="auctionText">홍보 주소</span>
 							<input type="text" class="auctionInput sellBoardNo readChange" name="boardNo" readonly="readonly" value="${map2.sf1.boardNo }">
+							<div style="width:100%; height:44%"></div>
 							<button type="button" class="changeButton">정보 변경</button>
 						</div>
 					</fieldset>
@@ -364,57 +389,149 @@
 				</div>
 				<div class="auctionFormWrap">
 <%-- 판매 폼 2번 --%>
-				<form>
+				<c:choose>
+<%-- 판매중이 아닌 경우 --%>
+				<c:when test="${map2.sf2==null }">
+				<form action="/admin/sellInput.do" method="post">
 					<fieldset class="auctionFieldset">
 						<legend>판매 2번</legend>
+						<input type="hidden" name="sellFormNo" value="2">
 						<div class="auctionHalfWrap">
 							<span class="auctionText">판매 상품</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput sellProduct" readonly="readonly">
 							<span class="auctionText">시작 날짜</span>
-							<input type="text" class="auctionInput">
+							<input type="date" class="auctionInput sellStartDate" name="sellStart" readonly="readonly">
 							<span class="auctionText">종료 날짜</span>
-							<input type="text" class="auctionInput">
+							<input type="date" class="auctionInput sellEndDate" name="sellEnd" readonly="readonly">
 							<span class="auctionText">판매 가격</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput sellPrice" readonly="readonly">
+							
 							<span class="auctionText auctionYN">종료 여부</span>
-							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
-							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
+							<label><span class="auctionRadioText">시작</span>
+							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<label><span class="auctionRadioText">종료</span>
+							<input type="radio" value="Y" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
 						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 번호</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput sellAuctionNo" name="auctionNo" readonly="readonly">
 							<span class="auctionText">홍보 주소</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput sellBoardNo" name="boardNo" readonly="readonly" value="0">
+							<div style="width:100%; height:25%"></div>
+							<button type="button" class="infoBtn" formNo='1'>정보 가져오기</button>
+							<div style="width:100%; height:6%"></div>
+							<button type="button" class="submitButton">입력</button>
 						</div>
 					</fieldset>
 				</form>
+				</c:when>
+				<c:otherwise>
+<%-- 판매중인 경우 --%>
+				<form action="/admin/sellUpdate.do" method="post">
+					<fieldset class="auctionFieldset">
+						<legend>판매 2번</legend>
+						<input type="hidden" name="sellFormNo" value="1">
+						<div class="auctionHalfWrap">
+							<span class="auctionText">판매 상품</span>
+							<input type="text" class="auctionInput sellProduct" readonly="readonly" value="${map2.au2.auctionProduct }">
+							<span class="auctionText">시작 날짜</span>
+							<input type="date" class="auctionInput sellStartDate readChange" name="sellStart" readonly="readonly" value="${map2.sf2.sellStart }">
+							<span class="auctionText">종료 날짜</span>
+							<input type="date" class="auctionInput sellEndDate readChange" name="sellEnd" readonly="readonly" value="${map2.sf2.sellEnd }">
+							<span class="auctionText">판매 가격</span>
+							<input type="text" class="auctionInput sellPrice" readonly="readonly" value="${map2.au2.auctionPrice }">
+							
+							<span class="auctionText auctionYN">종료 여부</span>
+							<label><span class="auctionRadioText">시작</span>
+							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<label><span class="auctionRadioText">종료</span>
+							<input type="radio" value="Y" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
+						</div>
+						<div class="auctionHalfWrap">
+							<span class="auctionText">경매 번호</span>
+							<input type="text" class="auctionInput sellAuctionNo" name="auctionNo" readonly="readonly" value="${map2.au2.auctionNo}">
+							<span class="auctionText">홍보 주소</span>
+							<input type="text" class="auctionInput sellBoardNo readChange" name="boardNo" readonly="readonly" value="${map2.sf2.boardNo }">
+							<div style="width:100%; height:44%"></div>
+							<button type="button" class="changeButton">정보 변경</button>
+						</div>
+					</fieldset>
+				</form>
+				</c:otherwise>
+				</c:choose>
 				</div>
 				<div class="auctionFormWrap">
 <%-- 판매 폼 3번 --%>
-				<form>
+				<c:choose>
+<%-- 판매중이 아닌 경우 --%>
+				<c:when test="${map2.sf3==null }">
+				<form action="/admin/sellInput.do" method="post">
 					<fieldset class="auctionFieldset">
 						<legend>판매 3번</legend>
+						<input type="hidden" name="sellFormNo" value="3">
 						<div class="auctionHalfWrap">
 							<span class="auctionText">판매 상품</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput sellProduct" readonly="readonly">
 							<span class="auctionText">시작 날짜</span>
-							<input type="text" class="auctionInput">
+							<input type="date" class="auctionInput sellStartDate" name="sellStart" readonly="readonly">
 							<span class="auctionText">종료 날짜</span>
-							<input type="text" class="auctionInput">
+							<input type="date" class="auctionInput sellEndDate" name="sellEnd" readonly="readonly">
 							<span class="auctionText">판매 가격</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput sellPrice" readonly="readonly">
+							
 							<span class="auctionText auctionYN">종료 여부</span>
-							<label><span class="auctionRadioText">시작</span><input type="radio" value="Y" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
-							<label><span class="auctionRadioText">종료</span><input type="radio" value="N" name="auctionEnd" style="width:1.5vmin; height:1.5vmin;"></label>
+							<label><span class="auctionRadioText">시작</span>
+							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<label><span class="auctionRadioText">종료</span>
+							<input type="radio" value="Y" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
 						</div>
-							<div class="auctionHalfWrap">
+						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 번호</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput sellAuctionNo" name="auctionNo" readonly="readonly">
 							<span class="auctionText">홍보 주소</span>
-							<input type="text" class="auctionInput">
+							<input type="text" class="auctionInput sellBoardNo" name="boardNo" readonly="readonly" value="0">
+							<div style="width:100%; height:25%"></div>
+							<button type="button" class="infoBtn" formNo='2'>정보 가져오기</button>
+							<div style="width:100%; height:6%"></div>
+							<button type="button" class="submitButton">입력</button>
 						</div>
 					</fieldset>
 				</form>
+				</c:when>
+				<c:otherwise>
+<%-- 판매중인 경우 --%>
+				<form action="/admin/sellUpdate.do" method="post">
+					<fieldset class="auctionFieldset">
+						<legend>판매 3번</legend>
+						<input type="hidden" name="sellFormNo" value="3">
+						<div class="auctionHalfWrap">
+							<span class="auctionText">판매 상품</span>
+							<input type="text" class="auctionInput sellProduct" readonly="readonly" value="${map2.au3.auctionProduct }">
+							<span class="auctionText">시작 날짜</span>
+							<input type="date" class="auctionInput sellStartDate readChange" name="sellStart" readonly="readonly" value="${map2.sf3.sellStart }">
+							<span class="auctionText">종료 날짜</span>
+							<input type="date" class="auctionInput sellEndDate readChange" name="sellEnd" readonly="readonly" value="${map2.sf3.sellEnd }">
+							<span class="auctionText">판매 가격</span>
+							<input type="text" class="auctionInput sellPrice" readonly="readonly" value="${map2.au3.auctionPrice }">
+							
+							<span class="auctionText auctionYN">종료 여부</span>
+							<label><span class="auctionRadioText">시작</span>
+							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
+							<label><span class="auctionRadioText">종료</span>
+							<input type="radio" value="Y" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;"></label>
+						</div>
+						<div class="auctionHalfWrap">
+							<span class="auctionText">경매 번호</span>
+							<input type="text" class="auctionInput sellAuctionNo" name="auctionNo" readonly="readonly" value="${map2.au3.auctionNo}">
+							<span class="auctionText">홍보 주소</span>
+							<input type="text" class="auctionInput sellBoardNo readChange" name="boardNo" readonly="readonly" value="${map2.sf3.boardNo }">
+							<div style="width:100%; height:44%"></div>
+							<button type="button" class="changeButton">정보 변경</button>
+						</div>
+					</fieldset>
+				</form>
+				</c:otherwise>
+				</c:choose>
 				</div>
 			</div>
 		</div>
@@ -437,8 +554,12 @@
 					$('input[name=auctionEnd]').eq(i).val(date);
 				};
 			}
-			$('.sellStartDate').val(date);
-			$('.sellEndDate').val(date3.toISOString().substring(0,10));
+			for(var i=0; i<3; i++){
+				if($('input[name=sellStart]').eq(i).val()==''){
+					$('input[name=sellStart]').eq(i).val(date);
+					$('input[name=sellEnd]').eq(i).val(date3.toISOString().substring(0,10));
+				}
+			}
 		});
 <%-- 경매 입력 버튼 --%>
 		$('.submitButton').click(function(){
@@ -455,10 +576,7 @@
 				$(this).html('변경 완료');
 				$(this).parents('form').find('.readChange').attr('readonly',false);
 			}else{
-				$.ajax({
-					url:"/admin/sellFormUpdate.do",
-					
-				});
+				$(this).parents('form').submit();
 			}
 		});
 			

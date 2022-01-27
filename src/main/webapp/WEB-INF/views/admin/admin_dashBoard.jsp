@@ -4,6 +4,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +48,9 @@
 		<div id="mainContents">
 <%-- 카운트 요약 부분 --%>
 			<div class="countWrap">
-				<div class="count-graphWrap"></div>
+				<div class="count-graphWrap">
+				<canvas id="enterHome"></canvas>
+				</div>
 				<div class="count-textWrap"></div>
 			</div>
 			<div class="countWrap">
@@ -73,6 +76,36 @@
 			$('#mainUl>li').eq(0).css('background-color', '#34734e');
 			$('#mainUl>li>a').eq(0).css('color', 'white');
 			$('#mainUl>li>a').eq(0).css('font-weight','bolder');
+		});
+<%-- 그래프1 --%>
+		var context1 = document.getElementById('enterHome').getContext('2d');
+		var enterHome = new Chart(context1,{
+			type:'bar',
+			data:{
+				labels:['어제','오늘'],
+				datasets:[{
+					label: '일일 방문자 수', // 차트 제목
+					fill:false, // line 형태일 때 선 안쪽을 채울지 말지
+					data: [10, 100],
+					backgroundColor:[
+						'rgba(255,99,132,0.2)',
+						'rgba(54,162,235,0.2)'
+					],
+					borderColor:[
+						'rgba(255,99,132,1)',
+						'rgba(54,162,235,1)'
+					],
+					borderWidth:1
+				}]
+			},
+			options:{
+				maintainAspectRatio: false, //false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+				scales:{
+					y:{
+						beginAtZero:true
+					}
+				}
+			}
 		});
 	</script>
 </body>
