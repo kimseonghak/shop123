@@ -53,18 +53,18 @@
                 <div id="contentArea">
                     <table>
                            <tr>
-                                <th>번호</th>
+                                <th class="noticeNo">번호</th>
                                 <th class="subject">제목</th>
                                 <th class="writeDate">작성일</th>
                            </tr>
                          <tbody>
                            <tr>
-                               <td>1</td>
+                               <td class="noticeNo">1</td>
                                 <td class="subject">첫번째공지입니다가나첫번째공지입니다가나첫번째공지입니다가나rksk</td>
                                 <td class="writeDate">2022/01/25</td>
                            </tr>
                             <tr>
-                               <td>2</td>
+                               <td class="noticeNo">2</td>
                                 <td class="subject">두번째 공지입니다.</td>
                                 <td class="writeDate">2022/01/25</td>
                             </tr>

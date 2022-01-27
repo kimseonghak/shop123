@@ -83,12 +83,12 @@
         border-top:1px solid #DFDFDF;
     }
     
-    #cancelBtn
+    .cancelBtn
     {
       position: relative;
       left: 20px;  
     }
-    #acceptBtn
+    .acceptBtn
     {
         position: relative;
         left: 100px;

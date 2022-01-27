@@ -84,4 +84,17 @@
         border-top:1px solid #DFDFDF;
     }
     
+    /*<th>,><td> 간격 조정*/
+    .noticeNo
+    {
+        position: relative;
+        left:50px
+    }
+
+    .subject
+    {
+        position: relative;
+        left:50px
+    }
+    
     

@@ -70,8 +70,8 @@
                                <td class="orderNo"><a type="button">A3232132324</a></td>
                                 <td class="acceptDate">2022/01/25</td>
                                 <td class="refundStatus">N</td>
-                                <td><button type="button" class="btn btn-success btn-sm" id="acceptBtn">환불승인</button></td>
-                                <td><button type="button" class="btn btn-success btn-sm" id="cancelBtn">환불취소</button></td>
+                                <td><button type="button" class="btn btn-success btn-sm acceptBtn">환불승인</button></td>
+                                <td><button type="button" class="btn btn-success btn-sm cancelBtn">접수취소</button></td>
                            </tr>
                            <tr>
                                 <td>1</td>
@@ -80,8 +80,8 @@
                                <td class="orderNo"><a type="button">BJE1239473</a></td>
                                 <td class="acceptDate">2022/01/27</td>
                                 <td class="refundStatus">N</td>
-                                <td><button type="button" class="btn btn-success btn-sm" id="acceptBtn">환불승인</button></td>
-                                <td><button type="button" class="btn btn-success btn-sm" id="cancelBtn">환불취소</button></td>
+                                <td><button type="button" class="btn btn-success btn-sm acceptBtn">환불승인</button></td>
+                                <td><button type="button" class="btn btn-success btn-sm cancelBtn">접수취소</button></td>
                            </tr>
                      
                   
@@ -113,11 +113,11 @@
             
             // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
             var _width = '400';
-            var _height = '350';
+            var _height = '300';
             var _left = Math.ceil(( window.screen.width - _width )/2);
             var _top = Math.ceil(( window.screen.height - _height )/2);
            
-            window.open('/farm/farmMemberInfoPage.do', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+            window.open('farmMemberInfo.html', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
            
             
             
@@ -146,12 +146,38 @@
             var _left = Math.ceil(( window.screen.width - _width )/2);
             var _top = Math.ceil(( window.screen.height - _height )/2); 
 
-            window.open('/farm/farmOrdertDetailInfoPage.do', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+            window.open('farmOrderDetailInfo.html', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
 
             
         });
     </script> 
     
+    
+    <!--환불 승인/취소 버튼을 눌렀을 때 관리자 환불테이블에 데이터가 N 또는 Y로 들어가면 2개의 버튼 비활성화 시키기-->
+    <!--환불승인 버튼 눌렀을 때-->
+    <script>
+        $('.acceptBtn').click(function(){
+            
+            var result = window.confirm('환불을 승인하시겠습니까?');
+           // alert(result); //승인 시 ture 값으로 넘어옴
+            //버튼 비활성화 disabled="disabled"
+            
+        })
+ 
+    
+    </script>
+    
+        <!--환불취소 버튼 눌렀을 때-->
+    <script>
+        $('.cancelBtn').click(function(){
+            
+            var result = window.confirm('접수를 취소하시겠습니까?');
+            alert(result); //승인 시 ture 값으로 넘어옴
+            
+        })
+ 
+    
+    </script>
 
 
 
