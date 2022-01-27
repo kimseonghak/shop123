@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +32,7 @@
 	top: 40%;
 	left: 5%;
 	font-family: 'NanumSquare';
-	font-size: 34px;
+	font-size: 3.5vmin;
 	font-weight: bold;
 	line-height: 1.4;
 }
@@ -70,14 +71,14 @@
  }
  .farm-asktext {
  	font-family: 'NanumSquare';
-	font-size: 34px;
+	font-size: 3vmin;
 	font-weight: bold;
 	text-align: center;
 	padding-top: 40px;
  }
  .farm-text {
   	font-family: 'NanumSquare';
-	font-size: 24px;
+	font-size: 2.5vmin;
 	font-weight: bold;
 	text-align: center;
 	line-height: 1.7;
@@ -111,14 +112,14 @@
  }
  .user-asktext {
  	font-family: 'NanumSquare';
-	font-size: 34px;
+	font-size: 3vmin;
 	font-weight: bold;
 	text-align: center;
 	padding-top: 40px;
  }
  .user-text {
   	font-family: 'NanumSquare';
-	font-size: 24px;
+	font-size: 2.5vmin;
 	font-weight: bold;
 	text-align: center;
 	line-height: 1.7;
@@ -127,6 +128,7 @@
  	width: 100%;
  	height: 100px;
  	margin-top: 50px;
+ 	margin-bottom: 50px;
  	float: left;
  	text-align: center;
  }
@@ -164,7 +166,7 @@
 	bottom: 20%;
 	right: 15%;
 	font-family: 'NanumSquare';
-	font-size: 34px;
+	font-size: 3vmin;
 	font-weight: bold;
 	line-height: 1.4;
 }
@@ -195,9 +197,9 @@
 </head>
 <body>
 		
-		<div id="warm">
+	<div id="warm">
 		
-		<%@ include file="/WEB-INF/views/commons/header.jsp"%>
+		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 		
 		<div id="content">
 		
@@ -261,7 +263,7 @@
 			</div>
 		
 		</div>
-		<%@ include file="/WEB-INF/views/commons/footer.jsp"%>
+		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
 </body>
 </html>

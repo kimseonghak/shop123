@@ -184,7 +184,7 @@ input {
 	<div class="link-user">
 
 		<div class="box-join">
-			<a href="">사업자 회원가입</a> <a href="">일반 회원가입</a>
+			
 		</div>
 
 	</div>
@@ -196,7 +196,7 @@ input {
 	<div class="link-user">
 
 		<div class="box-user">
-			<a href="">로그인</a>
+			<a href="/member/memberLoginPage.do">로그인</a>
 		</div>
 
 	</div>

@@ -6,10 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
-
-/*Layout*/
 @charset "UTF-8";
-
 /*Layout*/
 footer {
 	width: 100%;
@@ -18,6 +15,7 @@ footer {
 	padding-top: 50px;
 	padding-bottom: 20px;
 }
+
 .logo-footer {
 	text-align: right;
 	margin-right: 14vw;
@@ -52,6 +50,7 @@ footer {
 	text-align: left;
 	margin-left: 14vw;
 }
+
 </style>
 
 <footer>
