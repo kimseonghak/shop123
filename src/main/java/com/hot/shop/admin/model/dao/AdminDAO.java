@@ -95,7 +95,6 @@ public class AdminDAO {
 	public int sellInput(SellForm sf) {
 		return sql.insert("admin.sellInput",sf)+sql.update("admin.BIDEndYNUpdate",sf.getAuctionNo());
 	}
-
 	public HashMap<String, Object> sellFormCheck() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		for(int i=1; i<4; i++) {
@@ -110,5 +109,4 @@ public class AdminDAO {
 		}
 		return map;
 	}
-
 }

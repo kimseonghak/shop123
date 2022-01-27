@@ -35,10 +35,10 @@ public class AdminController {
 	public ModelAndView adminAuctionPage(ModelAndView mav) {
 		
 		HashMap<String, Object> map = aService.auctionCheck();
-		HashMap<String, Object> map2 = aService.sellFormCheck();
+		//HashMap<String, Object> map2 = aService.sellFormCheck();
 		mav.addObject("map",map);
-		mav.addObject("map2",map2);
-		System.out.println(map2.get("sf1").toString());
+		//mav.addObject("map2",map2);
+		//System.out.println(map2.get("sf1").toString());
 		mav.setViewName("admin/admin_auction");
 		return mav;
 	}
