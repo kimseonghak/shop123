@@ -6,5 +6,6 @@
 		<typeAlias type="com.hot.shop.admin.model.vo.Auction" alias="auction"/>
 		<typeAlias type="com.hot.shop.admin.model.vo.BID" alias="bid"/>
 		<typeAlias type="com.hot.shop.admin.model.vo.SellForm" alias="sellForm"/>
+		<typeAlias type="com.hot.shop.member.model.vo.Member" alias="member"/>
 	</typeAliases>
 </configuration>
