@@ -29,7 +29,7 @@
                         </li>
                         <li>
                             <img src="/resources/farm/image/환불.png" width="30px" height="28px"/>
-                            <a href="">환불현황</a>
+                            <a href="/farm/farmRefundList.do">환불현황</a>
                         </li>
                         <li>
                            <img src="/resources/farm/image/낙찰.png" width="30px" height="28px"/>
