@@ -96,6 +96,16 @@
         <div id="farmContent3"></div>
     </div>
     
+    <script>
+	    $(function() {
+	        $('#mainUl>li').eq(3).css('background-color', '#34734e');
+	        $('#mainUl>li').eq(3).css('color', 'white');
+	        $('#mainUl>li').eq(3).css('font-weight','bolder');
+	    });
+    
+    </script>
+    
+    
     <!--회원번호 클릭 시 회원정보 띄우기-->
     <script>
         
@@ -113,11 +123,11 @@
             
             // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
             var _width = '400';
-            var _height = '300';
+            var _height = '350';
             var _left = Math.ceil(( window.screen.width - _width )/2);
             var _top = Math.ceil(( window.screen.height - _height )/2);
            
-            window.open('farmMemberInfo.html', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+            window.open('/farm/farmMemberInfoPage.do', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
            
             
             
@@ -146,7 +156,7 @@
             var _left = Math.ceil(( window.screen.width - _width )/2);
             var _top = Math.ceil(( window.screen.height - _height )/2); 
 
-            window.open('farmOrderDetailInfo.html', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+            window.open('/farm/farmOrdertDetailInfoPage.do', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
 
             
         });

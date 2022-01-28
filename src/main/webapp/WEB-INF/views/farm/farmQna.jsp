@@ -82,6 +82,16 @@
         <div id="farmContent3"></div>
     </div>
 
+  <!-- sidebar 효과 -->
+   <script>
+	    $(function() {
+	        $('#mainUl>li').eq(1).css('background-color', '#34734e');
+	        $('#mainUl>li').eq(1).css('color', 'white');
+	        $('#mainUl>li').eq(1).css('font-weight','bolder');
+	    });
+    
+   </script>
+
 
 </body>
 </html>

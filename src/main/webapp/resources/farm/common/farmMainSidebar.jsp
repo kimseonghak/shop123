@@ -24,10 +24,6 @@
                              <a href="/farm/farmOrdertListPage.do">주문목록</a>
                         </li>
                         <li>
-                           <img src="/resources/farm/image/매출.png" width="30px" height="28px"/>
-                            <a href="">매출조회</a>
-                        </li>
-                        <li>
                             <img src="/resources/farm/image/환불.png" width="30px" height="28px"/>
                             <a href="/farm/farmRefundList.do">환불현황</a>
                         </li>
