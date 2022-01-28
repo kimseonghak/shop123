@@ -129,7 +129,6 @@ public class AdminController {
 	@ResponseBody
 	public String countInput() {
 		aService.countInput();
-		
-		return "asdfasdfkajglekgjalkeglkgklwagjlkgkwegklawgnwlkgnawlkgalwkgnwlkgnewlkg";
+		return "1";
 	}
 }
