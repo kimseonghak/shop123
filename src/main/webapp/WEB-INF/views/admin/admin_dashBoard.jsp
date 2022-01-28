@@ -83,6 +83,8 @@
 		var context1 = document.getElementById('enterHome').getContext('2d');
 		var context2 = document.getElementById('joinCount').getContext('2d');
 <%-- 그래프 1 일일 방문자 --%>
+		var yester = ${dayMap.yester};
+		var today = ${dayMap.today};
 		var enterHome = new Chart(context1,{
 			type:'bar',
 			data:{
@@ -90,7 +92,7 @@
 				datasets:[{
 					label: '일일 방문자 수', // 차트 제목
 					fill:false, // line 형태일 때 선 안쪽을 채울지 말지
-					data: [10, 100],
+					data: [yester, today],
 					backgroundColor:[
 						'rgba(255,99,132,0.2)',
 						'rgba(54,162,235,0.2)'
@@ -115,7 +117,9 @@
 		var joinCount = new Chart(context2,{
 			type:'bar',
 			data:{
+				
 				labels:['어제(회원)','오늘(회원)','어제(농가)','오늘(농가)'],
+				
 				datasets:[{
 					label: '일일 가입자 수', // 차트 제목
 					fill:false, // line 형태일 때 선 안쪽을 채울지 말지

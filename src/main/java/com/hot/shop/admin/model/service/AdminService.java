@@ -23,7 +23,7 @@ public interface AdminService {
 
 	int sellUpdate(SellForm sf);
 
-	void countOutput();
+	HashMap<String, Integer> countOutput();
 
 	void countInput();
 }

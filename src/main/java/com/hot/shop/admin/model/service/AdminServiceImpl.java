@@ -68,8 +68,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public void countOutput() {
-		aDAO.countOutput();
+	public HashMap<String, Integer> countOutput() {
+		return aDAO.countOutput();
 	}
 
 	@Override

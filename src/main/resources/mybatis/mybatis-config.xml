@@ -8,5 +8,6 @@
 		<typeAlias type="com.hot.shop.admin.model.vo.SellForm" alias="sellForm"/>
 		<typeAlias type="com.hot.shop.member.model.vo.Member" alias="member"/>
 		<typeAlias type="com.hot.shop.farm.model.vo.Farm" alias="farm"/>
+		<typeAlias type="com.hot.shop.admin.model.vo.Count" alias="count"/>
 	</typeAliases>
 </configuration>

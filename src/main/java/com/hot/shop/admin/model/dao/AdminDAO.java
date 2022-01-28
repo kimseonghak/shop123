@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
+import com.hot.shop.admin.model.vo.Count;
 import com.hot.shop.admin.model.vo.SellForm;
 
 @Repository
@@ -122,12 +123,18 @@ public class AdminDAO {
 		return sql.update("admin.sellUpdate",sf);
 	}
 
-	public void countOutput() {
-		//sql.selectOne("countOutput", parameter)
+	public HashMap<String, Integer> countOutput() {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("yester", ((Count)sql.selectOne("admin.countOutput", 1)).getCountSum());
+		map.put("today", ((Count)sql.selectOne("admin.countOutput", 0)).getCountSum());
+		return map;
 	}
 
 	public void countInput() {
-		// TODO Auto-generated method stub
-		
+		if(sql.selectOne("admin.countCheck")==null) {
+			sql.insert("admin.countInsert");
+		}else {
+			sql.update("admin.countUpdate");
+		}
 	}
 }
