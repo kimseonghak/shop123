@@ -41,7 +41,7 @@ public class AdminDAO {
 			au = sql.selectOne("admin.BIDScheduler",i);
 			map.put("bid"+i, au);
 		}
-		
+		System.out.println("낙찰 정보 저장 완료");
 		for(int i=1; i<=3; i++) {
 			if(map.get("bid"+i)!=null) {
 				// 날짜가 지난 모든 경매를 endYN = 'Y'로 변경
@@ -50,6 +50,9 @@ public class AdminDAO {
 				sql.insert("admin.BIDinsert",(Auction)map.get("bid"+i));
 			}
 		}
+		System.out.println("경매 날짜 지난 경매 종료");
+		sql.update("admin.sellFormEndYN");
+		System.out.println("판매 날짜 지난 경매 종료");
 		System.out.println("예약 작업 종료");
 	}
 	// BID 목록과 정보 가져오는 로직
@@ -113,5 +116,13 @@ public class AdminDAO {
 			map.put("sf"+i, sf);
 		}
 		return map;
+	}
+	// 판매중인 상품의 판매기간/홍보주소/종료여부 변경하는 로직
+	public int sellUpdate(SellForm sf) {
+		return sql.update("admin.sellUpdate",sf);
+	}
+
+	public void countOutput() {
+		//sql.selectOne("countOutput", parameter)
 	}
 }

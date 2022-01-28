@@ -93,4 +93,11 @@
 			sell_end_yn as sellEndYN
 		from sell_form where sell_form_no=#{_parameter} and to_date(sell_end) >= to_date(sysdate) and sell_end_yn='N'
 	</select>
+	<update id="sellUpdate" parameterType="sellForm">
+		update sell_form set sell_start=#{sellStart}, sell_end=#{sellEnd}, board_no=#{boardNo}, sell_end_yn=#{sellEndYN}
+		where auction_no=#{auctionNo} and sell_form_no=#{sellFormNo}
+	</update>
+	<update id="sellFormEndYN">
+		update sell_form set sell_end_yn='Y' where to_date(sell_end) &lt; to_date(sysdate)
+	</update>
 </mapper>

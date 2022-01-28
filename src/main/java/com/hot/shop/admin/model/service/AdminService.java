@@ -20,4 +20,8 @@ public interface AdminService {
 	int sellInput(SellForm sf);
 
 	HashMap<String, Object> sellFormCheck();
+
+	int sellUpdate(SellForm sf);
+
+	void countOutput();
 }

@@ -28,6 +28,7 @@ public class AdminController {
 	//최초 대시보드 접속
 	@RequestMapping(value="/admin/adminDashboardPage.do",method = RequestMethod.GET)
 	public String adminDashboardPage() {
+		aService.countOutput();
 		return "admin/admin_dashBoard";
 	}
 	//옥션 페이지
@@ -38,7 +39,6 @@ public class AdminController {
 		HashMap<String, Object> map2 = aService.sellFormCheck();
 		mav.addObject("map",map);
 		mav.addObject("map2",map2);
-		System.out.println(map2.get("sf1").toString());
 		mav.setViewName("admin/admin_auction");
 		return mav;
 	}
@@ -103,8 +103,19 @@ public class AdminController {
 		
 		return mav;
 	}
+	// 판매중인 상품의 판매기간/홍보주소/종료여부 변경하는 로직
 	@RequestMapping(value = "/admin/sellUpdate.do", method = RequestMethod.POST)
-	public void sellUpdate(SellForm sf,ModelAndView mav) {
+	public ModelAndView sellUpdate(SellForm sf,ModelAndView mav) {
+		int result = aService.sellUpdate(sf);
+		if(result>0) {
+			mav.addObject("msg",sf.getSellFormNo()+"번 판매 정보가 변경되었습니다.");
+			mav.addObject("location","/admin/adminAuctionPage.do");
+		}else {
+			mav.addObject("msg","오류가 발생하였습니다.");
+			mav.addObject("location","/admin/adminAuctionPage.do");
+		}
+		mav.setViewName("commons/msg");
 		
+		return mav;
 	}
 }
