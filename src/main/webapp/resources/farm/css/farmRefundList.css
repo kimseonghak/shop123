@@ -33,7 +33,10 @@
         width: 100%;
         height: 57vh;
     }
-    
+    .btn-sm
+    {
+      font-size: 1.8vmin;
+    }
     
     /*검색바*/
     #keyWordSerch
@@ -53,12 +56,14 @@
     {
         position: relative;
         bottom:-13px;
+        font-size: 2.1vmin;
     }
     #serchKeyword
     {
         position: relative;
         bottom:-13px;
     }
+
     
     /*Table */
     

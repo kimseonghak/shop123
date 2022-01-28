@@ -60,12 +60,12 @@
                          <tbody>
                            <tr>
                                <td class="noticeNo">1</td>
-                                <td class="subject">첫번째공지입니다가나첫번째공지입니다가나첫번째공지입니다가나rksk</td>
+                                <td class="subject"><a href="">첫번째공지입니다가나첫번째공지입니다가나첫번째공지입니다가나rksk</a></td>
                                 <td class="writeDate">2022/01/25</td>
                            </tr>
                             <tr>
                                <td class="noticeNo">2</td>
-                                <td class="subject">두번째 공지입니다.</td>
+                                <td class="subject"><a href="">두번째 공지입니다.</a></td>
                                 <td class="writeDate">2022/01/25</td>
                             </tr>
                           </tbody>

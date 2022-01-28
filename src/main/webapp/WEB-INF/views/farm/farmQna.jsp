@@ -61,13 +61,13 @@
                          <tbody>
                            <tr>
                                <td>1</td>
-                                <td class="subject">배송 언제쯤 도착하나요배송 언제쯤 도착하나요배송 언제쯤 도착하나요123  </td>
+                                <td class="subject"><a href="">배송 언제쯤 도착하나요배송 언제쯤 도착하나요배송 언제쯤 도착하나요123</a></td>
                                 <td class="writer">홍길동</td>
                                 <td class="writeDate">2022/01/25</td>
                            </tr>
                             <tr>
                                <td>2</td>
-                                <td class="subject">두번째 문의</td>
+                                <td class="subject"><a href="">두번째 문의</a></td>
                                  <td class="writer">고길동</td>
                                 <td class="writeDate">2022/01/25</td>
                             </tr>

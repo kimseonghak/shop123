@@ -51,11 +51,17 @@
     {
         position: relative;
         bottom:-13px;
+        font-size: 2.1vmin;
     }
     #serchKeyword
     {
         position: relative;
         bottom:-13px;
+    }
+    
+    .btn-sm
+    {
+      font-size: 1.8vmin;
     }
     
     /*Table */

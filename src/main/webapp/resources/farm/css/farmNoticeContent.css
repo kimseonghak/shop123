@@ -53,11 +53,16 @@
     {
         position: relative;
         bottom:-13px;
+        font-size: 2.1vmin;
     }
     #serchKeyword
     {
         position: relative;
         bottom:-13px;
+    }
+    .btn-sm
+    {
+      font-size: 1.8vmin;
     }
     
     /*Table */
@@ -95,6 +100,16 @@
     {
         position: relative;
         left:50px
+    }
+    
+    .subject>a
+    {
+       text-decoration: none;
+        color: black;
+    }
+    .subject>a:hover
+    {
+        color: gray;
     }
     
     
