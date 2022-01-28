@@ -42,19 +42,19 @@
 
 			<tbody>
 				<tr>
-					<td>주문번호</td>
+					<td class="fixWord">주문번호</td>
 					<td>B1234AD23</td>
 				</tr>
 				<tr>
-					<td>상품명</td>
+					<td class="fixWord">상품명</td>
 					<td>감귤3KG</td>
 				</tr>
 				<tr>
-					<td>구매수량</td>
+					<td class="fixWord">구매수량</td>
 					<td>1</td>
 				</tr>
 				<tr>
-					<td>결제금액</td>
+					<td class="fixWord">결제금액</td>
 					<td>25000</td>
 				</tr>
 			</tbody>

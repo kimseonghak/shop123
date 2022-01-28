@@ -71,6 +71,11 @@ public class FarmENTContoller {
 		return "farm/farmOrderDetailInfo";
 	}
 	
-	
+	//대시보드 (사업자 메인페이지)
+	@RequestMapping(value="/farm/farmDashBoardPage.do",method = RequestMethod.GET)
+	public String farmDashBoardPage()
+	{
+		return "farm/farmDashBoard";
+	}
 	
 }

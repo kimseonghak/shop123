@@ -32,15 +32,15 @@
            <table>    
               <tbody>
                   <tr>
-                    <td>경매번호</td>
+                    <td class="fixWord">경매번호</td>
                     <td>41</td>
                   </tr>
                   <tr>
-                     <td>상품명</td>
+                     <td class="fixWord">상품명</td>
                      <td>감귤3kg</td>
                   </tr>
                   <tr>
-                      <td>상품가격</td>
+                      <td class="fixWord">상품가격</td>
                       <td>25000</td>
                   </tr>
                 </tbody>

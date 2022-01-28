@@ -96,6 +96,17 @@
         color: white;
     }
     
+   #logoTitlePtag>a{
+        
+        text-decoration: none;
+        color: white;
+    }
+        
+    #logoTitlePtag>a:hover{
+        
+       font-size: 1.9vmin;
+        
+    }
     
     
     /* 사이드바 메뉴 랩 */

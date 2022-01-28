@@ -5,7 +5,7 @@
             	<div id="sideWrap1">
                   <div id="logoTitle">
                        <hr>
-                        <p>123 상회</p>
+                         <p id="logoTitlePtag"><a href="/farm/farmDashBoardPage.do">123 상회</a></p>
                        <hr>
                    </div>
             	</div>

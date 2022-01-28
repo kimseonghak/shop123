@@ -91,9 +91,10 @@
                     
                 </div>
             </div>
+            <!--page Navi-->
             <div id="farmContentFooter"></div>
+        
         </div>
-        <!--page Navi-->
         <div id="farmContent3"></div>
     </div>
     

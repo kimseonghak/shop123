@@ -25,6 +25,19 @@
 <!-- css 파일 -->
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmOrderListPopupPage.css">
 	
+<style>
+	 input
+    {
+      height: 30px;
+    }
+
+	.sendStatus
+    {
+        position: relative;
+        bottom: -10px
+    }
+</style>	
+	
 </head>
 <body>
 
@@ -47,7 +60,7 @@
                       </tr>
                       <tr>
                           <td style="font-weight: bolder">발송일</td>
-                          <td><input type="text" name="sendDate"></td>
+                           <td><input type="text" name="sendDate" placeholder="    ex) 2022/01/28"></td>
                       </tr> 
                       <tr>
                           <td><input type="checkbox" name="sending" class="sendStatus"> 배송중</td>

@@ -32,27 +32,27 @@
                     <table>
                          <tbody>
                            <tr>
-                               <td>회원번호</td>
+                               <td class="fixWord">회원번호</td>
                                <td>41</td>
                            </tr>
                            <tr>
-                               <td>아이디</td>
+                               <td class="fixWord">아이디</td>
                                <td>user11</td>
                             </tr>
                            <tr>
-                               <td>이름</td>
+                               <td class="fixWord">이름</td>
                                <td>홍길동</td>
                            </tr>
                            <tr>
-                               <td>휴대전화</td>
+                               <td class="fixWord">휴대전화</td>
                                <td>010-1234-5678</td>
                             </tr>
                            <tr>
-                               <td>이메일</td>
+                               <td class="fixWord">이메일</td>
                                <td>user11@naver.com</td>
                            </tr>
                            <tr>
-                               <td>배송지</td>
+                               <td class="fixWord">배송지</td>
                                <td>서울시 마포구 166 한양아파트 202동 0021호</td>
                             </tr>
                           </tbody>
