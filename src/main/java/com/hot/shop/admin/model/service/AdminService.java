@@ -13,7 +13,7 @@ public interface AdminService {
 	
 	void BIDScheduler();
 
-	HashMap<String, Object> BIDInfo(int currentPage);
+	HashMap<String, Object> BIDInfo(int currentPage,int formNo);
 
 	Auction outputAucionInfo(int auctionNo);
 
@@ -23,5 +23,7 @@ public interface AdminService {
 
 	int sellUpdate(SellForm sf);
 
-	void countOutput();
+	HashMap<String, Integer> countOutput();
+
+	void countInput();
 }

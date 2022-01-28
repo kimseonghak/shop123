@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -27,9 +28,11 @@ public class AdminController {
 	
 	//최초 대시보드 접속
 	@RequestMapping(value="/admin/adminDashboardPage.do",method = RequestMethod.GET)
-	public String adminDashboardPage() {
-		aService.countOutput();
-		return "admin/admin_dashBoard";
+	public ModelAndView adminDashboardPage(ModelAndView mav) {
+		HashMap<String, Integer> map = aService.countOutput();
+		mav.addObject("dayMap",map);
+		mav.setViewName("admin/admin_dashBoard");
+		return mav;
 	}
 	//옥션 페이지
 	@RequestMapping(value="/admin/adminAuctionPage.do",method = RequestMethod.GET)
@@ -69,7 +72,7 @@ public class AdminController {
 			currentPage=Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		HashMap<String,Object> map = aService.BIDInfo(currentPage);
+		HashMap<String,Object> map = aService.BIDInfo(currentPage,formNo);
 		
 		mav.addObject("currentPage",currentPage);
 		mav.addObject("map",map);
@@ -80,12 +83,16 @@ public class AdminController {
 	}
 	//관리자 페이지 판매폼에 낙찰된 경매 정보 입력받는 로직(BID 경매번호 토대로 경매 정보 가져오기)
 	@RequestMapping(value = "/admin/outputAuctionInfo.do", method = RequestMethod.GET)
-	public void outputAucionInfo(@RequestParam int auctionNo,HttpServletResponse response) throws IOException{
+	@ResponseBody
+	public Auction outputAucionInfo(@RequestParam int auctionNo,HttpServletResponse response) throws IOException{
 		Auction au = aService.outputAucionInfo(auctionNo);
+		/*
 		Gson gson = new Gson();
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		gson.toJson(au,out);
+		*/
+		return au;
 	}
 	//판매DB 입력 로직
 	@RequestMapping(value = "/admin/sellInput.do", method = RequestMethod.POST)
@@ -117,5 +124,11 @@ public class AdminController {
 		mav.setViewName("commons/msg");
 		
 		return mav;
+	}
+	@RequestMapping(value = "/admin/countInput.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String countInput() {
+		aService.countInput();
+		return "1";
 	}
 }
