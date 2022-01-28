@@ -125,4 +125,8 @@ public class AdminController {
 		
 		return mav;
 	}
+	@RequestMapping(value = "/admin/countInput.do", method = RequestMethod.GET)
+	public void countInput() {
+		aService.countInput();
+	}
 }
