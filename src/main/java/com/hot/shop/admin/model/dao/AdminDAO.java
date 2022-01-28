@@ -65,7 +65,7 @@ public class AdminDAO {
 		map.put("end",end);
 		return new ArrayList<BID>(sql.selectList("admin.BIDList",map));
 	}
-	public String getPageNavi(int recordCountPerPage, int currentPage, int naviCountPerPage) {
+	public String getPageNavi(int recordCountPerPage, int currentPage, int naviCountPerPage,int formNo) {
 		int recordTotalCount = totalCount();
 		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
 		
@@ -77,17 +77,17 @@ public class AdminDAO {
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage=1' class='naviArrow'>&lt;&lt;</a>");
-		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
+		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage=1&formNo="+formNo+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+(currentPage-10)+"&formNo="+formNo+"' class='naviArrow' id='prev'>&lt;</a>");
 		for(int i= startNavi; i<=endNavi; i++) {
 			if(i==currentPage) {
-				sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+i+"' id='currentNavi'>"+i+"</a>");
+				sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+i+"&formNo="+formNo+"' id='currentNavi'>"+i+"</a>");
 			}else {
-				sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+i+"' class='otherNavi'>"+i+"</a>");
+				sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+i+"&formNo="+formNo+"' class='otherNavi'>"+i+"</a>");
 			}
 		}
-		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+(currentPage+10)+"' class='naviArrow' id='next'>&gt;</a>");
-		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+pageTotalCount+"' class='naviArrow'>&gt;&gt;</a>");
+		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+(currentPage+10)+"&formNo="+formNo+"' class='naviArrow' id='next'>&gt;</a>");
+		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+pageTotalCount+"&formNo="+formNo+"' class='naviArrow'>&gt;&gt;</a>");
 		return sb.toString();
 	}
 	public int totalCount() {
@@ -124,5 +124,10 @@ public class AdminDAO {
 
 	public void countOutput() {
 		//sql.selectOne("countOutput", parameter)
+	}
+
+	public void countInput() {
+		// TODO Auto-generated method stub
+		
 	}
 }

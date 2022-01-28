@@ -33,12 +33,12 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public HashMap<String, Object> BIDInfo(int currentPage) {
+	public HashMap<String, Object> BIDInfo(int currentPage,int formNo) {
 		
 		int recordCountPerPage=10;
 		ArrayList<BID> list = aDAO.BIDList(recordCountPerPage,currentPage); 
 		int naviCountPerPage=10;
-		String pageNavi = aDAO.getPageNavi(recordCountPerPage,currentPage,naviCountPerPage);
+		String pageNavi = aDAO.getPageNavi(recordCountPerPage,currentPage,naviCountPerPage,formNo);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
@@ -70,5 +70,10 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void countOutput() {
 		aDAO.countOutput();
+	}
+
+	@Override
+	public void countInput() {
+		aDAO.countInput();
 	}
 }

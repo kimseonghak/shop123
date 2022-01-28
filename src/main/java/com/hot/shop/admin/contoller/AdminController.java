@@ -69,7 +69,7 @@ public class AdminController {
 			currentPage=Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		HashMap<String,Object> map = aService.BIDInfo(currentPage);
+		HashMap<String,Object> map = aService.BIDInfo(currentPage,formNo);
 		
 		mav.addObject("currentPage",currentPage);
 		mav.addObject("map",map);
