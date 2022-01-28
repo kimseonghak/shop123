@@ -45,4 +45,9 @@
         position: relative;
         left: 45%;
     }
-     
+    
+    .fixWord
+    {
+        font-weight: bolder;
+    }
+    

@@ -53,19 +53,19 @@
                 <div id="contentArea">
                     <table>
                            <tr>
-                                <th>번호</th>
+                                <th class="noticeNo">번호</th>
                                 <th class="subject">제목</th>
                                 <th class="writeDate">작성일</th>
                            </tr>
                          <tbody>
                            <tr>
-                               <td>1</td>
-                                <td class="subject">첫번째공지입니다가나첫번째공지입니다가나첫번째공지입니다가나rksk</td>
+                               <td class="noticeNo">1</td>
+                                <td class="subject"><a href="">첫번째공지입니다가나첫번째공지입니다가나첫번째공지입니다가나rksk</a></td>
                                 <td class="writeDate">2022/01/25</td>
                            </tr>
                             <tr>
-                               <td>2</td>
-                                <td class="subject">두번째 공지입니다.</td>
+                               <td class="noticeNo">2</td>
+                                <td class="subject"><a href="">두번째 공지입니다.</a></td>
                                 <td class="writeDate">2022/01/25</td>
                             </tr>
                           </tbody>
@@ -73,11 +73,23 @@
                     
                 </div>
             </div>
+            <!--page Navi-->
             <div id="farmContentFooter"></div>
+      
         </div>
-        <!--page Navi-->
         <div id="farmContent3"></div>
     </div>
+
+
+  <!-- sidebar 효과 -->
+   <script>
+	    $(function() {
+	        $('#mainUl>li').eq(0).css('background-color', '#34734e');
+	        $('#mainUl>li').eq(0).css('color', 'white');
+	        $('#mainUl>li').eq(0).css('font-weight','bolder');
+	    });
+    
+  </script>
 
 </body>
 </html>

@@ -91,11 +91,24 @@
                     
                 </div>
             </div>
+            <!--page Navi-->
             <div id="farmContentFooter"></div>
+        
         </div>
-        <!--page Navi-->
         <div id="farmContent3"></div>
     </div>
+    
+
+  <!-- sidebar 효과 -->
+   <script>
+	    $(function() {
+	        $('#mainUl>li').eq(2).css('background-color', '#34734e');
+	        $('#mainUl>li').eq(2).css('color', 'white');
+	        $('#mainUl>li').eq(2).css('font-weight','bolder');
+	    });
+    
+  </script>    
+    
     
     <!--회원번호 클릭 시 회원정보 띄우기-->
     <script>

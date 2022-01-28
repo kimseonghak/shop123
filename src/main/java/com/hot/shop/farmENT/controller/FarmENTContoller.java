@@ -36,7 +36,7 @@ public class FarmENTContoller {
 		return "farm/farmOrderList";
 	}
 	
-	//주문목록 게시판 팝업창 1(회원정보)
+	//주문목록,환불목록 게시판 팝업창 1(회원정보)
 	@RequestMapping(value="/farm/farmMemberInfoPage.do",method = RequestMethod.GET)
 	public String farmMemberInfoPage()
 	{
@@ -57,7 +57,25 @@ public class FarmENTContoller {
 		return "farm/farmDeliveryInput";
 	}
 	
+	//환불목록 게시판
+	@RequestMapping(value="/farm/farmRefundList.do",method = RequestMethod.GET)
+	public String farmRefundListPage()
+	{
+		return "farm/farmRefundList";
+	}
 	
+	//환불목록 게시판 팝업창 1(주문상세)
+	@RequestMapping(value="/farm/farmOrdertDetailInfoPage.do",method = RequestMethod.GET)
+	public String farmOrdertDetailInfoPage()
+	{
+		return "farm/farmOrderDetailInfo";
+	}
 	
+	//대시보드 (사업자 메인페이지)
+	@RequestMapping(value="/farm/farmDashBoardPage.do",method = RequestMethod.GET)
+	public String farmDashBoardPage()
+	{
+		return "farm/farmDashBoard";
+	}
 	
 }

@@ -61,13 +61,13 @@
                          <tbody>
                            <tr>
                                <td>1</td>
-                                <td class="subject">배송 언제쯤 도착하나요배송 언제쯤 도착하나요배송 언제쯤 도착하나요123  </td>
+                                <td class="subject"><a href="">배송 언제쯤 도착하나요배송 언제쯤 도착하나요배송 언제쯤 도착하나요123</a></td>
                                 <td class="writer">홍길동</td>
                                 <td class="writeDate">2022/01/25</td>
                            </tr>
                             <tr>
                                <td>2</td>
-                                <td class="subject">두번째 문의</td>
+                                <td class="subject"><a href="">두번째 문의</a></td>
                                  <td class="writer">고길동</td>
                                 <td class="writeDate">2022/01/25</td>
                             </tr>
@@ -76,11 +76,22 @@
                     
                 </div>
             </div>
+           <!--page Navi-->
             <div id="farmContentFooter"></div>
+       
         </div>
-        <!--page Navi-->
         <div id="farmContent3"></div>
     </div>
+
+  <!-- sidebar 효과 -->
+   <script>
+	    $(function() {
+	        $('#mainUl>li').eq(1).css('background-color', '#34734e');
+	        $('#mainUl>li').eq(1).css('color', 'white');
+	        $('#mainUl>li').eq(1).css('font-weight','bolder');
+	    });
+    
+   </script>
 
 
 </body>
