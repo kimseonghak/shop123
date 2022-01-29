@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="farm">
+
+	<select id="selectLoginFarm" parameterType="farm" resultType="farm">
+		SELECT
+			farm_no as farmNo,
+			farm_id as farmId,
+			farm_pwd as farmPwd,
+			farm_name as farmName,
+			farm_busi_num as farmBusiNum,
+			farm_email as farmEmail,
+			farm_phone as farmPhone,
+			farm_address_main as farmAddressMain,
+			farm_address_sub as farmAddressSub,
+			farm_enrolldate as farmEnrollDate,
+			farm_end_yn as farmEndYN,
+			rating as rating
+		FROM
+			farm
+		WHERE farm_id=#{farmId} and farm_pwd=#{farmPwd} and farm_end_yn='N'
+	</select>
+
+</mapper>

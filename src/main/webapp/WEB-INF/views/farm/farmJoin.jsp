@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>농가 회원가입</title>
 <style>
-@charset "UTF-8";
 #content {
 	width: 100%;
 	height: 1700px;
@@ -29,7 +28,6 @@
 .input-style {
 	height: 52px;
 	width: 100%;
-	border: none;
 	font-family: 'Nanum Gothic', sans-serif;
 	font-size: 16px;
 	color: #000000;
@@ -37,11 +35,11 @@
 	padding: 18px;
 	margin-top: 20px;
 	margin-bottom: 15px;
+	border: 0.5px solid #E5E5E5;
 }
 .input-style-plusbtn {
 	height: 52px;
 	width: 75%;
-	border: none;
 	font-family: 'Nanum Gothic', sans-serif;
 	font-size: 16px;
 	color: #000000;
@@ -49,15 +47,16 @@
 	padding: 18px;
 	margin-top: 18px;
 	margin-bottom: 18px;
+	border: 0.5px solid #E5E5E5;
 }
 .btn {
 	display: inline-block;
-	border: none;
 	font-family: 'Nanum Gothic', sans-serif;
 	height: 52px;
 	width: 23%;
 	cursor: pointer;
 	border-radius: 20px;
+	border: 0.5px solid #E5E5E5;
 }
 
 .title {
@@ -116,9 +115,10 @@
 .terms {
 	width: 100%;
 	height: 130px;
-	border: none;
 	background-color: #F2F2F2;
 	overflow:auto;
+	border: 0.5px solid #E5E5E5;
+	border-radius: 5px;
 }
 .terms-text {
 	font-size: 14px;
