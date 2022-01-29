@@ -9,9 +9,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<script>
-		alert('${requestScope.msg}');
-		location.replace('${requestScope.location}');
-	</script>
+	<c:if test="${msg!=null}">
+		<script>
+				alert('${requestScope.msg}');
+				location.replace('${requestScope.location}');
+		</script>
+	</c:if>
+		<script>
+				location.replace('${requestScope.location}');
+		</script>
 </body>
 </html>

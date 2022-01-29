@@ -32,7 +32,6 @@
 .input-style {
 	height: 52px;
 	width: 100%;
-	border: none;
 	font-family: 'Nanum Gothic', sans-serif;
 	font-size: 16px;
 	background-color: #F2F2F2;
@@ -40,11 +39,11 @@
 	padding: 18px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	border: 0.5px solid #E5E5E5;
 }
 .input-style-plusbtn {
 	height: 52px;
 	width: 75%;
-	border: none;
 	font-family: 'Nanum Gothic', sans-serif;
 	font-size: 16px;
 	color: #000000;
@@ -52,6 +51,7 @@
 	padding: 18px;
 	margin-top: 30px;
 	margin-bottom: 10px;
+	border: 0.5px solid #E5E5E5;
 }
 .title {
 	font-family: 'Nanum Gothic', sans-serif;
@@ -76,7 +76,7 @@
     font-family: 'Nanum Gothic', sans-serif;
     font-size: 16px;
     color: white;
-    border: none;
+    border: 0.5px solid #E5E5E5;
     border-radius: 50px;
     cursor: pointer;
     margin-top: 20px;
