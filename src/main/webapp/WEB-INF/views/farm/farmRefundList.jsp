@@ -66,8 +66,8 @@
                            <tr>
                                 <td>2</td>
                                 <td class="boardNo"><a href="">23</a></td>
-                                <td class="userNo"><a type="button">3</a></td>
-                               <td class="orderNo"><a type="button">A3232132324</a></td>
+                                <td class="userNo"><a type="button" class="userNoA">3</a></td>
+                               <td class="orderNo"><a type="button" class="orderNoA">A3232132324</a></td>
                                 <td class="acceptDate">2022/01/25</td>
                                 <td class="refundStatus">N</td>
                                 <td><button type="button" class="btn btn-success btn-sm acceptBtn">환불승인</button></td>
@@ -76,8 +76,8 @@
                            <tr>
                                 <td>1</td>
                                 <td class="boardNo"><a href="">12</a></td>
-                               <td class="userNo"><a type="button">41</a></td>
-                               <td class="orderNo"><a type="button">BJE1239473</a></td>
+                               <td class="userNo"><a type="button" class="userNoA">41</a></td>
+                               <td class="orderNo"><a type="button" class="orderNoA">BJE1239473</a></td>
                                 <td class="acceptDate">2022/01/27</td>
                                 <td class="refundStatus">N</td>
                                 <td><button type="button" class="btn btn-success btn-sm acceptBtn">환불승인</button></td>
