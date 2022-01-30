@@ -65,8 +65,8 @@
                          <tbody>
                            <tr>
                                 <td>1</td>
-                                <td class="userNo"><a type="button">2</a></td>
-                                <td class="productName"><a type="button">감귤 3kg</a></td>
+                                <td class="userNo"><a type="button" class="userNoA">2</a></td>
+                                <td class="productName"><a type="button" class="productNameA">감귤 3kg</a></td>
                                 <td class="count">1</td>
                                 <td class="amount">25000</td>
                                 <td class="payDate">2022/02/26</td>
@@ -77,8 +77,8 @@
                            </tr>
                            <tr>
                                 <td>2</td>
-                                <td class="userNo"><a type="button">41</a></td>
-                                <td class="productName"><a type="button">지리산 표고버섯 2kg</a></td>
+                                <td class="userNo"><a type="button" class="userNoA">41</a></td>
+                                <td class="productName"><a type="button" class="productNameA">지리산 표고버섯 2kg</a></td>
                                 <td class="count">2</td>
                                 <td class="amount">15000</td>
                                 <td class="payDate">2022/02/26</td>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="farmENT">
+  
+  <!-- 낙찰 상품 목록 가져오기 -->
+  	<select id="selectProductList" parameterType="hashmap" resultType="farmENTProduct">
+  		SELECT 
+	  		S.AUCTION_NO AS auctionNo,
+	  		A.AUCTION_PRODUCT AS auctionProduct,
+	  		A.AUCTION_PRICE AS auctionPrice,
+	  		A.AUCTION_END AS auctionEnd 
+  		FROM SELL_FORM S
+			LEFT JOIN AUCTION A ON (S.AUCTION_NO=A.AUCTION_NO)
+		WHERE A.FARM_NO=#{farmNo} 
+			
+				<if test="type!=null and type.equals('productName')">
+					AND A.auction_product like '%'||#{keyWord}||'%'
+				</if>
+				<if test="type!=null and type.equals('auctionNo')">
+					AND A.auction_no like '%'||#{keyWord}||'%'
+				</if>
+		ORDER BY 4 DESC
+  	
+  	</select>
+  
+  <!--낙찰 상품의 총 개수 -->
+  	<select id="selectProductTotalCount" parameterType="hashmap" resultType="int">
+  		 SELECT 
+			COUNT(*)
+  		FROM SELL_FORM S
+			LEFT JOIN AUCTION A ON (S.AUCTION_NO=A.AUCTION_NO)
+		WHERE A.FARM_NO=#{farmNo}
+					
+				<if test="type!=null and type.equals('productName')">
+					AND A.auction_product like '%'||#{keyWord}||'%'
+				</if>
+				<if test="type!=null and type.equals('auctionNo')">
+					AND A.auction_no like '%'||#{keyWord}||'%'
+				</if>
+  	</select>
+  
+  
+  
+</mapper>

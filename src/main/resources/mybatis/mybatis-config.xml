@@ -11,5 +11,8 @@
 		<typeAlias type="com.hot.shop.admin.model.vo.Count" alias="count"/>
 		<typeAlias type="com.hot.shop.question.model.vo.QuestionUser" alias="qUser"/>
 		<typeAlias type="com.hot.shop.question.model.vo.QuestionFarm" alias="qFarm"/>
+		
+		<!-- farmENT -->
+		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTProduct" alias="farmENTProduct"/>
 	</typeAliases>
 </configuration>
