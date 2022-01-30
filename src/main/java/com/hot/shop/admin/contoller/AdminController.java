@@ -2,6 +2,7 @@ package com.hot.shop.admin.contoller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import com.google.gson.Gson;
 import com.hot.shop.admin.model.service.AdminService;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.question.model.vo.QuestionUser;
 
 @Controller
 public class AdminController {
@@ -30,7 +32,13 @@ public class AdminController {
 	@RequestMapping(value="/admin/adminDashboardPage.do",method = RequestMethod.GET)
 	public ModelAndView adminDashboardPage(ModelAndView mav) {
 		HashMap<String, Integer> map = aService.countOutput();
+		HashMap<String, Integer> joinMap = aService.joinOutput();
+		HashMap<String, Integer> farmMap = aService.farmOutput();
+		ArrayList<QuestionUser> qUser = aService.questionUser();
 		mav.addObject("dayMap",map);
+		mav.addObject("joinMap",joinMap);
+		mav.addObject("farmMap",farmMap);
+		mav.addObject("qUser",qUser);
 		mav.setViewName("admin/admin_dashBoard");
 		return mav;
 	}

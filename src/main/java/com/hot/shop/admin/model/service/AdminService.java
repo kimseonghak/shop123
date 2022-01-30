@@ -1,9 +1,11 @@
 package com.hot.shop.admin.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.question.model.vo.QuestionUser;
 
 public interface AdminService {
 
@@ -26,4 +28,10 @@ public interface AdminService {
 	HashMap<String, Integer> countOutput();
 
 	void countInput();
+
+	HashMap<String, Integer> joinOutput();
+
+	HashMap<String, Integer> farmOutput();
+
+	ArrayList<QuestionUser> questionUser();
 }

@@ -11,6 +11,7 @@ import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.admin.model.vo.Count;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.question.model.vo.QuestionUser;
 
 @Repository
 public class AdminDAO {
@@ -136,5 +137,23 @@ public class AdminDAO {
 		}else {
 			sql.update("admin.countUpdate");
 		}
+	}
+
+	public HashMap<String, Integer> joinOutput() {
+		HashMap<String, Integer> joinMap = new HashMap<String, Integer>();
+		joinMap.put("yester",sql.selectOne("admin.joinOutput",1));
+		joinMap.put("today", sql.selectOne("admin.joinOutput",0));
+		return joinMap;
+	}
+
+	public HashMap<String, Integer> farmOutpuf() {
+		HashMap<String, Integer> farmMap = new HashMap<String, Integer>();
+		farmMap.put("yester",sql.selectOne("admin.farmOutput",1));
+		farmMap.put("today", sql.selectOne("admin.farmOutput",0));
+		return farmMap;
+	}
+
+	public ArrayList<QuestionUser> questionUser() {
+		return new ArrayList<QuestionUser>(sql.selectList("admin.questionUserList"));
 	}
 }

@@ -12,10 +12,9 @@
 	crossorigin="anonymous"></script>
 
 <style>
-@charset "UTF-8";
 .bg-color {
 	width: 100%;
-	height: 100vh;
+	height: 105vh;
 	background-color: #F2F2F2;
 	display: flex;
     align-items: center;
@@ -32,7 +31,7 @@
 .input-style {
 	height: 52px;
 	width: 100%;
-	border: none;
+	border: 0.5px solid #E5E5E5;
 	font-family: 'Nanum Gothic', sans-serif;
 	font-size: 16px;
 	background-color: #F2F2F2;
@@ -164,7 +163,7 @@
                     </div>
                     
                     <div class="userLoginFormWrap">
-	                    <form action="" method="post">
+	                    <form action="/member/memberLogin.do" method="post">
 	                    	<input type="text" class="input-style" name="userId" placeholder="아이디"><br>
 							<input type="password" class="input-style" name="userPwd" placeholder="비밀번호"><br>
 							<input type="submit" class="btn-submit" value="로그인"><br>
@@ -172,7 +171,7 @@
                     </div>
                     
                     <div class="farmLoginFormWrap">
-	                    <form action="" method="post">
+	                    <form action="/farm/farmLogin.do" method="post">
 	                    	<input type="text" class="input-style" name="farmId" placeholder="농가 아이디"><br>
 							<input type="password" class="input-style" name="farmPwd" placeholder="농가 비밀번호"><br>
 							<input type="submit" class="btn-submit" value="농가 로그인"><br>
@@ -198,18 +197,18 @@
 	
 	<script>
 	
-	$(".userSelUl>li:last-child").click(function() {
-		$(".userSelUl").css("display", "none");
-		$(".userLoginFormWrap").css("display", "none");
-		$(".farmSelUl").css("display", "block");
-		$(".farmLoginFormWrap").css("display", "block");
-	});
-	$(".farmSelUl>li:first-child").click(function() {
-		$(".userSelUl").css("display", "block");
-		$(".userLoginFormWrap").css("display", "block");
-		$(".farmSelUl").css("display", "none");
-		$(".farmLoginFormWrap").css("display", "none");
-	});
+		$(".userSelUl>li:last-child").click(function() {
+			$(".userSelUl").css("display", "none");
+			$(".userLoginFormWrap").css("display", "none");
+			$(".farmSelUl").css("display", "block");
+			$(".farmLoginFormWrap").css("display", "block");
+		});
+		$(".farmSelUl>li:first-child").click(function() {
+			$(".userSelUl").css("display", "block");
+			$(".userLoginFormWrap").css("display", "block");
+			$(".farmSelUl").css("display", "none");
+			$(".farmLoginFormWrap").css("display", "none");
+		});
 	</script>
 
 </body>

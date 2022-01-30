@@ -7,6 +7,10 @@
 <meta charset="UTF-8">
 <title>123상회</title>
 
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
+
 <style>
 
 #content{
@@ -257,10 +261,19 @@
 						최저가 '경매' 의 역발상</p>
 					</div>
 					<div class="auction-area">
-						<button class="auction-btn"><a href="">경매 확인하기</a></button>
+						<button class="auction-btn"><a href="/auction/auctionPage.do">경매 확인하기</a></button>
 					</div>
 				</div>
 			</div>
+			
+			<!-- 메인페이지 접속 시 count DB에 ++ 되는 ajax 로직 (결과값 무시)-->
+			<!-- Spring 은 controller에서 리턴값을 적어줘야 404 오류가 뜨지 않음
+			controller를 지나면서 자동으로 결과값을 만들어버리기 때문 -->
+			<script>
+				$(function(){
+					$.get("/admin/countInput.do");
+				});
+			</script>
 		
 		</div>
 		<c:import url="/WEB-INF/views/commons/footer.jsp"/>

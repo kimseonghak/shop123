@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
-@charset "UTF-8";
 
 /*Layout*/
 #header {
@@ -192,15 +191,34 @@ input {
 	<div class="logo">
 		<a href="/"><img src="/resources/main/img/shop123_logo.png" alt="123상회"></a>
 	</div>
+	<c:choose>
+		<c:when test="${sessionScope.member != null }">
+			<div class="link-user">
+				<div class="box-user">
+					<a href="">회원 ${sessionScope.member.userName }님</a> 
+					<a href="/member/logout.do">로그아웃</a>
+				</div>
+			</div>
+		</c:when>
+		
+		<c:when test="${sessionScope.farm != null }">
+			<div class="link-user">
+				<div class="box-user">
+					<a href="">농가 ${sessionScope.farm.farmName }님</a> 
+					<a href="/farm/logout.do">로그아웃</a>
+				</div>
+			</div>
+		</c:when>
 
-	<div class="link-user">
+		<c:otherwise>
+			<div class="link-user">
+				<div class="box-user">
+					<a href="/member/memberLoginPage.do">로그인</a>
+				</div>
+			</div>
+		</c:otherwise>
+	</c:choose>
 
-		<div class="box-user">
-			<a href="/member/memberLoginPage.do">로그인</a>
-		</div>
-
-	</div>
-	
 	<div id="nav">
 		
 			<ul class="gnb-list">

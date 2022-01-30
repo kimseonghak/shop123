@@ -10,6 +10,7 @@ import com.hot.shop.admin.model.dao.AdminDAO;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.question.model.vo.QuestionUser;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -75,5 +76,20 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void countInput() {
 		aDAO.countInput();
+	}
+
+	@Override
+	public HashMap<String, Integer> joinOutput() {
+		return aDAO.joinOutput();
+	}
+
+	@Override
+	public HashMap<String, Integer> farmOutput() {
+		return aDAO.farmOutpuf();
+	}
+
+	@Override
+	public ArrayList<QuestionUser> questionUser() {
+		return aDAO.questionUser();
 	}
 }
