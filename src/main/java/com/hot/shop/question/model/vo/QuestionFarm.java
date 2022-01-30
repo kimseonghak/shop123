@@ -9,11 +9,12 @@ public class QuestionFarm {
 	private Date questionFarmRegdate;
 	private int farmNo;
 	private char questionFarmEndYN;
+	private String farmName;
 	
 	
 	
 	public QuestionFarm(int questionFarmNo, String questionFarmTitle, String questionFarmContent,
-			Date questionFarmRegdate, int farmNo, char questionFarmEndYN) {
+			Date questionFarmRegdate, int farmNo, char questionFarmEndYN, String farmName) {
 		super();
 		this.questionFarmNo = questionFarmNo;
 		this.questionFarmTitle = questionFarmTitle;
@@ -21,11 +22,26 @@ public class QuestionFarm {
 		this.questionFarmRegdate = questionFarmRegdate;
 		this.farmNo = farmNo;
 		this.questionFarmEndYN = questionFarmEndYN;
+		this.farmName = farmName;
 	}
+
+
 	public QuestionFarm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	public String getFarmName() {
+		return farmName;
+	}
+
+
+	public void setFarmName(String farmName) {
+		this.farmName = farmName;
+	}
+
+
 	public int getQuestionFarmNo() {
 		return questionFarmNo;
 	}

@@ -10,6 +10,7 @@ import com.hot.shop.admin.model.dao.AdminDAO;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.question.model.vo.QuestionUser;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -88,7 +89,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public HashMap<String, Object> questionUser() {
+	public ArrayList<QuestionUser> questionUser() {
 		return aDAO.questionUser();
 	}
 }

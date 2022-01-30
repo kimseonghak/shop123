@@ -11,6 +11,7 @@ import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.admin.model.vo.Count;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.question.model.vo.QuestionUser;
 
 @Repository
 public class AdminDAO {
@@ -152,9 +153,7 @@ public class AdminDAO {
 		return farmMap;
 	}
 
-	public HashMap<String, Object> questionUser() {
-		HashMap<String, Object> questionUser = new HashMap<String, Object>();
-		sql.selectList("admin.questionUserList");
-		return null;
+	public ArrayList<QuestionUser> questionUser() {
+		return new ArrayList<QuestionUser>(sql.selectList("admin.questionUserList"));
 	}
 }

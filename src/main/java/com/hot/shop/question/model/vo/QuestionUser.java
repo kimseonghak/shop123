@@ -14,12 +14,11 @@ public class QuestionUser {
 	private char questionUserClassify;
 	private int farmNo;
 	private String orderNo;
-	
-	
+	private String userNick;
 	
 	public QuestionUser(int questionUserNo, String questionUserTitle, String questionUserContent,
 			Date questionUserRegdate, int userNo, char questionUserEndYN, int questionphotoNo, String questionUserCode,
-			char questionUserClassify, int farmNo, String orderNo) {
+			char questionUserClassify, int farmNo, String orderNo, String userNick) {
 		super();
 		this.questionUserNo = questionUserNo;
 		this.questionUserTitle = questionUserTitle;
@@ -32,6 +31,13 @@ public class QuestionUser {
 		this.questionUserClassify = questionUserClassify;
 		this.farmNo = farmNo;
 		this.orderNo = orderNo;
+		this.userNick = userNick;
+	}
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
 	}
 	public QuestionUser() {
 		super();

@@ -77,7 +77,7 @@ table{
 	border:none;
 }
 .boardTBL th,td{
-	border:1px solid black;
+	border:1px solid rgba(0,0,0,0.2);
 	border-left: none;
 	border-right: none;
 }
@@ -91,6 +91,10 @@ table{
 	border-top:none;
 	overflow:hidden;
 	text-overflow: ellipsis;
+}
+.boardTBL tr:not(:first-child):hover {
+	background-color: rgba(0,0,0,0.03);
+	cursor: pointer;
 }
 </style>
 </head>
@@ -135,31 +139,13 @@ table{
 							<th>문의 제목</th>
 							<th style="width:20%;">작성자</th>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td id="test">문의 제목이 길 경우 발생하는 문제에 대</td>
-							<td>user123421323323515</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>문의 제목이 길 경우 발생하는 문제에 대하여 문의 제목이 길 경우 발생하는 문제에 대하여</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>문의 제목이 길 경우 발생하는 문제에 대하여 문의 제목이 길 경우 발생하는 문제에 대하여</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>문의 제목이 길 경우 발생하는 문제에 대하여 문의 제목이 길 경우 발생하는 문제에 대하여</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>문의 제목이 길 경우 발생하는 문제에 대하여 문의 제목이 길 경우 발생하는 문제에 대하여</td>
-							<td></td>
-						</tr>
+						<c:forEach items="${requestScope.qUser }" var="q">
+							<tr class="qUserList">
+								<td>${q.questionUserNo }</td>
+								<td>${q.questionUserTitle }</td>
+								<td>${q.userNick }</td>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 			</div>
@@ -256,8 +242,8 @@ table{
 				}
 			});
 		});
-		$(function(){
-			console.log($('#test').html().length);
+		$('.qUserList').click(function(){
+			var qBoardNo = $(this).children().eq(0).html();
 		});
 	</script>
 </body>

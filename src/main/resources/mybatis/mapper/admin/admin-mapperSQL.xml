@@ -134,7 +134,20 @@
 		from farm
 		where to_date(farm_enrolldate) = to_date(sysdate-#{_parameter})
 	</select>
-	<select id="questionUserList" resultType="">
-		
+	<select id="questionUserList" resultType="qUser">
+		select
+			question_User_no as questionUserNo,
+			question_User_Title as questionUserTitle,
+			question_User_Content as questionUserContent,
+			question_User_Regdate as questionUserRegdate,
+			user_No as userNo,
+			question_User_End_YN as questionUserEndYN,
+			questionphoto_No as questionphoto_No,
+			question_User_Code as questionUserCode,
+			question_User_Classify as questionUserClassify,
+			farm_No as farmNo,
+			user_nick as userNick,
+			order_No as orderNo
+		from (select row_number() over (order by question_user_no desc) as num, question_user.*,user_nick from question_user left join member on(question_user.user_no = member.user_no) where question_User_Classify='A') where num between 1 and 5
 	</select>
 </mapper>
