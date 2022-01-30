@@ -26,6 +26,16 @@
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmProductList.css">
 
 
+<style>
+	 #naviArea
+	 {
+	 	display:inline-block;
+	 	margin-left:450px;
+	 	text-align: center;
+	 }
+</style>
+
+
 </head>
 <body>
 <c:import url="/resources/farm/common/farmMainHeader.jsp"/>
@@ -38,54 +48,67 @@
                 <span id="contnentTitle">낙찰 상품</span>
             </div>
             <div id="farmContentContent">
+
                 <div id="serchArea">
-                    <form action="" method="get">
-                         <select style="width:90px;height:30px" id="serchSelect">
-                            <option value="subject">상품명</option> 
-                            <option value="content">경매번호</option>
+                    <form action="/farm/farmProductListPage.do" method="get">
+                         <select name="type" style="width:90px;height:30px" id="serchSelect">
+                            <option value="productName">상품명</option> 
+                            <option value="auctionNo">경매번호</option>
                           </select>
                     <input type="text" name="keyWord" size="30" id=serchKeyword>
-                    <button type="button" class="btn btn-outline-success btn-sm">검색</button>
+                    <button type="submit" class="btn btn-outline-success btn-sm">검색</button>
                 </form>
                     
                 </div>
                 <div id="emptyArea"></div>
                 <div id="contentArea">
-                    <table>
-                           <tr>
-                                <th>번호</th>
-                                <th >경매번호</th>
-                                <th class="productName">상품명</th>
-                                <th class="amount">낙찰금액</th>
-                                <th class="soldDate">낙찰일자</th>
-                           </tr>
-                         <tbody>
-                           <tr>
-                               <td>1</td>
-                                <td>12</td>
-                                <td class="productName">감귤 3kg</td>
-                                <td class="amount">25000</td>
-                                <td class="soldDate">2022/01/25</td>
-                           </tr>
-                     
-                                <tr>
-                               <td>1</td>
-                                <td>12</td>
-                                <td class="productName">감귤 3kg</td>
-                                <td class="amount">25000</td>
-                                <td class="soldDate">2022/01/25</td>
-                           </tr>
-                          </tbody>
-                    </table>
-                    
-                </div>
+              <c:choose>          
+  					<c:when test="${!requestScope.list.isEmpty()}">
+	                    <table>
+	                           <tr>
+	                                <th>번호</th>
+	                                <th >경매번호</th>
+	                                <th class="productName">상품명</th>
+	                                <th class="amount">낙찰금액</th>
+	                                <th class="soldDate">낙찰일자</th>
+	                           </tr>
+	                         <tbody>
+	                         <c:forEach items="${requestScope.list}" var="p" varStatus="i">
+	                           <tr>
+	                               <td>${i.count}</td>
+	                                <td>${p.getAuctionNo()}</td>
+	                                <td class="productName">${p.getAuctionProduct()}</td>
+	                                <td class="amount">${p.getAuctionPrice()}</td>
+	                                <td class="soldDate">${p.getAuctionEnd()}</td>
+	                           </tr>
+	                     	 </c:forEach>
+	                          </tbody>
+	                   	</table>
+	    			</c:when>
+				    <c:otherwise>
+				    	<H2 style="text-align:center; position:relative; bottom:-100px">현재 낙찰된 상품이 없습니다.</H2>
+				    </c:otherwise>
+			</c:choose>                    
+			 </div>
             </div>
             <!--page Navi-->
-            <div id="farmContentFooter"></div>
+            <div id="farmContentFooter">
+            	<div id="naviArea">
+	            	<c:choose>
+	            		<c:when test="${!requestScope.list.isEmpty()}">
+	            				${requestScope.pageNavi}
+	            		</c:when>
+	            	</c:choose>
+            	</div>
+            </div>
         
         </div>
+
+
         <div id="farmContent3"></div>
     </div>
+
+
 
   <!-- sidebar 효과 -->
    <script>
