@@ -122,4 +122,19 @@
 		from count
 		where to_date(count_date) = to_date(sysdate-#{_parameter}) 
 	</select>
+	<select id="joinOutput" parameterType="integer" resultType="integer">
+		select
+			count(*)
+		from member
+		where to_date(user_enrolldate) = to_date(sysdate-#{_parameter})
+	</select>
+	<select id="farmOutput" parameterType="integer" resultType="integer">
+		select
+			count(*)
+		from farm
+		where to_date(farm_enrolldate) = to_date(sysdate-#{_parameter})
+	</select>
+	<select id="questionUserList" resultType="">
+		
+	</select>
 </mapper>

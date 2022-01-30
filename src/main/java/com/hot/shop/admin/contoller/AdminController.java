@@ -30,7 +30,12 @@ public class AdminController {
 	@RequestMapping(value="/admin/adminDashboardPage.do",method = RequestMethod.GET)
 	public ModelAndView adminDashboardPage(ModelAndView mav) {
 		HashMap<String, Integer> map = aService.countOutput();
+		HashMap<String, Integer> joinMap = aService.joinOutput();
+		HashMap<String, Integer> farmMap = aService.farmOutput();
+		HashMap<String, Object> questionUser = aService.questionUser();
 		mav.addObject("dayMap",map);
+		mav.addObject("joinMap",joinMap);
+		mav.addObject("farmMap",farmMap);
 		mav.setViewName("admin/admin_dashBoard");
 		return mav;
 	}

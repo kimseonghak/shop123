@@ -26,4 +26,10 @@ public interface AdminService {
 	HashMap<String, Integer> countOutput();
 
 	void countInput();
+
+	HashMap<String, Integer> joinOutput();
+
+	HashMap<String, Integer> farmOutput();
+
+	HashMap<String, Object> questionUser();
 }

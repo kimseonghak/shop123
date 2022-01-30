@@ -137,4 +137,24 @@ public class AdminDAO {
 			sql.update("admin.countUpdate");
 		}
 	}
+
+	public HashMap<String, Integer> joinOutput() {
+		HashMap<String, Integer> joinMap = new HashMap<String, Integer>();
+		joinMap.put("yester",sql.selectOne("admin.joinOutput",1));
+		joinMap.put("today", sql.selectOne("admin.joinOutput",0));
+		return joinMap;
+	}
+
+	public HashMap<String, Integer> farmOutpuf() {
+		HashMap<String, Integer> farmMap = new HashMap<String, Integer>();
+		farmMap.put("yester",sql.selectOne("admin.farmOutput",1));
+		farmMap.put("today", sql.selectOne("admin.farmOutput",0));
+		return farmMap;
+	}
+
+	public HashMap<String, Object> questionUser() {
+		HashMap<String, Object> questionUser = new HashMap<String, Object>();
+		sql.selectList("admin.questionUserList");
+		return null;
+	}
 }

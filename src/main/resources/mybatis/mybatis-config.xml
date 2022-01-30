@@ -9,5 +9,7 @@
 		<typeAlias type="com.hot.shop.member.model.vo.Member" alias="member"/>
 		<typeAlias type="com.hot.shop.farm.model.vo.Farm" alias="farm"/>
 		<typeAlias type="com.hot.shop.admin.model.vo.Count" alias="count"/>
+		<typeAlias type="com.hot.shop.question.model.vo.QuestionFarm" alias="qUser"/>
+		<typeAlias type="com.hot.shop.question.model.vo.QuestionUser" alias="qFarm"/>
 	</typeAliases>
 </configuration>

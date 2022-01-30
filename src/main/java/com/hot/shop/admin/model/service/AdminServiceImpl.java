@@ -76,4 +76,19 @@ public class AdminServiceImpl implements AdminService{
 	public void countInput() {
 		aDAO.countInput();
 	}
+
+	@Override
+	public HashMap<String, Integer> joinOutput() {
+		return aDAO.joinOutput();
+	}
+
+	@Override
+	public HashMap<String, Integer> farmOutput() {
+		return aDAO.farmOutpuf();
+	}
+
+	@Override
+	public HashMap<String, Object> questionUser() {
+		return aDAO.questionUser();
+	}
 }
