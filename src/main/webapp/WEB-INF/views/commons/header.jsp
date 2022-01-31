@@ -196,7 +196,7 @@ input {
 			<div class="link-user">
 				<div class="box-user">
 					<a href="">회원 ${sessionScope.member.userName }님</a> 
-					<a href="/member/logout.do">로그아웃</a>
+					<a href="/member/memberlogout.do">로그아웃</a>
 				</div>
 			</div>
 		</c:when>
@@ -205,7 +205,7 @@ input {
 			<div class="link-user">
 				<div class="box-user">
 					<a href="">농가 ${sessionScope.farm.farmName }님</a> 
-					<a href="/farm/logout.do">로그아웃</a>
+					<a href="/farm/farmLogout.do">로그아웃</a>
 				</div>
 			</div>
 		</c:when>

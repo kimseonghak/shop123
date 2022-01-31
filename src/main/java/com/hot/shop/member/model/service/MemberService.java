@@ -10,4 +10,6 @@ public interface MemberService {
 
 	int selectNickCheck(String userNick);
 
+	int insertMember(Member member);
+
 }
