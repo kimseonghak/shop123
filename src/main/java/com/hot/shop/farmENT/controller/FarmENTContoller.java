@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hot.shop.farmENT.model.service.FarmENTService;
@@ -42,7 +43,8 @@ public class FarmENTContoller {
 	
 	//낙찰상품 목록 게시판
 	@RequestMapping(value="/farm/farmProductListPage.do",method = RequestMethod.GET)
-	public ModelAndView farmProductListPage(HttpServletRequest request,ModelAndView mv) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
+	public ModelAndView farmProductListPage(HttpServletRequest request,ModelAndView mv,
+			@RequestParam(required = false,defaultValue = "1") int currentPage) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
 	{
 		//session 연동되면 사용하기
 		//int farmNo = farm.getFarmNo(); 
@@ -56,17 +58,6 @@ public class FarmENTContoller {
 		searchMap.put("farmNo",farmNo);
 		searchMap.put("type",type);
 		searchMap.put("keyWord", keyWord);
-		
-		//현재 페이지 값
-		int currentPage;
-		
-		if(request.getParameter("currentPage")==null)
-		{
-			currentPage=1;
-		}else
-		{
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
 		
 		HashMap <String,Object> list =fENTservice.selectFarmENTProductList(currentPage,searchMap);
 		
@@ -86,7 +77,8 @@ public class FarmENTContoller {
 	
 	//주문목록 게시판
 	@RequestMapping(value="/farm/farmOrdertListPage.do",method = RequestMethod.GET)
-	public ModelAndView farmOrdertListPage(HttpServletRequest request,ModelAndView mv) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
+	public ModelAndView farmOrdertListPage(HttpServletRequest request,ModelAndView mv,
+			@RequestParam(required = false,defaultValue = "1") int currentPage) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
 	{
 		//session 연동되면 사용하기
 		//int farmNo = farm.farmNo();
@@ -101,16 +93,6 @@ public class FarmENTContoller {
 		searchMap.put("type", type);
 		searchMap.put("keyWord", keyWord);
 
-		
-		int currentPage;
-		
-		if(request.getParameter("currentPage")==null)
-		{
-			currentPage=1;
-		}else
-		{
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
 				
 		HashMap <String,Object> map	 = fENTservice.selectFarmENTOrderList(currentPage,searchMap);
 		

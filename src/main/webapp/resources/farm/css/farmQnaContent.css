@@ -74,6 +74,7 @@
         border-spacing: 0px;
         margin-top: 5px;
         line-height: 25px;
+        table-layout: fixed;
        
         
     }
@@ -85,24 +86,26 @@
     tbody>tr>td
     {
         border-top:1px solid #DFDFDF;
+        overflow: hidden;
+       
     }
     
     .writer
     {
         position: relative;
-        left: 250px;
+        left: 220px;
     }
 
     .writeDate
     {
         position: relative;
-        left: 100px;
+        left: 70px;
     }
     .subject
     {
         position: relative;
         left: 150px;
-        text-overflow: ellipsis; white-space: nowrap; max-width: 50px;
+        text-overflow: ellipsis; white-space: nowrap; max-width: 80px;
         
     }
     .subject>a

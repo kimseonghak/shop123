@@ -54,14 +54,14 @@
     #homeIcon
     {
         position: relative;
-        bottom: -20px;
+        bottom: -3vh;
         margin-left: 13px; 
     }
     
     #logoutIcon
     {
         position: relative;
-        bottom: -23px;
+        bottom: -3.3vh;
         margin-left: 13px;
     }
     
