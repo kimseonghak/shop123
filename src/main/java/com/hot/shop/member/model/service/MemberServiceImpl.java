@@ -2,6 +2,7 @@ package com.hot.shop.member.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hot.shop.member.model.dao.MemberDAO;
 import com.hot.shop.member.model.vo.Member;
@@ -30,6 +31,13 @@ public class MemberServiceImpl implements MemberService {
 	public int selectNickCheck(String userNick) {
 		
 		return mDAO.selectNickCheck(userNick);
+		
+	}
+
+	@Override
+	public int insertMember(Member member) {
+		
+		return mDAO.insertMember(member);
 		
 	}
 }
