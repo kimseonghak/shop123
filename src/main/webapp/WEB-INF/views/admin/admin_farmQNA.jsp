@@ -23,6 +23,7 @@
 		margin:0 auto;
 		white-space: nowrap;
 		border-spacing: 0px;
+		table-layout: fixed;
 	}
 	#mainContents{
 		padding: 0px;
@@ -77,12 +78,12 @@
 		opacity: 0.3;
 	}
 	table td,th{
+		overflow:hidden;
 		text-overflow: ellipsis;
 		font-size:2vmin;
 	}
 	table tr:not(:last-child)>td{
 		background-color: white;
-		box-shadow: 0.3vmin 0.2vmin rgba(0,0,0,0.5);
 	}
 	table tr{
 		widht:100%;
@@ -92,7 +93,7 @@
 		width:100%;
 		height:0.5vmin
 	}
-	#titleSpaece{
+	#titleSpace{
 		border:1px solid #48bb78;
 		width:10%;
 		height:5vmin;
@@ -103,13 +104,45 @@
 		font-weight: bold;
 	}
 	#title{
+		display:block;
 		font-size: 3vmin;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 	.tdTr:hover{
 		cursor: pointer;
 	}
 	.tdTr:hover>td{
 		background-color: rgb(240, 240, 240);
+	}
+	#searchWrap{
+		width:100%;
+		height:4vh;
+		text-align: right;
+	}
+	#searchSelect{
+		height:100%;
+		border:none;
+		box-shadow: 0vmin 0.2vmin rgba(0,0,0,0.5);
+	}
+	#searchText{
+		height:100%;
+		width: 30vw;
+		margin-left: -8px;
+		border:none;
+		box-shadow: 0.3vmin 0.2vmin rgba(0,0,0,0.5);
+	}
+	#searchText:focus {
+		outline: none;
+	}
+	#searchSubmit{
+		height:100%;
+		width: 8vmin;
+		font-size: 2vmin;
+		background-color: white;
+		border-style:none;
+		box-shadow: 0.3vmin 0.2vmin rgba(0,0,0,0.5);
 	}
 </style>
 </head>
@@ -122,7 +155,7 @@
 		<%-- mainContents --%>
 		<div id="mainContents">
 			<div id="backgroundColor">
-			<div id="titleSpaece">
+			<div id="titleSpace">
 				<span id="title">Farm QNA</span>
 			</div>
 				<table>
@@ -149,6 +182,18 @@
 						<td colspan="6" align="center">${map.pageNavi }</td>
 					</tr>
 				</table>
+				<div id="searchWrap">
+					<form action="/admin/adminFarmQNASearch.do" method="get" style="widht:100%; height:100%;">
+						<select name="type" id="searchSelect">
+							<option value="title">제목</option>
+							<option value="name">농가 이름</option>
+							<option value="content">내용</option>
+							<option value="all">제목+내용</option>
+						</select>
+						<input type="text" name="keword" id="searchText" />
+						<button id="searchSubmit">검색</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
