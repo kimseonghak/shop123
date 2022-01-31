@@ -39,6 +39,47 @@
 				</if>
   	</select>
   
+  <!-- 주문 목록 리스트 -->
+  	<select id="selectOrderList" parameterType="hashmap" resultType="farmENTOrder">
+  	
+  		SELECT USER_NO AS userNo,
+  			   FARM_NO AS farmNo,
+  			   PRODUCT_NAME AS productName,
+  			   PRODUCT_COUNT AS productCount,
+  			   PAY_AMOUNT AS payAmount,
+  			   PURCHASE_DATE AS purchaseDate,
+  			   D_NAME AS dName
+		FROM PURCHASELIST P
+			LEFT JOIN DELIVERY D ON (P.D_CODE=D.D_CODE)
+		WHERE FARM_NO=#{farmNo}
+		
+		<if test="type!=null and type.equals('userNo')">
+			AND user_no like '%'||#{keyWord}||'%'
+		</if>
+		<if test="type!=null and type.equals('productName')">
+			AND product_name like '%'||#{keyWord}||'%'
+		</if>
+		ORDER BY 6 DESC
+  	   
+  	</select>
+  
+  <!-- 주문 목록 리스트 개수 -->	
+  	<select id="selectOrderListTotalCount" parameterType="hashmap" resultType="int"> 
+  		SELECT COUNT(*)
+			FROM PURCHASELIST
+			WHERE FARM_NO=#{farmNo}
+  		
+  		<if test="type!=null and type.equals('userNo')">
+			AND user_no like '%'||#{keyWord}||'%'
+		</if>
+		<if test="type!=null and type.equals('productName')">
+			AND product_name like '%'||#{keyWord}||'%'
+		
+		</if>
+  	</select>	
+  	
+  	
+  	
   
   
 </mapper>

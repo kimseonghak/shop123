@@ -25,6 +25,16 @@
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmMain.css">
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmOrderList.css">
 
+<style>
+	 #naviArea
+	 {
+	 	display:inline-block;
+	 	margin-left:450px;
+	 	text-align: center;
+	 }
+</style>
+
+
 </head>
 <body>
 <c:import url="/resources/farm/common/farmMainHeader.jsp"/>
@@ -40,17 +50,33 @@
             <div id="farmContentContent">
                 <div id="serchArea">
                     <form action="" method="get">
-                         <select style="width:89px;height:30px" id="serchSelect">
-                            <option value="subject">회원번호</option> 
-                            <option value="content">상품명</option>
+                         <select name="type" style="width:89px;height:30px" id="serchSelect">
+                         <c:choose>
+                         		<c:when test="${type eq 'userNo'}">
+	                            	<option value="userNo" selected='selected'>회원번호</option> 
+	                            	<option value="productName">상품명</option>
+	                           	</c:when>
+	                          
+	                         	 <c:when test="${type eq 'productName'}">
+	                            	<option value="userNo">회원번호</option> 
+	                            	<option value="productName" selected='selected'>상품명</option>
+	                            </c:when>
+	                            
+	                            <c:otherwise>
+	                             	<option value="userNo">회원번호</option> 
+	                            	<option value="productName">상품명</option>
+	                            </c:otherwise>
+                           </c:choose>	
                           </select>
-                    <input type="text" name="keyWord" size="30" id=serchKeyword>
+                    <input type="text" name="keyWord" size="30" id=serchKeyword value="${requestScope.keyWord}">
                     <button type="submit" class="btn btn-outline-success btn-sm">검색</button>
                 </form>
                     
                 </div>
                 <div id="emptyArea"></div>
                 <div id="contentArea">
+               <c:choose> 
+               		<c:when test="${!requestScope.list.isEmpty()}">
                     <table>
                            <tr>
                                 <th>번호</th>
@@ -64,38 +90,40 @@
                            </tr>
                          <tbody>
                            <tr>
-                                <td>1</td>
-                                <td class="userNo"><a type="button" class="userNoA">2</a></td>
-                                <td class="productName"><a type="button" class="productNameA">감귤 3kg</a></td>
-                                <td class="count">1</td>
-                                <td class="amount">25000</td>
-                                <td class="payDate">2022/02/26</td>
-                                <td class="shopStatus">준비중</td>
-                                <td class="inputBtn">
-                                <button type="button" class="btn btn-success btn-sm" >배송입력</button></td>
-                                <!--배송완료 시 배송입력 버튼 비활성화(여유있으면 속성값: disabled )-->
-                           </tr>
-                           <tr>
-                                <td>2</td>
-                                <td class="userNo"><a type="button" class="userNoA">41</a></td>
-                                <td class="productName"><a type="button" class="productNameA">지리산 표고버섯 2kg</a></td>
-                                <td class="count">2</td>
-                                <td class="amount">15000</td>
-                                <td class="payDate">2022/02/26</td>
-                                <td class="shopStatus">배송중</td>
-                                <td class="inputBtn"><button type="button" class="btn btn-success btn-sm" >배송입력</button></td>
-                           </tr>
-                       
+                           <c:forEach items="${requestScope.list}" var="o" varStatus="i">
+	                                <td>${i.count}</td>
+	                                <td class="userNo"><a type="button" class="userNoA">${o.getUserNo()}</a></td>
+	                                <td class="productName"><a type="button" class="productNameA">${o.getProductName()}</a></td>
+	                                <td class="count">${o.getProductCount()}</td>
+	                                <td class="amount">${o.getPayAmount()}</td>
+	                                <td class="payDate">${o.getPurchaseDate()}</td>
+	                                <td class="shopStatus">${o.getdName()}</td>
+	                                <td class="inputBtn">
+	                                <button type="button" class="btn btn-success btn-sm" >배송입력</button></td>
+	                                <!--배송완료 시 배송입력 버튼 비활성화(여유있으면 속성값: disabled )-->
+	                           </tr>
+                       	 </c:forEach>
                           </tbody>
                     </table>
-                    
+                    </c:when>
+                    <c:otherwise>
+                    	<H2 style="text-align:center; position:relative; bottom:-100px">현재 주문 목록이 없습니다.</H2>
+                    </c:otherwise>
+               </c:choose>    
                 </div>
             </div>
             <!--page Navi-->
-            <div id="farmContentFooter"></div>
-        
+            <div id="farmContentFooter">
+				 <div id="naviArea">
+	            	<c:choose>
+	            		<c:when test="${!requestScope.list.isEmpty()}">
+	            				${requestScope.pageNavi}
+	            		</c:when>
+	            	</c:choose>
+          	  </div>           
+            </div>
         </div>
-        <div id="farmContent3"></div>
+      <div id="farmContent3"></div>
     </div>
     
 
