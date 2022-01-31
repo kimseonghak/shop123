@@ -11,16 +11,30 @@
 	rel="stylesheet">
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/resources/admin/css/common.css">
 <style>
 	*{
 		box-sizing: border-box;
 	}
 	table{
 		width:100%;
-		border-spacing : 0px;
+		border-collapse: collapse;
 		text-align: center;
 		margin:0 auto;
 		white-space: nowrap;
+		border-spacing: 0px;
+	}
+	#mainContents{
+		padding: 0px;
+	}
+	#backgroundColor{
+		border-top-left-radius:1vw;
+		width:100%;
+		height:100%;
+		padding: 10px;
+		padding-left:20px;
+		padding-right:20px;
+		background-color: rgba(72,187,120,0.1);
 	}
 	.naviArrow{
 		text-decoration: none;
@@ -28,10 +42,11 @@
 		color: black;
 		border : 1px solid black;
 		margin : 2px;
-		width : 25px;
-		height: 25px;
+		width : 3.5vmin;
+		height: 3.5vmin;
 		font-weight: bolder;
 		opacity: 0.3;
+		line-height: 150%;
 	}
 	#currentNavi{
 		text-decoration: none;
@@ -39,35 +54,64 @@
 		color: white;
 		background-color:black;
 		border : 1px solid black;
-		width : 25px;
-		height: 25px;
+		width : 3.5vmin;
+		height: 3.5vmin;
 		margin : 1px;
 		font-weight: bolder;
+		line-height: 150%;
 	}
 	.otherNavi{
 		text-decoration: none;
 		display:inline-block;
 		color: black;
 		border : 1px solid black;
-		width : 25px;
-		height: 25px;
+		width : 3.5vmin;
+		height: 3.5vmin;
 		margin : 1px;
 		font-weight: bolder;
+		line-height: 150%;
 	}
 	.otherNavi:hover{
 		color: white;
 		background-color:black;
 		opacity: 0.3;
 	}
-	#thTr th{
-		border-top: 1px solid black;
-		border-bottom: 1px solid black;
-	}
 	table td,th{
 		text-overflow: ellipsis;
+		font-size:2vmin;
+	}
+	table tr:not(:last-child)>td{
+		background-color: white;
+		box-shadow: 0.3vmin 0.2vmin rgba(0,0,0,0.5);
+	}
+	table tr{
+		widht:100%;
+		height:6vmin;
+	}
+	.listSpace{
+		width:100%;
+		height:0.5vmin
+	}
+	#titleSpaece{
+		border:1px solid #48bb78;
+		width:10%;
+		height:5vmin;
+		text-align: center;
+		border-radius: 10px;
+		background-color: white;
+		color:#48bb78;
+		font-weight: bold;
+	}
+	#title{
+		font-size: 3vmin;
+	}
+	.tdTr:hover{
+		cursor: pointer;
+	}
+	.tdTr:hover>td{
+		background-color: rgb(240, 240, 240);
 	}
 </style>
-<link rel="stylesheet" href="/resources/admin/css/common.css">
 </head>
 <body>
 	<%--header import --%>
@@ -77,29 +121,35 @@
 		<c:import url="/resources/admin/common/sideBar.jsp" />
 		<%-- mainContents --%>
 		<div id="mainContents">
-			<table>
-				<tr id="thTr">
-					<th width="10%">문의 번호</th>
-					<th width="40%">문의 제목</th>
-					<th width="10%">농가 번호</th>
-					<th width="15%">농가 이름</th>
-					<th width="15%">문의 날짜</th>
-					<th width="10%">진행 상황</th>
-				</tr>
-				<c:forEach items="${map.list }" var="q">
-				<tr>
-					<td>${q.questionFarmNo }</td>
-					<td>${q.questionFarmTitle }</td>
-					<td>${q.farmNo }</td>
-					<td>${q.farmName }</td>
-					<td>${q.questionFarmRegdate }</td>
-					<td>${q.questionFarmAnswerYN }</td>
-				</tr>
-				</c:forEach>
-				<tr>
-					<td colspan="6" align="center">${map.pageNavi }</td>
-				</tr>
-			</table>
+			<div id="backgroundColor">
+			<div id="titleSpaece">
+				<span id="title">Farm QNA</span>
+			</div>
+				<table>
+					<tr id="thTr">
+						<th width="10%">문의 번호</th>
+						<th width="40%">문의 제목</th>
+						<th width="10%">농가 번호</th>
+						<th width="15%">농가 이름</th>
+						<th width="15%">문의 날짜</th>
+						<th width="10%">진행 상황</th>
+					</tr>
+					<c:forEach items="${map.list }" var="q">
+					<tr class="tdTr">
+						<td>${q.questionFarmNo }</td>
+						<td style="font-weight:bolder;">${q.questionFarmTitle }</td>
+						<td>${q.farmNo }</td>
+						<td style="font-weight:bolder;">${q.farmName }</td>
+						<td>${q.questionFarmRegdate }</td>
+						<td>${q.questionFarmAnswerYN }</td>
+					</tr>
+					<tr class="listSpace"></tr>
+					</c:forEach>
+					<tr>
+						<td colspan="6" align="center">${map.pageNavi }</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.0.js"
@@ -112,11 +162,7 @@
 			$(this).css('opacity', '0.3');
 		});
 		$(function() {
-			var currentPage = $
-			{
-				currentPage
-			}
-			;
+			var currentPage = ${currentPage};
 			if (currentPage < 11) {
 				$('#prev').removeAttr('href');
 				$('#prev').unbind('mouseenter mouseleave');
