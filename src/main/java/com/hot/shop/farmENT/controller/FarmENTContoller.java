@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.farmENT.model.service.FarmENTService;
 
 @Controller
@@ -75,6 +73,8 @@ public class FarmENTContoller {
 		
 		mv.addObject("list",list.get("list"));
 		mv.addObject("pageNavi",list.get("pageNavi"));
+		mv.addObject("type",type);
+		mv.addObject("keyWord",keyWord);
 		
 		mv.setViewName("farm/farmProductList");
 		
@@ -86,10 +86,41 @@ public class FarmENTContoller {
 	
 	//주문목록 게시판
 	@RequestMapping(value="/farm/farmOrdertListPage.do",method = RequestMethod.GET)
-	public String farmOrdertListPage()
+	public ModelAndView farmOrdertListPage(HttpServletRequest request,ModelAndView mv) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
 	{
+		//session 연동되면 사용하기
+		//int farmNo = farm.farmNo();
+		int farmNo = 4;
+		
+		//검색 값 받아오기 
+		String type = request.getParameter("type");
+		String keyWord = request.getParameter("keyWord");
+		
+		HashMap<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("farmNo", farmNo);
+		searchMap.put("type", type);
+		searchMap.put("keyWord", keyWord);
+
+		
+		int currentPage;
+		
+		if(request.getParameter("currentPage")==null)
+		{
+			currentPage=1;
+		}else
+		{
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
 				
-		return "farm/farmOrderList";
+		HashMap <String,Object> map	 = fENTservice.selectFarmENTOrderList(currentPage,searchMap);
+		
+		mv.addObject("list",map.get("list"));
+		mv.addObject("pageNavi",map.get("pageNavi"));
+		mv.addObject("type",type);
+		mv.addObject("keyWord",keyWord);
+		mv.setViewName("farm/farmOrderList");
+		
+		return mv;
 	}
 	
 	//주문목록,환불목록 게시판 팝업창 1(회원정보)

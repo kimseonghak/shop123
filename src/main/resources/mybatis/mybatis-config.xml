@@ -14,5 +14,8 @@
 		
 		<!-- farmENT -->
 		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTProduct" alias="farmENTProduct"/>
+		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTOrder" alias="farmENTOrder"/>
+		
+		
 	</typeAliases>
 </configuration>
