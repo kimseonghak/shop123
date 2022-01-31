@@ -85,6 +85,7 @@ table {
 
 .boardTBL th {
 	border-top: none;
+	text-overflow: ellipsis;
 }
 
 .boardTBL td {

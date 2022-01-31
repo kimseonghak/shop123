@@ -169,8 +169,9 @@
 			question_Farm_Regdate as questionFarmRegdate,
 			farm_No as farmNo,
 			question_Farm_End_YN as questionFarmEndYN,
-			farm_Name as farmName
-		from (select row_number() over (order by question_farm_no desc) as num, question_farm.*,farm_name from question_farm left join farm on(question_farm.farm_no = farm.farm_no)) where num between #{start} and #{end}
+			farm_Name as farmName,
+			question_Farm_Answer_YN as questionFarmAnswerYN
+		from (select row_number() over (order by question_farm_no desc) as num, question_farm.*,farm_name from question_farm left join farm on(question_farm.farm_no = farm.farm_no) where question_farm_end_yn='N') where num between #{start} and #{end}
 	</select>
 	<select id="farmQNATotalCount" resultType="integer">
 		select count(*) from question_farm

@@ -138,7 +138,7 @@ public class AdminController {
 		aService.countInput();
 		return "1";
 	}
-	
+	// 최초 user QNA 페이지 
 	@RequestMapping(value = "/admin/adminFarmQNAPage.do", method = RequestMethod.GET)
 	public ModelAndView farmQNAPage(ModelAndView mav,HttpServletRequest request,@RequestParam(required = false, defaultValue = "1") int currentPage) {
 		HashMap<String,Object> map = aService.farmQNAList(currentPage);

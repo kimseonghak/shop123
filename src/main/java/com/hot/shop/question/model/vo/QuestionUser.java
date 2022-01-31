@@ -15,10 +15,12 @@ public class QuestionUser {
 	private int farmNo;
 	private String orderNo;
 	private String userNick;
+	private char questionUserAnswerYN;
+	
 	
 	public QuestionUser(int questionUserNo, String questionUserTitle, String questionUserContent,
 			Date questionUserRegdate, int userNo, char questionUserEndYN, int questionphotoNo, String questionUserCode,
-			char questionUserClassify, int farmNo, String orderNo, String userNick) {
+			char questionUserClassify, int farmNo, String orderNo, String userNick, char questionUserAnswerYN) {
 		super();
 		this.questionUserNo = questionUserNo;
 		this.questionUserTitle = questionUserTitle;
@@ -32,9 +34,20 @@ public class QuestionUser {
 		this.farmNo = farmNo;
 		this.orderNo = orderNo;
 		this.userNick = userNick;
+		this.questionUserAnswerYN = questionUserAnswerYN;
 	}
+
+
 	public String getUserNick() {
 		return userNick;
+	}
+	
+	
+	public char getQuestionUserAnswerYN() {
+		return questionUserAnswerYN;
+	}
+	public void setQuestionUserAnswerYN(char questionUserAnswerYN) {
+		this.questionUserAnswerYN = questionUserAnswerYN;
 	}
 	public void setUserNick(String userNick) {
 		this.userNick = userNick;

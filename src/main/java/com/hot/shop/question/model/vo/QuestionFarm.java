@@ -10,11 +10,11 @@ public class QuestionFarm {
 	private int farmNo;
 	private char questionFarmEndYN;
 	private String farmName;
+	private char questionFarmAnswerYN;
 	
-	
-	
+
 	public QuestionFarm(int questionFarmNo, String questionFarmTitle, String questionFarmContent,
-			Date questionFarmRegdate, int farmNo, char questionFarmEndYN, String farmName) {
+			Date questionFarmRegdate, int farmNo, char questionFarmEndYN, String farmName, char questionFarmAnswerYN) {
 		super();
 		this.questionFarmNo = questionFarmNo;
 		this.questionFarmTitle = questionFarmTitle;
@@ -23,6 +23,7 @@ public class QuestionFarm {
 		this.farmNo = farmNo;
 		this.questionFarmEndYN = questionFarmEndYN;
 		this.farmName = farmName;
+		this.questionFarmAnswerYN = questionFarmAnswerYN;
 	}
 
 
@@ -32,6 +33,16 @@ public class QuestionFarm {
 	}
 	
 	
+	public char getquestionFarmAnswerYN() {
+		return questionFarmAnswerYN;
+	}
+
+
+	public void setquestionFarmAnswerYN(char questionFarmAnswerYN) {
+		this.questionFarmAnswerYN = questionFarmAnswerYN;
+	}
+
+
 	public String getFarmName() {
 		return farmName;
 	}
