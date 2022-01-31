@@ -26,4 +26,8 @@ public class MemberDAO {
 		int result = sql.selectOne("member.selectNickCheck", userNick);
 		return result;
 	}
+
+	public int insertMember(Member member) {
+		return sql.insert("member.insertMember", member);
+	}
 }

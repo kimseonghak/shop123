@@ -46,7 +46,7 @@ public class FarmController {
 	}
 		
 	//로그아웃
-	@RequestMapping(value="/farm/logout.do", method=RequestMethod.GET)
+	@RequestMapping(value="/farm/farmLogout.do", method=RequestMethod.GET)
 	public String logout(HttpSession session,
 			@SessionAttribute Farm farm) {
 			

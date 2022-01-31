@@ -39,4 +39,22 @@
 		WHERE user_nick=#{value}
 	
 	</select>
+	
+	<insert id="insertMember" parameterType="member">
+	
+		INSERT INTO MEMBER
+		VALUES(MEMBER_SEQ.NEXTVAL,
+				#{userId},
+				#{userPwd},
+				#{userName},
+				#{userNick},
+				#{userEmail},
+				#{userPhone},
+				#{userAddressMain},
+				#{userAddressSub},
+				SYSDATE,
+				'N',
+				DEFAULT)
+	
+	</insert>
 </mapper>

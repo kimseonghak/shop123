@@ -155,7 +155,7 @@
 	                    </ul>
                     </div>
                     <div class="join-Form">
-	                    <form action="" method="post">
+	                    <form action="/member/memberJoin.do" method="post" onsubmit="return validationCheck();">
 	                    	<input type="text" class="input-style" name="userId" placeholder="아이디"><br>
 	                    	<span class="check-msg" id="id_msg"></span>
 							<input type="password" class="input-style" name="userPwd" placeholder="비밀번호"><br>
@@ -167,8 +167,10 @@
 							<input type="text" class="input-style" name="userNick" placeholder="닉네임"><br>
 							<span class="check-msg" id="nick_msg"></span>
 							<input type="email" class="input-style-plusbtn" name="userEmail" placeholder="이메일">
-							<input type="button" class="btn" value="인증하기"><br>
+							<input type="button" class="btn" id="mail_check_btn" value="인증하기"><br>
 							<span class="check-msg" id="email_msg"></span>
+							<input type="text" class="input-style" name="userEmailCheck" placeholder="인증번호 입력" disabled="disabled"><br>
+							<span class="check-msg" id="email_check_msg"></span>
 							<input type="text" class="input-style" name="userPhone" placeholder="전화번호 (-제외)"><br>
 							<span class="check-msg" id="phone_msg"></span>
 							<input type="text" class="input-style-plusbtn" id="sample4_roadAddress" name="userAddressMain" placeholder="주소">
@@ -196,19 +198,25 @@
 				</div>
 				
 			<script>
+				
+				var inval_Arr = new Array(10).fill(false);
+				
 				//ID
 				$('input[name=userId]').blur(function() {
-					var idCheck = RegExp(/^[a-zA-Z0-9]{8,12}$/); //임시 유효성 검사
+					//영어+한글+숫자 8~15자
+					var idCheck = RegExp(/^[a-zA-Z0-9]{8,15}$/);
 					var userId = $('input[name=userId]').val();
 	
 					if ($('input[name=userId]').val()==null || $('input[name=userId]').val()=='') {
 						$("#id_msg").html("아이디를 입력해주세요.").css("color","red");
 						return;
+						inval_Arr[0] = false;
 					}
 							
 					if (!idCheck.test($('input[name=userId]').val())) {
-						$("#id_msg").html("유효성 검사와 일치하지 않습니다.").css("color","red");
+						$("#id_msg").html("아이디는 8~15자의 영문 대소문자와 숫자로만 입력 가능합니다.").css("color","red");
 						return;
+						inval_Arr[0] = false;
 					}
 	
 					$.ajax({
@@ -217,10 +225,12 @@
 						type : "get",
 						success : function(result) {
 							if (result == 1) {
-								$("#id_msg").html("중복되는 아이디입니다.").css("color", "red");
+								$("#id_msg").html("이미 사용중인 아이디입니다.").css("color", "red");
 								return;
+								inval_Arr[0] = false;
 							} else {
 								$("#id_msg").html("사용 가능한 아이디입니다.").css("color", "green");
+								inval_Arr[0] = true;
 							}
 						},
 						error : function() {
@@ -231,60 +241,83 @@
 				
 				//Pwd
 				$('input[name=userPwd]').blur(function() {
-					var pwdCheck = RegExp(/^[a-zA-Z0-9]{8,12}$/); //임시 유효성 검사
+					//영문 대소문자+숫자+특수문자 8~15자
+					var pwdCheck = RegExp(/^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,15}$/);
 					
 					if ($('input[name=userPwd]').val()==null || $('input[name=userPwd]').val()=='') {
 						$("#pwd_msg").html("비밀번호를 입력해주세요.").css("color","red");
 						return;
+						inval_Arr[1] = false;
 					} else if (!pwdCheck.test($('input[name=userPwd]').val())) {
-						$("#pwd_msg").html("유효성 검사와 일치하지 않습니다.").css("color","red");
+						$("#pwd_msg").html("비밀번호는 8~15자의 영문 대소문자와 숫자, 특수문자만 입력 가능합니다.").css("color","red");
 						return;
+						inval_Arr[1] = false;
 					} else {
 						$("#pwd_msg").html("사용 가능한 비밀번호입니다.").css("color", "green");
+						inval_Arr[1] = true;
 					}
 				});
 				
 				//Pwd_re
 				$('input[name=userPwd_re]').blur(function() {
-					var pwdCheck = RegExp(/^[a-zA-Z0-9]{8,12}$/); //임시 유효성 검사
+					//영문 대소문자+숫자+특수문자 8~15자
+					var pwdCheckRe = RegExp(/^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,15}$/);
 					
 					if ($('input[name=userPwd_re]').val()==null || $('input[name=userPwd_re]').val()=='') {
 						$("#pwd_msg_re").html("비밀번호를 입력해주세요.").css("color","red");
 						return;
-					} else if (!pwdCheck.test($('input[name=userPwd_re]').val())) {
-						$("#pwd_msg_re").html("유효성 검사와 일치하지 않습니다.").css("color","red");
+						inval_Arr[2] = false;
+					} else if (!pwdCheckRe.test($('input[name=userPwd_re]').val())) {
+						$("#pwd_msg_re").html("비밀번호는 8~15자의 영문 대소문자와 숫자, 특수문자만 입력 가능합니다.").css("color","red");
 						return;
-					} else if(!$('input[name=userPwd_re]').val()==$('input[name=userPwd]').val()) {
+						inval_Arr[2] = false;
+					} else if(!($('input[name=userPwd_re]').val()==$('input[name=userPwd]').val())) {
 						$("#pwd_msg_re").html("비밀번호가 일치하지 않습니다.").css("color","red");
+						return;
+						inval_Arr[2] = false;
 					} else {
 						$("#pwd_msg_re").html("비밀번호가 일치합니다.").css("color", "green");
+						inval_Arr[2] = true;
 					}
 				});
 				
 				//Name
 				$('input[name=userName]').blur(function() {
+					//한글 2~5자
+					var nameCheck = RegExp(/^[가-힣]{2,5}$/);
 					
 					if ($('input[name=userName]').val()==null || $('input[name=userName]').val()=='') {
 						$("#name_msg").html("이름을 입력해주세요.").css("color","red");
 						return;
+						inval_Arr[3] = false;
+					}
+					if (!nameCheck.test($('input[name=userName]').val())) {
+						$("#name_msg").html("이름은 2~5자의 한글만 입력 가능합니다.").css("color","red");
+						return;
+						inval_Arr[3] = false;
 					} else {
 						$("#name_msg").html("이름은 상품 배송 시 이용됩니다.").css("color", "black");
+						inval_Arr[3] = true;
 					}
 				});
 				
 				//Nick
 				$('input[name=userNick]').blur(function() {
-					var nickCheck = RegExp(/^[a-zA-Z0-9]{8,12}$/); //임시 유효성 검사
+					//한글+영문 대소문자 4~15 자
+					//DB 수정하기
+					var nickCheck = RegExp(/^[가-힣a-zA-Z]{4,15}$/);
 					var userNick = $('input[name=userNick]').val();
 	
 					if ($('input[name=userNick]').val()==null || $('input[name=userNick]').val()=='') {
 						$("#nick_msg").html("닉네임을 입력해주세요.").css("color","red");
 						return;
+						inval_Arr[4] = false;
 					}
 							
 					if (!nickCheck.test($('input[name=userNick]').val())) {
-						$("#nick_msg").html("유효성 검사와 일치하지 않습니다.").css("color","red");
+						$("#nick_msg").html("닉네임은 4~15자 한글과 영문 대소문자만 입력 가능합니다.").css("color","red");
 						return;
+						inval_Arr[4] = false;
 					}
 	
 					$.ajax({
@@ -295,8 +328,10 @@
 							if (result == 1) {
 								$("#nick_msg").html("중복되는 닉네임입니다.").css("color", "red");
 								return;
+								inval_Arr[4] = false;
 							} else {
 								$("#nick_msg").html("사용 가능한 닉네임입니다.").css("color", "green");
+								inval_Arr[4] = true;
 							}
 						},
 						error : function() {
@@ -307,31 +342,77 @@
 				
 				//Email
 				$('input[name=userEmail]').blur(function() {
-					var emailCheck = RegExp(/^[a-zA-Z0-9]{8,12}$/); //임시 유효성 검사
+					//
+					var emailCheck = RegExp(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/);
 					
 					if ($('input[name=userEmail]').val()==null || $('input[name=userEmail]').val()=='') {
 						$("#email_msg").html("이메일을 입력해주세요.").css("color","red");
 						return;
+						inval_Arr[5] = false;
 					} else if (!emailCheck.test($('input[name=userEmail]').val())) {
 						$("#email_msg").html("올바른 이메일 형식을 입력해주세요.").css("color","red");
 						return;
+						inval_Arr[5] = false;
 					} else {
 						$("#email_msg").html("올바른 이메일입니다. 인증을 완료해주세요.").css("color", "green");
+						inval_Arr[5] = true;
 					}
+				});
+				
+				//Email 인증번호 발송 
+				var code = ""; 
+				$("#mail_check_btn").click(function() {
+					var email = $('input[name=userEmail]').val();
+					var emailCheck = $('input[name=userEmailCheck]');
+
+					alert("인증번호가 발송되었습니다. 작성하신 이메일을 통해 확인 후 입력해주세요.");
+					
+					$.ajax({
+				        
+				        type : "GET",
+				        url : "/member/memberMailCheck.do?email=" + email,
+				        success : function(data){
+				        	emailCheck.attr("disabled", false);
+				        	code = data;
+				        },
+						error : function() {
+							console.log("ajax 통신 실패")
+						}
+				                
+				    });
+					
+				});
+				
+				//인증번호 비교
+				$('input[name=userEmailCheck]').blur(function() {
+					var inputCode = $('input[name=userEmailCheck]').val();
+				    var checkResult = $("#email_check_msg");  
+				    
+				    if(inputCode == code){
+				    	checkResult.html("인증번호가 일치합니다.").css("color","green");
+				    	inval_Arr[6] = true;
+				    } else {
+				        checkResult.html("인증번호를 확인해주세요.").css("color","red");
+				        inval_Arr[6] = false;
+				    }  
 				});
 				
 				//Phone
 				$('input[name=userPhone]').blur(function() {
-					var phoneCheck = RegExp(/^[a-zA-Z0-9]{8,12}$/); //임시 유효성 검사
+					//01*-3~4자-4자 하이픈(-)입력무시 
+					var phoneCheck = RegExp(/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/);
 					
 					if ($('input[name=userPhone]').val()==null || $('input[name=userPhone]').val()=='') {
 						$("#phone_msg").html("전화번호를 입력해주세요.").css("color","red");
 						return;
+						inval_Arr[7] = false;
 					} else if (!phoneCheck.test($('input[name=userPhone]').val())) {
 						$("#phone_msg").html("올바른 전화번호 형식을 입력해주세요.").css("color","red");
 						return;
+						inval_Arr[7] = false;
 					} else {
 						$("#phone_msg").html("전화번호는 상품 배송 시 이용됩니다.").css("color", "black");
+						inval_Arr[7] = true;
 					}
 				});
 				
@@ -339,8 +420,11 @@
 				$('input[name=userAddressMain]').blur(function() {
 					if ($('input[name=userAddressMain]').val()==null || $('input[name=userAddressMain]').val()=='') {
 						$("#address_main_msg").html("주소를 입력해주세요.").css("color","red");
+						return;
+						inval_Arr[8] = false;
 					} else {
 						$("#address_main_msg").html("주소는 상품 배송 시 이용됩니다.").css("color", "black");
+						inval_Arr[8] = true;
 					}
 				});
 				
@@ -348,12 +432,34 @@
 				$('input[name=userAddressSub]').blur(function() {
 					if ($('input[name=userAddressSub]').val()==null || $('input[name=userAddressSub]').val()=='') {
 						$("#address_sub_msg").html("상세주소를 입력해주세요.").css("color","red");
+						return;
+						inval_Arr[9] = false;
 					} else {
 						$("#address_sub_msg").html("주소는 상품 배송 시 이용됩니다.").css("color", "black");
+						inval_Arr[9] = true;
 					}
 				});
+				
+				
+				//function validationCheck() {}
+				//submit 버튼 클릭시 입력값(10가지)의 유효성 검사
+				validationCheck = function() {
+					var validAll = true;
+					for(var i = 0; i < inval_Arr.length; i++){
+						
+						if(inval_Arr[i] == false){
+							validAll = false;
+						}
+					}
+					if(!validAll){
+						alert('회원가입에 실패했습니다. 입력하신 정보를 다시한번 확인해주세요.');
+						return false;
+					}					
+				}
+				
 			</script>
 			
+			<!-- 다음 주소 API -->
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 			<script>
 			    function sample4_execDaumPostcode() {
