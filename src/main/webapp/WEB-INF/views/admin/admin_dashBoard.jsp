@@ -1,166 +1,112 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script src="https://code.jquery.com/jquery-3.6.0.js"
-	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-	crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap"
+	rel="stylesheet">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/admin/css/common.css">
-<style>
-a{
-	text-decoration: none;
-	color:inherit;
-}
-
-.countWrap{
-	width:25%;
-	height:50%;
-	float:left;
-	padding:5px;
-}
-.boardWrap{
-	width:33.33%;
-	height:50%;
-	float:left;
-	padding:10px;
-	padding-top:15px;
-}
-.count-graphWrap{
-	width:100%;
-	height:90%;
-	border:1px solid #48bb78;
-	border-radius: 3px;
-}
-.count-textWrap{
-	width:100%;
-	height:10%;
-}
-.boardHeader{
-	width:100%;
-	height:8%;
-	font-weight: bolder;
-	font-size: 2.2vmin;
-	border-bottom: 2px solid black;
-}
-.boardBody{
-	width:100%;
-	height:92%;
-}
-.boardSpan{
-	display:inline-block;
-}
-.boardTitle{
-	float:left;
-}
-.boardPlus{
-	float:right;
-	font-size:3vmin;
-	margin-top:-0.7vmin;
-	margin-right:1vmin;
-}
-table{
-	table-layout: fixed;
-	white-space: nowrap;
-}
-.boardTBL{
-	width:100%;
-	height:100%;
-	font-size: 2vmin;
-	border-spacing: 0px;
-	margin-top: 0.5vmin;
-	text-align: center;
-	border:none;
-}
-.boardTBL th,td{
-	border:1px solid rgba(0,0,0,0.2);
-	border-left: none;
-	border-right: none;
-}
-.boardTBL tr{
-	height:16.6%;
-}
-.boardTBL th{
-	border-top:none;
-}
-.boardTBL td{
-	border-top:none;
-	overflow:hidden;
-	text-overflow: ellipsis;
-}
-.boardTBL tr:not(:first-child):hover {
-	background-color: rgba(0,0,0,0.03);
-	cursor: pointer;
-}
-</style>
+<link rel="stylesheet" href="/resources/admin/css/main.css">
 </head>
 <body>
-<%--header import --%>
-	<c:import url="/resources/admin/common/header.jsp"/>
+	<%--header import --%>
+	<c:import url="/resources/admin/common/header.jsp" />
 	<div id="bodyWrap">
-<%--sideBar import --%>
-		<c:import url="/resources/admin/common/sideBar.jsp"></c:import>
-<%-- mainContents --%>
+		<%--sideBar import --%>
+		<c:import url="/resources/admin/common/sideBar.jsp" />
+		<%-- mainContents --%>
 		<div id="mainContents">
-<%-- 카운트 요약 부분 --%>
+			<%-- 카운트 요약 부분 --%>
 			<div class="countWrap">
 				<div class="count-graphWrap">
-				<canvas id="enterHome"></canvas>
+					<canvas id="enterHome"></canvas>
 				</div>
-				<div class="count-textWrap"></div>
 			</div>
 			<div class="countWrap">
 				<div class="count-graphWrap">
-				<canvas id="joinCount"></canvas>
+					<canvas id="joinCount"></canvas>
 				</div>
-				<div class="count-textWrap"></div>
 			</div>
 			<div class="countWrap">
 				<div class="count-graphWrap"></div>
-				<div class="count-textWrap"></div>
 			</div>
 			<div class="countWrap">
 				<div class="count-graphWrap"></div>
-				<div class="count-textWrap"></div>
 			</div>
-<%-- 보드 요약 부분 --%>
+			<%-- 보드 요약 부분 --%>
 			<div class="boardWrap">
-				<div class="boardHeader">
-					<span class="boardTitle boardSpan">유저 문의사항</span><span class="boardPlus boardSpan"><a href="">+</a></span>
-				</div>
-				<div class="boardBody">
-					<table class="boardTBL" style="word-break:break-all;">
-						<tr>
-							<th style="width:15%;">번호</th>
-							<th>문의 제목</th>
-							<th style="width:20%;">작성자</th>
-						</tr>
-						<c:forEach items="${requestScope.qUser }" var="q">
-							<tr class="qUserList">
-								<td>${q.questionUserNo }</td>
-								<td>${q.questionUserTitle }</td>
-								<td>${q.userNick }</td>
+				<div class="borderDesignWrap">
+					<div class="boardHeader">
+						<span class="boardTitle boardSpan">유저 문의사항</span> 
+						<span class="boardPlus boardSpan"><a href="">+ 더보기</a></span>
+					</div>
+					<div class="boardBody">
+						<table class="boardTBL" style="word-break: break-all;">
+							<tr>
+								<th style="width: 15%;">번호</th>
+								<th>문의 제목</th>
+								<th style="width: 20%;">작성자</th>
 							</tr>
-						</c:forEach>
-					</table>
+							<c:forEach items="${requestScope.qUser }" var="q">
+								<tr class="qUserList">
+									<td>${q.questionUserNo }</td>
+									<td>${q.questionUserTitle }</td>
+									<td>${q.userNick }</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
 				</div>
 			</div>
 			<div class="boardWrap">
-				<div class="boardHeader">
-					<span class="boardTitle boardSpan">농가 문의사항</span><span class="boardPlus boardSpan"><a href="">+</a></span>
+				<div class="borderDesignWrap">
+					<div class="boardHeader">
+						<span class="boardTitle boardSpan">농가 문의사항</span> 
+						<span class="boardPlus boardSpan"><a href="">+ 더보기</a></span>
+					</div>
+					<div class="boardBody">
+						<table class="boardTBL" style="word-break: break-all;">
+							<tr>
+								<th style="width: 15%;">번호</th>
+								<th>문의 제목</th>
+								<th style="width: 20%;">작성자</th>
+							</tr>
+							<c:forEach items="${requestScope.qFarm }" var="q">
+								<tr class="qUserList">
+									<td>${q.questionFarmNo }</td>
+									<td>${q.questionFarmTitle }</td>
+									<td>${q.farmName }</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
 				</div>
 			</div>
 			<div class="boardWrap">
-				<div class="boardHeader">
-					<span class="boardTitle boardSpan">유저 환불목록</span><span class="boardPlus boardSpan"><a href="">+</a></span>
+				<div class="borderDesignWrap">
+					<div class="boardHeader">
+						<span class="boardTitle boardSpan">유저 환불목록</span> 
+						<span class="boardPlus boardSpan"><a href="">+ 더보기</a></span>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<%-- jQuery CDN --%>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+		crossorigin="anonymous"></script>
+	<%-- chart.js CDN --%>
+	<script
+		src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"
+		integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s="
+		crossorigin="anonymous"></script>
 	<script>
 		$(function() {
 			$('#mainUl>li').eq(0).css('background-color', '#34734e');
@@ -242,9 +188,13 @@ table{
 				}
 			});
 		});
+<%-- tr 클릭시 해당 글로 이동하는 로직 --%>
 		$('.qUserList').click(function(){
 			var qBoardNo = $(this).children().eq(0).html();
 		});
+<%-- 패딩값 재설정 --%>
+		$('.boardWrap').eq(0).css("padding-left","5px");
+		$('.boardWrap').eq(2).css("padding-right","5px");
 	</script>
 </body>
 </html>

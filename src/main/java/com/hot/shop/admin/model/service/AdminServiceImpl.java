@@ -10,6 +10,7 @@ import com.hot.shop.admin.model.dao.AdminDAO;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
 
 @Service
@@ -91,5 +92,22 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public ArrayList<QuestionUser> questionUser() {
 		return aDAO.questionUser();
+	}
+
+	@Override
+	public ArrayList<QuestionFarm> questionFarm() {
+		return aDAO.questionFarm();
+	}
+
+	@Override
+	public HashMap<String, Object> farmQNAList(int currentPage) {
+		int recordCountPerPage=10;
+		ArrayList<QuestionFarm> list = aDAO.questiopFarmList(recordCountPerPage,currentPage); 
+		int naviCountPerPage=10;
+		String pageNavi = aDAO.getFarmQNAPageNavi(recordCountPerPage, currentPage, naviCountPerPage);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("pageNavi", pageNavi);
+		return map;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
 
 public interface AdminService {
@@ -34,4 +35,8 @@ public interface AdminService {
 	HashMap<String, Integer> farmOutput();
 
 	ArrayList<QuestionUser> questionUser();
+
+	ArrayList<QuestionFarm> questionFarm();
+
+	HashMap<String, Object> farmQNAList(int currentPage);
 }

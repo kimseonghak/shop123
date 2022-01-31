@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.hot.shop.admin.model.service.AdminService;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
 
 @Controller
@@ -35,10 +36,12 @@ public class AdminController {
 		HashMap<String, Integer> joinMap = aService.joinOutput();
 		HashMap<String, Integer> farmMap = aService.farmOutput();
 		ArrayList<QuestionUser> qUser = aService.questionUser();
+		ArrayList<QuestionFarm> qFarm = aService.questionFarm();
 		mav.addObject("dayMap",map);
 		mav.addObject("joinMap",joinMap);
 		mav.addObject("farmMap",farmMap);
 		mav.addObject("qUser",qUser);
+		mav.addObject("qFarm",qFarm);
 		mav.setViewName("admin/admin_dashBoard");
 		return mav;
 	}
@@ -72,14 +75,8 @@ public class AdminController {
 	}
 	//낙찰 정보 가져오기(BID)
 	@RequestMapping(value = "/admin/adminAuctionInfoPage.do", method = RequestMethod.GET)
-	public ModelAndView adminAuctionInfoPage(HttpServletRequest request,ModelAndView mav,@RequestParam int formNo) {
-		int currentPage;
-		if(request.getParameter("currentPage")==null) {
-			currentPage=1;
-		}else {
-			currentPage=Integer.parseInt(request.getParameter("currentPage"));
-		}
-		
+	public ModelAndView adminAuctionInfoPage(HttpServletRequest request,ModelAndView mav,@RequestParam int formNo,
+			@RequestParam(required = false,defaultValue = "1") int currentPage) {
 		HashMap<String,Object> map = aService.BIDInfo(currentPage,formNo);
 		
 		mav.addObject("currentPage",currentPage);
@@ -133,10 +130,20 @@ public class AdminController {
 		
 		return mav;
 	}
+	
+	// 방문자 카운트 더하는 로직
 	@RequestMapping(value = "/admin/countInput.do", method = RequestMethod.GET)
 	@ResponseBody
 	public String countInput() {
 		aService.countInput();
 		return "1";
+	}
+	
+	@RequestMapping(value = "/admin/adminFarmQNAPage.do", method = RequestMethod.GET)
+	public ModelAndView farmQNAPage(ModelAndView mav,HttpServletRequest request,@RequestParam(required = false, defaultValue = "1") int currentPage) {
+		HashMap<String,Object> map = aService.farmQNAList(currentPage);
+		mav.addObject("map",map);
+		mav.setViewName("admin/admin_farmQNA");
+		return mav;
 	}
 }
