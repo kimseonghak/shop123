@@ -48,14 +48,25 @@
                 <span id="contnentTitle">낙찰 상품</span>
             </div>
             <div id="farmContentContent">
-
                 <div id="serchArea">
                     <form action="/farm/farmProductListPage.do" method="get">
                          <select name="type" style="width:90px;height:30px" id="serchSelect">
-                            <option value="productName">상품명</option> 
-                            <option value="auctionNo">경매번호</option>
+	                          <c:choose>
+	                          		<c:when test="${type eq 'productName'}">
+	                            		<option value="productName" selected='selected'>상품명</option> 
+	                            		<option value="auctionNo">경매번호</option>
+	                            	</c:when>
+	                            		<c:when test="${type eq 'auctionNo'}">
+	                            		<option value="productName">상품명</option> 
+	                            		<option value="auctionNo" selected='selected'>경매번호</option>
+	                            	</c:when>	
+	                            	<c:otherwise>
+	                            		<option value="productName">상품명</option> 
+	                            		<option value="auctionNo">경매번호</option>
+	                            	</c:otherwise>	
+	                         </c:choose>	
                           </select>
-                    <input type="text" name="keyWord" size="30" id=serchKeyword>
+                    <input type="text" name="keyWord" size="30" id=serchKeyword value="${requestScope.keyWord}">
                     <button type="submit" class="btn btn-outline-success btn-sm">검색</button>
                 </form>
                     
@@ -101,10 +112,7 @@
 	            	</c:choose>
             	</div>
             </div>
-        
         </div>
-
-
         <div id="farmContent3"></div>
     </div>
 

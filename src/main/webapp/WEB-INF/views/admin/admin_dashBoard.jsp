@@ -50,7 +50,7 @@
 						<table class="boardTBL" style="word-break: break-all;">
 							<tr>
 								<th style="width: 15%;">번호</th>
-								<th>문의 제목</th>
+								<th style="width: 65%;">문의 제목</th>
 								<th style="width: 20%;">작성자</th>
 							</tr>
 							<c:forEach items="${requestScope.qUser }" var="q">
@@ -74,14 +74,14 @@
 						<table class="boardTBL" style="word-break: break-all;">
 							<tr>
 								<th style="width: 15%;">번호</th>
-								<th>문의 제목</th>
+								<th style="width: 65%;">문의 제목</th>
 								<th style="width: 20%;">작성자</th>
 							</tr>
 							<c:forEach items="${requestScope.qFarm }" var="q">
 								<tr class="qUserList">
-									<td>${q.questionFarmNo }</td>
-									<td>${q.questionFarmTitle }</td>
-									<td>${q.farmName }</td>
+									<td style="width:15%;">${q.questionFarmNo }</td>
+									<td style="width:65%;">${q.questionFarmTitle }</td>
+									<td style="width:20%;">${q.farmName }</td>
 								</tr>
 							</c:forEach>
 						</table>

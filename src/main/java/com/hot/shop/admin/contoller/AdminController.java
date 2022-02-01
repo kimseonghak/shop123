@@ -29,7 +29,7 @@ public class AdminController {
 	@Autowired
 	private AdminService aService;
 	
-	//최초 대시보드 접속
+	// 최초 대시보드 접속
 	@RequestMapping(value="/admin/adminDashboardPage.do",method = RequestMethod.GET)
 	public ModelAndView adminDashboardPage(ModelAndView mav) {
 		HashMap<String, Integer> map = aService.countOutput();
@@ -45,7 +45,7 @@ public class AdminController {
 		mav.setViewName("admin/admin_dashBoard");
 		return mav;
 	}
-	//옥션 페이지
+	// 옥션 페이지
 	@RequestMapping(value="/admin/adminAuctionPage.do",method = RequestMethod.GET)
 	public ModelAndView adminAuctionPage(ModelAndView mav) {
 		
@@ -56,7 +56,7 @@ public class AdminController {
 		mav.setViewName("admin/admin_auction");
 		return mav;
 	}
-	//경매 정보 입력
+	// 경매 정보 입력
 	@RequestMapping(value = "/admin/auctionInput.do",method = RequestMethod.POST)
 	public ModelAndView auctionInput(Auction au,ModelAndView mav) {
 		au.setFarmNo(1);
@@ -73,7 +73,7 @@ public class AdminController {
 		
 		return mav;
 	}
-	//낙찰 정보 가져오기(BID)
+	// 낙찰 정보 가져오기(BID)
 	@RequestMapping(value = "/admin/adminAuctionInfoPage.do", method = RequestMethod.GET)
 	public ModelAndView adminAuctionInfoPage(HttpServletRequest request,ModelAndView mav,@RequestParam int formNo,
 			@RequestParam(required = false,defaultValue = "1") int currentPage) {
@@ -86,10 +86,10 @@ public class AdminController {
 		
 		return mav;
 	}
-	//관리자 페이지 판매폼에 낙찰된 경매 정보 입력받는 로직(BID 경매번호 토대로 경매 정보 가져오기)
+	// 관리자 페이지 판매폼에 낙찰된 경매 정보 입력받는 로직(BID 경매번호 토대로 경매 정보 가져오기)
 	@RequestMapping(value = "/admin/outputAuctionInfo.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Auction outputAucionInfo(@RequestParam int auctionNo,HttpServletResponse response) throws IOException{
+	public Auction outputAucionInfo(@RequestParam int auctionNo) throws IOException{
 		Auction au = aService.outputAucionInfo(auctionNo);
 		/*
 		Gson gson = new Gson();
@@ -99,7 +99,7 @@ public class AdminController {
 		*/
 		return au;
 	}
-	//판매DB 입력 로직
+	// 판매DB 입력 로직
 	@RequestMapping(value = "/admin/sellInput.do", method = RequestMethod.POST)
 	public ModelAndView sellInput(SellForm sf,ModelAndView mav) {
 		int result = aService.sellInput(sf);
@@ -142,7 +142,8 @@ public class AdminController {
 	
 	// 최초 user QNA 페이지 
 	@RequestMapping(value = "/admin/adminFarmQNAPage.do", method = RequestMethod.GET)
-	public ModelAndView farmQNAPage(ModelAndView mav,HttpServletRequest request,@RequestParam(required = false, defaultValue = "1") int currentPage) {
+	public ModelAndView farmQNAPage(ModelAndView mav,HttpServletRequest request,
+			@RequestParam(required = false, defaultValue = "1") int currentPage) {
 		HashMap<String,Object> map = aService.farmQNAList(currentPage);
 		mav.addObject("map",map);
 		mav.addObject("currentPage",currentPage);

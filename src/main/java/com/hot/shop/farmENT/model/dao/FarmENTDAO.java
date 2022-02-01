@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
 
 @Repository
@@ -103,6 +104,96 @@ public class FarmENTDAO {
 	private int totalCount(HashMap<String, Object>searchMap) {
 		
 		return sql.selectOne("farmENT.selectProductTotalCount",searchMap);
+		
+	}
+
+	//주문 목록 리스트 
+	public ArrayList<FarmENTOrder> selectFarmENTOrderList(int recordCountPerPage, int currentPage, HashMap<String, Object> searchMap) {
+		
+		int offset = ((currentPage-1)*recordCountPerPage);
+		int limit = recordCountPerPage;
+
+		
+		RowBounds rb = new RowBounds(offset,limit);
+		
+		return	new ArrayList<FarmENTOrder>(sql.selectList("farmENT.selectOrderList",searchMap,rb));
+		
+		
+		
+	}
+
+	public String getOrderListPageNavi(int recordCountPerPage, int currentPage, int naviCountPerPage, HashMap<String, Object> searchMap) {
+		
+		//해당 농가 주문의 총 게시물 개수
+		int recordTotalCount = orderListToTalCount(searchMap);
+		
+		//pageNavi 계산
+		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)naviCountPerPage);
+		
+		int startNavi = ((currentPage-1)/naviCountPerPage) * naviCountPerPage+1;
+		int endNavi = startNavi + naviCountPerPage-1;
+		
+		//endNavi 예외처리
+		if(endNavi>pageTotalCount)
+		{
+			endNavi=pageTotalCount;
+		}
+		
+		
+		StringBuilder sb = new StringBuilder();
+			
+			sb.append("<nav aria-label='Page navigation example'>");
+			sb.append("<ul class='pagination'>");
+
+		
+		if(startNavi!=1)
+			
+		{	
+			sb.append("<li class='page-item'>");
+			sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmOrdertListPage.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
+			sb.append("<span aria-hidden='true'>&laquo;</span>");
+			sb.append("</a>");
+			sb.append("</li>");
+		}
+
+		
+		for(int i=startNavi;i<=endNavi;i++)
+		{
+			
+			if(i==currentPage)
+			{
+				sb.append("<li class='page-item'>");
+				sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmOrdertListPage.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");
+				sb.append("</li>");
+				
+			}else
+			{	sb.append("<li class='page-item'>");
+				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmOrdertListPage.do?currentPage="+ i +"'>"+ i +"</a> ");
+				sb.append("</li>");
+			}
+		}
+		
+		if(endNavi != pageTotalCount)	
+		{
+			sb.append("<li class='page-item'>");
+			sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmOrdertListPage.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
+			sb.append("<span aria-hidden='true'>&raquo;</span>");
+			sb.append("</a>");
+			sb.append("</li>");
+			sb.append(" </ul>");
+			sb.append("</nav>");
+		}
+		
+			return sb.toString();
+		
+		
+		
+		
+	}
+
+	private int orderListToTalCount(HashMap<String, Object> searchMap) {
+		
+			return	sql.selectOne("farmENT.selectOrderListTotalCount",searchMap);
 		
 	}
 	
