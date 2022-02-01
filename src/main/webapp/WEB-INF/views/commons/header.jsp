@@ -230,7 +230,7 @@ input {
 				</li>
 				<li><a href="">경매</a>
 					<ul class="lnb-list">
-						<li><a href="">경매</a></li>
+						<li><a href="/auction/auctionPage.do">경매</a></li>
 						<li><a href="">구매</a></li>
 					</ul>
 				</li>

@@ -1,6 +1,7 @@
 package com.hot.shop.auction.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,15 +17,17 @@ public class AuctionController {
 	
 	@Autowired
 	private AuctionService aucService;
-
+	
+	
+	//경매 중인 경매폼 데이터 가져오기
 	@RequestMapping(value="/auction/auctionPage.do", method = RequestMethod.GET)
 	public ModelAndView auctionPage(ModelAndView mav){
 		
-		ArrayList<Auction> list = aucService.selectAuction();
+		HashMap<String, Object> map = aucService.selectAuction();
+		
+		System.out.println(map);
 	
-		
-		
-		mav.addObject("list",list);
+		mav.addObject("map",map);
 		
 		mav.setViewName("auction/auctionPage");
 		
