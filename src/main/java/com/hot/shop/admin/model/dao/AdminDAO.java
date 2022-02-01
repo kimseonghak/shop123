@@ -89,7 +89,12 @@ public class AdminDAO {
 				sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+i+"&formNo="+formNo+"' class='otherNavi'>"+i+"</a>");
 			}
 		}
-		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+(currentPage+10)+"&formNo="+formNo+"' class='naviArrow' id='next'>&gt;</a>");
+		if((currentPage+10)<pageTotalCount) {
+			sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+pageTotalCount+"&formNo="+formNo+"' class='naviArrow' id='next'>&gt;</a>");
+		}else {
+			sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+(currentPage+10)+"&formNo="+formNo+"' class='naviArrow' id='next'>&gt;</a>");
+		}
+		
 		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+pageTotalCount+"&formNo="+formNo+"' class='naviArrow'>&gt;&gt;</a>");
 		return sb.toString();
 	}
@@ -193,7 +198,11 @@ public class AdminDAO {
 				sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+i+"' class='otherNavi'>"+i+"</a>");
 			}
 		}
-		sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+(currentPage+10)+"' class='naviArrow' id='next'>&gt;</a>");
+		if((currentPage+10)>pageTotalCount) {
+			sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+pageTotalCount+"' class='naviArrow' id='next'>&gt;</a>");
+		}else {
+			sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+(currentPage+10)+"' class='naviArrow' id='next'>&gt;</a>");
+		}
 		sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+pageTotalCount+"' class='naviArrow'>&gt;&gt;</a>");
 		
 		return sb.toString();

@@ -62,6 +62,7 @@ a {
 }
 table {
 	white-space: nowrap;
+	table-layout: fixed;
 }
 
 .boardTBL {
@@ -79,16 +80,17 @@ table {
 	border-right: none;
 }
 
-.boardTBL tr {
+.boardTBL tr{
 	height: 16.6%;
 }
 
-.boardTBL th {
+.boardTBL th{
 	border-top: none;
 	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
-.boardTBL td {
+.boardTBL td{
 	border-top: none;
 	overflow: hidden;
 	text-overflow: ellipsis;
