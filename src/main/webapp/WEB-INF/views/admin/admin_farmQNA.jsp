@@ -41,7 +41,6 @@
 		text-decoration: none;
 		display : inline-block;
 		color: black;
-		border : 1px solid black;
 		margin : 2px;
 		width : 3.5vmin;
 		height: 3.5vmin;
@@ -53,8 +52,8 @@
 		text-decoration: none;
 		display:inline-block;
 		color: white;
-		background-color:black;
-		border : 1px solid black;
+		background-color:#48bb78;
+		border : 1px solid #48bb78;
 		width : 3.5vmin;
 		height: 3.5vmin;
 		margin : 1px;
@@ -64,8 +63,8 @@
 	.otherNavi{
 		text-decoration: none;
 		display:inline-block;
-		color: black;
-		border : 1px solid black;
+		color: #48bb78;
+		border : 1px solid #48bb78;
 		width : 3.5vmin;
 		height: 3.5vmin;
 		margin : 1px;
@@ -74,7 +73,7 @@
 	}
 	.otherNavi:hover{
 		color: white;
-		background-color:black;
+		background-color:#48bb78;
 		opacity: 0.3;
 	}
 	table td,th{
@@ -120,6 +119,8 @@
 		width:100%;
 		height:4vh;
 		text-align: right;
+		margin-bottom: 3vh;
+		margin-top: -2vh;
 	}
 	#searchSelect{
 		height:100%;
@@ -158,6 +159,18 @@
 			<div id="titleSpace">
 				<span id="title">Farm QNA</span>
 			</div>
+			<div id="searchWrap">
+					<form action="/admin/adminFarmQNASearch.do" method="get" style="widht:100%; height:100%;">
+						<select name="type" id="searchSelect">
+							<option value="title">제목</option>
+							<option value="name">농가 이름</option>
+							<option value="content">내용</option>
+							<option value="all">제목+내용</option>
+						</select>
+						<input type="text" name="keyword" id="searchText" />
+						<button id="searchSubmit">검색</button>
+					</form>
+			</div>
 				<table>
 					<tr id="thTr">
 						<th width="10%">문의 번호</th>
@@ -182,18 +195,6 @@
 						<td colspan="6" align="center">${map.pageNavi }</td>
 					</tr>
 				</table>
-				<div id="searchWrap">
-					<form action="/admin/adminFarmQNASearch.do" method="get" style="widht:100%; height:100%;">
-						<select name="type" id="searchSelect">
-							<option value="title">제목</option>
-							<option value="name">농가 이름</option>
-							<option value="content">내용</option>
-							<option value="all">제목+내용</option>
-						</select>
-						<input type="text" name="keword" id="searchText" />
-						<button id="searchSubmit">검색</button>
-					</form>
-				</div>
 			</div>
 		</div>
 	</div>

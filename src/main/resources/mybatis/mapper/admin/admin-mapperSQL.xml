@@ -176,4 +176,50 @@
 	<select id="farmQNATotalCount" resultType="integer">
 		select count(*) from question_farm
 	</select>
+	<select id="questionFarmSearchList" parameterType="hashmap" resultType="qFarm">
+		select
+			question_Farm_No as questionFarmNo,
+			question_Farm_Title as questionFarmTitle,
+			question_Farm_Content as questionFarmContent,
+			question_Farm_Regdate as questionFarmRegdate,
+			farm_No as farmNo,
+			question_Farm_End_YN as questionFarmEndYN,
+			farm_Name as farmName,
+			question_Farm_Answer_YN as questionFarmAnswerYN
+		from (select row_number() over (order by question_farm_no desc) as num, question_farm.*,farm_name from question_farm left join farm on(question_farm.farm_no = farm.farm_no) 
+		where question_farm_end_yn='N' and 
+		<choose>
+			<when test="type.equals('title')">
+				question_farm_title like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('name')">
+				question_farm_name like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('content')">
+				question_farm_content like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('all')">
+				question_farm_title like '%'||#{keyword}||'%' or question_farm_content like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+		)
+	</select>
+	<select id="farmQNASearchTotalCount" parameterType="hashmap" resultType="integer">
+		select count(*) from question_farm
+		where 
+		<choose>
+			<when test="type.equals('title')">
+				question_farm_title like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('name')">
+				question_farm_name like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('content')">
+				question_farm_content like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('all')">
+				question_farm_title like '%'||#{keyword}||'%' or question_farm_content like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+	</select>
 </mapper>

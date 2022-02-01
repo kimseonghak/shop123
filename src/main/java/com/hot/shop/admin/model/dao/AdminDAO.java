@@ -3,6 +3,7 @@ package com.hot.shop.admin.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -210,5 +211,51 @@ public class AdminDAO {
 
 	private int farmQNATotalCount() {
 		return sql.selectOne("admin.farmQNATotalCount");
+	}
+
+	public ArrayList<QuestionFarm> questionFarmSearchList(int recordCountPerPage, int currentPage,
+			HashMap<String, Object> map) {
+		int offset = currentPage*recordCountPerPage-(recordCountPerPage-1);
+		int limit = recordCountPerPage;
+		
+		RowBounds rb = new RowBounds(offset,limit);
+		
+		return new ArrayList<QuestionFarm>(sql.selectList("admin.questionFarmSearchList",map,rb));
+	}
+
+	public String getFarmQNASearchPageNavi(int recordCountPerPage, int currentPage, HashMap<String, Object> map,
+			int naviCountPerPage) {
+		int recordTotalCount = farmQNASeqarchTotalCount(map); 
+		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
+		
+		int startNavi = ((currentPage-1)/naviCountPerPage) *naviCountPerPage+1;
+		int endNavi = startNavi+naviCountPerPage-1;
+		
+		if(endNavi>pageTotalCount) {
+			endNavi=pageTotalCount;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
+		for(int i= startNavi; i<=endNavi; i++) {
+			if(i==currentPage) {
+				sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+i+"' id='currentNavi'>"+i+"</a>");
+			}else {
+				sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+i+"' class='otherNavi'>"+i+"</a>");
+			}
+		}
+		if((currentPage+10)>pageTotalCount) {
+			sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+pageTotalCount+"' class='naviArrow' id='next'>&gt;</a>");
+		}else {
+			sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+(currentPage+10)+"' class='naviArrow' id='next'>&gt;</a>");
+		}
+		sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+pageTotalCount+"' class='naviArrow'>&gt;&gt;</a>");
+		
+		return sb.toString();
+	}
+
+	private int farmQNASeqarchTotalCount(HashMap<String, Object> map) {
+		return sql.selectOne("admin.farmQNASearchTotalCount",map);
 	}
 }

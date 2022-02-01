@@ -39,4 +39,6 @@ public interface AdminService {
 	ArrayList<QuestionFarm> questionFarm();
 
 	HashMap<String, Object> farmQNAList(int currentPage);
+
+	void farmQNASearchList(HashMap<String, Object> map, int currentPage);
 }

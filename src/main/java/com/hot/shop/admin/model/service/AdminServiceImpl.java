@@ -110,4 +110,12 @@ public class AdminServiceImpl implements AdminService{
 		map.put("pageNavi", pageNavi);
 		return map;
 	}
+
+	@Override
+	public void farmQNASearchList(HashMap<String, Object> map, int currentPage) {
+		int recordCountPerPage=10;
+		ArrayList<QuestionFarm> list = aDAO.questionFarmSearchList(recordCountPerPage,currentPage,map);
+		int naviCountPerPage=10;
+		String pageNaiv = aDAO.getFarmQNASearchPageNavi(recordCountPerPage,currentPage,map,naviCountPerPage);
+	}
 }
