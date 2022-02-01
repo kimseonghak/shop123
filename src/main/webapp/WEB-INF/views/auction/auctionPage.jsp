@@ -10,58 +10,10 @@
 <head>
 <meta charset="UTF-8">
 <title>경매</title>
+ <link rel="preconnect"href="https://fonts.googleapis.com">
+  <link rel="preconnect"href="https://fonts.gstatic.com"crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap"rel="stylesheet">
 <style>
-<
-link
- 
-rel
-="preconnect"href="https
-:
-//fonts
-.googleapis
-.com
-"
->
-<
-link
- 
-rel
-="preconnect"href="https
-:
-//fonts
-.gstatic
-.com
-"crossorigin
->
-<
-link
- 
-href
-="https
-:
-//fonts
-.googleapis
-.com
-/css2?family=Atkinson
-+
-Hyperlegible
-:ital
-@1&family=Lobster&family=Nanum
-+
-Gothic
-&family=Nanum
-+
-Myeongjo
-:wght
-@700&family=Noto
-+
-Sans
-+
-KR
-:wght
-@700&family=Pacifico&display=swap"rel="stylesheet"
->
- @charset "UTF-8";
 
 #wrap {
 	width: 100%;
@@ -121,7 +73,7 @@ KR
 	height: 365px;
 	display: flex;
 	flex-direction: row;
-	justify-content :center;
+	justify-content: center;
 	gap: 120px;
 }
 
@@ -208,10 +160,12 @@ KR
 .center {
 	text-align: center;
 }
-.length{
-	width : 150px;
+
+.length {
+	width: 150px;
 }
-.text{
+
+.text {
 	font-weight: bold;
 }
 
@@ -270,20 +224,20 @@ KR
 
 				<div class="test">
 					<div class="auction-box">
-					
-					
-					<jsp:useBean id="now" class="java.util.Date" />
-
-					<fmt:formatDate value="${now}" pattern="yyyy/MM/dd" var="today" />  
-						
-					
 
 
-				
+						<jsp:useBean id="now" class="java.util.Date" />
+
+						<fmt:formatDate value="${now}" pattern="yyyy/MM/dd" var="today" />
+
+
+
+
+
 						<c:choose>
 							<c:when test="${!requestScope.list.isEmpty() }">
 								<c:forEach items="${requestScope.list }" var="auc" varStatus="i">
-									
+
 									<div>
 										<div class="high">
 											<!-- 경매 폼 로직-->
@@ -301,7 +255,7 @@ KR
 													<tr>
 														<td colspan="2" id="line">ss</td>
 													</tr>
-								
+
 													<tr>
 														<td class="center">시작일 :</td>
 														<td class="data length">${auc.auctionStart }</td>
@@ -310,10 +264,11 @@ KR
 														<td class="center">종료일 :</td>
 														<td class="data1 length">${auc.auctionEnd }</td>
 													</tr>
-													
+
 													<tr>
 														<td class="center">남은 시간 :</td>
-														<td class="data1 length text" style="color: #FE0011"><span class="count"></span> </td>
+														<td class="data1 length text" style="color: #FE0011"><span
+															class="count"></span></td>
 													</tr>
 													<tr>
 														<td class="center">현재 수량 :</td>
@@ -331,7 +286,7 @@ KR
 											</form>
 										</div>
 									</div>
-								
+
 								</c:forEach>
 							</c:when>
 						</c:choose>
@@ -343,101 +298,99 @@ KR
 		<div class="box1"></div>
 		<c:import url="/WEB-INF/views/commons/footer.jsp" />
 	</div>
-	
 
-<script>
-	function counter(){
-		
-		var startDay = $('.data').html();
-		var year = ""+startDay.substring(0,4);
-		var mon = ""+startDay.substring(5,7)-1;
-		var day = ""+startDay.substring(8,10);
-		
-		
-		var endDay = $('.data1').html();
-		var endYear = ""+endDay.substring(0,4);
-		var endMon = ""+endDay.substring(5,7)-1;
-		var endDay = ""+endDay.substring(8,10);
-		var dDay = new Date(endYear,endMon,endDay).getTime();
-		
-		var today_day = new Date().getDate();
-		var today_month = new Date().getMonth();
-		var today_year = new Date().getFullYear();
-	
-		
-			function timer(){
-		
+
+	<script>
+		function counter() {
+
+			var startDay = $('.data').html();
+			var year = "" + startDay.substring(0, 4);
+			var mon = "" + startDay.substring(5, 7) - 1;
+			var day = "" + startDay.substring(8, 10);
+
+			var endDay = $('.data1').html();
+			var endYear = "" + endDay.substring(0, 4);
+			var endMon = "" + endDay.substring(5, 7) - 1;
+			var endDay = "" + endDay.substring(8, 10);
+			var dDay = new Date(endYear, endMon, endDay).getTime();
+
+			var today_day = new Date().getDate();
+			var today_month = new Date().getMonth();
+			var today_year = new Date().getFullYear();
+
+			function timer() {
+
 				var now = new Date(); //현재 날짜 가져오기
 				var distance = dDay - now;
-				
+
 				var d = Math.floor(distance / (1000 * 60 * 60 * 24));
-				var h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var h = Math.floor((distance % (1000 * 60 * 60 * 24))
+						/ (1000 * 60 * 60));
 				var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 				var s = Math.floor((distance % (1000 * 60)) / 1000);
 				var view = '';
-				if(s < 10){
-					s = '0'+s;
+				if (s < 10) {
+					s = '0' + s;
 				}
-				if (distance<0) {
+				if (distance < 0) {
 					$('.count').html('마감되었습니다.');
 				} else {
-					if (d>0) {
-						view = view+d+'일 ';
+					if (d > 0) {
+						view = view + d + '일 ';
 					}
-					if (h>0) {
-						view = view+h+'시간 ';
+					if (h > 0) {
+						view = view + h + '시간 ';
 					}
-					if (m>0) {
-						view = view+m+'분 ';
+					if (m > 0) {
+						view = view + m + '분 ';
 					}
-					$('.count').html(view+s+'초');
-					
+					$('.count').html(view + s + '초');
+
 				}
-				
+
 			}
-			
-		if(day==today_day&&mon==today_month&&year==today_year){
-			
-			setInterval(timer,1000);
-		}else{
-			$('#count').html('경매 준비중입니다.');
+
+			if (day == today_day && mon == today_month && year == today_year) {
+
+				setInterval(timer, 1000);
+			} else {
+				$('#count').html('경매 준비중입니다.');
+			}
+
 		}
-		
-		
-	}
-	counter();
-	
-	//-----------------------------> 입찰하기 누를 시 window.open
-	
-	
-	$('#btn').click(function(){
-		
-		var url = window.open("/auction/auctionWindow.do","width=430px, height=455px");
-		
-		$.ajax({
-			url : url,
-			data : {},
-			type : "post",
-			success : function(result){
-				if(result=="true"){
-					alert('비밀번호 변경 성공');
-				}else{
-					alert('비밀번호 변경 실패-기존 비밀번호를 확인해주세요');
-				}
-				$('#pass>input').val(''); //div(#pass) 안에 input 태그들의 값을 비워라
-			},
-			error : function(){
-				console.log('ajax 통신 실패');
-			}
-			
-		});
-	});
-	
-</script>
-	
-	
-	
-	
-	
+		counter();
+
+		//-----------------------------> 입찰하기 누를 시 window.open
+
+		$('#btn').click(
+				function() {
+
+					var url = window.open("/auction/auctionWindow.do",
+							"width=430px, height=455px");
+
+					$.ajax({
+						url : url,
+						data : {},
+						type : "post",
+						success : function(result) {
+							if (result == "true") {
+								alert('비밀번호 변경 성공');
+							} else {
+								alert('비밀번호 변경 실패-기존 비밀번호를 확인해주세요');
+							}
+							$('#pass>input').val(''); //div(#pass) 안에 input 태그들의 값을 비워라
+						},
+						error : function() {
+							console.log('ajax 통신 실패');
+						}
+
+					});
+				});
+	</script>
+
+
+
+
+
 </body>
 </html>
