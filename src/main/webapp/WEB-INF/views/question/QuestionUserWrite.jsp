@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,7 +17,6 @@
 	box-sizing: border-box;
 }
 
-
 #warpForm{
 	width: 100%;
 	height: 1617px;
@@ -31,6 +31,7 @@
 #contentForm{
 	width: 100%;
 	height: 1200px;
+	background-color: #f0f0f0;
 }
 
 #footerForm{
@@ -40,16 +41,17 @@
 
 #question_background{
 	width: 80%;
-	height: 90%;
-	border: 2px solid #08E200;
+	height: 80%;
+	border: 2px solid white;
 	border-radius: 20px;
-	margin : 50px auto;
+	margin : 100px auto;
+	background-color: white;
 }
 
 #question_name{
 	width: 90%;
 	height: 80px;
-	color: #08E200;
+	color: #3BBD5A;
 	font-size: 30px;
 	margin: 30px auto;
 }
@@ -74,7 +76,7 @@
 	height: 60px;
 	text-align: left;
 	display : inline-block;
-	margin: 10px auto;
+	margin: 20px auto;
 }
 /*문의 대상 폼 끝*/
 
@@ -99,20 +101,21 @@
 
 
 /*문의 카테코리 폼*/
-#question_KategorieForm{
+#question_CategorieForm{
 	width: 80%;
 	height: 30px;
 	text-align: left;
+	margin: 20px auto;
 }
 
-#question_KategorieForm02{
+#question_CategorieForm02{
 	width: 20%;
 	height: 30px;
 	text-align: left;
 	display : inline-block;
 }
 
-#question_KategorieForm03{
+#question_CategorieForm03{
 	width: 80%;
 	height: 60px;
 	text-align: left;
@@ -186,7 +189,7 @@
 #submitBtn{
 	width: 90px;
 	height: 40px;
-	background-color: #08E200;
+	background-color: #3BBD5A;
 	font : normal bold 17.5px "고딕체";
 	color: #ffffff;
 	border-radius: 30px / 30px;	
@@ -197,7 +200,7 @@
 #listBtn{
 	width: 90px;
 	height: 40px;
-	background-color: #08E200;
+	background-color: #3BBD5A;
 	font : normal bold 17.5px "고딕체";
 	color: #ffffff;
 	border-radius: 30px / 30px;
@@ -239,50 +242,70 @@ select option[value=""][disabled] {
 <body>
 
 <div id="warpForm" align="center">
-	<div id="headerFrom">
+	<div id="headerForm">
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
 		
-		<div id="contentForm">
+	<div id="contentForm">
 		<div id="question_background">
-		
+			<form action='<c:url value='/question/questionWrite.do'/>' method="post">
 			<div id="question_name">
 				<h3>불편 사항을 적어주세요</h3>
-			</div><br>
+			</div>
 			
 			<!-- 문의 대상 설정하는 곳 -->
 			<div id="question_farmForm">
 				<span style="font-size: 20px; color: #08E200;">카테고리 : </span>
 				<div id="question_farmForm02">
-					<select required>
+					<select id="ask_target" name="ask_target" required>
 						<option value="" disabled selected>문의 대상</option>
-						<option>농가</option>
-						<option>운영자</option>
+						<option value="farm">농가</option>
+						<option value="admin">운영자</option>
 					</select>
 				</div>
 			</div>
 
-			<div id="question_farmForm03">
+			<script>
+				$('#ask_target').change(function(){
+					var result = $('#ask_target option:selected').val();
+					if(result == 'farm'){
+						$('#question_farmForm03').css("display", "block");
+					}else{
+						$('#question_farmForm03').css("display", "none");
+					}
+				});
+			</script>
+
+			<div id="question_farmForm03" style="display: none;">
 				<span style="font-size: 20px; color: #08E200;">농가번호 : </span>
 				<input type="text" id="farmNo" placeholder="농가 번호를 적어주세요"/>
-			</div><br>
+			</div>
 			<!-- 문의 대상 설정하는 곳 끝-->
 			
-			<br>
-			
 			<!-- 문의 내용 설정하는 곳 -->
-			<div id="question_KategorieForm">
+			<div id="question_CategorieForm">
 				<span style="font-size: 20px; color: #08E200;">문의내역 : </span>
-				<div id="question_KategorieForm02">
-					<select required>
+				<div id="question_CategorieForm02">
+					<select id="ask_subject" name="ask_subject" required>
 						<option value="" disabled selected>문의 목록</option>
-						<option>환불</option>
-						<option>문의</option>
+						<option value='refund'>환불</option>
+						<option valse='ask'>문의</option>
 					</select>
 				</div>
 			</div>
 
-			<div id="question_KategorieForm03">
+			<script>
+				$('#ask_subject').change(function(){
+					var result = $('#ask_subject option:selected').val();
+					if(result == 'refund'){
+						$('#question_CategorieForm03').css("display", "block");
+					}else{
+						$('#question_CategorieForm03').css("display", "none");
+					}
+				});
+			</script>
+
+			<div id="question_CategorieForm03" style="display: none;">
 				<span style="font-size: 20px; color: #08E200;">상품번호 : </span>
 				<input type="text" id="GoodsNo" placeholder="상품 번호를 적어주세요"/>
 			</div><br>
@@ -303,18 +326,23 @@ select option[value=""][disabled] {
 			</div><br>
 
 			<div id="write_Btn_form">
-				<div id="submit_btn"><button id="submitBtn">글 쓰기</button></div>
-				<div id="list_btn"><button id="listBtn">리스트</button></div>
-				<div id="reset_btn"><button id="resetBtn">다시 쓰기</button></div>
+				<div id="submit_btn"><button id="submitBtn" type="submit">글 쓰기</button></div>
+				<div id="list_btn"><button id="listBtn" type="button">리스트</button></div>
+				<div id="reset_btn"><button id="resetBtn" type="button">다시 쓰기</button></div>
 			</div>
-		</div><br>
+			</form>			
 		</div>
+	</div>
 	
 
 	<div id="footerFrom">
 		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
 </div>
+
+
+
+
 
 </body>
 </html>

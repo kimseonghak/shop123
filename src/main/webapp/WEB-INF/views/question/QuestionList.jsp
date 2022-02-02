@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -107,12 +108,11 @@
 	margin: 0 auto;
 }
 
-table{
+#question_table{
+	width: 100%;
 	border: 1px solid black;
 }
 
-/*table border값이 먹히지 않아 일단 대기 백단할때 하기
-*/
 
 #question_search_writeFrom{
 	height: 40px;
@@ -160,17 +160,19 @@ table{
 			<!-- 검색 공간 -->
 			
 			<div id="question_table_form" align="center">
-				<table>
+				<table id="question_table">
 					<tr>
+						<th>문의 번호</th>
 						<th>제목</th>
-						<th>작성자</th>
-						<th>조회수</th>
+						<th>작성일</th>
 					</tr>
-					<tr>
-						<td>a</td>
-						<td>b</td>
-						<td>c</td>
-					</tr>	
+					<c:forEach items="${requestScope.list}" var="qUser">
+                        <tr>
+                            <td>${qUser.questionUserNo}</td>
+                            <td>${qUser.questionUserTitle}</td>
+                            <td>${qUser.questionUserRegdate}</td>
+                        </tr>
+                    </c:forEach>	
 				</table>
 			</div><br>
 			
@@ -180,7 +182,8 @@ table{
 			</div>
 			<!-- 글 쓰기 버튼 -->
 			<div id="question_search_writeFrom">
-				<button id="write_btn">글 쓰기</button>
+				<button id="write_btn"><a href="/question/questionWritePage.do">글 쓰기</a></button>
+				<!-- href="/question/questionWrite.do" -->
 			</div>
 		</div>
 	</div><br>
