@@ -314,11 +314,11 @@ select option[value=""][disabled] {
 			<br>
 			
 			<div id="question_titleForm">
-				<input type="text" id="question_title" placeholder="글 제목을 적어주세요">
+				<input type="text" id="question_title" name="questionUserTitle" placeholder="글 제목을 적어주세요">
 			</div><br>
 
 			<div id="question_contentForm">
-				<textarea placeholder="글 내용을 적어주세요" id="question_content" style="resize: none;"></textarea>
+				<textarea placeholder="글 내용을 적어주세요" id="question_content" name="questionUserContent" style="resize: none;"></textarea>
 			</div><br>
 			
 			<div id="img_Form">
