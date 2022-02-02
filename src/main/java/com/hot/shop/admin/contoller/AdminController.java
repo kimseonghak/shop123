@@ -152,11 +152,18 @@ public class AdminController {
 	
 	// QNA 검색 페이지
 	@RequestMapping(value = "/admin/adminFarmQNASearch.do", method = RequestMethod.GET)
-	public void farmQNASearch(@RequestParam String type, @RequestParam String keyword, @RequestParam(required = false, defaultValue = "1") int currentPage) {
+	public ModelAndView farmQNASearch(@RequestParam String type, @RequestParam String keyword, 
+			@RequestParam(required = false, defaultValue = "1") int currentPage, ModelAndView mav) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("type", type);
 		map.put("keyword", keyword);
 		
-		aService.farmQNASearchList(map,currentPage);
+		map = aService.farmQNASearchList(map,currentPage);
+		
+		mav.addObject("map",map);
+		mav.addObject("currentPage",currentPage);
+		mav.setViewName("admin/admin_farmQNA");
+		
+		return mav;
 	}
 }

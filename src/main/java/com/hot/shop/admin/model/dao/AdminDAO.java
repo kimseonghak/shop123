@@ -215,12 +215,13 @@ public class AdminDAO {
 
 	public ArrayList<QuestionFarm> questionFarmSearchList(int recordCountPerPage, int currentPage,
 			HashMap<String, Object> map) {
-		int offset = currentPage*recordCountPerPage-(recordCountPerPage-1);
-		int limit = recordCountPerPage;
+		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
+		int end = currentPage*recordCountPerPage;
 		
-		RowBounds rb = new RowBounds(offset,limit);
+		map.put("start", start);
+		map.put("end",end);
 		
-		return new ArrayList<QuestionFarm>(sql.selectList("admin.questionFarmSearchList",map,rb));
+		return new ArrayList<QuestionFarm>(sql.selectList("admin.questionFarmSearchList",map));
 	}
 
 	public String getFarmQNASearchPageNavi(int recordCountPerPage, int currentPage, HashMap<String, Object> map,
@@ -240,17 +241,17 @@ public class AdminDAO {
 		sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
 		for(int i= startNavi; i<=endNavi; i++) {
 			if(i==currentPage) {
-				sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+i+"' id='currentNavi'>"+i+"</a>");
+				sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='currentNavi'>"+i+"</a>");
 			}else {
-				sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+i+"' class='otherNavi'>"+i+"</a>");
+				sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='otherNavi'>"+i+"</a>");
 			}
 		}
 		if((currentPage+10)>pageTotalCount) {
-			sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+pageTotalCount+"' class='naviArrow' id='next'>&gt;</a>");
+			sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
 		}else {
-			sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+(currentPage+10)+"' class='naviArrow' id='next'>&gt;</a>");
+			sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
 		}
-		sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+pageTotalCount+"' class='naviArrow'>&gt;&gt;</a>");
+		sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&gt;&gt;</a>");
 		
 		return sb.toString();
 	}

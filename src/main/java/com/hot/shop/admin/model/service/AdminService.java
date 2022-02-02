@@ -40,5 +40,5 @@ public interface AdminService {
 
 	HashMap<String, Object> farmQNAList(int currentPage);
 
-	void farmQNASearchList(HashMap<String, Object> map, int currentPage);
+	HashMap<String, Object> farmQNASearchList(HashMap<String, Object> map, int currentPage);
 }

@@ -193,7 +193,7 @@
 				question_farm_title like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('name')">
-				question_farm_name like '%'||#{keyword}||'%'
+				farm_name like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('content')">
 				question_farm_content like '%'||#{keyword}||'%'
@@ -202,17 +202,17 @@
 				question_farm_title like '%'||#{keyword}||'%' or question_farm_content like '%'||#{keyword}||'%'
 			</when>
 		</choose>
-		)
+		) where num between #{start} and #{end}
 	</select>
 	<select id="farmQNASearchTotalCount" parameterType="hashmap" resultType="integer">
-		select count(*) from question_farm
+		select count(*) from question_farm left join farm on(question_farm.farm_no = farm.farm_no)
 		where 
 		<choose>
 			<when test="type.equals('title')">
 				question_farm_title like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('name')">
-				question_farm_name like '%'||#{keyword}||'%'
+				farm_name like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('content')">
 				question_farm_content like '%'||#{keyword}||'%'
