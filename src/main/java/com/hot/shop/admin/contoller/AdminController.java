@@ -139,7 +139,6 @@ public class AdminController {
 		return "1";
 	}
 	
-	
 	// 최초 user QNA 페이지 
 	@RequestMapping(value = "/admin/adminFarmQNAPage.do", method = RequestMethod.GET)
 	public ModelAndView farmQNAPage(ModelAndView mav,HttpServletRequest request,
@@ -148,6 +147,23 @@ public class AdminController {
 		mav.addObject("map",map);
 		mav.addObject("currentPage",currentPage);
 		mav.setViewName("admin/admin_farmQNA");
+		return mav;
+	}
+	
+	// QNA 검색 페이지
+	@RequestMapping(value = "/admin/adminFarmQNASearch.do", method = RequestMethod.GET)
+	public ModelAndView farmQNASearch(@RequestParam String type, @RequestParam String keyword, 
+			@RequestParam(required = false, defaultValue = "1") int currentPage, ModelAndView mav) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		
+		map = aService.farmQNASearchList(map,currentPage);
+		
+		mav.addObject("map",map);
+		mav.addObject("currentPage",currentPage);
+		mav.setViewName("admin/admin_farmQNA");
+		
 		return mav;
 	}
 }
