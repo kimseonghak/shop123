@@ -10,11 +10,12 @@
 <head>
 <meta charset="UTF-8">
 <title>경매</title>
- <link rel="preconnect"href="https://fonts.googleapis.com">
-  <link rel="preconnect"href="https://fonts.gstatic.com"crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap"rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap"
+	rel="stylesheet">
 <style>
-
 #wrap {
 	width: 100%;
 	margin: 0 auto;
@@ -27,7 +28,7 @@
 	background-color: #fafafa;
 }
 
-.box1 {
+.leftSpace-left {
 	width: 15%;
 	height: 100%;
 	float: left;
@@ -39,7 +40,7 @@
 	float: left;
 }
 
-#box2 {
+#leftSpace-header {
 	width: 100%;
 	height: 295px;
 }
@@ -63,7 +64,7 @@
 	font-weight: bold;
 }
 
-#box3 {
+#leftSpace-footer {
 	width: 100%;
 	height: 70px;
 }
@@ -82,33 +83,26 @@
 	height: 184px;
 }
 
-.high {
+.auctionStatus-box {
 	width: 130%;
 	height: 20%;
 	border-radius: 10px 10px 0 0;
 	background-color: #3BBD5A;
 }
 
-.row {
+.auction-info {
 	width: 130%;
 	height: 79.9%;
 	border-radius: 0 0 10px 10px;
 	background-color: #E4FFF8;
 }
 
-.row-1 {
-	width: 100%;
-	height: 79.9%;
-	border-radius: 0 0 10px 10px;
-	background-color: #E4FFF8;
-}
-
-#high-1 {
+#auctionStatus {
 	width: 100%;
 	height: 40%;
 }
 
-#high-1>span {
+#auctionStatus>span {
 	font-size: 16px;
 	color: #FFFFFF;
 	font-family: 'NanumSquare';
@@ -118,12 +112,12 @@
 	line-height: 30px;
 }
 
-#high-2 {
+#auctionProduct {
 	width: 100%;
 	height: 59%;
 }
 
-#high-2>span {
+#auctionProduct>span {
 	font-size: 25px;
 	color: #FFFFFF;
 	font-family: 'NanumSquare';
@@ -133,23 +127,11 @@
 	margin-top: -5px;
 }
 
-.table {
+.auctionTable {
 	font-size: 16px;
 	font-family: 'NanumSquare';
 	margin: 0 auto;
 	line-height: 36px;
-}
-
-.info {
-	text-align: center;
-}
-
-.data {
-	text-align: center;
-}
-
-.data1 {
-	text-align: center;
 }
 
 .input {
@@ -157,24 +139,24 @@
 	line-height: 60px;
 }
 
-.center {
+.textAlign-center {
 	text-align: center;
 }
 
-.length {
-	width: 150px;
-}
-
-.text {
+.fontWeight {
 	font-weight: bold;
 }
+.tdLength{
+	width : 170px;
+}
+
 
 #line {
 	line-height: 30px;
 	color: #E4FFF8;
 }
 
-#btn {
+.btn {
 	display: inline-block;
 	position: relative;
 	height: 37px;
@@ -190,7 +172,7 @@
 	width: 100%;
 	height: 100%;
 	background-color: black;
-	margin-top: -242px;
+	margin-top: -247px;
 	border-radius: 0 0 10px 10px;
 	opacity: 0.65;
 }
@@ -210,159 +192,389 @@
 
 		<c:import url="/WEB-INF/views/commons/header.jsp" />
 
-		<div id="box"></div>
+		<div id="leftSpace-top"></div>
 		<div id="content">
-			<div class="box1"></div>
+			<div class="leftSpace-left"></div>
 			<div id="main">
-				<div id="box2"></div>
+				<div id="leftSpace-header"></div>
 				<div id="subject-box">
 					<div id="subject">
 						<span>이달의 경매 현황</span>
 					</div>
 				</div>
-				<div id="box3"></div>
-
-				<div class="test">
+				<div id="leftSpace-footer"></div>
 					<div class="auction-box">
 
+					<%--경매 1번 폼 경매 중이 아닌 경우 --%>
+					<jsp:useBean id="toDay" class="java.util.Date" />
 
-						<jsp:useBean id="now" class="java.util.Date" />
-
-						<fmt:formatDate value="${now}" pattern="yyyy/MM/dd" var="today" />
-
-
-
-
+					<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" var="today" />
 
 						<c:choose>
-							<c:when test="${!requestScope.list.isEmpty() }">
-								<c:forEach items="${requestScope.list }" var="auc" varStatus="i">
-
+							<c:when test="${map.au1.auctionStart>today }">
 									<div>
-										<div class="high">
+										<div class="auctionStatus-box">
 											<!-- 경매 폼 로직-->
-											<div id="high-1">
-												<span>경매 중</span>
+											<div id="auctionStatus">
+												<span>경매 예정</span>
 											</div>
-											<div id="high-2">
-												<span>${auc.auctionProduct }</span>
+											<div id="auctionProduct">
+												<span>${map.au1.auctionProduct }</span>
 											</div>
 										</div>
-										<div class="row">
+										<div class="auction-info">
 											<!-- 경매 폼 로직-->
 											<form>
-												<table class="table">
+												<table class="auctionTable">
 													<tr>
 														<td colspan="2" id="line">ss</td>
 													</tr>
 
 													<tr>
-														<td class="center">시작일 :</td>
-														<td class="data length">${auc.auctionStart }</td>
+														<td class="textAlign-center">시작일 :</td>
+														<td class="textAlign-center startDate">${map.au1.auctionStart }</td>
 													</tr>
 													<tr>
-														<td class="center">종료일 :</td>
-														<td class="data1 length">${auc.auctionEnd }</td>
+														<td>종료일 :</td>
+														<td><div class="tdLength"><span class="endDate">${map.au1.auctionEnd  }</span>  23:59:59</div></td>
 													</tr>
 
 													<tr>
-														<td class="center">남은 시간 :</td>
-														<td class="data1 length text" style="color: #FE0011"><span
-															class="count"></span></td>
+														<td class="textAlign-center">남은 시간 :</td>
+														<td class="textAlign-center fontWeight" style="color: #FE0011"><span>-</span></td>
 													</tr>
 													<tr>
-														<td class="center">현재 수량 :</td>
-														<td class="data length text" style="color: #009A41">${auc.auctionCount1 }</td>
+														<td class="textAlign-center">현재 수량 :</td>
+														<td class="textAlign-center fontWeight" style="color: #009A41">-</td>
 													</tr>
 													<tr>
-														<td class="center">현재 최저가 :</td>
-														<td class="data length text" style="color: #009A41">${auc.auctionPrice }원</td>
+														<td class="textAlign-center">현재 최저가 :</td>
+														<td class="textAlign-center fontWeight" style="color: #009A41">-</td>
 													</tr>
 													<tr>
-														<td colspan="2" class="info"><input type="button"
-															style="color: white" id="btn" value="입찰하기" /></td>
+														<td colspan="2" class="textAlign-center"><input type="button"
+															style="color: white" disabled="true" class="btn" value="입찰예정" /></td>
+													</tr>
+												</table>
+											</form>
+											<div class="block">
+												<span>경매 예정</span>
+											</div>
+										</div>
+									</div>
+							</c:when>
+							
+						<%--경매 1번 폼 경매 중인 경우 --%>
+							<c:otherwise>
+								<div>
+										<div class="auctionStatus-box">
+											<!-- 경매 폼 로직-->
+											<div id="auctionStatus">
+												<span>경매 중</span>
+											</div>
+											<div id="auctionProduct">
+												<span>${map.au1.auctionProduct }</span>
+											</div>
+										</div>
+										<div class="auction-info">
+											<!-- 경매 폼 로직-->
+											<form>
+												<table class="auctionTable">
+													<tr>
+														<td colspan="2" id="line">ss</td>
+													</tr>
+
+													<tr>
+														<td class="textAlign-center">시작일 :</td>
+														<td class="textAlign-center startDate">${map.au1.auctionStart }</td>
+													</tr>
+													<tr>
+														<td>종료일 :</td>
+														<td><div class="tdLength"><span class="endDate">${map.au1.auctionEnd  }</span>  23:59:59</div></td>
+													</tr>
+
+													<tr>
+														<td class="textAlign-center">남은 시간 :</td>
+														<td class="textAlign-center fontWeight" style="color: #FE0011"><span
+															class="remainTime"></span></td>
+													</tr>
+													<tr>
+														<td class="textAlign-center">현재 수량 :</td>
+														<td class="textAlign-center fontWeight" style="color: #009A41">${map.au1.auctionCount1 }</td>
+													</tr>
+													<tr>
+														<td class="textAlign-center">현재 최저가 :</td>
+														<td class="textAlign-center fontWeight" style="color: #009A41">${map.au1.auctionPrice }원</td>
+													</tr>
+													<tr>
+														<td colspan="2" class="textAlign-center"><input type="button"
+															style="color: white" class="btn" value="입찰하기" /></td>
 													</tr>
 												</table>
 											</form>
 										</div>
 									</div>
+							</c:otherwise>
+						</c:choose>
+						
+						<%--경매 2번 폼 경매 중이 아닌 경우 --%>
+						<c:choose>
+							<c:when test="${map.au2.auctionStart>today }">
+									<div>
+										<div class="auctionStatus-box">
+											<!-- 경매 폼 로직-->
+											<div id="auctionStatus">
+												<span>경매 예정</span>
+											</div>
+											<div id="auctionProduct">
+												<span>${map.au2.auctionProduct }</span>
+											</div>
+										</div>
+										<div class="auction-info">
+											<!-- 경매 폼 로직-->
+											<form>
+												<table class="auctionTable">
+													<tr>
+														<td colspan="2" id="line">ss</td>
+													</tr>
 
-								</c:forEach>
+													<tr>
+														<td class="textAlign-center">시작일 :</td>
+														<td class="textAlign-center startDate">${map.au2.auctionStart }</td>
+													</tr>
+													<tr>
+														<td>종료일 :</td>
+														<td><div class="tdLength"><span class="endDate">${map.au2.auctionEnd  }</span>  23:59:59</div></td>
+													</tr>
+
+													<tr>
+														<td class="textAlign-center">남은 시간 :</td>
+														<td class="textAlign-center fontWeight" style="color: #FE0011"><span>-</span></td>
+													</tr>
+													<tr>
+														<td class="textAlign-center">현재 수량 :</td>
+														<td class="textAlign-center fontWeight" style="color: #009A41">-</td>
+													</tr>
+													<tr>
+														<td class="textAlign-center">현재 최저가 :</td>
+														<td class="textAlign-center fontWeight" style="color: #009A41">-</td>
+													</tr>
+													<tr>
+														<td colspan="2" class="textAlign-center"><input type="button"
+															style="color: white" disabled="true" class="btn" value="입찰예정" /></td>
+													</tr>
+												</table>
+											</form>
+											<div class="block">
+												<span>경매 예정</span>
+											</div>
+										</div>
+									</div>
 							</c:when>
+							
+						<%--경매 2번 폼 경매 중인 경우 --%>
+							<c:otherwise>
+								<div>
+										<div class="auctionStatus-box">
+											<!-- 경매 폼 로직-->
+											<div id="auctionStatus">
+												<span>경매 중</span>
+											</div>
+											<div id="auctionProduct">
+												<span>${map.au2.auctionProduct }</span>
+											</div>
+										</div>
+										<div class="auction-info">
+											<!-- 경매 폼 로직-->
+											<form>
+												<table class="auctionTable">
+													<tr>
+														<td colspan="2" id="line">ss</td>
+													</tr>
+
+													<tr>
+														<td class="textAlign-center">시작일 :</td>
+														<td class="textAlign-center startDate">${map.au2.auctionStart }</td>
+													</tr>
+													<tr>
+														<td>종료일 :</td>
+														<td><div class="tdLength"><span class="endDate">${map.au2.auctionEnd  }</span>  23:59:59</div></td>
+													</tr>
+
+													<tr>
+														<td class="textAlign-center">남은 시간 :</td>
+														<td class="textAlign-center fontWeight" style="color: #FE0011"><span
+															class="remainTime"></span></td>
+													</tr>
+													<tr>
+														<td class="textAlign-center">현재 수량 :</td>
+														<td class="textAlign-center fontWeight" style="color: #009A41">${map.au2.auctionCount1 }</td>
+													</tr>
+													<tr>
+														<td class="textAlign-center">현재 최저가 :</td>
+														<td class="textAlign-center fontWeight" style="color: #009A41">${map.au2.auctionPrice }원</td>
+													</tr>
+													<tr>
+														<td colspan="2" class="textAlign-center"><input type="button"
+															style="color: white" class="btn" value="입찰하기" /></td>
+													</tr>
+												</table>
+											</form>
+										</div>
+									</div>
+							</c:otherwise>
+						</c:choose>
+						
+						<%--경매 3번 폼 경매 중이 아닌 경우 --%>
+						<c:choose>
+							<c:when test="${map.au3.auctionStart>today }">
+									<div>
+										<div class="auctionStatus-box">
+											<!-- 경매 폼 로직-->
+											<div id="auctionStatus">
+												<span>경매 예정</span>
+											</div>
+											<div id="auctionProduct">
+												<span>${map.au3.auctionProduct }</span>
+											</div>
+										</div>
+										<div class="auction-info">
+											<!-- 경매 폼 로직-->
+											<form>
+												<table class="auctionTable">
+													<tr>
+														<td colspan="2" id="line">ss</td>
+													</tr>
+
+													<tr>
+														<td class="textAlign-center">시작일 :</td>
+														<td class="textAlign-center startDate">${map.au3.auctionStart }</td>
+													</tr>
+													<tr>
+														<td>종료일 :</td>
+														<td><div class="tdLength"><span class="endDate">${map.au3.auctionEnd  }</span>  23:59:59</div></td>
+													</tr>
+
+													<tr>
+														<td class="textAlign-center">남은 시간 :</td>
+														<td class="textAlign-center fontWeight" style="color: #FE0011"><span>-</span></td>
+													</tr>
+													<tr>
+														<td class="textAlign-center">현재 수량 :</td>
+														<td class="textAlign-center fontWeight" style="color: #009A41">-</td>
+													</tr>
+													<tr>
+														<td class="textAlign-center">현재 최저가 :</td>
+														<td class="textAlign-center fontWeight" style="color: #009A41">-</td>
+													</tr>
+													<tr>
+														<td colspan="2" class="textAlign-center"><input type="button"
+															style="color: white" disabled="true" class="btn" value="입찰예정" /></td>
+													</tr>
+												</table>
+											</form>
+											<div class="block">
+												<span>경매 예정</span>
+											</div>
+										</div>
+									</div>
+							</c:when>
+							
+						<%--경매 3번 폼 경매 중인 경우 --%>
+							<c:otherwise>
+								<div>
+										<div class="auctionStatus-box">
+											<!-- 경매 폼 로직-->
+											<div id="auctionStatus">
+												<span>경매 중</span>
+											</div>
+											<div id="auctionProduct">
+												<span>${map.au3.auctionProduct }</span>
+											</div>
+										</div>
+										<div class="auction-info">
+											<!-- 경매 폼 로직-->
+											<form>
+												<table class="auctionTable">
+													<tr>
+														<td colspan="2" id="line">ss</td>
+													</tr>
+
+													<tr>
+														<td class="textAlign-center">시작일 :</td>
+														<td class="textAlign-center startDate">${map.au3.auctionStart }</td>
+													</tr>
+													<tr>
+														<td>종료일 :</td>
+														<td><div class="tdLength"><span class="endDate">${map.au3.auctionEnd  }</span>  23:59:59</div></td>
+													</tr>
+
+													<tr>
+														<td class="textAlign-center">남은 시간 :</td>
+														<td class="textAlign-center fontWeight" style="color: #FE0011"><span
+															class="remainTime"></span></td>
+													</tr>
+													<tr>
+														<td class="textAlign-center">현재 수량 :</td>
+														<td class="textAlign-center fontWeight" style="color: #009A41">${map.au3.auctionCount1 }</td>
+													</tr>
+													<tr>
+														<td class="textAlign-center">현재 최저가 :</td>
+														<td class="textAlign-center fontWeight" style="color: #009A41">${map.au3.auctionPrice }원</td>
+													</tr>
+													<tr>
+														<td colspan="2" class="textAlign-center"><input type="button"
+															style="color: white" class="btn" value="입찰하기" /></td>
+													</tr>
+												</table>
+											</form>
+										</div>
+									</div>
+							</c:otherwise>
 						</c:choose>
 					</div>
-				</div>
 			</div>
 			<div id="box4"></div>
 		</div>
-		<div class="box1"></div>
+		<div class="leftSpace-left"></div>
 		<c:import url="/WEB-INF/views/commons/footer.jsp" />
 	</div>
 
 
 	<script>
-		function counter() {
-
-			var startDay = $('.data').html();
-			var year = "" + startDay.substring(0, 4);
-			var mon = "" + startDay.substring(5, 7) - 1;
-			var day = "" + startDay.substring(8, 10);
-
-			var endDay = $('.data1').html();
-			var endYear = "" + endDay.substring(0, 4);
-			var endMon = "" + endDay.substring(5, 7) - 1;
-			var endDay = "" + endDay.substring(8, 10);
-			var dDay = new Date(endYear, endMon, endDay).getTime();
-
-			var today_day = new Date().getDate();
-			var today_month = new Date().getMonth();
-			var today_year = new Date().getFullYear();
-
-			function timer() {
-
-				var now = new Date(); //현재 날짜 가져오기
-				var distance = dDay - now;
-
-				var d = Math.floor(distance / (1000 * 60 * 60 * 24));
-				var h = Math.floor((distance % (1000 * 60 * 60 * 24))
-						/ (1000 * 60 * 60));
-				var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-				var s = Math.floor((distance % (1000 * 60)) / 1000);
-				var view = '';
-				if (s < 10) {
-					s = '0' + s;
-				}
-				if (distance < 0) {
-					$('.count').html('마감되었습니다.');
-				} else {
-					if (d > 0) {
-						view = view + d + '일 ';
-					}
-					if (h > 0) {
-						view = view + h + '시간 ';
-					}
-					if (m > 0) {
-						view = view + m + '분 ';
-					}
-					$('.count').html(view + s + '초');
-
-				}
-
+	
+	//남은 시간 카운트 다운
+	$(function(){
+		const offset = new Date().getTimezoneOffset() * 60000;
+		var date = new Date();
+		$.each($(".endDate"),function(index, item){
+			var ele = $(this);
+			var date3 = new Date($(item).html());
+			date3.setDate(date3.getDate()+1);
+			date3.setHours(date3.getHours()-9);
+			var currentTime = date.getTime();
+			var endTime = date3.getTime();
+			if(endTime-currentTime>0){
+				var interval = endTime-currentTime;
+				console.log($(this).parents('table').find('.remainTime').html());
+				setInterval(function(){
+					interval-=1000;
+					var remainingDays = parseInt(interval/(1000*60*60*24));
+					var remainingHours = parseInt((interval%(1000*60*60*24))/(1000*60*60));
+					var remainingMins = parseInt(((interval%(1000*60*60*24))%(1000*60*60))/(1000*60));
+					var remainingSec = parseInt((((interval%(1000*60*60*24))%(1000*60*60))%(1000*60))/(1000));
+					ele.parents('table').find('.remainTime').html(remainingDays+" : "+remainingHours+" : "+remainingMins+" : "+remainingSec);
+				},1000);
+				
+			}else{
+				
 			}
+		});
+});
 
-			if (day == today_day && mon == today_month && year == today_year) {
+	//입찰하기 window.open
 
-				setInterval(timer, 1000);
-			} else {
-				$('#count').html('경매 준비중입니다.');
-			}
-
-		}
-		counter();
-
-		//-----------------------------> 입찰하기 누를 시 window.open
-
-		$('#btn').click(
+		$('.btn').click(
 				function() {
 
 					var url = window.open("/auction/auctionWindow.do",

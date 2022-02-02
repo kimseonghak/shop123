@@ -14,26 +14,34 @@
             height: 450px;
             background-color: #F1F1F1;
         }
+        #leftSpace{
+        	width: 100%;
+            height: 6%;
+        }
         #logo{
             width: 100%;
             height: 20%;
         }
-        #logo_img{
-            width: 155px;
+        #logo-div{
+            width: 200px;
             height: 100%;
-            border: 1px solid black;
             margin: 0 auto;
+        }
+        #logo-img{
+        	width: 100%;
+        	height: 65%;
+        	
         }
         #info{
             width: 100%;
-            height: 28%;
+            height: 25%;
         }
         #product{
             width: 90%;
             height: 90%;
             border-radius: 5px;
             background-color: #FFFFFF;
-            margin: 20px 15px;
+            margin: 0 15px;
         }
         #money{
             width: 100%;
@@ -66,7 +74,7 @@
             display: block;
             position: relative;
             margin-left: 45px; 
-            top: 50px;
+            top: 45px;
             text-align: right;
         }
         .input-box{
@@ -106,15 +114,15 @@
             font-family: 'NanumSquare';
             margin-left: 75px;
             margin-top: 20px;
-            font-family: 'NanumSquare';
         }
  </style>
 </head>
 <body>
   <div id="wrap">
+  		<div id="leftSpace"></div>
         <div id="logo">
-            <div id="logo_img">
-                
+            <div id="logo-div">
+                <img src="/resources/main/img/shop123_logo.png" alt="123상회" id="logo-img">
             </div>
         </div>
         <div id="info">
@@ -148,7 +156,7 @@
             </div>
         </div>
         <div id="btn">
-            <input type="submit" id="auc_btn" value="입찰하기">
+            <input type="submit" style="font-size:17px" id="auc_btn" value="입찰하기">
         </div>
     </div>
 

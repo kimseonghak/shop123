@@ -1,6 +1,7 @@
 package com.hot.shop.auction.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class AuctionServiceImpl implements AuctionService{
 	private AuctionDAO aucDAO;
 
 	@Override
-	public ArrayList<Auction> selectAuction() {
+	public HashMap<String, Object> selectAuction() {
 
 		return aucDAO.selectAuction();
 		
