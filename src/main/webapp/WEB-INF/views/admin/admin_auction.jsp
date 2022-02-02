@@ -42,6 +42,10 @@
 		height:100%;
 		float:left;
 	}
+	form{
+		width:100%;
+		height:100%;
+	}
 	.auctionFieldset{
 		width:100%;
 		height:100%;
@@ -546,8 +550,9 @@
 		});
 <%-- 날짜 설정 --%>
 		$(function(){
-			var date = new Date().toISOString().substring(0,10);
-			var date3 = new Date();
+			const offset = new Date().getTimezoneOffset() * 60000;
+			var date = new Date(Date.now() - offset).toISOString().substring(0,10);
+			var date3 = new Date(Date.now() - offset);
 			date3.setDate(date3.getDate()+2);
 			for(var i=0; i<3; i++){
 				if($('input[name=auctionStart]').eq(i).val()==''){
