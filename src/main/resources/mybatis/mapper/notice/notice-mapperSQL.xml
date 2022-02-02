@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	<mapper namespace="notice">
+		<!-- 공지사항 리스트 -->
+		<select id="noticeList" parameterType="notice" resultType="notice">
+			select
+				NOTICE_NO as noticeNo,
+				NOTICE_TITLE as noticeTitle,
+				NOTICE_CONTENT as noticeContent,
+				NOTICE_REGDATE as noticeRegdate,
+				FARM_NO as farmNo,
+				NOTICE_COUNT as noticeCount,
+				NOTICE_END_YN as noticeEndYN,
+				NOTICE_CODE as noticeCode,
+				NOTICE_CATEGORY as noticeCategory
+			from (select row_number() over(order by NOTICE_NO desc)as num, notice.* from notice LEFT JOIN farm on (notice.FARM_NO=farm.FARM_NO) where NOTICE_END_YN='N')
+		</select>
+		
+		<!-- 공지사항 글 쓰기 -->
+		<insert id="insertWrite" parameterType="notice">
+			insert into 		notice
+			values				(NOTICE_Seq.NEXTVAL,#{noticeTitle},#{noticeContent},sysdate,3,#{noticeCount},'N',#{noticeCode},#{noticeCategory})
+		</insert>
+		
+		<!-- 공지사항 글 보기(뷰) -->
+		<select id="NoticeViewPage" parameterType="notice" resultType="notice">
+			select
+				NOTICE_NO as noticeNo,
+				NOTICE_TITLE as noticeTitle,
+				NOTICE_CONTENT as noticeContent,
+				NOTICE_REGDATE as noticeRegdate,
+				FARM_NO as farmNo,
+				NOTICE_COUNT as noticeCount,
+				NOTICE_END_YN as noticeEndYN,
+				NOTICE_CODE as noticeCode,
+				NOTICE_CATEGORY as noticeCategory
+			from (select row_number() over(order by NOTICE_NO desc)as num, notice.* from notice LEFT JOIN farm on (notice.FARM_NO=farm.FARM_NO) where NOTICE_END_YN='N')
+			where notice_no = #{noticeNo}
+		</select>
+	</mapper>
+
+
