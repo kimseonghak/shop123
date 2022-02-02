@@ -141,28 +141,33 @@
 </head>
 <body>
 
+<c:import Member m = (Member)session.getAttribute("member");/>
+<c:import Farm f = (Farm)session.getAttribute("farm");/>
+
 <div id="warpForm" align="center">
 	<div id="headerForm">
-	<c:import url="/WEB-INF/views/commons/header.jsp"/>
+		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
+	
 	
 	<div id="contentForm"><br>
 		<div id="content_background">
 		
 			<div id="content_titleForm">
-				[ 공지사항  ] : 글 제목
+				[  ] : ${notice.noticeTitle }
 				<div id="writerForm">
-					[ 영자 닉네임 ]
+					[ ${notice.farmNo } ]
 				</div>
 			</div><hr>
 	
 			<div id="content_RegdateForm">
-				[작성일 : ] [조회수 : ]
+				[작성일 : ${notice.noticeRegdate}] [조회수 : ${notice.noticeCount}]
 			</div>
 	
 			<div id="content_textForm">
-				
+				${notice.noticeContent }
 			</div><br>
+			
 			
 			<div id="btnForm">
 				<div id="list_Btn_Form"><button id="mainBtn">메인으로</button></div>
@@ -175,7 +180,7 @@
 
 	
 	<div id="footerForm">
-	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
+		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
 
 </div>

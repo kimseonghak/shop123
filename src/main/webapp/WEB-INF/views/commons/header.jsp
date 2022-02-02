@@ -179,7 +179,6 @@ input {
 
 
 <header id="header">
-	
 	<div class="link-user">
 
 		<div class="box-join">
