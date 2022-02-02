@@ -3,14 +3,14 @@ package com.hot.shop.question.model.vo;
 import java.sql.Date;
 
 public class QuestionFarm {
-	private int questionFarmNo;
-	private String questionFarmTitle;
-	private String questionFarmContent;
-	private Date questionFarmRegdate;
-	private int farmNo;
-	private char questionFarmEndYN;
-	private String farmName;
-	private char questionFarmAnswerYN;
+	private int questionFarmNo;//o
+	private String questionFarmTitle;//o
+	private String questionFarmContent;//o
+	private Date questionFarmRegdate;//o
+	private int farmNo;//o
+	private char questionFarmEndYN;//o
+	private String farmName;//조인해서 쓸 것
+	private char questionFarmAnswerYN;//o
 	
 
 	public QuestionFarm(int questionFarmNo, String questionFarmTitle, String questionFarmContent,

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -146,7 +147,6 @@
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
 	
-	
 	<div id="contentForm" align="left">
 		<div id="noticeWrap"><br>
 			<div id="notice_name">
@@ -167,7 +167,20 @@
 			
 
 			<div id="notice_table_form" align="center">
-				
+				<table>
+					<tr>
+						<th>글 번호</th>
+						<th>글 제목</th>
+					</tr>
+					<!-- 반복문 -->
+					<c:forEach items="${requestScope.list}" var="vo">
+						<tr>
+							<td>${vo.noticeNo}</td>
+							<td><a href="/notice/NoticeView.do?notice_no=${vo.noticeNo}">${vo.noticeTitle}</a></td>
+						</tr>
+					</c:forEach>
+					
+				</table>
 			</div>
 			
 
@@ -175,10 +188,16 @@
 			<div id="notice_pageNavi" align="center">
 				페이지 네비바 들가는 공간
 			</div>
+			
 			<!-- 글 쓰기 버튼 -->
-			<div id="notice_search_writeFrom">
-					<button id="submitBtn">글 쓰기</button>
-			</div>
+			<c:if test="${farm != null && (farm.rating eq 'admin' or farm.rating eq 'root')}">
+				<form action="/notice/noticeWritePage.do">
+					<div id="notice_search_writeFrom">
+						<input type="submit" value="글 쓰기" id="submitBtn">
+					</div>
+				</form>
+			</c:if>
+			<!-- 글 쓰기 버튼 -->
 		</div>
 	</div>
 	

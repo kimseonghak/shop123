@@ -9,18 +9,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    #wrap{
+     #wrap{
             width: 425px;
-            height: 450px;
+            height: 300px;
             background-color: #F1F1F1;
         }
         #leftSpace{
         	width: 100%;
-            height: 6%;
+            height: 8%;
         }
         #logo{
             width: 100%;
-            height: 20%;
+            height: 25%;
         }
         #logo-div{
             width: 200px;
@@ -28,31 +28,20 @@
             margin: 0 auto;
         }
         #logo-img{
-        	width: 100%;
-        	height: 65%;
+        	width: 90%;
+        	height: 60%;
         	
-        }
-        #info{
-            width: 100%;
-            height: 25%;
-        }
-        #product{
-            width: 90%;
-            height: 90%;
-            border-radius: 5px;
-            background-color: #FFFFFF;
-            margin: 0 15px;
         }
         #money{
             width: 100%;
-            height: 10%;
+            height: 15%;
         }
         #money_box{
             width: 90%;
             height: 90%;
             border-radius: 5px;
             background-color: #FFFFFF;
-            margin: 7px 0 0 15px;
+            margin: 3px 0 0 15px;
         }
         .subject{
             width: 30%;
@@ -89,6 +78,10 @@
             border: none;
             text-align: center;
         }
+         #count{
+            width: 100%;
+            height: 15%;
+        }
         #count_box{
             width: 90%;
             height: 90%;
@@ -96,15 +89,11 @@
             background-color: #FFFFFF;
             margin: 15px 0 0 15px;
         }
-        #count{
-            width: 100%;
-            height: 10%;
-        }
         #btn{
             width: 100%;
-            height: 11%;
+            height: 15%;
         }
-        #auc_btn{
+        #aucBtn{
             width: 60%;
             height: 90%;
             background-color: #3BBD5A;
@@ -115,9 +104,12 @@
             margin-left: 75px;
             margin-top: 20px;
         }
- </style>
+    </style>
+
 </head>
 <body>
+
+
   <div id="wrap">
   		<div id="leftSpace"></div>
         <div id="logo">
@@ -125,23 +117,16 @@
                 <img src="/resources/main/img/shop123_logo.png" alt="123상회" id="logo-img">
             </div>
         </div>
-        <div id="info">
-            <div id="product">
-                <div class="subject">
-                    <span id="subject_span">상품 정보 </span>
-                </div>
-                <div class="input-box">
-                   
-                </div>
-            </div>
-        </div>
+        
+      <form action="/auction/auctionInputPrice.do" method="post">
+      	<input type="hidden" name="auctionFormNo" value="${auctionFormNo }"/>
         <div id="money">
             <div id="money_box">
                 <div class="subject">
                     <span class="span">수량 입력 :</span>
                 </div>
                 <div class="input-box">
-                    <input type="number" name="" class="input_style">
+                    <input type="number" name="auctionCount" class="input_style">
                 </div>
             </div>
         </div>
@@ -151,14 +136,45 @@
                     <span class="span">최저가 입력 :</span>
                 </div>
                 <div class="input-box">
-                    <input type="number" name="" class="input_style">
+                    <input type="number" name="lowestPrice" class="input_style">
                 </div>
             </div>
         </div>
         <div id="btn">
-            <input type="submit" style="font-size:17px" id="auc_btn" value="입찰하기">
+            <input type="submit" style="font-size:17px" id="aucBtn" value="입찰하기">
         </div>
+       </form>
     </div>
+    
+    <script>
+    //최저가랑 수량 둘다 입력했을 경우에만 입찰 가능
+    	$('#aucBtn').click(function(){
+    		
+    		var auctionCount = $('input[name=auctionCount]').val();
+    		var lowestPrice = $('input[name=lowestPrice]').val();
+    		
+    		//공백일 경우
+    		if(auctionCount==''){
+    			alert('수량을 입력해주세요.');
+    			return false;
+    		}
+    		if(lowestPrice==''){
+    			alert('최저가를 입력해주세요.');
+    			return false;
+    		}
+    		
+    		
+    	});
+    
+    <%--  확인하는 코드
+    	$(function(){
+    		
+    		var auctionFormNo = ${auctionFormNo};
+    		console.log(auctionFormNo);
+    	});
+    --%>
+    
+    </script>
 
 </body>
 </html>

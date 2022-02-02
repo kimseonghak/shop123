@@ -3,19 +3,19 @@ package com.hot.shop.question.model.vo;
 import java.sql.Date;
 
 public class QuestionUser {
-	private int questionUserNo;
-	private String questionUserTitle;
-	private String questionUserContent;
-	private Date questionUserRegdate;
-	private int userNo;
-	private char questionUserEndYN;
-	private int questionphotoNo;
-	private String questionUserCode;
-	private char questionUserClassify;
-	private int farmNo;
-	private String orderNo;
-	private String userNick;
-	private char questionUserAnswerYN;
+	private int questionUserNo;//o
+	private String questionUserTitle;//o
+	private String questionUserContent;//o
+	private Date questionUserRegdate;//o
+	private int userNo;//o
+	private char questionUserEndYN;//o
+	private int questionphotoNo;//o
+	private String questionUserCode;//o
+	private char questionUserClassify;//o
+	private int farmNo;//o
+	private String orderNo;//o
+	private String userNick;//조인해서 쓸 것
+	private char questionUserAnswerYN;//o
 	
 	
 	public QuestionUser(int questionUserNo, String questionUserTitle, String questionUserContent,

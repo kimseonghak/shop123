@@ -151,7 +151,7 @@
 }
 
 
-#line {
+.auctionNo {
 	line-height: 30px;
 	color: #E4FFF8;
 }
@@ -207,7 +207,6 @@
 
 					<%--경매 1번 폼 경매 중이 아닌 경우 --%>
 					<jsp:useBean id="toDay" class="java.util.Date" />
-
 					<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" var="today" />
 
 						<c:choose>
@@ -227,7 +226,7 @@
 											<form>
 												<table class="auctionTable">
 													<tr>
-														<td colspan="2" id="line">ss</td>
+														<td colspan="2" class="auctionNo">${map.au1.auctionNo }</td>
 													</tr>
 
 													<tr>
@@ -281,7 +280,7 @@
 											<form>
 												<table class="auctionTable">
 													<tr>
-														<td colspan="2" id="line">ss</td>
+														<td colspan="2" class="auctionNo">${map.au1.auctionNo }</td>
 													</tr>
 
 													<tr>
@@ -308,7 +307,7 @@
 													</tr>
 													<tr>
 														<td colspan="2" class="textAlign-center"><input type="button"
-															style="color: white" class="btn" value="입찰하기" /></td>
+															style="color: white" class="btn" data="1" value="입찰하기" /></td>
 													</tr>
 												</table>
 											</form>
@@ -335,7 +334,7 @@
 											<form>
 												<table class="auctionTable">
 													<tr>
-														<td colspan="2" id="line">ss</td>
+														<td colspan="2" class="auctionNo">${map.au2.auctionNo }</td>
 													</tr>
 
 													<tr>
@@ -389,7 +388,7 @@
 											<form>
 												<table class="auctionTable">
 													<tr>
-														<td colspan="2" id="line">ss</td>
+														<td colspan="2" class="auctionNo">${map.au2.auctionNo }</td>
 													</tr>
 
 													<tr>
@@ -416,7 +415,7 @@
 													</tr>
 													<tr>
 														<td colspan="2" class="textAlign-center"><input type="button"
-															style="color: white" class="btn" value="입찰하기" /></td>
+															style="color: white" class="btn" data="2" value="입찰하기" /></td>
 													</tr>
 												</table>
 											</form>
@@ -443,7 +442,7 @@
 											<form>
 												<table class="auctionTable">
 													<tr>
-														<td colspan="2" id="line">ss</td>
+														<td colspan="2" class="auctionNo">${map.au3.auctionNo }</td>
 													</tr>
 
 													<tr>
@@ -497,7 +496,7 @@
 											<form>
 												<table class="auctionTable">
 													<tr>
-														<td colspan="2" id="line">ss</td>
+														<td colspan="2" class="auctionNo">${map.au3.auctionNo }</td>
 													</tr>
 
 													<tr>
@@ -524,7 +523,7 @@
 													</tr>
 													<tr>
 														<td colspan="2" class="textAlign-center"><input type="button"
-															style="color: white" class="btn" value="입찰하기" /></td>
+															style="color: white" class="btn" data="3" value="입찰하기" /></td>
 													</tr>
 												</table>
 											</form>
@@ -556,7 +555,7 @@
 			var endTime = date3.getTime();
 			if(endTime-currentTime>0){
 				var interval = endTime-currentTime;
-				console.log($(this).parents('table').find('.remainTime').html());
+				
 				setInterval(function(){
 					interval-=1000;
 					var remainingDays = parseInt(interval/(1000*60*60*24));
@@ -573,31 +572,14 @@
 });
 
 	//입찰하기 window.open
-
-		$('.btn').click(
-				function() {
-
-					var url = window.open("/auction/auctionWindow.do",
-							"width=430px, height=455px");
-
-					$.ajax({
-						url : url,
-						data : {},
-						type : "post",
-						success : function(result) {
-							if (result == "true") {
-								alert('비밀번호 변경 성공');
-							} else {
-								alert('비밀번호 변경 실패-기존 비밀번호를 확인해주세요');
-							}
-							$('#pass>input').val(''); //div(#pass) 안에 input 태그들의 값을 비워라
-						},
-						error : function() {
-							console.log('ajax 통신 실패');
-						}
-
-					});
-				});
+		$('.btn').click(function(){
+			
+			var auctionFormNo = $(this).attr('data');
+			window.open("/auction/auctionWindow.do?auctionFormNo="+auctionFormNo,"_blank","width=430px, height=305px");
+			
+		});
+	
+	
 	</script>
 
 

@@ -189,48 +189,56 @@ color: #3BBD5A;
 	<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
 	
-	<div id="contentForm">
-	<div id="content_background"><br>
-		<div id="notice_name">
-			<span id="font">공지사항을 작성해 주세요</span>
-		</div>
-	
-		<div id="notice_userCategory_Form">
-			<select required>
-				<option value="" disabled selected>사용자 분류 카테고리</option>
-				<option>1번</option>
-				<option>2번</option>
-				<option>3번</option>
-				<option>4번</option>
-			</select>
-		</div><br>
+	<form action="/notice/noticeWrite.do" method="post">
+		<div id="contentForm">
+		<div id="content_background"><br>
+			<div id="notice_name">
+				<span id="font">공지사항을 작성해 주세요</span>
+			</div>
+		
+			<div id="notice_userCategory_Form">
+				<select required name="noticeCode">
+					<option value="" disabled selected>사용자 분류 카테고리</option>
+					<option value="A">전체 회원</option>
+					<option value="F">농가</option>
+					<option value="U">사용자</option>
+				</select>
+			</div><br>
+					
+			<div id="noticeCategory_Form">
 				
-		<div id="noticeCategory_Form">
+				<select required name="noticeCategory">
+					<option value="" disabled selected>공지사항 분류</option>
+					<option value="Category-1">기타</option>
+					<option value="Category-2">회원 가입 및 탈퇴</option>
+					<option value="Category-3">경매 관련</option>
+				</select>
+			</div><br>
 			
-			<select required>
-				<option value="" disabled selected>공지사항 분류</option>
-				<option>1번</option>
-				<option>2번</option>
-				<option>3번</option>
-				<option>4번</option>
-			</select>
-		</div><br>
-		
-		<div id="notice_title_Form">
-			<input type="text" id="notice_title" placeholder="제목을 입력하시오"/>
-		</div><br>
-		
-		<div id="notice_content_Form">
-			<textarea style="resize:none" id="notice_content" placeholder="내용을 입력하시오"></textarea>
-		</div><br>
-		
-		<div id="write_Btn_form">
-			<div id="list_btn"><button id="mainBtn">메인으로</button></div>
-			<div id="reset_btn"><button id="resetBtn">다시쓰기</button></div>
-			<div id="submit_btn"><button id="submitBtn">글 쓰기</button></div>
+			<div id="notice_title_Form">
+				<input type="text" name="noticeTitle" id="notice_title" placeholder="제목을 입력하시오"/>
+			</div><br>
+			
+			<div id="notice_content_Form">
+				<textarea style="resize:none" name="noticeContent" id="notice_content" placeholder="내용을 입력하시오"></textarea>
+			</div><br>
+			
+			<div id="write_Btn_form">
+				<div id="list_btn">
+					<input type="button" id="mainBtn" value="메인으로" onclick="location='/'">
+				</div>
+				
+				<div id="reset_btn">
+					<input type="reset" value="다시쓰기" id="resetBtn">
+				</div>
+				
+				<div id="submit_btn">
+					<input type="submit" value="글 쓰기" id="submitBtn">
+				</div>
+			</div>
 		</div>
-	</div>
-	</div>
+		</div>
+	</form>
 
 	<div id="footerForm">
 	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
