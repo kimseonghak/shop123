@@ -38,9 +38,6 @@ public class QuestionController {
 	
 	@RequestMapping(value="/question/questionWrite.do", method=RequestMethod.POST)
 	public void QuestionUserWrite(QuestionUser qUser, ModelAndView mav) {
-		//내일 해야할 일: 위의 Sysout 문을 돌리면, 아무 데이터도 입력되지 않는다, 그래서 이 값에 각각 데이터를 넣어줄 방법을 찾아야 함
-		//내일 오자마자, header에서 246번 줄에 /question/questionUserList.do" 넣어주고 다시 로직 짜기 시작하기
-//		System.out.println(qUser);
 		
 		int result = qService.insertUserWrite(qUser);
 		
