@@ -21,4 +21,31 @@
 		WHERE farm_id=#{farmId} and farm_pwd=#{farmPwd} and farm_end_yn='N'
 	</select>
 
+	<select id="selectIdCheck" resultType="int">
+	
+		SELECT
+			COUNT(*)
+		FROM
+			farm
+		WHERE farm_id=#{value}
+	
+	</select>
+	
+	<insert id="insertFarm" parameterType="farm">
+
+		INSERT INTO FARM
+			VALUES(MEMBER_SEQ.NEXTVAL,
+					#{farmId},
+					#{farmPwd},
+					#{farmName},
+					#{farmBusiNum},
+					#{farmEmail},
+					#{farmPhone},
+					#{farmAddressMain},
+					#{farmAddressSub},
+					SYSDATE,
+					'N',
+					DEFAULT)
+	</insert>
+	
 </mapper>

@@ -30,7 +30,7 @@
 	
 	</select>
 	
-		<select id="selectNickCheck" resultType="int">
+	<select id="selectNickCheck" resultType="int">
 	
 		SELECT
 			COUNT(*)
@@ -43,18 +43,63 @@
 	<insert id="insertMember" parameterType="member">
 	
 		INSERT INTO MEMBER
-		VALUES(MEMBER_SEQ.NEXTVAL,
-				#{userId},
-				#{userPwd},
-				#{userName},
-				#{userNick},
-				#{userEmail},
-				#{userPhone},
-				#{userAddressMain},
-				#{userAddressSub},
-				SYSDATE,
-				'N',
-				DEFAULT)
+			VALUES(MEMBER_SEQ.NEXTVAL,
+					#{userId},
+					#{userPwd},
+					#{userName},
+					#{userNick},
+					#{userEmail},
+					#{userPhone},
+					#{userAddressMain},
+					#{userAddressSub},
+					SYSDATE,
+					'N',
+					DEFAULT)
 	
 	</insert>
+	
+	<select id="findIdMember" resultType="member">
+	
+		SELECT
+			user_id as userId
+		FROM
+			member
+		WHERE user_email=#{userEmail}
+		
+	</select>
+	
+	<select id="selectEmailCheck" resultType="member">
+	
+		SELECT
+			user_email as userEmail
+		FROM
+			member
+		WHERE user_id=#{userId}
+		
+	</select>
+	
+	<select id="findPwdMember" resultType="int">
+	
+		SELECT
+			COUNT(*)
+		FROM
+			member
+		WHERE user_id=#{userId} and user_email=#{userEmail}
+		
+	</select>
+	 <!--
+	<update id="findPwdMember">
+	
+		UPDATE member set user_pwd = #{userPwd}
+		WHERE user_id=#{userId} and user_email=#{userEmail}
+		
+	</update>
+	-->
+	
+	<update id="test" parameterType="hashmap">
+	
+		UPDATE member set user_pwd = #{userNewPwd}
+		WHERE user_id=#{userId} and user_email=#{userEmail}
+		
+	</update>
 </mapper>

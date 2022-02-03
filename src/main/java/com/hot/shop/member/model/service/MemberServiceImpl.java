@@ -1,8 +1,10 @@
 package com.hot.shop.member.model.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.hot.shop.member.model.dao.MemberDAO;
 import com.hot.shop.member.model.vo.Member;
@@ -39,5 +41,25 @@ public class MemberServiceImpl implements MemberService {
 		
 		return mDAO.insertMember(member);
 		
+	}
+
+	@Override
+	public List<Member> findIdMember(Member member) {
+		return mDAO.findIdMember(member);
+	}
+
+	@Override
+	public Member selectEmailCheck(Member member) {
+		return mDAO.selectEmailCheck(member);
+	}
+	
+	@Override
+	public int findPwdMember(Member member) {
+		return mDAO.findPwdMember(member);
+	}
+
+	@Override
+	public int test(HashMap<String, Object> map) {
+		return mDAO.test(map);
 	}
 }

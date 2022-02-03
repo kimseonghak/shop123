@@ -221,28 +221,33 @@ input {
 	<div id="nav">
 		
 			<ul class="gnb-list">
-				<li><a href="">특산물소개</a>
+				<li><a href="/productintro/SeasonProductListPage.do">특산물소개</a>
 					<ul class="lnb-list">
-						<li><a href="">제철 특산물</a></li>
-						<li><a href="">지역 특산물</a></li>
+						<li><a href="/productintro/SeasonProductListPage.do">제철 특산물</a></li>
+						<li><a href="/productintro/LocalProductListPage.do">지역 특산물</a></li>
 					</ul>
 				</li>
-				<li><a href="">경매</a>
+				<li><a href="/auction/auctionPage.do">경매</a>
 					<ul class="lnb-list">
 						<li><a href="/auction/auctionPage.do">경매</a></li>
 						<li><a href="">구매</a></li>
 					</ul>
 				</li>
-				<li><a href="">게시판</a>
+				<li><a href="/notice/noticeListPage.do">게시판</a>
 					<ul class="lnb-list">
-						<li><a href="">공지사항</a></li>
-						<li><a href="">농가 홍보</a></li>
+						<li><a href="/notice/noticeListPage.do">공지사항</a></li>
+						<li><a href="/promotion/promotionListPage.do">농가 홍보</a></li>
 					</ul>
 				</li>
-				<li><a href="">고객센터</a>
+				<li><a href="/faq/faqListPage.do">고객센터</a>
 					<ul class="lnb-list">
-						<li><a href="">자주 찾는 질문</a></li>
-						<li><a href="">1:1 문의</a></li>
+						<li><a href="/faq/faqListPage.do">자주 찾는 질문</a></li>
+						<li><a href="/question/QuestionUserPage.do">일반 1:1 문의</a></li>
+						<c:choose>
+							<c:when test="${sessionScope.farm != null }">
+								<li><a href="/question/QuestionFarmPage.do">농가 1:1 문의</a></li>
+							</c:when>
+						</c:choose>
 					</ul>
 				</li>
 			</ul>
