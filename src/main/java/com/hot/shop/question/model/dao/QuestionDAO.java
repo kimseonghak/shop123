@@ -16,8 +16,14 @@ public class QuestionDAO {
 	@Qualifier(value="sqlSessionTemplate")
 	private SqlSessionTemplate sqlSession;
 
+	//1:1문의 리스트(유저)
 	public ArrayList<QuestionUser> selectUserQuestionList() {
-		
 		return new ArrayList<QuestionUser>(sqlSession.selectList("qUser.selectUserQuestionList"));
+	}
+
+	//1:1문의 글쓰기(유저 실질적인 백단)
+	public int insertUserWrite(QuestionUser qUser) {
+		System.out.println(qUser);
+		return sqlSession.insert("qUser.insertUserWrite",qUser);
 	}
 }

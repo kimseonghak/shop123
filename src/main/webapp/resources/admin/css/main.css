@@ -36,7 +36,6 @@ a {
 	height: 8%;
 	font-weight: bold;
 	font-size: 2.4vmin;
-	border-bottom: 2px solid #48bb78;
 }
 
 .boardBody {
@@ -85,7 +84,7 @@ table {
 }
 
 .boardTBL th{
-	border-top: none;
+	border-top: 2px solid #48bb78;
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
@@ -108,6 +107,7 @@ table {
 .borderDesignWrap {
 	width: 100%;
 	height: 100%;
+	padding-top:5px;
 	padding-left: 5px;
 	padding-right: 5px;
 	border: 1px solid #48bb78;

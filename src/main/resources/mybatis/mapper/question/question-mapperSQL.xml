@@ -22,6 +22,11 @@
 				left join member on (question_user.user_no=member.user_no) 
 				where QUESTION_USER_END_YN='N')
 		</select>		
+		
+		<!-- 1:1문의 사용자 글 쓰기 -->
+		<insert id="insertUserWrite" parameterType="qUser">
+			
+		</insert>
 	</mapper>
 
 

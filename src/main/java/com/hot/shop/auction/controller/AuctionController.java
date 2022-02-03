@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hot.shop.admin.model.vo.Auction;
@@ -25,8 +26,6 @@ public class AuctionController {
 		
 		HashMap<String, Object> map = aucService.selectAuction();
 		
-		System.out.println(map);
-	
 		mav.addObject("map",map);
 		
 		mav.setViewName("auction/auctionPage");
@@ -40,10 +39,26 @@ public class AuctionController {
 		return "auction/auction_sale";
 	}
 	
+	//최저가 입력 window.open 페이지 열기
 	@RequestMapping(value="/auction/auctionWindow.do")
-	public String auctionWindow() {
+	public ModelAndView auctionWindow(ModelAndView mav,@RequestParam int auctionFormNo) {
 		
-		return "auction/auction_windowOpen";
+		mav.addObject("auctionFormNo",auctionFormNo);
+		mav.setViewName("auction/auction_windowOpen");
+		
+		return mav;
+	}
+	
+	//수량,최저가 입력 시 비교하여 로직 처리
+	@RequestMapping(value="/auction/auctionInputPrice.do", method = RequestMethod.POST)
+	public void auctionInputPrice(@RequestParam int auctionCount, @RequestParam int lowestPrice,
+								  Auction auction,@RequestParam int auctionFormNo ) {
+		
+		int auctionPrice = auction.getAuctionPrice();
+		
+		
+		
+		
 	}
 	
 }
