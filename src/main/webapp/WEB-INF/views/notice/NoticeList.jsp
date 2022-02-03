@@ -176,7 +176,7 @@
 					<c:forEach items="${requestScope.list}" var="vo">
 						<tr>
 							<td>${vo.noticeNo}</td>
-							<td><a href="/notice/NoticeView.do?notice_no=${vo.noticeNo}">${vo.noticeTitle}</a></td>
+							<td><a href="/notice/NoticeView.do?noticeNo=${vo.noticeNo}">${vo.noticeTitle}</a></td>
 						</tr>
 					</c:forEach>
 					
