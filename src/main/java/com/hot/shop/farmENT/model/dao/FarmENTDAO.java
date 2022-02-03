@@ -8,8 +8,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
 import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
+import com.hot.shop.member.model.vo.Member;
 
 @Repository
 public class FarmENTDAO {
@@ -194,6 +196,39 @@ public class FarmENTDAO {
 	private int orderListToTalCount(HashMap<String, Object> searchMap) {
 		
 			return	sql.selectOne("farmENT.selectOrderListTotalCount",searchMap);
+		
+	}
+	//회원정보
+	public ArrayList<Member> selectOneMember(int userNo) {
+		
+			return new ArrayList<Member>(sql.selectList("farmENT.selectOneMember",userNo));
+		
+	}
+
+	//상품정보
+	public ArrayList<FarmENTProduct> selectOneProduct(String productName, int farmNo) {
+		
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("productName", productName);
+		data.put("farmNo", farmNo);
+		
+		return new ArrayList<FarmENTProduct> (sql.selectList("farmENT.selectOneProduct",data));
+	}
+	
+	//배송상태 입력
+	public int farmDeliveryInput(HashMap<String, Object> map) {
+		
+		return  sql.insert("farmENT.insertDeliveryStatus",map) + sql.update("farmENT.updatePurchaselist",map);
+		
+		
+	}
+
+	public ArrayList<FarmENTDeliveryStatus> selectDeliveryInputData(int buyNo) {
+
+		RowBounds rb = new RowBounds(0,1);
+		
+		return new ArrayList<FarmENTDeliveryStatus>(sql.selectList("farmENT.selectDeliveryInputData",buyNo,rb));
+		
 		
 	}
 	

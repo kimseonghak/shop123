@@ -138,8 +138,8 @@
     /*hover 효과*/
     .userNoA
     {
-        text-decoration: none;
-        color: black;
+        cursor:pointer;
+        
     }
     .userNoA:hover
     {
@@ -149,8 +149,8 @@
 
     .productNameA
     {
-        text-decoration: none;
-        color: black;
+        cursor:pointer;
+      
     }
     .productNameA:hover
     {
