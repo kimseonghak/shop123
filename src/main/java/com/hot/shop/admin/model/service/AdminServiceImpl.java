@@ -122,4 +122,33 @@ public class AdminServiceImpl implements AdminService{
 		
 		return map;
 	}
+
+	@Override
+	public QuestionFarm questionFarmContent(int questionFarmNo) {
+		return aDAO.questionFarmContent(questionFarmNo);
+	}
+
+	@Override
+	public HashMap<String, Object> userQNAList(int currentPage) {
+		int recordCountPerPage=10;
+		ArrayList<QuestionUser> list = aDAO.questiopUserList(recordCountPerPage,currentPage); 
+		int naviCountPerPage=10;
+		String pageNavi = aDAO.getUserQNAPageNavi(recordCountPerPage, currentPage, naviCountPerPage);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("pageNavi", pageNavi);
+		return map;
+	}
+
+	@Override
+	public HashMap<String, Object> userQNASearchList(HashMap<String, Object> map, int currentPage) {
+		int recordCountPerPage=10;
+		ArrayList<QuestionUser> list = aDAO.questionUserSearchList(recordCountPerPage,currentPage,map);
+		int naviCountPerPage=10;
+		String pageNavi = aDAO.getUserQNASearchPageNavi(recordCountPerPage,currentPage,map,naviCountPerPage);
+		map.put("list", list);
+		map.put("pageNavi", pageNavi);
+		
+		return map;
+	}
 }

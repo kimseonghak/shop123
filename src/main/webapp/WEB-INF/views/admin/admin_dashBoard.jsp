@@ -44,7 +44,7 @@
 				<div class="borderDesignWrap">
 					<div class="boardHeader">
 						<span class="boardTitle boardSpan">유저 문의사항</span> 
-						<span class="boardPlus boardSpan"><a href="">+ 더보기</a></span>
+						<span class="boardPlus boardSpan"><a href="/admin/adminUserQNAPage.do">+ 더보기</a></span>
 					</div>
 					<div class="boardBody">
 						<table class="boardTBL" style="word-break: break-all;">
@@ -54,7 +54,7 @@
 								<th style="width: 20%;">작성자</th>
 							</tr>
 							<c:forEach items="${requestScope.qUser }" var="q">
-								<tr class="qUserList">
+								<tr class="qUserList userQNA">
 									<td>${q.questionUserNo }</td>
 									<td>${q.questionUserTitle }</td>
 									<td>${q.userNick }</td>
@@ -68,7 +68,7 @@
 				<div class="borderDesignWrap">
 					<div class="boardHeader">
 						<span class="boardTitle boardSpan">농가 문의사항</span> 
-						<span class="boardPlus boardSpan"><a href="">+ 더보기</a></span>
+						<span class="boardPlus boardSpan"><a href="/admin/adminFarmQNAPage.do">+ 더보기</a></span>
 					</div>
 					<div class="boardBody">
 						<table class="boardTBL" style="word-break: break-all;">
@@ -78,7 +78,7 @@
 								<th style="width: 20%;">작성자</th>
 							</tr>
 							<c:forEach items="${requestScope.qFarm }" var="q">
-								<tr class="qUserList">
+								<tr class="qUserList farmQNA">
 									<td style="width:15%;">${q.questionFarmNo }</td>
 									<td style="width:65%;">${q.questionFarmTitle }</td>
 									<td style="width:20%;">${q.farmName }</td>
@@ -108,6 +108,7 @@
 		integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s="
 		crossorigin="anonymous"></script>
 	<script>
+<%-- 사이드바 선택 표시 --%>
 		$(function() {
 			$('#mainUl>li').eq(0).css('background-color', '#34734e');
 			$('#mainUl>li>a').eq(0).css('color', 'white');
@@ -189,8 +190,13 @@
 			});
 		});
 <%-- tr 클릭시 해당 글로 이동하는 로직 --%>
-		$('.qUserList').click(function(){
+		$('.userQNA').click(function(){
 			var qBoardNo = $(this).children().eq(0).html();
+			location.replace("/admin/admin_")
+		});
+		$('.farmQNA').click(function(){
+			var qBoardNo = $(this).children().eq(0).html();
+			location.replace("/admin/adminFarmQNAContent.do?questionFarmNo="+qBoardNo);
 		});
 <%-- 패딩값 재설정 --%>
 		$('.boardWrap').eq(0).css("padding-left","5px");

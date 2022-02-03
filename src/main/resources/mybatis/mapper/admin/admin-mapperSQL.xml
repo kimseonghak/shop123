@@ -174,7 +174,7 @@
 		from (select row_number() over (order by question_farm_no desc) as num, question_farm.*,farm_name from question_farm left join farm on(question_farm.farm_no = farm.farm_no) where question_farm_end_yn='N') where num between #{start} and #{end}
 	</select>
 	<select id="farmQNATotalCount" resultType="integer">
-		select count(*) from question_farm
+		select count(*) from question_farm where question_farm_end_yn='N'
 	</select>
 	<select id="questionFarmSearchList" parameterType="hashmap" resultType="qFarm">
 		select
@@ -219,6 +219,92 @@
 			</when>
 			<when test="type.equals('all')">
 				question_farm_title like '%'||#{keyword}||'%' or question_farm_content like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+	</select>
+	<select id="questionFarmContent" parameterType="integer" resultType="qFarm">
+		select
+			question_Farm_No as questionFarmNo,
+			question_Farm_Title as questionFarmTitle,
+			question_Farm_Content as questionFarmContent,
+			question_Farm_Regdate as questionFarmRegdate,
+			farm.farm_No as farmNo,
+			question_Farm_End_YN as questionFarmEndYN,
+			farm_Name as farmName,
+			question_Farm_Answer_YN as questionFarmAnswerYN
+		from question_farm left join farm on(question_farm.farm_no = farm.farm_no) where question_farm_no=#{_parameter}
+	</select>
+	<select id="questionUserList" parameterType="hashmap" resultType="qUser">
+		select
+			question_User_No as questionUserNo,
+			question_User_Title as questionUserTitle,
+			question_User_Content as questionUserContent,
+			question_User_Regdate as questionUserRegdate,
+			user_No as userNo,
+			question_User_End_YN as questionUserEndYN,
+			questionphoto_No as questionphotoNo,
+			question_User_Code as questionUserCode,
+			question_User_Classify as questionUserClassify,
+			farm_No as farmNo,
+			order_No as orderNo,
+			user_Nick as userNick,
+			question_User_Answer_YN as questionUserAnswerYN
+		from (select row_number() over (order by question_user_no desc) as num, question_user.*, member.user_nick 
+		from question_user left join member on(question_user.user_no = member.user_no) where question_user_end_yn='N' and question_user_classify='A')
+		where num between #{start} and #{end}
+	</select>
+	<select id="userQNATotalCount" resultType="integer">
+		select count(*) from question_user where question_user_end_yn='N' and question_user_classify='A'
+	</select>
+	<select id="questionUserSearchList" parameterType="hashmap" resultType="qUser">
+		select
+			question_User_No as questionUserNo,
+			question_User_Title as questionUserTitle,
+			question_User_Content as questionUserContent,
+			question_User_Regdate as questionUserRegdate,
+			user_No as userNo,
+			question_User_End_YN as questionUserEndYN,
+			questionphoto_No as questionphotoNo,
+			question_User_Code as questionUserCode,
+			question_User_Classify as questionUserClassify,
+			farm_No as farmNo,
+			order_No as orderNo,
+			user_Nick as userNick,
+			question_User_Answer_YN as questionUserAnswerYN
+		from (select row_number() over (order by question_user_no desc) as num, question_user.*, member.user_nick 
+		from question_user left join member on(question_user.user_no = member.user_no)
+		where question_user_end_yn='N' and question_user_classify='A' and 
+		<choose>
+			<when test="type.equals('title')">
+				question_user_title like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('name')">
+				user_nick like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('content')">
+				question_user_content like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('all')">
+				question_user_title like '%'||#{keyword}||'%' or question_user_content like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+		) where num between #{start} and #{end}
+	</select>
+	<select id="userQNASearchTotalCount" parameterType="hashmap" resultType="integer">
+		select count(*) from question_user left join member on(question_user.user_no = member.user_no)
+		where question_user_classify='A' and
+		<choose>
+			<when test="type.equals('title')">
+				question_user_title like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('name')">
+				user_nick like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('content')">
+				question_user_content like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('all')">
+				question_user_title like '%'||#{keyword}||'%' or question_user_content like '%'||#{keyword}||'%'
 			</when>
 		</choose>
 	</select>

@@ -139,7 +139,7 @@ public class AdminController {
 		return "1";
 	}
 	
-	// 최초 user QNA 페이지 
+	// 최초 farm QNA 페이지 
 	@RequestMapping(value = "/admin/adminFarmQNAPage.do", method = RequestMethod.GET)
 	public ModelAndView farmQNAPage(ModelAndView mav,HttpServletRequest request,
 			@RequestParam(required = false, defaultValue = "1") int currentPage) {
@@ -150,7 +150,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	// QNA 검색 페이지
+	// farmQNA 검색 페이지
 	@RequestMapping(value = "/admin/adminFarmQNASearch.do", method = RequestMethod.GET)
 	public ModelAndView farmQNASearch(@RequestParam String type, @RequestParam String keyword, 
 			@RequestParam(required = false, defaultValue = "1") int currentPage, ModelAndView mav) {
@@ -163,6 +163,46 @@ public class AdminController {
 		mav.addObject("map",map);
 		mav.addObject("currentPage",currentPage);
 		mav.setViewName("admin/admin_farmQNA");
+		
+		return mav;
+	}
+	
+	// farmQNA 내용 페이지
+	@RequestMapping(value = "/admin/adminFarmQNAContent.do", method = RequestMethod.GET)
+	public ModelAndView farmQNAContent(@RequestParam(required = false, defaultValue = "1") int currentPage,
+			@RequestParam int questionFarmNo,ModelAndView mav) {
+		
+		QuestionFarm qFarm = aService.questionFarmContent(questionFarmNo);
+		
+		mav.addObject("qFarm",qFarm);
+		mav.addObject("currentPage",currentPage);
+		mav.setViewName("admin/admin_farmQNAContent");
+		
+		return mav;
+	}
+	// userQNA 최초 페이지
+	@RequestMapping(value = "/admin/adminUserQNAPage.do", method = RequestMethod.GET)
+	public ModelAndView userQNAPage(ModelAndView mav,HttpServletRequest request,
+			@RequestParam(required = false, defaultValue = "1") int currentPage) {
+		HashMap<String,Object> map = aService.userQNAList(currentPage);
+		mav.addObject("map",map);
+		mav.addObject("currentPage",currentPage);
+		mav.setViewName("admin/admin_userQNA");
+		return mav;
+	}
+	// userQNA 검색 페이지
+	@RequestMapping(value = "/admin/adminUserQNASearch.do", method = RequestMethod.GET)
+	public ModelAndView userQNASearch(@RequestParam String type, @RequestParam String keyword, 
+			@RequestParam(required = false, defaultValue = "1") int currentPage, ModelAndView mav) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		
+		map = aService.userQNASearchList(map,currentPage);
+		
+		mav.addObject("map",map);
+		mav.addObject("currentPage",currentPage);
+		mav.setViewName("admin/admin_userQNA");
 		
 		return mav;
 	}

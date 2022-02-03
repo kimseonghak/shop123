@@ -181,15 +181,15 @@
 		<div id="mainContents">
 			<div id="backgroundColor">
 			<div id="titleSpace">
-				<span id="title">Farm QNA</span>
+				<span id="title">User QNA</span>
 			</div>
 			<div id="searchWrap">
-					<form action="/admin/adminFarmQNASearch.do" method="get" style="widht:100%; height:100%;" id="searchForm">
+					<form action="/admin/adminUserQNASearch.do" method="get" style="widht:100%; height:100%;" id="searchForm">
 						<button type="submit" id="searchBtn"><img alt="" src="/resources/admin/img/searchLeaf.png"></button>
 						<input type="text" name="keyword" id="searchText" />
 						<select name="type" id="searchSelect">
 							<option value="title">제목</option>
-							<option value="name">농가 이름</option>
+							<option value="name">유저 이름</option>
 							<option value="content">내용</option>
 							<option value="all">제목+내용</option>
 						</select>
@@ -199,22 +199,22 @@
 					<tr id="thTr">
 						<th width="10%">문의 번호</th>
 						<th width="40%">문의 제목</th>
-						<th width="10%">농가 번호</th>
-						<th width="15%">농가 이름</th>
+						<th width="10%">유저 번호</th>
+						<th width="15%">유저 이름</th>
 						<th width="15%">문의 날짜</th>
 						<th width="10%">진행 상황</th>
 					</tr>
 					<c:forEach items="${map.list }" var="q">
-					<tr class="tdTr" qFarmNo=${q.questionFarmNo }>
-						<td>${q.questionFarmNo }</td>
-						<td style="font-weight:bolder;">${q.questionFarmTitle }</td>
-						<td>${q.farmNo }</td>
-						<td style="font-weight:bolder;">${q.farmName }</td>
-						<td>${q.questionFarmRegdate }</td>
-						<c:if test="${String.valueOf(q.questionFarmAnswerYN) eq 'N'}">
+					<tr class="tdTr" qUserNo=${q.questionUserNo }>
+						<td>${q.questionUserNo }</td>
+						<td style="font-weight:bolder;">${q.questionUserTitle }</td>
+						<td>${q.userNo }</td>
+						<td style="font-weight:bolder;">${q.userNick }</td>
+						<td>${q.questionUserRegdate }</td>
+						<c:if test="${String.valueOf(q.questionUserAnswerYN) eq 'N'}">
 							<td class="answerImgTd"><img class="answerImg" alt="" src="/resources/admin/img/답변 대기.png"></td>
 						</c:if>
-						<c:if test="${String.valueOf(q.questionFarmAnswerYN) eq 'Y'}">
+						<c:if test="${String.valueOf(q.questionUserAnswerYN) eq 'Y'}">
 							<td class="answerImgTd"><img class="answerImg" alt="" src="/resources/admin/img/문의 종료.png"></td>
 						</c:if>
 					</tr>
@@ -233,9 +233,9 @@
 	<script>
 <%-- 사이드바 선택 표시 --%>
 		$(function() {
-			$('#mainUl>li').eq(2).css('background-color', '#34734e');
-			$('#mainUl>li>a').eq(2).css('color', 'white');
-			$('#mainUl>li>a').eq(2).css('font-weight','bolder');
+			$('#mainUl>li').eq(3).css('background-color', '#34734e');
+			$('#mainUl>li>a').eq(3).css('color', 'white');
+			$('#mainUl>li>a').eq(3).css('font-weight','bolder');
 		});
 <%-- 네비화살표 hover시 투명도 조절 --%>
 		$('.naviArrow').hover(function() {
@@ -253,9 +253,9 @@
 		});
 <%-- 글 tr 클릭시 해당 글 내용으로 이동하는 스크립트 --%>
 		$('.tdTr').click(function(){
-			var qFarmNo = $(this).attr('qFarmNo');
+			var qUserNo = $(this).attr('qUserNo');
 			var currentPage = ${currentPage};
-			location.replace('/admin/adminFarmQNAContent.do?currentPage='+currentPage+'&questionFarmNo='+qFarmNo);
+			location.replace('/admin/adminUserQNAContent.do?currentPage='+currentPage+'&questionUserNo='+qUserNo);
 		});
 <%-- 검색아이콘 클릭시 서브밋 --%>
 		$('#searchIcon').click(function(){
