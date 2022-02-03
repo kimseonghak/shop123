@@ -183,7 +183,6 @@
 						<a href="/member/memberFindPwdPage.do">비밀번호 찾기</a>
 						<a href="/member/memberJoinPage.do">회원가입</a><br><br>
 						<a href="/farm/farmJoinPage.do">사업자 회원가입</a>
-						<a href="/member/memberTestPage.do">테스트</a>
 					</div>
 				</div>
 				

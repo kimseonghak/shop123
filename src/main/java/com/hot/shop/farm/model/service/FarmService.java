@@ -6,4 +6,8 @@ public interface FarmService {
 
 	Farm selectLoginFarm(Farm farm);
 
+	int selectIdCheck(String farmId);
+
+	int insertMember(Farm farm);
+
 }

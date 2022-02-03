@@ -1,6 +1,8 @@
 package com.hot.shop.member.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -80,12 +82,13 @@ public class MemberController {
 	public String logout(HttpSession session,
 			@SessionAttribute Member member) {
 			
-			session.invalidate();
+		session.invalidate();
 			
-			return "redirect:/";
+		return "redirect:/";
 	}
 	
-	//회원가입시 아이디 중복체크
+	//회원가입 시 아이디 중복체크
+	//비밀번호 찾기 시 아이디 존재유무 확인
 	@RequestMapping(value="/member/memberIdCheck.do", method = RequestMethod.GET)
 	public void memberIdCheck(@RequestParam String userId,
 			HttpServletResponse response) throws IOException {
@@ -122,7 +125,8 @@ public class MemberController {
 		return mav;
 	}
 	
-	//이메일 인증
+	//회원가입 시 이메일 인증
+	//아이디 찾기 시 이메일 인증
 	@RequestMapping(value="/member/memberMailCheck.do", method=RequestMethod.GET)
     @ResponseBody
     public String mailCheckGET(String email) throws Exception{
@@ -132,7 +136,7 @@ public class MemberController {
 		
 		String setForm = "skytjd10242@naver.com";
         String toMail = email;
-        String title = "123상회 회원가입 인증 이메일 입니다.";
+        String title = "123상회 회원 인증 이메일 입니다.";
         String content = 
                 "홈페이지를 방문해주셔서 감사합니다." +
                 "<br>" + 
@@ -158,5 +162,100 @@ public class MemberController {
         
         return num;
     }
-
+	
+	//아이디찾기
+	@RequestMapping(value="/member/memberFindId.do", method = RequestMethod.POST)
+	public ModelAndView memberFindId(Member member,
+							ModelAndView mav) {
+		
+		List<Member> result = mService.findIdMember(member);
+		
+		if(result.size() > 0) {
+			mav.addObject("result", result);
+			mav.setViewName("member/findIdSuccess");
+			
+		} else {
+			mav.addObject("msg", "입력하신 이메일과 일치하는 아이디가 존재하지 않습니다.");
+			mav.addObject("location", "/member/memberFindId.do");
+			mav.setViewName("commons/msg");
+		}
+		return mav;
+	}
+	
+	//비밀번호 찾기 시 입력한 아이디와 이메일이 일치하는지 확인
+	@RequestMapping(value="/member/memberEmailCheck.do", method = RequestMethod.GET)
+	public void memberEmailCheck(Member member,
+			HttpServletResponse response) throws IOException {
+		
+		Member result = mService.selectEmailCheck(member);
+		response.getWriter().print(result.getUserEmail());
+	}
+	
+	
+	//비밀번호 찾기(이메일 재발급)
+	@RequestMapping(value="/member/memberFindPwd.do", method = RequestMethod.POST)
+	public ModelAndView memberFindPwd(Member member,
+							ModelAndView mav) {
+		
+		int result = mService.findPwdMember(member);
+		if(result > 0) {
+			mav.addObject("result", result);
+			
+			String userId = member.getUserId();
+			String userEmail = member.getUserEmail();
+			
+			//랜덤값 생성
+			Random random = new Random();
+			int newPass = random.nextInt(888888) + 111111;
+			
+			//이메일 발송
+			String setForm = "skytjd10242@naver.com";
+	        String toMail = userEmail;
+	        String title = "123상회 임시비밀번호 발송 이메일 입니다.";
+	        String content = 
+	                "홈페이지를 방문해주셔서 감사합니다." +
+	                "<br>" + 
+	                userId + "님의 임시 비밀번호는 " + newPass + "입니다." + 
+	                "<br>" + 
+	                "로그인 후 비밀번호를 변경하여 주세요.";
+	        
+	        try {
+	            
+	            MimeMessage message = mailSender.createMimeMessage();
+	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+	            helper.setFrom(setForm);
+	            helper.setTo(toMail);
+	            helper.setSubject(title);
+	            helper.setText(content,true);
+	            mailSender.send(message);
+	            
+	        } catch(Exception e) {
+	            e.printStackTrace();
+	        }
+	        
+	        String userNewPwd = Integer.toString(newPass);
+	        
+	        HashMap<String, Object> map = new HashMap<String, Object>();
+	        map.put("userId", userId);
+	        map.put("userEmail", userEmail);
+	        map.put("userNewPwd", userNewPwd);
+			
+			int test = mService.test(map);
+			
+			if(test>0) {
+				mav.setViewName("member/findPwdSuccess");
+			} else {
+				mav.addObject("msg", "비밀번호 변경을 실패했습니다.\n지속적인 문제 발생시 관리자에게 문의해주세요.");
+				mav.addObject("location", "/member/memberFindPwd.do");
+				mav.setViewName("commons/msg");
+			}
+			
+		} else {
+			mav.addObject("msg", "입력하신 정보와 일치하는 아이디가 존재하지 않습니다.");
+			mav.addObject("location", "/member/memberFindPwd.do");
+			mav.setViewName("commons/msg");
+		}
+		return mav;
+	}
+	
 }

@@ -1,5 +1,9 @@
 package com.hot.shop.member.model.dao;
 
+import java.util.HashMap;
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,5 +33,22 @@ public class MemberDAO {
 
 	public int insertMember(Member member) {
 		return sql.insert("member.insertMember", member);
+	}
+
+	public List<Member> findIdMember(Member member) {
+		return sql.selectList("member.findIdMember", member);
+	}
+
+	public Member selectEmailCheck(Member member) {
+		Member result = sql.selectOne("member.selectEmailCheck", member);
+		return result;
+	}
+
+	public int findPwdMember(Member member) {
+		return sql.selectOne("member.findPwdMember", member);
+	}
+
+	public int test(HashMap<String, Object> map) {
+		return sql.update("member.test", map);
 	}
 }
