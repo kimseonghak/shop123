@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class FarmENTOrder {
 
+	private int buyNo; 
 	private int userNo;
 	private int farmNo;
 	private String productName;
@@ -19,10 +20,10 @@ public class FarmENTOrder {
 	}
 
 
-
-	public FarmENTOrder(int userNo, int farmNo, String productName, int productCount, int payAmount, Date purchaseDate,
-			String dName) {
+	public FarmENTOrder(int buyNo, int userNo, int farmNo, String productName, int productCount, int payAmount,
+			Date purchaseDate, String dName) {
 		super();
+		this.buyNo = buyNo;
 		this.userNo = userNo;
 		this.farmNo = farmNo;
 		this.productName = productName;
@@ -33,11 +34,19 @@ public class FarmENTOrder {
 	}
 
 
+	public int getBuyNo() {
+		return buyNo;
+	}
+
+
+	public void setBuyNo(int buyNo) {
+		this.buyNo = buyNo;
+	}
+
 
 	public int getUserNo() {
 		return userNo;
 	}
-
 
 
 	public void setUserNo(int userNo) {
@@ -45,11 +54,9 @@ public class FarmENTOrder {
 	}
 
 
-
 	public int getFarmNo() {
 		return farmNo;
 	}
-
 
 
 	public void setFarmNo(int farmNo) {
@@ -57,11 +64,9 @@ public class FarmENTOrder {
 	}
 
 
-
 	public String getProductName() {
 		return productName;
 	}
-
 
 
 	public void setProductName(String productName) {
@@ -69,11 +74,9 @@ public class FarmENTOrder {
 	}
 
 
-
 	public int getProductCount() {
 		return productCount;
 	}
-
 
 
 	public void setProductCount(int productCount) {
@@ -81,11 +84,9 @@ public class FarmENTOrder {
 	}
 
 
-
 	public int getPayAmount() {
 		return payAmount;
 	}
-
 
 
 	public void setPayAmount(int payAmount) {
@@ -93,11 +94,9 @@ public class FarmENTOrder {
 	}
 
 
-
 	public Date getPurchaseDate() {
 		return purchaseDate;
 	}
-
 
 
 	public void setPurchaseDate(Date purchaseDate) {
@@ -105,11 +104,9 @@ public class FarmENTOrder {
 	}
 
 
-
 	public String getdName() {
 		return dName;
 	}
-
 
 
 	public void setdName(String dName) {
