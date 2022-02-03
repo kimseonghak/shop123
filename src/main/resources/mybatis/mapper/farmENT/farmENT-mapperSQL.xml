@@ -42,7 +42,8 @@
   <!-- 주문 목록 리스트 -->
   	<select id="selectOrderList" parameterType="hashmap" resultType="farmENTOrder">
   	
-  		SELECT USER_NO AS userNo,
+  		SELECT BUY_NO AS buyNo,
+  			   USER_NO AS userNo,
   			   FARM_NO AS farmNo,
   			   PRODUCT_NAME AS productName,
   			   PRODUCT_COUNT AS productCount,
@@ -79,7 +80,73 @@
   	</select>	
   	
   	
+  <!--주문목록,환불접수 회원 정보 가져오기 -->	
   	
+  	<select id="selectOneMember" parameterType="int" resultType="member">
+  		SELECT user_no AS userNo,
+  			   user_id AS userId,
+  			   user_Pwd AS userPwd,
+  			   user_Name AS userName,
+  			   user_Nick AS userNick,
+  			   user_Email AS userEmail,
+  			   user_Phone AS userPhone,
+  			   user_Address_Main AS userAddressMain,
+  			   user_Address_Sub AS userAddressSub,
+  			   user_EnrollDate AS userEnrollDate,
+  			   user_End_YN AS userEndYN,
+  			   rating AS rating
+  			   
+			FROM MEMBER
+		WHERE USER_NO=#{_parameter}
+  	</select>
+  	
+  	<!-- 주문목록 상품 정보 가져오기 -->
+
+	<select id="selectOneProduct" parameterType="hashmap" resultType="farmENTProduct">
+		 SELECT 
+	  		AUCTION_NO AS auctionNo,
+	  		AUCTION_PRODUCT AS auctionProduct,
+	  		AUCTION_PRICE AS auctionPrice,
+	  		AUCTION_END AS auctionEnd 
+  		FROM AUCTION 
+		WHERE FARM_NO=#{farmNo} AND AUCTION_PRODUCT=#{productName} 
+		
+	</select>
   
-  
+  <!-- 배송 상태 입력 -->
+  	<insert id="insertDeliveryStatus" parameterType="hashmap">
+  		INSERT INTO DELIVERY_MANAGEMENT VALUES(DELIVERY_SEQ.NEXTVAL,
+  												#{buyNo},
+  												#{deliveryCompany},
+  												#{sendNo},
+  												#{sendDate},
+  												'N',
+  												#{deliveryStatus})
+  	</insert>
+  	
+  	<!-- 구매 목록 테이블에 배송 값 변경 -->
+  	
+  	<update id="updatePurchaselist" parameterType="hashmap">
+  	
+  		UPDATE PURCHASELIST SET D_CODE=#{deliveryStatus} WHERE BUY_NO=#{buyNo}
+  	
+  	</update>
+  	
+  	<!-- 입력한 배송 데이터 값 가져오기 -->
+  	
+  	<select id="selectDeliveryInputData" parameterType="int" resultType="farmENTDeliveryStatus">
+  		SELECT 
+  			   Delivery_No AS deliveryNo,
+  			   buy_No AS buyNo,
+  			   delivery_Company AS deliveryCompany,
+  			   delivery_Num AS deliveryNum,
+  			   delivery_Date AS deliveryDate,
+  			   del_YN AS delYN,
+  			   delivery_Status AS deliveryStatus
+		FROM DELIVERY_MANAGEMENT
+		WHERE BUY_NO =#{_parameter}
+		ORDER BY 1 DESC
+  	</select>
+  	
+  	
 </mapper>

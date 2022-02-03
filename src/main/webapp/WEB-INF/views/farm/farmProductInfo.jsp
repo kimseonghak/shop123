@@ -33,15 +33,15 @@
               <tbody>
                   <tr>
                     <td class="fixWord">경매번호</td>
-                    <td>41</td>
+                    <td>${list.get(0).getAuctionNo()}</td>
                   </tr>
                   <tr>
                      <td class="fixWord">상품명</td>
-                     <td>감귤3kg</td>
+                     <td>${list.get(0).getAuctionProduct()}</td>
                   </tr>
                   <tr>
                       <td class="fixWord">상품가격</td>
-                      <td>25000</td>
+                      <td>${list.get(0).getAuctionPrice()}</td>
                   </tr>
                 </tbody>
             </table>

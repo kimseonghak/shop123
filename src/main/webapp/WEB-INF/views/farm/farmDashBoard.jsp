@@ -120,6 +120,7 @@
 
 <!--매출 그래프-->
 <script>
+	$(function(){
 		var context1 = document.getElementById('enterHome').getContext('2d');
 		var enterHome = new Chart(context1,{
 			type:'bar',
@@ -159,6 +160,7 @@
 				}
 			}
 		});
+	});	
 	</script>    
 
 

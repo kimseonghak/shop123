@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hot.shop.farmENT.model.dao.FarmENTDAO;
+import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
 import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
+import com.hot.shop.member.model.vo.Member;
 
 @Service
 public class FarmENTServiceImpl implements FarmENTService{
@@ -57,6 +59,40 @@ public class FarmENTServiceImpl implements FarmENTService{
 		map.put("pageNavi", pageNavi);
 		
 		return map;
+		
+	}
+	//회원정보
+	@Override
+	public ArrayList<Member> selectOneMember(int userNo) {
+		
+		ArrayList<Member> list = fENTdao.selectOneMember(userNo);
+		
+		return list;
+	}
+
+	//상품정보
+	@Override
+	public ArrayList<FarmENTProduct> selectOneProduct(String productName, int farmNo) {
+		
+		ArrayList<FarmENTProduct> list =fENTdao.selectOneProduct(productName,farmNo);
+		
+		return list;
+		
+	}
+
+	@Override
+	public int farmDeliveryInput(HashMap<String, Object> map) {
+		
+		return	fENTdao.farmDeliveryInput(map);
+	}
+
+	@Override
+	public ArrayList<FarmENTDeliveryStatus> selectDeliveryInputData(int buyNo) {
+		
+		
+		 ArrayList<FarmENTDeliveryStatus> list = (fENTdao.selectDeliveryInputData(buyNo));
+		
+		 return list;
 		
 	}
 

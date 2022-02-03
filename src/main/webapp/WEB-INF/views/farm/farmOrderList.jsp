@@ -89,17 +89,19 @@
                                 <th class="inputBtn"></th>
                            </tr>
                          <tbody>
-                           <tr>
+                          
                            <c:forEach items="${requestScope.list}" var="o" varStatus="i">
+                            	<tr>
 	                                <td>${i.count}</td>
-	                                <td class="userNo"><a type="button" class="userNoA">${o.getUserNo()}</a></td>
-	                                <td class="productName"><a type="button" class="productNameA">${o.getProductName()}</a></td>
+	                                <td class="userNo"><span class="userNoA">${o.getUserNo()}</span></td>
+	                                <td class="productName"><span class="productNameA">${o.getProductName()}</span></td>
 	                                <td class="count">${o.getProductCount()}</td>
 	                                <td class="amount">${o.getPayAmount()}</td>
 	                                <td class="payDate">${o.getPurchaseDate()}</td>
 	                                <td class="shopStatus">${o.getdName()}</td>
 	                                <td class="inputBtn">
-	                                <button type="button" class="btn btn-success btn-sm" >배송입력</button></td>
+	                                
+	                                <button type="button" class="btn btn-success btn-sm" dataUserNo="${o.getUserNo()}" dataBuyNo="${o.getBuyNo()}" >배송입력</button></td>
 	                                <!--배송완료 시 배송입력 버튼 비활성화(여유있으면 속성값: disabled )-->
 	                           </tr>
                        	 </c:forEach>
@@ -144,9 +146,17 @@
         $('.userNo').click(function(){
                              
             var userNo=$(this).text();
-           //alert(userNo);
-           window.open("/farm/farmMemberInfoPage.do","_blank","width=400px, height=300px");
-            //회원정보 불러오기 로직
+
+            
+           // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+            var _width = '400';
+            var _height = '350';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+           
+            window.open('/farm/farmMemberInfoPage.do?userNo='+userNo+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+           
+           
         });
     
     
@@ -158,23 +168,37 @@
         $('.productName').click(function(){
                              
             var productName=$(this).text();
-            //alert(productName);
-           window.open("/farm/farmProductInfoPage.do","_blank","width=400px, height=200px");
-            //상품정보 불러오기 로직
+           
+            
+            // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+            var _width = '400';
+            var _height = '250';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+           
+            window.open('/farm/farmProductInfoPage.do?productName='+productName+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+           
         });
     
-    
     </script> 
+    
     
     <!--배송입력 버튼 클릭 시 배송정보 입력-->
     <script>
         
         $('.btn-success').click(function(){
                  
-      
-            var userNo=$(this).parent().prev().prev().prev().prev().prev().prev().text();
-           // alert(userNo);
-           window.open("/farm/farmDeliveryInput.do","_blank","width=600px, height=300px");
+      		
+            var userNo=$(this).attr('dataUserNo');
+            var buyNo=$(this).attr('dataBuyNo');
+            
+            // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+            var _width = '570';
+            var _height = '340';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+           
+            window.open('/farm/farmDeliveryInputForm.do?userNo='+userNo+'&buyNo='+buyNo+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
            
         });
     

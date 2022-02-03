@@ -134,6 +134,10 @@
 .check-msg {
 	font-size: 12px;
 }
+.check-time-msg {
+	font-size: 14px;
+	float: right;
+}
 
 
 </style>
@@ -168,10 +172,10 @@
 							<span class="check-msg" id="nick_msg"></span>
 							<input type="email" class="input-style-plusbtn" name="userEmail" placeholder="이메일">
 							<input type="button" class="btn" id="mail_check_btn" value="인증하기"><br>
-							<span class="check-msg" id="email_msg"></span>
+							<span class="check-msg" id="email_msg"></span><span class="check-time-msg" id="timer"></span>
 							<input type="text" class="input-style" name="userEmailCheck" placeholder="인증번호 입력" disabled="disabled"><br>
 							<span class="check-msg" id="email_check_msg"></span>
-							<input type="text" class="input-style" name="userPhone" placeholder="전화번호 (-제외)"><br>
+							<input type="text" class="input-style" name="userPhone" placeholder="전화번호"><br>
 							<span class="check-msg" id="phone_msg"></span>
 							<input type="text" class="input-style-plusbtn" id="sample4_roadAddress" name="userAddressMain" placeholder="주소">
 							<input type="button" class="btn" onclick="sample4_execDaumPostcode()" value="주소찾기"><br>
@@ -191,7 +195,7 @@
 								1. 본 약관에 명시되지 않은 사항은 전기통신기본법, 전기통신사업법, 정보통신윤리위원회심의규정, 정보통신 윤리강령, 프로그램보호법 및 기타 관련 법령의 규정에 의합니다.<br><br>
 								(이하생략)</p>
 							</div>
-							<input type="checkbox"><span class="terms-text">약관에 동의하시겠습니까?</span>
+							<input type="checkbox" name="agree"><span class="terms-text">약관에 동의하시겠습니까?</span>
 							<input type="submit" class="btn-submit" value="회원가입"><br>
 	                    </form>
                     </div>
@@ -342,7 +346,7 @@
 				
 				//Email
 				$('input[name=userEmail]').blur(function() {
-					//
+				
 					var emailCheck = RegExp(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/);
 					
 					if ($('input[name=userEmail]').val()==null || $('input[name=userEmail]').val()=='') {
@@ -354,7 +358,7 @@
 						return;
 						inval_Arr[5] = false;
 					} else {
-						$("#email_msg").html("올바른 이메일입니다. 인증을 완료해주세요.").css("color", "green");
+						$("#email_msg").html("올바른 이메일입니다. 인증번호를 작성해주세요.").css("color", "green");
 						inval_Arr[5] = true;
 					}
 				});
@@ -364,24 +368,29 @@
 				$("#mail_check_btn").click(function() {
 					var email = $('input[name=userEmail]').val();
 					var emailCheck = $('input[name=userEmailCheck]');
-
-					alert("인증번호가 발송되었습니다. 작성하신 이메일을 통해 확인 후 입력해주세요.");
-					
-					$.ajax({
-				        
-				        type : "GET",
-				        url : "/member/memberMailCheck.do?email=" + email,
-				        success : function(data){
-				        	emailCheck.attr("disabled", false);
-				        	code = data;
-				        },
-						error : function() {
-							console.log("ajax 통신 실패")
-						}
-				                
-				    });
+					if(email == null || email=='') {
+						alert("인증번호는 이메일 입력 후 발송 가능합니다.");
+						return;
+					} else {
+						// 타이머 시작
+						timer();
+						$.ajax({
+					        type : "GET",
+					        url : "/member/memberMailCheck.do?email=" + email,
+					        success : function(data){
+								alert("인증번호가 발송되었습니다. 작성하신 이메일을 통해 확인 후 입력해주세요.");
+					        	emailCheck.attr("disabled", false);
+					        	code = data;
+					        },
+							error : function() {
+								console.log("ajax 통신 실패")
+							}
+					                
+					    });
+					}
 					
 				});
+			
 				
 				//인증번호 비교
 				$('input[name=userEmailCheck]').blur(function() {
@@ -396,6 +405,41 @@
 				        inval_Arr[6] = false;
 				    }  
 				});
+				
+				//인증하기 클릭 시 작동하는 인증번호 타이머
+				function timer() {
+					
+					function $ComTimer(){
+					    //prototype extend
+					}
+	
+					$ComTimer.prototype = {
+					    comSecond : "",
+					    fnCallback : function(){},
+					    timer : "",
+					    domId : "",
+					    fnTimer : function(){
+					        var m = Math.floor(this.comSecond / 60) + "분 " + (this.comSecond % 60) + "초";
+					        this.comSecond--;
+					        this.domId.innerText = m;
+					        if (this.comSecond < 0) {
+					            clearInterval(this.timer);
+					            alert("인증 가능 시간이 초과되었습니다.\n초기화면으로 이동합니다.");
+			                    location.replace("/member/memberJoinPage.do");
+					        }
+					    }
+					    ,fnStop : function(){
+					        clearInterval(this.timer);
+					    }
+					}
+	
+					var AuthTimer = new $ComTimer()
+					AuthTimer.comSecond = 300;
+					AuthTimer.fnCallback = function(){alert("인증 가능 시간이 초과되었습니다.")};
+					AuthTimer.timer =  setInterval(function(){AuthTimer.fnTimer()},1000); 
+					AuthTimer.domId = document.getElementById("timer");
+				
+				}
 				
 				//Phone
 				$('input[name=userPhone]').blur(function() {

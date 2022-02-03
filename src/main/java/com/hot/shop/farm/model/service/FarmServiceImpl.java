@@ -16,4 +16,14 @@ public class FarmServiceImpl implements FarmService {
 	public Farm selectLoginFarm(Farm farm) {
 		return fDAO.selectLoginFarm(farm);
 	}
+
+	@Override
+	public int selectIdCheck(String farmId) {
+		return fDAO.selectIdCheck(farmId);
+	}
+
+	@Override
+	public int insertMember(Farm farm) {
+		return fDAO.insertMember(farm);
+	}
 }
