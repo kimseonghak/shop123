@@ -16,4 +16,13 @@ public class FarmDAO {
 		return sql.selectOne("farm.selectLoginFarm",farm);
 	}
 
+	public int selectIdCheck(String farmId) {
+		int result = sql.selectOne("farm.selectIdCheck", farmId);
+		return result;
+	}
+
+	public int insertMember(Farm farm) {
+		return sql.insert("farm.insertFarm", farm);
+	}
+
 }

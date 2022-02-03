@@ -8,7 +8,6 @@
 <title>아이디 찾기 성공</title>
 
 <style>
-@charset "UTF-8";
 .bg-color {
 	width: 100%;
 	height: 100vh;
@@ -86,7 +85,11 @@
                     <div class="login-Form">
 	                   	<p class="text-Info">입력하신 정보와 일치하는 정보입니다.</p>
 						<div class="id-Info">
-							<p class="id-Info-text">user11</p>
+							<p class="id-Info-text">
+								<c:forEach items="${result }" var="item">
+									아이디 : ${item.userId } 
+								</c:forEach>
+							</p>
 						</div>
                     </div>
                     

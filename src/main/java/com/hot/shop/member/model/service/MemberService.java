@@ -1,5 +1,8 @@
 package com.hot.shop.member.model.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import com.hot.shop.member.model.vo.Member;
 
 public interface MemberService {
@@ -12,4 +15,11 @@ public interface MemberService {
 
 	int insertMember(Member member);
 
+	List<Member> findIdMember(Member member);
+
+	Member selectEmailCheck(Member member);
+
+	int findPwdMember(Member member);
+
+	int test(HashMap<String, Object> map);
 }
