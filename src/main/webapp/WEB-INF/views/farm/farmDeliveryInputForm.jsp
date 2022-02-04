@@ -94,6 +94,7 @@
    
     
     <script>
+    
     	$('#lastBtn').click(function(){
     		
     	
@@ -110,9 +111,10 @@
     			alert('배송 상태는 한가지 체크하셔야합니다.')
     			return false;
     		}
+    		
       		if($("input:checkbox[name=deliveryStatus]:checked"))
     		{
-      			 var result = window.confirm('배송 완료 시 수정이 불가합니다. 배송 완료하시겠습니까?')
+      			 var result = window.confirm('배송 완료를 선택할 경우 수정이 불가합니다. 배송입력을 완료하시겠습니까?')
       			 if(result==true){
       				return true; 
       				
@@ -122,7 +124,7 @@
       				return false;
       			 }
     		}
-    		
+      		
     		//체크박스 비활성화 풀고 submit
     		$('.sendStatus').attr("disabled", false);
     	});
