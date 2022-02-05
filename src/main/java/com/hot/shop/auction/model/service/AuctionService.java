@@ -9,5 +9,7 @@ public interface AuctionService {
 
 	
 	HashMap<String, Object> selectAuction();
+
+	int inputLowestPrice(Auction auc, int farmNo);
 	
 }

@@ -29,5 +29,24 @@ public class AuctionDAO {
 		return map;
 		
 	}
+	
+	//최저가 입력 시 insert 이용하여 데이터 삽입
+	public int inputLowestPrice(Auction auc, int farmNo) {
+		
+		System.out.println(farmNo);
+		System.out.println(auc.getAuctionEnd());
+		System.out.println(auc.getAuctionStart());
+		System.out.println(auc.getAuctionPrice());
+		System.out.println(auc.getAuctionFormNo());
+		System.out.println(auc.getAuctionCount1());
+		System.out.println(auc.getAuctionProduct());
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("auc", auc);
+		map.put("farmNo", farmNo);
+		
+		return sql.insert("auction.inputLowestPrice",map);
+	}
 
 }

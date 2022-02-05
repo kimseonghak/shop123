@@ -22,4 +22,10 @@ public class AuctionServiceImpl implements AuctionService{
 		
 	}
 
+	@Override
+	public int inputLowestPrice(Auction auc, int farmNo) {
+
+		return aucDAO.inputLowestPrice(auc,farmNo);
+	}
+
 }
