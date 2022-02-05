@@ -21,5 +21,5 @@ public interface MemberService {
 
 	int findPwdMember(Member member);
 
-	int test(HashMap<String, Object> map);
+	int userRandomPwd(HashMap<String, Object> map);
 }

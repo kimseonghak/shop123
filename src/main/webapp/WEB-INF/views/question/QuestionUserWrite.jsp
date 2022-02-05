@@ -164,6 +164,17 @@
 	text-align: left;
 }
 
+#img_Submit{
+	float: right;
+	width: 100px;
+	height: 30px;
+	background-color: #3BBD5A;
+	font : normal bold 17.5px "고딕체";
+	color: #ffffff;
+	border-radius: 15px;
+	border : none;
+	cursor : pointer;
+}
 
 #write_Btn_form{
 	width: 80%;
@@ -248,7 +259,7 @@ select option[value=""][disabled] {
 		
 	<div id="contentForm">
 		<div id="question_background">
-			<form action='<c:url value='/question/questionWrite.do'/>' method="post">
+			<form action='/question/questionWrite.do' method="post" id="textWrite">
 			
 			
 				<div id="question_name">
@@ -322,27 +333,31 @@ select option[value=""][disabled] {
 				<div id="question_contentForm">
 					<textarea placeholder="글 내용을 적어주세요" name="questionUserContent" id="question_content" style="resize: none;"></textarea>
 				</div><br>
-				
+			</form>	
+			
+			<form action="/question/questionWriteFileUpload.do" method="post" enctype="multipart/form-data">
 				<div id="img_Form">
-					<input type="file"/>
-				</div><br>
-	
+					<input type="file" name="file"/>
+					<button id="img_Submit">업로드하기</button>
+				</div>
+			</form>
+				
+				<br>
+				<br>
 				<div id="write_Btn_form">
 					<div id="submit_btn">
 						<input type="submit" id="submitBtn" value="글 쓰기"/>
 					</div>
-					
-					
+									
 					<div id="list_btn">
 						<button id="listBtn" type="button">리스트</button>
 					</div>
-					
 					
 					<div id="reset_btn">
 						<input type="reset" value="다시쓰기" id="resetBtn"/>
 					</div>
 				</div>
-			</form>			
+						
 		</div>
 	</div>
 	
@@ -352,7 +367,9 @@ select option[value=""][disabled] {
 	</div>
 </div>
 
-
+<script>
+	
+</script>
 
 
 

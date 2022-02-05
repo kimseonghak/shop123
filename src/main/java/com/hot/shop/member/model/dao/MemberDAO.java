@@ -48,7 +48,7 @@ public class MemberDAO {
 		return sql.selectOne("member.findPwdMember", member);
 	}
 
-	public int test(HashMap<String, Object> map) {
-		return sql.update("member.test", map);
+	public int userRandomPwd(HashMap<String, Object> map) {
+		return sql.update("member.userRandomPwd", map);
 	}
 }

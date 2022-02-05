@@ -335,7 +335,6 @@
 							<input type="date" class="auctionInput sellEndDate" name="sellEnd" readonly="readonly">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput sellPrice" readonly="readonly">
-							
 							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span>
 							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
@@ -370,7 +369,6 @@
 							<input type="date" class="auctionInput sellEndDate readChange" name="sellEnd" readonly="readonly" value="${map2.sf1.sellEnd }">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput sellPrice" readonly="readonly" value="${map2.au1.auctionPrice }">
-							
 							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span>
 							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
@@ -408,7 +406,6 @@
 							<input type="date" class="auctionInput sellEndDate" name="sellEnd" readonly="readonly">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput sellPrice" readonly="readonly">
-							
 							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span>
 							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
@@ -443,7 +440,6 @@
 							<input type="date" class="auctionInput sellEndDate readChange" name="sellEnd" readonly="readonly" value="${map2.sf2.sellEnd }">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput sellPrice" readonly="readonly" value="${map2.au2.auctionPrice }">
-							
 							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span>
 							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
@@ -481,7 +477,6 @@
 							<input type="date" class="auctionInput sellEndDate" name="sellEnd" readonly="readonly">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput sellPrice" readonly="readonly">
-							
 							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span>
 							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
@@ -516,7 +511,6 @@
 							<input type="date" class="auctionInput sellEndDate readChange" name="sellEnd" readonly="readonly" value="${map2.sf3.sellEnd }">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput sellPrice" readonly="readonly" value="${map2.au3.auctionPrice }">
-							
 							<span class="auctionText auctionYN">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span>
 							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
