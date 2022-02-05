@@ -29,7 +29,8 @@
 		</insert>
 		
 		<!-- 1:1문의 사용자 파일 업로드 선행 -->
-		<insert id="insertWriteFile" parameterType=""></insert>
+		<insert id="insertWriteFile" parameterType="qPhoto">
+		</insert>
 	</mapper>
 
 
