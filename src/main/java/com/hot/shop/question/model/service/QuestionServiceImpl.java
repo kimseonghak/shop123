@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hot.shop.question.model.dao.QuestionDAO;
+import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 
 @Service
@@ -31,6 +32,13 @@ public class QuestionServiceImpl implements QuestionService{
 	public int insertUserWrite(QuestionUser qUser) {
 		// TODO Auto-generated method stub
 		return qDAO.insertUserWrite(qUser);
+	}
+
+	//1:1 문의 작성시 파일 업로드
+	@Override
+	public int insertWriteFile(QuestionPhoto qp) {
+		
+		return qDAO.insertWriteFile(qp);
 	}
 
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 
 @Repository
@@ -23,7 +24,11 @@ public class QuestionDAO {
 
 	//1:1문의 글쓰기(유저 실질적인 백단)
 	public int insertUserWrite(QuestionUser qUser) {
-		System.out.println(qUser);
-		return sqlSession.insert("qUser.insertUserWrite",qUser);
+		return sqlSession.insert("qUser.insertUserWrite", qUser);
+	}
+
+	public int insertWriteFile(QuestionPhoto qp) {
+		
+		return sqlSession.insert("qUser.insertWriteFile", qp);
 	}
 }
