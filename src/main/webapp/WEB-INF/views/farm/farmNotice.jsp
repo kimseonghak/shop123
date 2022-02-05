@@ -132,8 +132,8 @@
   			 var noticeTitle=$(this).text();
   			
             // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-            var _width = '1000';
-            var _height = '650';
+            var _width = '800';
+            var _height = '620';
             var _left = Math.ceil(( window.screen.width - _width )/2);
             var _top = Math.ceil(( window.screen.height - _height )/2);
            

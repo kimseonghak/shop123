@@ -83,7 +83,7 @@ public class FarmENTContoller {
 	{
 		//session 연동되면 사용하기
 		//int farmNo = farm.getFarmNo(); 
-		int farmNo = 4;
+		int farmNo = 1;
 		
 		//검색 값이 있다면
 		String type = request.getParameter("type");
@@ -129,7 +129,7 @@ public class FarmENTContoller {
 	{
 		//session 연동되면 사용하기
 		//int farmNo = farm.farmNo();
-		int farmNo = 4;
+		int farmNo = 1;
 		
 		//검색 값 받아오기 
 		String type = request.getParameter("type");
@@ -174,7 +174,7 @@ public class FarmENTContoller {
 	{
 		//session 연동되면 사용하기
 		//int farmNo = farm.farmNo();
-		int farmNo = 4;		
+		int farmNo = 1;		
 		ArrayList<FarmENTProduct>list =fENTservice.selectOneProduct(productName,farmNo);
 		
 		mv.addObject("list", list);
