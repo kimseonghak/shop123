@@ -134,7 +134,7 @@ public class MemberController {
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
 		
-		String setForm = "skytjd10242@naver.com";
+		String setForm = "123sanghoi@naver.com";
         String toMail = email;
         String title = "123상회 회원 인증 이메일 입니다.";
         String content = 
@@ -219,7 +219,7 @@ public class MemberController {
 			};
 			
 			//이메일 발송
-			String setForm = "skytjd10242@naver.com";
+			String setForm = "123sanghoi@naver.com";
 	        String toMail = userEmail;
 	        String title = "123상회 회원 임시비밀번호 발송 이메일 입니다.";
 	        String content = 

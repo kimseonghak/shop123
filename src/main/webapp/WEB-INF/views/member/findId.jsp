@@ -114,7 +114,7 @@
 				return;
 			} else {
 				// 타이머 시작
-				timer();
+				timer1();
 				$.ajax({
 			        
 			        type : "GET",
@@ -149,7 +149,7 @@
 		});
 		
 		//user 이메일 인증하기 클릭 시 작동하는 인증번호 타이머
-		function timer() {
+		function timer1() {
 			function $ComTimer(){
 			    //prototype extend
 			}
@@ -232,7 +232,7 @@
 				return;
 			} else {
 				// 타이머 시작
-				timer();
+				timer2();
 				$.ajax({
 			        
 			        type : "GET",
@@ -267,7 +267,7 @@
 		});
 		
 		//farm 이메일 인증하기 클릭 시 작동하는 인증번호 타이머
-		function timer() {
+		function timer2() {
 			function $ComTimer(){
 			    //prototype extend
 			}
