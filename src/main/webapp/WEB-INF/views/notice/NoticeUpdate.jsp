@@ -6,7 +6,7 @@
 
 
 <meta charset="UTF-8">
-<title>공지 사항 작성하기</title>
+<title>공지 사항 수정하기</title>
 
 <style type="text/css">
 
@@ -192,37 +192,36 @@ color: #3BBD5A;
 	
 	<div id="contentForm">
 	<div id="content_background"><br>
+	<form action="/notice/noticeUpdate.do" method="post">
 		<div id="notice_name">
-			<span id="font">공지사항을 작성해 주세요</span>
+			<span id="font">공지사항을 수정해 주세요</span>
 		</div>
 	
 		<div id="notice_userCategory_Form">
-			<select required>
+			<select required name="noticeCode">
 				<option value="" disabled selected>사용자 분류 카테고리</option>
-				<option>1번</option>
-				<option>2번</option>
-				<option>3번</option>
-				<option>4번</option>
+				<option value="A">전체 회원</option>
+				<option value="F">농가</option>
+				<option value="U">사용자</option>
 			</select>
 		</div><br>
 				
 		<div id="noticeCategory_Form">
 			
-			<select required>
+			<select required name="noticeCategory">
 				<option value="" disabled selected>공지사항 분류</option>
-				<option>1번</option>
-				<option>2번</option>
-				<option>3번</option>
-				<option>4번</option>
+				<option value="Category-1">기타</option>
+				<option value="Category-2">회원 가입 및 탈퇴</option>
+				<option value="Category-3">경매 관련</option>
 			</select>
 		</div><br>
 		
 		<div id="notice_title_Form">
-			<input type="text" id="notice_title" placeholder="제목을 입력하시오"/>
+			<input type="text" id="notice_title" name="noticeTitle" placeholder="제목을 입력하시오"/>
 		</div><br>
 		
 		<div id="notice_content_Form">
-			<textarea style="resize:none" id="notice_content" placeholder="내용을 입력하시오"></textarea>
+			<textarea style="resize:none" id="notice_content" name="noticeContent" placeholder="내용을 입력하시오"></textarea>
 		</div><br>
 		
 		<div id="write_Btn_form">
@@ -230,6 +229,7 @@ color: #3BBD5A;
 			<div id="reset_btn"><button id="resetBtn">다시쓰기</button></div>
 			<div id="submit_btn"><button id="submitBtn">글  수정</button></div>
 		</div>
+		</form>
 	</div>
 	</div>
 

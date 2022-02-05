@@ -189,9 +189,9 @@ color: #3BBD5A;
 	<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
 	
-	<form action="/notice/noticeWrite.do" method="post">
 		<div id="contentForm">
 		<div id="content_background"><br>
+		<form action="/notice/noticeWrite.do" method="post">
 			<div id="notice_name">
 				<span id="font">공지사항을 작성해 주세요</span>
 			</div>
@@ -220,7 +220,7 @@ color: #3BBD5A;
 			</div><br>
 			
 			<div id="notice_content_Form">
-				<textarea style="resize:none" name="noticeContent" id="notice_content" placeholder="내용을 입력하시오"></textarea>
+				<textarea style="resize:none" name="noticeContent" id="notice_content" placeholder="내용을 입력하시오">${notice.noticeContent}</textarea>
 			</div><br>
 			
 			<div id="write_Btn_form">
@@ -236,9 +236,10 @@ color: #3BBD5A;
 					<input type="submit" value="글 쓰기" id="submitBtn">
 				</div>
 			</div>
+		</form>
 		</div>
 		</div>
-	</form>
+	
 
 	<div id="footerForm">
 	<c:import url="/WEB-INF/views/commons/footer.jsp"/>

@@ -291,7 +291,7 @@ select option[value=""][disabled] {
 						<select id="questionUserCode" name="questionUserCode" required>
 							<option value="" disabled selected>문의 목록</option>
 							<option value='Q-1'>환불</option>
-							<option valse='Q-2'>문의</option>
+							<option value='Q-2'>문의</option>
 						</select>
 					</div>
 				</div>
@@ -342,8 +342,6 @@ select option[value=""][disabled] {
 						<input type="reset" value="다시쓰기" id="resetBtn"/>
 					</div>
 				</div>
-				
-				
 			</form>			
 		</div>
 	</div>

@@ -141,9 +141,6 @@
 </head>
 <body>
 
-<c:import Member m = (Member)session.getAttribute("member");/>
-<c:import Farm f = (Farm)session.getAttribute("farm");/>
-
 <div id="warpForm" align="center">
 	<div id="headerForm">
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
@@ -152,8 +149,9 @@
 	
 	<div id="contentForm"><br>
 		<div id="content_background">
-		
+			<form action="/notice/NoticeUpdatePage.do">
 			<div id="content_titleForm">
+				<input type="hidden" name=noticeNo value="${notice.noticeNo}"/>
 				[  ] : ${notice.noticeTitle }
 				<div id="writerForm">
 					[ ${notice.farmNo } ]
@@ -170,11 +168,11 @@
 			
 			
 			<div id="btnForm">
-				<div id="list_Btn_Form"><button id="mainBtn">메인으로</button></div>
-				<div id="delete_Btn_Form"><button id="deleteBtn">글 삭제</button></div>
-				<div id="update_Btn_Form"><button id="updateBtn">글 수정</button></div>
+				<div id="list_Btn_Form"><button type="button" id="mainBtn">메인으로</button></div>
+				<div id="delete_Btn_Form"><button type="button" id="deleteBtn" onclick="">글 삭제</button></div>
+				<div id="update_Btn_Form"><button type="submit" id="updateBtn">글 수정</button></div>
 			</div>
-		
+			</form>
 		</div>
 	</div>
 

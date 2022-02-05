@@ -29,8 +29,15 @@ public class NoticeDAO {
 	}
 
 	//공지사항 글 보기(뷰)
-	public ArrayList<Notice> NoticeViewPage() {
+	public Notice NoticeViewPage(int noticeNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("notice.NoticeViewPage");
+		return sqlSession.selectOne("notice.NoticeViewPage",noticeNo);
 	}
+	
+	/*
+	//공지사항 조회수 업데이트
+	public int NoticeCountUpdate(int noticeNo) {
+		return sqlSession.update("notice.NoticeCountUpdate",noticeNo);
+	}
+	*/
 }

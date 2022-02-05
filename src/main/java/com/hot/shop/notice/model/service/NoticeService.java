@@ -11,6 +11,6 @@ public interface NoticeService {
 
 	int insertWrite(Notice n);//공지사항 글쓰기
 
-	ArrayList<Notice> NoticeViewPage();//공지사항 글 조회(뷰)
+	Notice NoticeViewPage(int noticeNo);//공지사항 글 조회(뷰)
 
 }

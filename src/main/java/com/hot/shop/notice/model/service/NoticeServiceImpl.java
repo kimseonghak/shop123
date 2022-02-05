@@ -31,8 +31,8 @@ public class NoticeServiceImpl implements NoticeService{
 
 	//공지사항 글 보기(뷰)
 	@Override
-	public ArrayList<Notice> NoticeViewPage() {
-		// TODO Auto-generated method stub
-		return nDAO.NoticeViewPage();
+	public Notice NoticeViewPage(int noticeNo) {
+		//nDAO.NoticeCountUpdate(noticeNo);
+		return nDAO.NoticeViewPage(noticeNo);
 	}
 }

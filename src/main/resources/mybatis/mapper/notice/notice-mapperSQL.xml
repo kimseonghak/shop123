@@ -23,7 +23,7 @@
 		</insert>
 		
 		<!-- 공지사항 글 보기(뷰) -->
-		<select id="NoticeViewPage" parameterType="notice" resultType="notice">
+		<select id="NoticeViewPage" parameterType="integer" resultType="notice">
 			select
 				NOTICE_NO as noticeNo,
 				NOTICE_TITLE as noticeTitle,
@@ -34,9 +34,15 @@
 				NOTICE_END_YN as noticeEndYN,
 				NOTICE_CODE as noticeCode,
 				NOTICE_CATEGORY as noticeCategory
-			from (select row_number() over(order by NOTICE_NO desc)as num, notice.* from notice LEFT JOIN farm on (notice.FARM_NO=farm.FARM_NO) where NOTICE_END_YN='N')
-			where notice_no = #{noticeNo}
+			from NOTICE
+			where notice_no = #{_parameter}
 		</select>
+		
+		<update id="NoticeCountUpdate" parameterType="integer">
+			update NOTICE set NOTICE_COUNT = NOTICE_COUNT+1 where NOTICE.notice_no = #{_parameter}		
+		</update>
+		
+		
 	</mapper>
 
 
