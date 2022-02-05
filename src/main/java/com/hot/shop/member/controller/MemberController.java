@@ -171,7 +171,7 @@ public class MemberController {
 		List<Member> result = mService.findIdMember(member);
 		
 		if(result.size() > 0) {
-			mav.addObject("result", result);
+			mav.addObject("userResult", result);
 			mav.setViewName("member/findIdSuccess");
 			
 		} else {
@@ -205,17 +205,27 @@ public class MemberController {
 			String userEmail = member.getUserEmail();
 			
 			//랜덤값 생성
-			Random random = new Random();
-			int newPass = random.nextInt(888888) + 111111;
+			char pwCollection[] = new char[] {
+                    '1','2','3','4','5','6','7','8','9','0',
+                    'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+                    'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+                    '!','@','#','$','%','^','&','*','(',')'};
+			
+			String ranPw = "";
+
+			for (int i = 0; i < 10; i++) {
+				int selectRandomPw = (int)(Math.random()*(pwCollection.length));
+				ranPw += pwCollection[selectRandomPw];
+			};
 			
 			//이메일 발송
 			String setForm = "skytjd10242@naver.com";
 	        String toMail = userEmail;
-	        String title = "123상회 임시비밀번호 발송 이메일 입니다.";
+	        String title = "123상회 회원 임시비밀번호 발송 이메일 입니다.";
 	        String content = 
 	                "홈페이지를 방문해주셔서 감사합니다." +
 	                "<br>" + 
-	                userId + "님의 임시 비밀번호는 " + newPass + "입니다." + 
+	                userId + "님의 임시 비밀번호는 " + ranPw + "입니다." + 
 	                "<br>" + 
 	                "로그인 후 비밀번호를 변경하여 주세요.";
 	        
@@ -233,16 +243,16 @@ public class MemberController {
 	            e.printStackTrace();
 	        }
 	        
-	        String userNewPwd = Integer.toString(newPass);
+	        String userNewPwd = ranPw;
 	        
 	        HashMap<String, Object> map = new HashMap<String, Object>();
 	        map.put("userId", userId);
 	        map.put("userEmail", userEmail);
 	        map.put("userNewPwd", userNewPwd);
 			
-			int test = mService.test(map);
+			int userRandomPwdResult = mService.userRandomPwd(map);
 			
-			if(test>0) {
+			if(userRandomPwdResult>0) {
 				mav.setViewName("member/findPwdSuccess");
 			} else {
 				mav.addObject("msg", "비밀번호 변경을 실패했습니다.\n지속적인 문제 발생시 관리자에게 문의해주세요.");

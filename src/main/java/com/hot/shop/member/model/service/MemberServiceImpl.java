@@ -59,7 +59,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int test(HashMap<String, Object> map) {
-		return mDAO.test(map);
+	public int userRandomPwd(HashMap<String, Object> map) {
+		return mDAO.userRandomPwd(map);
 	}
 }

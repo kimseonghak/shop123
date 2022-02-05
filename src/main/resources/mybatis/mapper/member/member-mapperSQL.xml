@@ -87,16 +87,8 @@
 		WHERE user_id=#{userId} and user_email=#{userEmail}
 		
 	</select>
-	 <!--
-	<update id="findPwdMember">
 	
-		UPDATE member set user_pwd = #{userPwd}
-		WHERE user_id=#{userId} and user_email=#{userEmail}
-		
-	</update>
-	-->
-	
-	<update id="test" parameterType="hashmap">
+	<update id="userRandomPwd" parameterType="hashmap">
 	
 		UPDATE member set user_pwd = #{userNewPwd}
 		WHERE user_id=#{userId} and user_email=#{userEmail}

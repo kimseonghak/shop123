@@ -48,4 +48,41 @@
 					DEFAULT)
 	</insert>
 	
+	<select id="findIdFarm" resultType="farm">
+	
+		SELECT
+			farm_id as farmId
+		FROM
+			farm
+		WHERE farm_email=#{farmEmail}
+		
+	</select>
+	
+	<select id="selectEmailCheck" resultType="farm">
+	
+		SELECT
+			farm_email as farmEmail
+		FROM
+			farm
+		WHERE farm_id=#{farmId}
+		
+	</select>
+	
+	<select id="findPwdFarm" resultType="int">
+	
+		SELECT
+			COUNT(*)
+		FROM
+			farm
+		WHERE farm_id=#{farmId} and farm_email=#{farmEmail}
+		
+	</select>
+	
+	<update id="farmRandomPwd" parameterType="hashmap">
+	
+		UPDATE farm set farm_pwd = #{farmNewPwd}
+		WHERE farm_id=#{farmId} and farm_email=#{farmEmail}
+		
+	</update>
+	
 </mapper>

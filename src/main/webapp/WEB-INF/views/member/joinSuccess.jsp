@@ -85,13 +85,9 @@
 	                   	<p class="text-welcome"><span style="font-weight: bold">user11</span>님<br>회원가입을 환영합니다.</p>
 						<p class="text-welcomeInfo">지금 바로 로그인하여<br>123상회의 다양한 기능을 이용해보세요.</p>
                     </div>
-                    
                     <button class="btn-submit"><a href="/">홈으로 이동</a></button>
 				</div>
-				
-				
 			</div>
-		
 		</div>
 	
 		<c:import url="/WEB-INF/views/commons/footer.jsp"/>

@@ -11,136 +11,7 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 
-<style>
-#content {
-	width: 100%;
-	height: 1800px;
-}
-.bg-color {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	background-color: #EEEEEE;
-}
-.box-white {
-	margin: 200px auto;
-	width: 400px;
-	background-color: white;
-	border-radius: 20px;
-	padding: 40px;
-	margin-top: 300px;
-}
-.input-style {
-	height: 52px;
-	width: 100%;
-	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 16px;
-	color: #000000;
-	background-color: #F2F2F2;
-	padding: 18px;
-	margin-top: 20px;
-	margin-bottom: 15px;
-	border: 0.5px solid #E5E5E5;
-}
-.input-style-plusbtn {
-	height: 52px;
-	width: 75%;
-	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 16px;
-	color: #000000;
-	background-color: #F2F2F2;
-	padding: 18px;
-	margin-top: 18px;
-	margin-bottom: 18px;
-	border: 0.5px solid #E5E5E5;
-}
-.btn {
-	display: inline-block;
-	font-family: 'Nanum Gothic', sans-serif;
-	height: 52px;
-	width: 23%;
-	cursor: pointer;
-	border-radius: 20px;
-	border: 0.5px solid #E5E5E5;
-}
-
-.title {
-	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 28px;
-	font-weight: bold;
-	text-align: center;
-}
-.btn-submit {
-	width: 100%;
-    height: 55px;
-    background-color: #3BBD5A;
-    font-family: 'Nanum Gothic', sans-serif;
-    font-size: 16px;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.join-Select {
-	width: 100%;
-	height: 30%;
-}
-.login-Form {
-	width: 100%;
-	height: 50%;
-}
-.user {
-	width: 49.3%;
-	height: 55px;
-	background-color: #FFFFFF;
-	float: left;
-	text-align: center;
-	margin-top: 25px;
-	margin-right: 1px;
-	font-family: 'Nanum Gothic', sans-serif;
-	border: 0.5px solid #D4D4D4;
-	font-size: 16px;
-	line-height: 54px;
-}
-.farm {
-	width: 49.3%;
-	height: 55px;
-	background-color: #3BBD5A;
-	color: #FFFFFF;
-	float: left;
-	text-align: center;
-	margin-top: 25px;
-	font-family: 'Nanum Gothic', sans-serif;
-	border: 0.5px solid #3BBD5A;
-	font-size: 16px;
-	line-height: 54px;
-}
-.terms {
-	width: 100%;
-	height: 130px;
-	background-color: #F2F2F2;
-	overflow:auto;
-	border: 0.5px solid #E5E5E5;
-	border-radius: 5px;
-}
-.terms-text {
-	font-size: 14px;
-	font-family: 'Nanum Gothic', sans-serif;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-.check-msg {
-	font-size: 12px;
-}
-.check-time-msg {
-	font-size: 14px;
-	float: right;
-}
-
-
-</style>
+<link rel="stylesheet" type="text/css" href="/resources/main/farm/css/farmJoin.css">
 
 </head>
 <body>
@@ -275,7 +146,7 @@
 						$("#pwd_msg_re").html("비밀번호는 8~15자의 영문 대소문자와 숫자, 특수문자만 입력 가능합니다.").css("color","red");
 						return;
 						inval_Arr[2] = false;
-					} else if(!($('input[name=farmPwd_re]').val()==$('input[name=farmPwd_re]').val())) {
+					} else if(!($('input[name=farmPwd_re]').val()==$('input[name=farmPwd]').val())) {
 						$("#pwd_msg_re").html("비밀번호가 일치하지 않습니다.").css("color","red");
 						return;
 						inval_Arr[2] = false;
@@ -291,16 +162,16 @@
 					var nameCheck = RegExp(/^[가-힣]{2,5}$/);
 					
 					if ($('input[name=farmName]').val()==null || $('input[name=farmName]').val()=='') {
-						$("#name_msg").html("이름을 입력해주세요.").css("color","red");
+						$("#name_msg").html("상호명을 입력해주세요.").css("color","red");
 						return;
 						inval_Arr[3] = false;
 					}
 					if (!nameCheck.test($('input[name=farmName]').val())) {
-						$("#name_msg").html("이름은 2~5자의 한글만 입력 가능합니다.").css("color","red");
+						$("#name_msg").html("상호명은 2~5자의 한글만 입력 가능합니다.").css("color","red");
 						return;
 						inval_Arr[3] = false;
 					} else {
-						$("#name_msg").html("이름은 상품 배송 시 이용됩니다.").css("color", "black");
+						$("#name_msg").html("상호명은 상품 배송 시 이용됩니다.").css("color", "black");
 						inval_Arr[3] = true;
 					}
 				});
