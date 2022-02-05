@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>최저가 입찰</title>
 <style>
      #wrap{
             width: 425px;
@@ -118,22 +118,22 @@
             </div>
         </div>
         
-      <form action="/auction/auctionInputPrice.do" method="post">
-      	<input type="hidden" name="auctionFormNo" value="${auctionFormNo }"/>
+      <form action="" method="post">
+      	<input type="hidden" name="aucProduct" value="${aucProduct }"/>
         <div id="money">
             <div id="money_box">
                 <div class="subject">
                     <span class="span">수량 입력 :</span>
                 </div>
                 <div class="input-box">
-                    <input type="number" name="auctionCount" class="input_style">
+                    <input type="number" name="auctionCount" class="input_style" >
                 </div>
             </div>
         </div>
         <div id="count">
             <div id="count_box">
                 <div class="subject">
-                    <span class="span">최저가 입력 :</span>
+                    <span class="span">최저가 입력 : ${aucPrice }</span>
                 </div>
                 <div class="input-box">
                     <input type="number" name="lowestPrice" class="input_style">
@@ -166,13 +166,9 @@
     		
     	});
     
-    <%--  확인하는 코드
-    	$(function(){
-    		
-    		var auctionFormNo = ${auctionFormNo};
-    		console.log(auctionFormNo);
+		$(function(){
+    		console.log("aa");
     	});
-    --%>
     
     </script>
 
