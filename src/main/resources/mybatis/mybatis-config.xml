@@ -11,7 +11,15 @@
 		<typeAlias type="com.hot.shop.admin.model.vo.Count" alias="count"/>
 		<typeAlias type="com.hot.shop.question.model.vo.QuestionUser" alias="qUser"/>
 		<typeAlias type="com.hot.shop.question.model.vo.QuestionFarm" alias="qFarm"/>
-		<typeAlias type="com.hot.shop.notice.model.vo.Notice" alias="notice"/>
+		<typeAlias type="com.hot.shop.notice.model.vo.Notice" alias="notice"/>	
+		<typeAlias type="com.hot.shop.question.model.vo.QuestionPhoto" alias="qPhoto"/>
+		<typeAlias type="com.hot.shop.productintro.model.vo.LocalProductBoard" alias="lpBoard"/>
+		<typeAlias type="com.hot.shop.productintro.model.vo.LocalProductFile" alias="lpFile"/>
+		<typeAlias type="com.hot.shop.productintro.model.vo.SeasonProductBoard" alias="spBoard"/>
+		<typeAlias type="com.hot.shop.productintro.model.vo.SeasonProductFile" alias="spPhoto"/>
+		<typeAlias type="com.hot.shop.promotion.model.vo.Promotion" alias="promotion"/>
+		<typeAlias type="com.hot.shop.promotion.model.vo.PromotionPhoto" alias="pPhoto"/>
+		<typeAlias type="com.hot.shop.faq.model.vo.FAQ" alias="faq"/>
 		
 		<!-- farmENT -->
 		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTProduct" alias="farmENTProduct"/>

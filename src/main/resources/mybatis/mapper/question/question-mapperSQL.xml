@@ -15,7 +15,7 @@
 				QUESTION_USER_CODE as QuestionUserCode,
 				QUESTION_USER_CLASSIFY as QuestionUserClassify,
 				FARM_NO as FarmNo,
-				OREDER_NO as OrderNo,
+				ORDER_NO as OrderNo,
 				QUESTION_USER_ANSWER_YN as QuestionUserAnswer
 			from (select row_number() over(order by Question_user_no desc)as num, question_user.* ,user_nick
 				from question_user 
@@ -27,6 +27,9 @@
 		<insert id="insertUserWrite" parameterType="qUser">
 			
 		</insert>
+		
+		<!-- 1:1문의 사용자 파일 업로드 선행 -->
+		<insert id="insertWriteFile" parameterType=""></insert>
 	</mapper>
 
 
