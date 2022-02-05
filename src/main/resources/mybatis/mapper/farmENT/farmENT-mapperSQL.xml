@@ -60,7 +60,7 @@
 		<if test="type!=null and type.equals('productName')">
 			AND product_name like '%'||#{keyWord}||'%'
 		</if>
-		ORDER BY 6 DESC
+		ORDER BY 7 DESC
   	   
   	</select>
   
@@ -132,8 +132,8 @@
   	
   	</update>
   	
+
   	<!-- 입력한 배송 데이터 값 가져오기 -->
-  	
   	<select id="selectDeliveryInputData" parameterType="int" resultType="farmENTDeliveryStatus">
   		SELECT 
   			   Delivery_No AS deliveryNo,
@@ -148,5 +148,47 @@
 		ORDER BY 1 DESC
   	</select>
   	
+  	
+	<!-- 공지사항 리스트 가져오기-->  	
+
+	<select id="selectNoticeList" parameterType="hashmap" resultType="notice">
+		SELECT 
+				NOTICE_NO AS noticeNo,
+				NOTICE_TITLE AS noticeTitle,
+				NOTICE_CONTENT AS noticeContent,
+				NOTICE_REGDATE AS noticeRegdate,
+				FARM_NO AS farmNo,
+				NOTICE_COUNT AS noticeCount,
+				NOTICE_END_YN AS noticeEndYN,
+				NOTICE_CODE AS noticeCode,
+				NOTICE_CATEGORY AS noticeCategory
+		FROM NOTICE 
+		WHERE NOTICE_CODE IN ('A','F') AND NOTICE_END_YN='N' 
+		<if test="type!=null and type.equals('subject')">
+			AND NOTICE_TITLE like '%'||#{keyWord}||'%'
+		</if>
+		<if test="type!=null and type.equals('content')">
+			AND NOTICE_CONTENT like '%'||#{keyWord}||'%'
+		</if>
+		ORDER BY 1 DESC
+	
+	</select>
+
+	<!-- 공지사항 글 총 개수 -->
+	<select id="selectNoticeListTotalCount" parameterType="hashmap" resultType="int">
+		
+		SELECT COUNT(*)
+		FROM NOTICE 
+		WHERE NOTICE_CODE IN ('A','F') AND NOTICE_END_YN='N'
+		<if test="type!=null and type.equals('subject')">
+			AND NOTICE_TITLE like '%'||#{keyWord}||'%'
+		</if>
+		<if test="type!=null and type.equals('content')">
+			AND NOTICE_CONTENT like '%'||#{keyWord}||'%'
+		</if>
+	
+	</select>
+
+
   	
 </mapper>

@@ -21,4 +21,8 @@ public interface FarmENTService {
 
 	ArrayList<FarmENTDeliveryStatus> selectDeliveryInputData(int buyNo);
 
+	HashMap<String, Object> selectNoticeList(int currentPage,HashMap<String, Object> searchMap);
+
+
+
 }

@@ -25,6 +25,16 @@
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmMain.css">
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmNoticeContent.css">
 
+<style>
+	 #naviArea
+	 {
+	 	display:inline-block;
+	 	margin-left:450px;
+	 	text-align: center;
+	 }
+</style>
+
+
 </head>
 <body>
 <c:import url="/resources/farm/common/farmMainHeader.jsp"/>
@@ -39,43 +49,65 @@
             </div>
             <div id="farmContentContent">
                 <div id="serchArea">
-                    <form action="" method="get">
-                         <select style="width:60px;height:30px" id="serchSelect">
-                            <option value="subject">제목</option> 
-                            <option value="content">내용</option>
+                    <form action="/farm/farmNoticePage.do" method="get">
+                         <select name="type" style="width:60px;height:30px" id="serchSelect">
+                          	<c:choose>
+                          		<c:when test="${type eq 'subject'}">
+		                            <option value="subject" selected='selected'>제목</option> 
+		                            <option value="content">내용</option>
+                            	</c:when>
+                            	<c:when test="${type eq 'content'}">
+		                            <option value="subject">제목</option> 
+		                            <option value="content" selected='selected'>내용</option>
+                            	</c:when>
+                            	<c:otherwise>
+                            		<option value="subject">제목</option> 
+		                            <option value="content">내용</option>
+                            	</c:otherwise>
+                            </c:choose>
                           </select>
-                    <input type="text" name="keyWord" size="30" id=serchKeyword>
-                    <button type="button" class="btn btn-outline-success btn-sm">검색</button>
+                    <input type="text" name="keyWord" size="30" id=serchKeyword value="${requestScope.keyWord}">
+                    <button type="submit" class="btn btn-outline-success btn-sm">검색</button>
                 </form>
                     
                 </div>
                 <div id="emptyArea"></div>
                 <div id="contentArea">
+              <c:choose> 
+              	 <c:when test="${!list.isEmpty()}">
                     <table>
                            <tr>
                                 <th class="noticeNo">번호</th>
                                 <th class="subject">제목</th>
-                                <th class="writeDate">작성일</th>
+                                <th class="writeDate">등록일</th>
                            </tr>
                          <tbody>
+                         <c:forEach items="${requestScope.list}" var="n" varStatus="i">
                            <tr>
-                               <td class="noticeNo">1</td>
-                                <td class="subject"><a href="">첫번째공지입니다가나첫번째공지입니다가나첫번째공지입니다가나rksk</a></td>
-                                <td class="writeDate">2022/01/25</td>
+                               <td class="noticeNo">${i.count}</td>
+                                <td class="subject"><span class="noticeTitle" noticeContent="${n.getNoticeContent()}">${n.getNoticeTitle()}</span></td>
+                                <td class="writeDate">${n.getNoticeRegdate()}</td>
                            </tr>
-                            <tr>
-                               <td class="noticeNo">2</td>
-                                <td class="subject"><a href="">두번째 공지입니다.</a></td>
-                                <td class="writeDate">2022/01/25</td>
-                            </tr>
+                          </c:forEach>
                           </tbody>
                     </table>
-                    
+                    </c:when>
+                    <c:otherwise>
+                    	<H2 style="text-align:center; position:relative; bottom:-100px">공지사항이 없습니다.</H2>
+                    </c:otherwise>
+              </c:choose>    
                 </div>
             </div>
             <!--page Navi-->
-            <div id="farmContentFooter"></div>
-      
+            <div id="farmContentFooter">
+				<div id="naviArea">
+	            	<c:choose>
+	            		<c:when test="${!requestScope.list.isEmpty()}">
+	            				${requestScope.pageNavi}
+	            		</c:when>
+	            	</c:choose>
+            	</div>	
+            </div>
         </div>
         <div id="farmContent3"></div>
     </div>
@@ -90,6 +122,31 @@
 	    });
     
   </script>
+  
+  <!-- 작성 내용 가져오기 -->
+  <script>
+  		$('.noticeTitle').click(function(){
+  			
+  			
+  			var noticeContent=$(this).attr('noticeContent');
+  			 var noticeTitle=$(this).text();
+  			
+            // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+            var _width = '1000';
+            var _height = '650';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+           
+            window.open('/farm/farmNoticeContent.do?noticeContent='+noticeContent+'&noticeTitle='+noticeTitle+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+  			
+  			
+  		});
+  
+  
+  
+  
+  </script>
+  
 
 </body>
 </html>

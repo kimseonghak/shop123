@@ -11,6 +11,7 @@ import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
 import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.notice.model.vo.Notice;
 
 @Service
 public class FarmENTServiceImpl implements FarmENTService{
@@ -89,12 +90,36 @@ public class FarmENTServiceImpl implements FarmENTService{
 	@Override
 	public ArrayList<FarmENTDeliveryStatus> selectDeliveryInputData(int buyNo) {
 		
-		
+		//공지사항 목록 가져오기
 		 ArrayList<FarmENTDeliveryStatus> list = (fENTdao.selectDeliveryInputData(buyNo));
 		
 		 return list;
 		
 	}
+
+	//공지사항 질문 리스트
+	@Override
+	public HashMap<String, Object> selectNoticeList(int currentPage,HashMap<String, Object> searchMap) {
+		
+		int recordCountPerPage = 10;
+		
+		//공지사랑 리스트 가져오기
+		ArrayList<Notice> list = fENTdao.selectNoticeList(currentPage,recordCountPerPage,searchMap);
+		
+		//navi 생성
+		int naviCountPerPage=5;
+		String pageNavi	=fENTdao.getNoticeListPageNavi(recordCountPerPage, currentPage, naviCountPerPage,searchMap);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("list", list);
+		map.put("pageNavi", pageNavi);
+		
+		return map;
+		
+		
+	}
+
 
 
 
