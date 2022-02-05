@@ -49,12 +49,13 @@ public class QuestionController {
 	@RequestMapping(value="/question/questionWriteFileUpload.do", method=RequestMethod.POST)
 	public String QuestionUserWriteFileUpload(HttpServletRequest request, HttpServletResponse response)throws IOException {
 		
+		System.out.println("호출1");
 		String uploadPath = "/resources/questionphoto/img/";
 		
 		String uploadFilePath = context.getRealPath(uploadPath);
 		
 		int uploadFileSizeLimit = 50*1024*1024;
-		
+		System.out.println("호출2");
 		String encType="UTF-8";
 		
 		MultipartRequest multi = new MultipartRequest(request, 
@@ -62,7 +63,7 @@ public class QuestionController {
 				uploadFileSizeLimit, 
 				encType, 
 				new DefaultFileRenamePolicy());
-		
+		System.out.println("호출3");
 		
 		
 		return null;
