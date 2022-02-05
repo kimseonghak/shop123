@@ -105,21 +105,21 @@
 			count_no as countNo,
 			count_sum as countSum,
 			count_date as countDate
-		from count
+		from count_tbl
 		where to_date(count_date) = to_date(sysdate) 
 	</select>
 	<insert id="countInsert">
-		insert into count values(count_seq.nextval,1,sysdate)
+		insert into count_tbl values(count_seq.nextval,1,sysdate)
 	</insert>
 	<update id="countUpdate">
-		update count set count_sum=(count_sum+1) where to_date(count_date)=to_date(sysdate)
+		update count_tbl set count_sum=(count_sum+1) where to_date(count_date)=to_date(sysdate)
 	</update>
 	<select id="countOutput" parameterType="integer" resultType="count">
 		select
 			count_no as countNo,
 			count_sum as countSum,
 			count_date as countDate
-		from count
+		from count_tbl
 		where to_date(count_date) = to_date(sysdate-#{_parameter}) 
 	</select>
 	<select id="joinOutput" parameterType="integer" resultType="integer">

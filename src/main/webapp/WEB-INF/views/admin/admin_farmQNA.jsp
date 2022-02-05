@@ -79,13 +79,17 @@
 	table td,th{
 		overflow:hidden;
 		text-overflow: ellipsis;
-		font-size:2vmin;
+		font-size:1.7vmin;
+		font-family: 'Nanum Gothic', 'sans-serif';
 	}
 	table tr:not(:last-child)>td{
 		background-color: white;
 	}
+	table tr:not(:first-child,:last-child,:nth-child(2n-1)){
+		border: 1px solid rgb(93 154 113 / 10%)
+	}
 	table tr{
-		widht:100%;
+		width:100%;
 		height:6vmin;
 	}
 	.listSpace{
@@ -163,11 +167,12 @@
 		height:100%;
 	}
 	.answerImgTd{
+		padding:0.5vmin;
 		line-height: 100%;
 	}
 	.answerImg{
-		width:70%;
-		height:70%;
+		width:60%;
+		height:60%;
 	}
 </style>
 </head>

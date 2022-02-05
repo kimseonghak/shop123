@@ -76,7 +76,8 @@ public class AdminController {
 	// 낙찰 정보 가져오기(BID)
 	@RequestMapping(value = "/admin/adminAuctionInfoPage.do", method = RequestMethod.GET)
 	public ModelAndView adminAuctionInfoPage(HttpServletRequest request,ModelAndView mav,@RequestParam int formNo,
-			@RequestParam(required = false,defaultValue = "1") int currentPage) {
+			@RequestParam(required = false, defaultValue = "1") int currentPage) {
+		
 		HashMap<String,Object> map = aService.BIDInfo(currentPage,formNo);
 		
 		mav.addObject("currentPage",currentPage);

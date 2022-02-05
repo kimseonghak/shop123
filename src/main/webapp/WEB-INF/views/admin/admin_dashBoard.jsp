@@ -198,9 +198,6 @@
 			var qBoardNo = $(this).children().eq(0).html();
 			location.replace("/admin/adminFarmQNAContent.do?questionFarmNo="+qBoardNo);
 		});
-<%-- 패딩값 재설정 --%>
-		$('.boardWrap').eq(0).css("padding-left","5px");
-		$('.boardWrap').eq(2).css("padding-right","5px");
 	</script>
 </body>
 </html>
