@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+.bg-color {
+	width: 100%;
+	height: 105vh;
+	background-color: #F2F2F2;
+	display: flex;
+    align-items: center;
+}
+.box-white {
+	margin: 0 auto;
+	width: 400px;
+	height: 475px;
+	background-color: white;
+	border-radius: 20px;
+	padding: 40px;
+	margin-top: 100px;
+}
+.input-style {
+	height: 52px;
+	width: 100%;
+	border: 0.5px solid #E5E5E5;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 16px;
+	background-color: #F2F2F2;
+	color: #000000;
+	padding: 18px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.title {
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 28px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 30px;
+}
+.btn-submit {
+	width: 100%;
+    height: 55px;
+    background-color: #3BBD5A;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.login-Select {
+	width: 100%;
+	height: 30%;
+}
+.login-Form {
+	width: 100%;
+	height: 50%;
+}
+.link-search {
+	width: 100%;
+	height: 20%;
+	text-align: center;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 14px;
+	margin-top: 25px;
+}
+.link-search>a {
+	margin: 20px;
+}
+
+.farmSelUl {
+	display: none;
+}
+
+.userSelUl>li {
+	border: 1px solid grey;
+	float: left;
+	width: 49.5%;
+	height: 55px;
+	text-align: center;
+	font-size: 16px;
+	font-family: 'Nanum Gothic', sans-serif;
+	background-color: #3BBD5A;
+	color: #FFFFFF;
+	border: 0.5px solid #3BBD5A;
+}
+
+.farmSelUl>li {
+	border: 1px solid grey;
+	float: left;
+	width: 49.5%;
+	height: 55px;
+	text-align: center;
+	font-size: 16px;
+	font-family: 'Nanum Gothic', sans-serif;
+	background-color: #3BBD5A;
+	color: #FFFFFF;
+	border: 0.5px solid #3BBD5A;
+}
+
+.userSelUl>li:last-child {
+	cursor: pointer;
+	background-color: #FFFFFF;
+	border: 0.5px solid #D4D4D4;
+	color: #000000;
+}
+
+.farmSelUl>li:first-child {
+	cursor: pointer;
+	background-color: #FFFFFF;
+	border: 0.5px solid #D4D4D4;
+	color: #000000;
+}
+
+.userLoginFormWrap {
+	display: block;
+}
+
+.farmLoginFormWrap {
+	display: none;
+}
+.user{
+	line-height: 54px;
+}
+.farm{
+	line-height: 54px;
+}
