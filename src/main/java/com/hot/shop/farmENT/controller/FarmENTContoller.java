@@ -34,9 +34,39 @@ public class FarmENTContoller {
 	
 	//공지사항 게시판
 	@RequestMapping(value="/farm/farmNoticePage.do",method = RequestMethod.GET)
-	public String farmNoticePage()
+	public ModelAndView farmNoticePage(HttpServletRequest request,
+										@RequestParam(required = false, defaultValue = "1") int currentPage, ModelAndView mv)
 	{
-		return "farm/farmNotice";
+		//검색 값이 있다면
+		String type = request.getParameter("type");
+		String keyWord = request.getParameter("keyWord");
+		
+		HashMap<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("type",type);
+		searchMap.put("keyWord", keyWord);
+					
+		HashMap<String, Object> map	=fENTservice.selectNoticeList(currentPage,searchMap);
+		
+		mv.addObject("list", map.get("list"));
+		mv.addObject("pageNavi", map.get("pageNavi"));
+		mv.addObject("type", type);
+		mv.addObject("keyWord", keyWord);
+		mv.setViewName("farm/farmNotice");
+		
+		return mv;
+
+	}
+	
+	//공지게시판 내용
+	@RequestMapping(value="/farm/farmNoticeContent.do",method = RequestMethod.GET)
+	public ModelAndView farmNoticeContent(@RequestParam String noticeContent,@RequestParam String noticeTitle,ModelAndView mv)
+	{
+		mv.addObject("noticeContent", noticeContent);
+		mv.addObject("noticeTitle", noticeTitle);
+		
+		mv.setViewName("farm/farmNoticeContent");
+		
+		return mv;
 	}
 	
 	//문의사항 게시판
@@ -209,8 +239,6 @@ public class FarmENTContoller {
 		return mv;
 		
 	}
-	
-	
 	
 	
 	//환불목록 게시판
