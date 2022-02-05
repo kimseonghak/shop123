@@ -337,7 +337,7 @@ select option[value=""][disabled] {
 			
 			<form action="/question/questionWriteFileUpload.do" method="post" enctype="multipart/form-data">
 				<div id="img_Form">
-					<input type="file"/>
+					<input type="file" name="file"/>
 					<button id="img_Submit">업로드하기</button>
 				</div>
 			</form>
