@@ -30,6 +30,11 @@ public class MemberDAO {
 		int result = sql.selectOne("member.selectNickCheck", userNick);
 		return result;
 	}
+	
+	public int selectEmailCheck(String userEmail) {
+		int result = sql.selectOne("member.selectEmailCheck", userEmail);
+		return result;
+	}
 
 	public int insertMember(Member member) {
 		return sql.insert("member.insertMember", member);
@@ -39,8 +44,8 @@ public class MemberDAO {
 		return sql.selectList("member.findIdMember", member);
 	}
 
-	public Member selectEmailCheck(Member member) {
-		Member result = sql.selectOne("member.selectEmailCheck", member);
+	public Member selectIdEmailCheck(Member member) {
+		Member result = sql.selectOne("member.selectIdEmailCheck", member);
 		return result;
 	}
 
@@ -51,4 +56,5 @@ public class MemberDAO {
 	public int userRandomPwd(HashMap<String, Object> map) {
 		return sql.update("member.userRandomPwd", map);
 	}
+
 }

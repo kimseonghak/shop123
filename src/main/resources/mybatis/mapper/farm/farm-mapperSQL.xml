@@ -31,6 +31,16 @@
 	
 	</select>
 	
+	<select id="selectEmailCheck" resultType="int">
+	
+		SELECT
+			COUNT(*)
+		FROM
+			farm
+		WHERE farm_email=#{value}
+	
+	</select>
+	
 	<insert id="insertFarm" parameterType="farm">
 
 		INSERT INTO FARM
@@ -58,7 +68,7 @@
 		
 	</select>
 	
-	<select id="selectEmailCheck" resultType="farm">
+	<select id="selectIdEmailCheck" resultType="farm">
 	
 		SELECT
 			farm_email as farmEmail

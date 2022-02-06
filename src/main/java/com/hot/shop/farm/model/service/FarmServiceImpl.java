@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.hot.shop.farm.model.dao.FarmDAO;
 import com.hot.shop.farm.model.vo.Farm;
-import com.hot.shop.member.model.vo.Member;
 
 @Service
 public class FarmServiceImpl implements FarmService {
@@ -27,6 +26,11 @@ public class FarmServiceImpl implements FarmService {
 	}
 
 	@Override
+	public int selectEmailCheck(String farmEmail) {
+		return fDAO.selectEmailCheck(farmEmail);
+	}
+	
+	@Override
 	public int insertFarm(Farm farm) {
 		return fDAO.insertFarm(farm);
 	}
@@ -37,8 +41,8 @@ public class FarmServiceImpl implements FarmService {
 	}
 
 	@Override
-	public Farm selectEmailCheck(Farm farm) {
-		return fDAO.selectEmailCheck(farm);
+	public Farm selectIdEmailCheck(Farm farm) {
+		return fDAO.selectIdEmailCheck(farm);
 	}
 
 	@Override
@@ -50,4 +54,5 @@ public class FarmServiceImpl implements FarmService {
 	public int farmRandomPwd(HashMap<String, Object> map) {
 		return fDAO.farmRandomPwd(map);
 	}
+
 }
