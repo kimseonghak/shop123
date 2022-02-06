@@ -71,9 +71,32 @@ public class FarmENTContoller {
 	
 	//문의사항 게시판
 	@RequestMapping(value="/farm/farmQnaPage.do",method = RequestMethod.GET)
-	public String farmQnaPage()
+	public ModelAndView  farmQnaPage(@RequestParam(required = false,defaultValue = "1") int currentPage,
+											ModelAndView mv,HttpServletRequest request) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
 	{
-		return "farm/farmQna";
+		//session 연동되면 사용하기
+		//int farmNo = farm.getFarmNo(); 
+		int farmNo = 1;
+		
+		//검색 조건 
+		String type = request.getParameter("type");
+		String keyWord = request.getParameter("keyWord");
+		
+	
+		HashMap<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("type", type);
+		searchMap.put("keyWord", keyWord);
+		searchMap.put("farmNo",farmNo);
+		
+		HashMap<String, Object> map = fENTservice.selectFarmQnaList(currentPage,searchMap);
+		
+		mv.addObject("list",map.get("list"));
+		mv.addObject("pageNavi",map.get("pageNavi"));
+		mv.addObject("type",type);
+		mv.addObject("keyWord",keyWord);
+		mv.setViewName("farm/farmQna");
+		
+		return mv;
 	}
 	
 	//낙찰상품 목록 게시판
@@ -83,7 +106,7 @@ public class FarmENTContoller {
 	{
 		//session 연동되면 사용하기
 		//int farmNo = farm.getFarmNo(); 
-		int farmNo = 4;
+		int farmNo = 1;
 		
 		//검색 값이 있다면
 		String type = request.getParameter("type");
@@ -129,7 +152,7 @@ public class FarmENTContoller {
 	{
 		//session 연동되면 사용하기
 		//int farmNo = farm.farmNo();
-		int farmNo = 4;
+		int farmNo = 1;
 		
 		//검색 값 받아오기 
 		String type = request.getParameter("type");
@@ -174,7 +197,7 @@ public class FarmENTContoller {
 	{
 		//session 연동되면 사용하기
 		//int farmNo = farm.farmNo();
-		int farmNo = 4;		
+		int farmNo = 1;		
 		ArrayList<FarmENTProduct>list =fENTservice.selectOneProduct(productName,farmNo);
 		
 		mv.addObject("list", list);

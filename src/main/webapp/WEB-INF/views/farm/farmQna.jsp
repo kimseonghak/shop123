@@ -25,6 +25,16 @@
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmMain.css">
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmQnaContent.css">
 
+<style>
+	 #naviArea
+	 {
+	 	display:inline-block;
+	 	margin-left:450px;
+	 	text-align: center;
+	 }
+</style>
+
+
 </head>
 <body>
 <c:import url="/resources/farm/common/farmMainHeader.jsp"/>
@@ -38,19 +48,43 @@
             </div>
             <div id="farmContentContent">
                 <div id="serchArea">
-                    <form action="" method="get">
-                         <select style="width:60px;height:30px" id="serchSelect">
-                            <option value="subject">제목</option> 
-                            <option value="content">내용</option>
-                            <option value="content">작성자</option>
+                    <form action="/farm/farmQnaPage.do" method="get">
+                         <select name="type" style="width:60px;height:30px" id="serchSelect">
+                          <c:choose>
+	                          	<c:when test="${type eq 'subject'}">
+		                            <option value="subject" selected='selected'>제목</option> 
+		                            <option value="content">내용</option>
+		                            <option value="writer">작성자</option>
+	                            </c:when>
+	                            
+	                            <c:when test="${type eq 'content'}">
+		                            <option value="subject">제목</option> 
+		                            <option value="content" selected='selected'>내용</option>
+		                            <option value="writer">작성자</option>
+	                            </c:when>
+	                            	                            
+	                            <c:when test="${type eq 'writer'}">
+		                            <option value="subject">제목</option> 
+		                            <option value="content">내용</option>
+		                            <option value="writer" selected='selected'>작성자</option>
+	                            </c:when>
+	                            <c:otherwise>
+		                            <option value="subject">제목</option> 
+		                            <option value="content">내용</option>
+		                            <option value="writer">작성자</option>
+	                            </c:otherwise>
+                          </c:choose>
+                          
                           </select>
-                    <input type="text" name="keyWord" size="30" id=serchKeyword>
+                    <input type="text" name="keyWord" size="30" id=serchKeyword value="${keyWord}">
                     <button type="button" class="btn btn-outline-success btn-sm">검색</button>
                 </form>
                     
                 </div>
                 <div id="emptyArea"></div>
                 <div id="contentArea">
+            <c:choose>    
+                <c:when test="${!requestScope.list.isEmpty()}">	
                     <table>
                            <tr>
                                 <th>번호</th>
@@ -59,26 +93,33 @@
                                 <th class="writeDate">작성일</th>
                            </tr>
                          <tbody>
+                         <c:forEach items="${list}" var="q" varStatus="i">
                            <tr>
-                               <td>1</td>
-                                <td class="subject"><a href="">배송 언제쯤 도착하나요배송 언제쯤 도착하나요배송 언제쯤 도착하나요123</a></td>
-                                <td class="writer">홍길동</td>
-                                <td class="writeDate">2022/01/25</td>
+                               <td>${i.count}</td>
+                                <td class="subject"><span class="qnaTitle">${q.getQuestionTitle()}</span></td>
+                                <td class="writer">${q.getUserName()}</td>
+                                <td class="writeDate">${q.getQuestionRegdate()}</td>
                            </tr>
-                            <tr>
-                               <td>2</td>
-                                <td class="subject"><a href="">두번째 문의</a></td>
-                                 <td class="writer">고길동</td>
-                                <td class="writeDate">2022/01/25</td>
-                            </tr>
+						</c:forEach>		
                           </tbody>
                     </table>
-                    
+              	 </c:when>  
+               <c:otherwise>
+               		<H2 style="text-align:center; position:relative; bottom:-100px">현재 등록된 문의가 없습니다.</H2>
+               </c:otherwise> 
+            </c:choose>    
                 </div>
             </div>
            <!--page Navi-->
-            <div id="farmContentFooter"></div>
-       
+            <div id="farmContentFooter">
+				<div id="naviArea">
+	            	<c:choose>
+	            		<c:when test="${!requestScope.list.isEmpty()}">
+	            				${requestScope.pageNavi}
+	            		</c:when>
+	            	</c:choose>
+            	</div>
+            </div>
         </div>
         <div id="farmContent3"></div>
     </div>

@@ -189,6 +189,57 @@
 	
 	</select>
 
+	<!-- 문의사항  -->
+	<select id="selectQnaList" parameterType="hashmap" resultType="farmENTQna">
+	
+	SELECT Q.QUESTION_USER_NO AS questionNo,
+           Q.QUESTION_USER_TITLE AS questionTitle,
+           Q.QUESTION_USER_CONTENT AS questionContent,
+           Q.QUESTION_USER_REGDATE AS questionRegdate,
+           Q.USER_NO AS userNo,
+           M.USER_NAME AS userName,
+           M.USER_ID AS userId,
+           Q.QUESTIONPHOTO_NO AS questionPhotoNo,
+           Q.FARM_NO AS farmNo
+           
+	FROM QUESTION_USER Q
+    LEFT JOIN MEMBER M ON(M.USER_NO=Q.USER_NO)
+	WHERE QUESTION_USER_CODE='Q-2' AND QUESTION_USER_CLASSIFY='F'
+            AND FARM_NO=#{farmNo} AND QUESTION_USER_END_YN='N'
+       	<if test="type!=null and type.equals('subject')">
+			AND Q.QUESTION_USER_TITLE like '%'||#{keyWord}||'%'
+		</if>
+		<if test="type!=null and type.equals('content')">
+			AND Q.QUESTION_USER_CONTENT like '%'||#{keyWord}||'%'
+		</if>    
+		<if test="type!=null and type.equals('writer')">
+			AND M.USER_NAME like '%'||#{keyWord}||'%'
+		</if>   
+            
+	ORDER BY 4 DESC
+	
+	
+	</select>
+	
+	<!-- 문의사항 총 게시물 개수 -->
+	<select id="selectQnaListTotalCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) 
+		FROM QUESTION_USER Q
+    	LEFT JOIN MEMBER M ON(M.USER_NO=Q.USER_NO)
+		WHERE 
+		QUESTION_USER_CODE='Q-2' AND QUESTION_USER_CLASSIFY='F' AND FARM_NO=#{farmNo} AND QUESTION_USER_END_YN='N'
+       	<if test="type!=null and type.equals('subject')">
+			AND Q.QUESTION_USER_TITLE like '%'||#{keyWord}||'%'
+		</if>
+		<if test="type!=null and type.equals('content')">
+			AND Q.QUESTION_USER_CONTENT like '%'||#{keyWord}||'%'
+		</if>    
+		<if test="type!=null and type.equals('writer')">
+			AND M.USER_NAME like '%'||#{keyWord}||'%'
+		</if>   
+	
+	</select>
+	
 
   	
 </mapper>
