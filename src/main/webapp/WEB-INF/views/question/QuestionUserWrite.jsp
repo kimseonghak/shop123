@@ -375,7 +375,6 @@ $('#img_Submit').click(function(){
 
     var files = inputFile[0].files;
 
-    console.log(files);
 
     formData.append("file", files[0]);
 
