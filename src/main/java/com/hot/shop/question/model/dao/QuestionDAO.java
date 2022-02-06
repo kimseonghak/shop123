@@ -24,10 +24,13 @@ public class QuestionDAO {
 
 	//1:1문의 글쓰기(유저 실질적인 백단)
 	public int insertUserWrite(QuestionUser qUser) {
-		return sqlSession.insert("qUser.insertUserWrite", qUser);
+		return sqlSession.insert("qUser.insertUserWrite", qUser) + sqlSession.update("qUser.updateQPhote",qUser.getQuestionphotoNo());
 	}
 
 	public int insertWriteFile(QuestionPhoto qp) {
 		return sqlSession.insert("qUser.insertWriteFile", qp);
 	}
+	
+	
+	//1:1문의 조회(유저)
 }

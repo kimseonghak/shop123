@@ -25,11 +25,26 @@
 		
 		<!-- 1:1문의 사용자 글 쓰기 -->
 		<insert id="insertUserWrite" parameterType="qUser">
-			
+			INSERT INTO             QUESTION_USER
+			VALUES                  (QUESTION_USER_Seq.nextval,
+			                        #{questionUserTitle},
+			                        #{questionUserContent},
+			                        sysdate,
+			                        #{userNo},
+			                        'N',
+			                        #{questionphotoNo},
+			                        #{questionUserCode},
+			                        #{questionUserClassify},
+			                        #{farmNo},
+			                        #{orderNo},
+			                        'N')
 		</insert>
 		
 		<!-- 1:1문의 사용자 파일 업로드 선행 -->
 		<insert id="insertWriteFile" parameterType="qPhoto">
+			<selectKey keyProperty="questionPhotoNo" resultType="integer" order="AFTER">
+                SELECT QUESTIONPHOTO_NO FROM QuestionPhoto WHERE QUESTIONPHOTO_UPDATETIME=#{questionPhotoUpdateTime}
+            </selectKey>
 				insert into 	QuestionPhoto
 				values			(QUESTIONPHOTO_SEQ.nextval,
 								#{questionPhotoOriginal},
@@ -40,6 +55,10 @@
 								'N',
 								'N')
 		</insert>
+		
+		<update id="updateQPhote" parameterType="integer">
+			update QuestionPhoto set questionPhoto_Use_YN='Y' where QUESTIONPHOTO_NO=#{_parameter}
+		</update>
 	</mapper>
 
 
