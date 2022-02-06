@@ -17,8 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.service.QuestionService;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -96,16 +98,29 @@ public class QuestionController {
 		
 		
 		int result = qService.insertWriteFile(qp);
+		System.out.println(qp.getQuestionPhotoNo());
 		return qp.getQuestionPhotoNo();
 	};
 	
 	
 	@RequestMapping(value="/question/questionWrite.do", method=RequestMethod.POST)
-	public void QuestionUserWrite(QuestionUser qUser, ModelAndView mav) {
+	public ModelAndView QuestionUserWrite(QuestionUser qUser, ModelAndView mav,@SessionAttribute Member member) {
+		int userNo = member.getUserNo();
+		qUser.setUserNo(userNo);
+		System.out.println(qUser);
 		
 		int result = qService.insertUserWrite(qUser);
 		
+		if(result >= 2 ) {
+			mav.addObject("msg", "글 작성에 성공했습니다." );
+			mav.addObject("location", "/question/QuestionUserPage.do");
+		}else {
+			mav.addObject("msg", "글 작성에 실패했습니다." );
+			mav.addObject("location", "/question/QuestionUserPage.do");
+		}
 		
+		mav.setViewName("commons/msg");
+		return mav;
 	}
 	
 	
