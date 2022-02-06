@@ -373,8 +373,6 @@ select option[value=""][disabled] {
 		var formData = new formData();
 		var file = $("input[name='file']");
 		var files = inputFile.files;
-		console.log(files);
-
 		formData.append("file",files);
 		
 		$.ajax({
