@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hot.shop.question.model.service.QuestionService;
@@ -52,7 +53,8 @@ public class QuestionController {
 	
 	//QuestionUserWrite 작성 전 파일 업로드
 	@RequestMapping(value="/question/questionWriteFileUpload.do", method=RequestMethod.POST)
-	public String QuestionUserWriteFileUpload(HttpServletRequest request, HttpServletResponse response)throws IOException {
+	@ResponseBody
+	public int QuestionUserWriteFileUpload(HttpServletRequest request, HttpServletResponse response)throws IOException {
 		
 		String uploadPath = "/resources/questionphoto/img/";
 		
@@ -78,7 +80,7 @@ public class QuestionController {
 		String changedFileName = currentTime+".jpg";
 		
 		File reNameFile = new File(uploadFilePath+"\\"+changedFileName);
-		String filePath = reNameFile.getPath();
+		String filePath = "/resources/questionphoto/img/"+changedFileName;
 		
 		long fileSize = reNameFile.length();
 		
@@ -92,9 +94,9 @@ public class QuestionController {
 		qp.setQuestionPhotoFileSize(fileSize);
 		qp.setQuestionPhotoUpdateTime(uploadTime);
 		
-		int result = qService.insertWriteFile(qp);
 		
-		return null;
+		int result = qService.insertWriteFile(qp);
+		return qp.getQuestionPhotoNo();
 	};
 	
 	
