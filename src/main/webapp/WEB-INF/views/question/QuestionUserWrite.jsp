@@ -346,7 +346,7 @@ select option[value=""][disabled] {
 				<br>
 				<div id="write_Btn_form">
 					<div id="submit_btn">
-						<input type="submit" id="submitBtn" value="글 쓰기"/>
+						<input type="submit" id="submitBtn" value="글 쓰기"/>ㅇ
 					</div>
 									
 					<div id="list_btn">
