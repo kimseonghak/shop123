@@ -108,12 +108,11 @@
         text-overflow: ellipsis; white-space: nowrap; max-width: 80px;
         
     }
-    .subject>a
+    .qnaTitle
     {
-       text-decoration: none;
-        color: black;
+       cursor:pointer;
     }
-    .subject>a:hover
+    .qnaTitle:hover
     {
         color: gray;
     }

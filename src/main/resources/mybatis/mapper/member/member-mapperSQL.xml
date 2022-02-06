@@ -40,6 +40,16 @@
 	
 	</select>
 	
+	<select id="selectEmailCheck" resultType="int">
+	
+		SELECT
+			COUNT(*)
+		FROM
+			member
+		WHERE user_email=#{value}
+	
+	</select>
+	
 	<insert id="insertMember" parameterType="member">
 	
 		INSERT INTO MEMBER
@@ -68,7 +78,7 @@
 		
 	</select>
 	
-	<select id="selectEmailCheck" resultType="member">
+	<select id="selectIdEmailCheck" resultType="member">
 	
 		SELECT
 			user_email as userEmail

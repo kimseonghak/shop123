@@ -39,24 +39,22 @@
 
     #noticeTitle
     {
-        border: 3px solid #5D9A71;
         width: 80%;
         height: 8vh;
         text-align: center;
         font-weight: bolder;
-        font-size: 1.8vmin;
-        line-height: 7vh;
-        margin: 3px auto;
+        line-height: 8vh;
+        margin: 5px auto;
+       
     }
     
     #noticeContent
     {
-        border: 2px solid #5D9A71;
-        font-size: 1.8vmin;
+        border-top: 1px solid #5D9A71;
+        border-bottom: 1px solid #5D9A71;
         width: 80%;
         height: 80vh;
-        margin: 3px auto;
-        
+        margin: 5px auto;
     }
     
     

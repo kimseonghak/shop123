@@ -29,10 +29,19 @@
 			</div>
 		</c:when>
 		
-		<c:when test="${sessionScope.farm != null }">
+		<c:when test="${sessionScope.farm != null && sessionScope.farm.rating =='root' || sessionScope.farm.rating =='admin' }">
 			<div class="link-user">
 				<div class="box-user">
-					<a href="">농가 ${sessionScope.farm.farmName }님</a> 
+					<a href="/admin/adminDashboardPage.do">관리자 ${sessionScope.farm.farmName }님</a> 
+					<a href="/farm/farmLogout.do">로그아웃</a>
+				</div>
+			</div>
+		</c:when>
+		
+		<c:when test="${sessionScope.farm != null && sessionScope.farm.rating =='farm' }">
+			<div class="link-user">
+				<div class="box-user">
+					<a href="/farm/farmDashBoardPage.do">농가 ${sessionScope.farm.farmName }님</a> 
 					<a href="/farm/farmLogout.do">로그아웃</a>
 				</div>
 			</div>
@@ -59,7 +68,7 @@
 				<li><a href="/auction/auctionPage.do">경매</a>
 					<ul class="lnb-list">
 						<li><a href="/auction/auctionPage.do">경매</a></li>
-						<li><a href="">구매</a></li>
+						<li><a href="/auction/auctionSalePage.do">구매</a></li>
 					</ul>
 				</li>
 				<li><a href="/notice/noticeListPage.do">게시판</a>

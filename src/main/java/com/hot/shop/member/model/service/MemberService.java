@@ -13,13 +13,16 @@ public interface MemberService {
 
 	int selectNickCheck(String userNick);
 
+	int selectEmailCheck(String userEmail);
+	
 	int insertMember(Member member);
 
 	List<Member> findIdMember(Member member);
 
-	Member selectEmailCheck(Member member);
+	Member selectIdEmailCheck(Member member);
 
 	int findPwdMember(Member member);
 
 	int userRandomPwd(HashMap<String, Object> map);
+
 }

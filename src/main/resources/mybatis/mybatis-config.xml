@@ -21,10 +21,12 @@
 		<typeAlias type="com.hot.shop.promotion.model.vo.PromotionPhoto" alias="pPhoto"/>
 		<typeAlias type="com.hot.shop.faq.model.vo.FAQ" alias="faq"/>
 		
+		
 		<!-- farmENT -->
 		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTProduct" alias="farmENTProduct"/>
 		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTOrder" alias="farmENTOrder"/>
 		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus" alias="farmENTDeliveryStatus"/>
+		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTQna" alias="farmENTQna"/>
 		
 		
 	</typeAliases>

@@ -18,13 +18,27 @@
 			auction_Count3 as auctionCount3,
 			auction_EndYN as auctionEndYN
   	from (select row_number() over (order by auction_no desc) as num, auction.* from auction 
-	where auction_form_no=#{_parameter} and auction_endYN='N')
+	where auction_form_no=#{_parameter} and to_date(auction_end)>=to_date(sysdate))
 	where num=1 
 	
   </select>
   
-  
-  
+  <insert id="inputLowestPrice" parameterType="hashmap">
+  	insert into auction values(auction_SEQ.nextval,
+	  						   #{auc.auctionStart},
+  							   #{auc.auctionEnd},
+  							   #{auc.auctionProduct},
+  							   #{auc.auctionPrice},
+  							   #{auc.auctionCount1},
+  							   #{farmNo},
+  							   #{auc.auctionFormNo},
+  							   1,
+  							   1,
+  							   0,
+  							   0,
+  							   default)
+  </insert>
+   
   
   
 

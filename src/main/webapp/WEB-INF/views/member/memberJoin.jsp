@@ -217,7 +217,8 @@
 				
 				//Email
 				$('input[name=userEmail]').blur(function() {
-				
+					
+					var userEmail = $('input[name=userEmail]').val();
 					var emailCheck = RegExp(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/);
 					
 					if ($('input[name=userEmail]').val()==null || $('input[name=userEmail]').val()=='') {
@@ -228,10 +229,27 @@
 						$("#email_msg").html("올바른 이메일 형식을 입력해주세요.").css("color","red");
 						return;
 						inval_Arr[5] = false;
-					} else {
-						$("#email_msg").html("올바른 이메일입니다. 인증번호를 작성해주세요.").css("color", "green");
-						inval_Arr[5] = true;
 					}
+					
+					$.ajax({
+						url : "/member/memberEmailCheck.do",
+						data : {"userEmail" : userEmail},
+						type : "get",
+						success : function(result) {
+							if (result == 1) {
+								$("#email_msg").html("이미 사용중인 이메일입니다.").css("color", "red");
+								return;
+								inval_Arr[5] = false;
+							} else {
+								$("#email_msg").html("사용 가능한 이메일입니다.").css("color", "green");
+								inval_Arr[5] = true;
+							}
+						},
+						error : function() {
+							console.log("ajax 통신 실패")
+						}
+					});
+					
 				});
 				
 				//Email 인증번호 발송 
@@ -242,7 +260,11 @@
 					if(email == null || email=='') {
 						alert("인증번호는 이메일 입력 후 발송 가능합니다.");
 						return;
+					} else if(inval_Arr[5] == false) {
+						alert("이메일을 다시 확인해주세요.");
+						return;
 					} else {
+					
 						// 타이머 시작
 						timer();
 						$.ajax({
