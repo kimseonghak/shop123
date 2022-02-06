@@ -292,7 +292,7 @@ select option[value=""][disabled] {
 	
 				<div id="question_farmForm03" style="display: none;">
 					<span style="font-size: 20px; color: #08E200;">농가번호 : </span>
-					<input type="text" id="farmNo" name="farmNo" placeholder="농가 번호를 적어주세요"/>
+					<input type="text" id="farmNo" name="farmNo" value="1" placeholder="농가 번호를 적어주세요"/>
 				</div>
 				<!-- 문의 대상 설정하는 곳 끝-->
 				
