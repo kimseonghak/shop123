@@ -30,6 +30,15 @@
 		
 		<!-- 1:1문의 사용자 파일 업로드 선행 -->
 		<insert id="insertWriteFile" parameterType="qPhoto">
+				insert into 	QuestionPhoto
+				values			(QUESTIONPHOTO_SEQ.nextval,
+								#{questionPhotoOriginal},
+								#{questionPhotoChange},
+								#{questionPhotoFilePath},
+								#{questionPhotoFileSize},
+								#{questionPhotoUpdateTime},
+								'N',
+								'N')
 		</insert>
 	</mapper>
 

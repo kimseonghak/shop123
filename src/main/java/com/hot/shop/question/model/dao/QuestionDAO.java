@@ -28,7 +28,6 @@ public class QuestionDAO {
 	}
 
 	public int insertWriteFile(QuestionPhoto qp) {
-		
 		return sqlSession.insert("qUser.insertWriteFile", qp);
 	}
 }

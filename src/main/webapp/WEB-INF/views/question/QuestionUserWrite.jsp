@@ -260,7 +260,7 @@ select option[value=""][disabled] {
 	<div id="contentForm">
 		<div id="question_background">
 			<form action='/question/questionWrite.do' method="post" id="textWrite">
-			
+			<input type="hidden" name="questionphotoNo" value="1">
 			
 				<div id="question_name">
 					<h3>불편 사항을 적어주세요</h3>
@@ -368,7 +368,30 @@ select option[value=""][disabled] {
 </div>
 
 <script>
-	
+	$("#img_Submit").on("click",function(e){
+		var formData = new formData();
+		var file = $("input[name='file']");
+		var files = inputFile.files;
+		console.log(files);
+
+		formData.append("file",files);
+		
+		$.ajax({
+			url : '/question/questionWriteFileUpload.do',
+			processDara : false,
+			contentType : false,
+			data : formData,
+			type : "POST",
+			success : function(result){
+				if(result != null && result != 0){
+					alret('사진이 들어갔습니다!');
+					$("input[name='questionphotoNo']").val(result);
+				}else{
+					alret('사진이 들어가지 못했습니다!');
+				}
+			}
+		});
+	});
 </script>
 
 
