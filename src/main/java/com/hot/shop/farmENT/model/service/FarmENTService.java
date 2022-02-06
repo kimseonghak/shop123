@@ -23,6 +23,8 @@ public interface FarmENTService {
 
 	HashMap<String, Object> selectNoticeList(int currentPage,HashMap<String, Object> searchMap);
 
+	HashMap<String, Object> selectFarmQnaList(int currentPage, HashMap<String, Object> searchMap);
+
 
 
 }

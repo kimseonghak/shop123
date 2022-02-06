@@ -10,8 +10,11 @@ import com.hot.shop.farmENT.model.dao.FarmENTDAO;
 import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
 import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
+import com.hot.shop.farmENT.model.vo.FarmENTQna;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.notice.model.vo.Notice;
+
+
 
 @Service
 public class FarmENTServiceImpl implements FarmENTService{
@@ -45,7 +48,7 @@ public class FarmENTServiceImpl implements FarmENTService{
 	public HashMap <String,Object> selectFarmENTOrderList(int currentPage, HashMap<String, Object> searchMap) {
 		
 		//한 페이지당 보여질 게시물의 개수
-		int recordCountPerPage=5;
+		int recordCountPerPage=10;
 		
 		//주문 목록 가져오기
 		ArrayList<FarmENTOrder> list =fENTdao.selectFarmENTOrderList(recordCountPerPage,currentPage,searchMap);
@@ -117,6 +120,26 @@ public class FarmENTServiceImpl implements FarmENTService{
 		
 		return map;
 		
+		
+	}
+
+	@Override
+	public HashMap<String, Object> selectFarmQnaList(int currentPage, HashMap<String, Object> searchMap) {
+		
+		int recordCountPerPage = 10;
+		
+		ArrayList<FarmENTQna> list = fENTdao.selectFarmQnaList(recordCountPerPage,currentPage,searchMap);
+		
+		//navi 생성
+		int naviCountPerPage=5;
+		String pageNavi = fENTdao.getQnaListNavi(recordCountPerPage,naviCountPerPage,currentPage,searchMap);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("list", list);
+		map.put("pageNavi", pageNavi);
+		
+		return map;
 		
 	}
 
