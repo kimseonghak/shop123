@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hot.shop.farm.model.vo.Farm;
-import com.hot.shop.member.model.vo.Member;
 
 @Repository
 public class FarmDAO {
@@ -24,6 +23,11 @@ public class FarmDAO {
 		int result = sql.selectOne("farm.selectIdCheck", farmId);
 		return result;
 	}
+	
+	public int selectEmailCheck(String farmEmail) {
+		int result = sql.selectOne("farm.selectEmailCheck", farmEmail);
+		return result;
+	}
 
 	public int insertFarm(Farm farm) {
 		return sql.insert("farm.insertFarm", farm);
@@ -33,8 +37,8 @@ public class FarmDAO {
 		return sql.selectList("farm.findIdFarm", farm);
 	}
 
-	public Farm selectEmailCheck(Farm farm) {
-		Farm result = sql.selectOne("farm.selectEmailCheck", farm);
+	public Farm selectIdEmailCheck(Farm farm) {
+		Farm result = sql.selectOne("farm.selectIdEmailCheck", farm);
 		return result;
 	}
 
@@ -45,5 +49,6 @@ public class FarmDAO {
 	public int farmRandomPwd(HashMap<String, Object> map) {
 		return sql.update("farm.farmRandomPwd", map);
 	}
+
 
 }

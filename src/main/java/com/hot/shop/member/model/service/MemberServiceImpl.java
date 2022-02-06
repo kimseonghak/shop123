@@ -37,6 +37,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public int selectEmailCheck(String userEmail) {
+		
+		return mDAO.selectEmailCheck(userEmail);
+		
+	}
+	
+	@Override
 	public int insertMember(Member member) {
 		
 		return mDAO.insertMember(member);
@@ -49,8 +56,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member selectEmailCheck(Member member) {
-		return mDAO.selectEmailCheck(member);
+	public Member selectIdEmailCheck(Member member) {
+		return mDAO.selectIdEmailCheck(member);
 	}
 	
 	@Override
@@ -62,4 +69,5 @@ public class MemberServiceImpl implements MemberService {
 	public int userRandomPwd(HashMap<String, Object> map) {
 		return mDAO.userRandomPwd(map);
 	}
+
 }
