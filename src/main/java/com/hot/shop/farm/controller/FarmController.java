@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hot.shop.farm.model.service.FarmService;
 import com.hot.shop.farm.model.vo.Farm;
-import com.hot.shop.member.model.vo.Member;
 
 @Controller
 public class FarmController {
@@ -76,6 +75,15 @@ public class FarmController {
 			HttpServletResponse response) throws IOException {
 		
 		int result = fService.selectIdCheck(farmId);
+		response.getWriter().print(result);
+	}
+	
+	//회원가입시 이메일 중복체크
+	@RequestMapping(value="/farm/farmEmailCheck.do", method = RequestMethod.GET)
+	public void farmEmailCheck(@RequestParam String farmEmail,
+			HttpServletResponse response) throws IOException {
+		
+		int result = fService.selectEmailCheck(farmEmail);
 		response.getWriter().print(result);
 	}
 	
@@ -155,11 +163,11 @@ public class FarmController {
 	}
 	
 	//비밀번호 찾기 시 입력한 아이디와 이메일이 일치하는지 확인
-	@RequestMapping(value="/farm/farmEmailCheck.do", method = RequestMethod.GET)
-	public void memberEmailCheck(Farm farm,
+	@RequestMapping(value="/farm/farmIdEmailCheck.do", method = RequestMethod.GET)
+	public void farmIdEmailCheck(Farm farm,
 			HttpServletResponse response) throws IOException {
 		
-		Farm result = fService.selectEmailCheck(farm);
+		Farm result = fService.selectIdEmailCheck(farm);
 		response.getWriter().print(result.getFarmEmail());
 	}
 	
