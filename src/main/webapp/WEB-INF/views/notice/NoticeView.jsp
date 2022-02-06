@@ -149,17 +149,25 @@
 	
 	<div id="contentForm"><br>
 		<div id="content_background">
-			<form action="/notice/NoticeUpdatePage.do">
-			<div id="content_titleForm">
-				<input type="hidden" name=noticeNo value="${notice.noticeNo}"/>
-				[  ] : ${notice.noticeTitle }
+			<form action="/notice/noticeUpdatePage.do" method="post" >
+			
+			<!-- 수정 폼으로 데이터를 넘겨주기 위한 코드 (추후 간결화되면 삭제해야 함) -->
+			<input type="hidden" name="noticeNo" value="${notice.noticeNo}"/>
+			<input type="hidden" name="noticeCode" value="${notice.noticeCode}"/>
+			<input type="hidden" name="noticeCategory" value="${notice.noticeCategory}"/>
+			<input type="hidden" name="noticeTitle" value="${notice.noticeTitle}"/>
+			<input type="hidden" name="noticeContent" value="${notice.noticeContent }"/>
+			<input type="hidden" name="farmNo" value="${notice.farmNo}"/>
+			
+				<div id="content_titleForm">
+					<span>${notice.noticeTitle}</span>
 				<div id="writerForm">
-					[ ${notice.farmNo } ]
+					<span>[ ${notice.farmNo } ]</span>
 				</div>
 			</div><hr>
 	
 			<div id="content_RegdateForm">
-				[작성일 : ${notice.noticeRegdate}] [조회수 : ${notice.noticeCount}]
+				<span>[작성일 : ${notice.noticeRegdate}]</span> <span>[조회수 : ${notice.noticeCount}]</span>
 			</div>
 	
 			<div id="content_textForm">

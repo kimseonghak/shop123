@@ -5,6 +5,10 @@
 <html>
 <head>
 
+ <!--부트스트랩-->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+ 
+
 <!-- jQuery 라이브러리 -->
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
@@ -73,7 +77,6 @@
 	width: 100%;
 	height: 50px;
 	margin: 0 auto;
-
 }
 
 
@@ -85,9 +88,11 @@
 
 #notice_search_textFrom{
 	float: right;
-	width: 300px;
+	width: 165px;
 	height: 40px;
+	margin: 5px auto;
 }
+
 
 
 /*버튼 폼*/
@@ -113,6 +118,15 @@
 	float: right;
 	width: 100px;
 	height: 30px;
+	margin: 5px auto;
+	
+}
+
+#notice_search_select{
+	float: right;
+	width: 100px;
+	height: 30px;
+	margin: 5px 10px auto;
 	
 }
 
@@ -154,15 +168,26 @@
 			</div>
 			
 			<!-- 검색 공간 -->
+			<form action="" method="get">
 			<div id="notice_searchWrap">
 				<div id="notice_search_btnFrom" align="center">
 					<button id="serachBtn">글 검색</button>
 				</div>
 				
 				<div id="notice_search_textFrom">
-					<input type="text" id="keyword"/>
+					<input type="text" name="keyword" id=searchkeyword style="font-size: 14px;" placeholder="${requestScope.keyWord}"/>
+				</div>
+				
+				<div id="notice_search_select">
+					<select name="type" required style="font-size: 14px;">
+						<option disabled selected style="display:none;">검색필터</option>
+						<option value="subject">제목</option>
+						<option value="content">내용</option>
+						<option value="all">제목+내용</option>
+					</select>
 				</div>
 			</div>
+			</form>
 			<!-- 검색 공간 -->
 			
 
@@ -186,7 +211,11 @@
 
 			<!-- 페이지 네비게이션 -->
 			<div id="notice_pageNavi" align="center">
-				페이지 네비바 들가는 공간
+				<c:choose>
+	            	<c:when test="${!requestScope.list.isEmpty()}">
+	            			${requestScope.pageNavi}
+	            	</c:when>
+	            </c:choose>
 			</div>
 			
 			<!-- 글 쓰기 버튼 -->

@@ -1,6 +1,7 @@
 package com.hot.shop.notice.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,10 +27,23 @@ public class NoticeController {
 	
 	//공지사항 리스트 페이지
 	@RequestMapping(value = "/notice/noticeListPage.do",method = RequestMethod.GET)
-	public ModelAndView noticeListPage(ModelAndView mav) {
+	public ModelAndView noticeListPage(ModelAndView mav, HttpServletRequest request,
+									@RequestParam(required = false, defaultValue = "1") int currentPage) 
+	{
 		
-		ArrayList<Notice> list = nService.noticeList();
-		mav.addObject("list", list);
+		//검색 값이 있다면
+		String type = request.getParameter("type");
+		String keyWord = request.getParameter("keyWord");
+		
+		HashMap<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("type",type);
+		searchMap.put("keyWord", keyWord);
+		
+		HashMap<String, Object> map = nService.noticeList(currentPage,searchMap);
+		mav.addObject("list", map.get("list"));
+		mav.addObject("pageNavi", map.get("pageNavi"));
+		mav.addObject("type", type);
+		mav.addObject("keyWord", keyWord);
 		mav.setViewName("notice/NoticeList");
 		return mav;
 	}
@@ -66,18 +80,31 @@ public class NoticeController {
 		return mav;
 	}
 	
-	//공지사항 수정 페이지로 이동
-	@RequestMapping(value = "/notice/NoticeUpdatePage.do", method = RequestMethod.GET)
-	public String noticeUpdatePage(@RequestParam int noticeNo) {
-		return "notice/NoticeUpdate";
+	//공지사항 페이지로 이동
+	@RequestMapping(value="/notice/noticeUpdatePage.do", method = RequestMethod.POST)
+	public ModelAndView NoticeUpdatePage(Notice n, ModelAndView mav, @SessionAttribute Farm farm) {		
+		//System.out.println(n);		
+		mav.addObject("notice", n);
+		mav.setViewName("notice/NoticeUpdate");
+		return mav;
 	};
 	
 	//공지사항 수정
-	@RequestMapping(value="/notice/NoticeUpdate.do", method = RequestMethod.POST)
-	public ModelAndView NoticeUpdate(Notice n, ModelAndView mav,@SessionAttribute Farm farm) {		
-		System.out.println(n);
+	@RequestMapping(value="/notice/noticeUpdate.do", method = RequestMethod.POST)
+	public ModelAndView NoticeUpdate(Notice n, ModelAndView mav, @SessionAttribute Farm farm) {
+		
+		int result = nService.updateWrite(n);
+		//System.out.println(n);
+		
+		if(result > 0) {
+			mav.addObject("location", "/notice/noticeListPage.do");
+		}else {
+			mav.addObject("location", "/notice/noticeUpdatePage.do");
+		}
+		mav.setViewName("commons/msg");
 		return mav;
 	};
+	
 	
 	
 }
