@@ -66,7 +66,7 @@
 								1. 본 약관에 명시되지 않은 사항은 전기통신기본법, 전기통신사업법, 정보통신윤리위원회심의규정, 정보통신 윤리강령, 프로그램보호법 및 기타 관련 법령의 규정에 의합니다.<br><br>
 								(이하생략)</p>
 							</div>
-							<input type="checkbox"><span class="terms-text">약관에 동의하시겠습니까?</span>
+							<input type="checkbox" name="termsCheckbox"><span class="terms-text" id="terms_msg">약관에 동의하시겠습니까?</span>
 							<input type="submit" class="btn-submit" value="회원가입"><br>
 	                    </form>
                     </div>
@@ -74,7 +74,7 @@
 				
 			<script>
 				
-				var inval_Arr = new Array(10).fill(false);
+				var inval_Arr = new Array(11).fill(false);
 				
 				//ID
 				$('input[name=farmId]').blur(function() {
@@ -358,16 +358,35 @@
 						inval_Arr[9] = true;
 					}
 				});
+						
+				//termsCheckbox1
+				$('input[name=termsCheckbox]').change(function() {
+					if($('input[name=termsCheckbox]').is(":checked")) {
+						$('#terms_msg').css({'color': 'black'});
+						inval_Arr[10] = true;
+					}
+				})
 				
+				//termsCheckbox2
+				termsCheckbox = function() {
+					if(!$('input[name=termsCheckbox]').is(":checked")) {
+						$('#terms_msg').css({'color': 'red'});
+						inval_Arr[10] = false;
+					} else {
+						$('#terms_msg').css({'color': 'black'});
+						inval_Arr[10] = true;
+					}
+				}
 				
 				//function validationCheck() {}
-				//submit 버튼 클릭시 입력값(10가지)의 유효성 검사
+				//submit 버튼 클릭시 입력값(11가지)의 유효성 검사
 				validationCheck = function() {
+					termsCheckbox();
 					var validAll = true;
 					for(var i = 0; i < inval_Arr.length; i++){
-						
 						if(inval_Arr[i] == false){
 							validAll = false;
+							break;
 						}
 					}
 					if(!validAll){
