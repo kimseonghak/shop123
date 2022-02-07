@@ -59,6 +59,27 @@
 		<update id="updateQPhote" parameterType="integer">
 			update QuestionPhoto set questionPhoto_Use_YN='Y' where QUESTIONPHOTO_NO=#{_parameter}
 		</update>
+		
+		<!-- 1:1문의 사용자 뷰(조회) -->
+		<select id="questionView" parameterType="integer" resultType="qUser">
+		select
+				QUESTION_USER_NO as QuestionUserNo,
+				QUESTION_USER_TITLE as QuestionUserTitle,
+				QUESTION_USER_CONTENT as QuestionUserContent,
+				QUESTION_USER_REGDATE as QuestionUserRegdate,
+				USER_NO as UserNo,
+				QUESTION_USER_END_YN as QuestionUserEndYN,
+				QUESTION_USER.QUESTIONPHOTO_NO as QuestionPhotoNo,
+				QUESTION_USER_CODE as QuestionUserCode,
+				QUESTION_USER_CLASSIFY as QuestionUserClassify,
+				FARM_NO as FarmNo,
+				ORDER_NO as OrderNo,
+				QUESTION_USER_ANSWER_YN as QuestionUserAnswer,
+				QUESTIONPHOTO.QUESTIONPHOTO_FILEPATH as questionPhotoFilePath
+			from QUESTION_USER left join QUESTIONPHOTO on (QUESTION_USER.QUESTIONPHOTO_NO = QUESTIONPHOTO.QUESTIONPHOTO_NO)
+			where QUESTION_USER_NO = #{_parameter}
+		</select>
+		
 	</mapper>
 
 

@@ -16,6 +16,9 @@ public interface QuestionService {
 
 	int insertWriteFile(QuestionPhoto qp);
 
+	QuestionUser questionView(int questionUserNo);
+
+
 	
 
 }

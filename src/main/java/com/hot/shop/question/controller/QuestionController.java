@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
@@ -124,5 +125,14 @@ public class QuestionController {
 	}
 	
 	
-	
+	//1:1문의(사용자) 게시판 조회
+	@RequestMapping(value = "/question/questionViewPage.do",method = RequestMethod.GET)
+	public ModelAndView questionView(@RequestParam int questionUserNo,
+									 ModelAndView mav) {
+		QuestionUser qu = qService.questionView(questionUserNo);
+		
+		mav.addObject("qUser", qu);
+		mav.setViewName("question/QuestionView");
+		return mav;
+	}
 }

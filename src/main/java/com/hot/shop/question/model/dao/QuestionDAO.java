@@ -27,10 +27,15 @@ public class QuestionDAO {
 		return sqlSession.insert("qUser.insertUserWrite", qUser) + sqlSession.update("qUser.updateQPhote",qUser.getQuestionphotoNo());
 	}
 
+	//1:1문의 사진 넣기
 	public int insertWriteFile(QuestionPhoto qp) {
 		return sqlSession.insert("qUser.insertWriteFile", qp);
 	}
-	
-	
-	//1:1문의 조회(유저)
+
+	//1:1문의 조회(사용자)
+	public QuestionUser questionView(int questionUserNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("qUser.questionView", questionUserNo);
+	}
+
 }

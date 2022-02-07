@@ -41,7 +41,12 @@ public class QuestionServiceImpl implements QuestionService{
 		return qDAO.insertWriteFile(qp);
 	}
 
-
+	//1:1문의 작성글 조회
+	@Override
+	public QuestionUser questionView(int questionUserNo) {
+		// TODO Auto-generated method stub
+		return qDAO.questionView(questionUserNo);
+	}
 
 	
 }

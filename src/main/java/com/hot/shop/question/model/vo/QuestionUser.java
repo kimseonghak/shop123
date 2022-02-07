@@ -16,8 +16,37 @@ public class QuestionUser {
 	private String orderNo;//o
 	private String userNick;//조인해서 쓸 것
 	private char questionUserAnswerYN;//o
+	private String questionPhotoFilePath;//경로를 위한 컬럼
 	
 	
+
+	public QuestionUser() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public QuestionUser(int questionUserNo, String questionUserTitle, String questionUserContent,
+			Date questionUserRegdate, int userNo, char questionUserEndYN, int questionphotoNo, String questionUserCode,
+			char questionUserClassify, int farmNo, String orderNo, String userNick, char questionUserAnswerYN,
+			String questionPhotoFilePath) {
+		super();
+		this.questionUserNo = questionUserNo;
+		this.questionUserTitle = questionUserTitle;
+		this.questionUserContent = questionUserContent;
+		this.questionUserRegdate = questionUserRegdate;
+		this.userNo = userNo;
+		this.questionUserEndYN = questionUserEndYN;
+		this.questionphotoNo = questionphotoNo;
+		this.questionUserCode = questionUserCode;
+		this.questionUserClassify = questionUserClassify;
+		this.farmNo = farmNo;
+		this.orderNo = orderNo;
+		this.userNick = userNick;
+		this.questionUserAnswerYN = questionUserAnswerYN;
+		this.questionPhotoFilePath = questionPhotoFilePath;
+	}
+
+
 	public QuestionUser(int questionUserNo, String questionUserTitle, String questionUserContent,
 			Date questionUserRegdate, int userNo, char questionUserEndYN, int questionphotoNo, String questionUserCode,
 			char questionUserClassify, int farmNo, String orderNo, String userNick, char questionUserAnswerYN) {
@@ -37,6 +66,15 @@ public class QuestionUser {
 		this.questionUserAnswerYN = questionUserAnswerYN;
 	}
 
+	public String getQuestionPhotoFilePath() {
+		return questionPhotoFilePath;
+	}
+	
+	
+	public void setQuestionPhotoFilePath(String questionPhotoFilePath) {
+		this.questionPhotoFilePath = questionPhotoFilePath;
+	}
+
 
 	public String getUserNick() {
 		return userNick;
@@ -51,10 +89,6 @@ public class QuestionUser {
 	}
 	public void setUserNick(String userNick) {
 		this.userNick = userNick;
-	}
-	public QuestionUser() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getQuestionUserNo() {
 		return questionUserNo;
@@ -128,6 +162,8 @@ public class QuestionUser {
 				+ ", questionUserContent=" + questionUserContent + ", questionUserRegdate=" + questionUserRegdate
 				+ ", userNo=" + userNo + ", questionUserEndYN=" + questionUserEndYN + ", questionphotoNo="
 				+ questionphotoNo + ", questionUserCode=" + questionUserCode + ", questionUserClassify="
-				+ questionUserClassify + ", farmNo=" + farmNo + ", orderNo=" + orderNo + "]";
+				+ questionUserClassify + ", farmNo=" + farmNo + ", orderNo=" + orderNo + ", userNick=" + userNick
+				+ ", questionUserAnswerYN=" + questionUserAnswerYN + ", questionPhotoFilePath=" + questionPhotoFilePath
+				+ "]";
 	}
 }

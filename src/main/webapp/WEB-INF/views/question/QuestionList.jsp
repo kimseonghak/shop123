@@ -169,7 +169,8 @@
 					<c:forEach items="${requestScope.list}" var="qUser">
                         <tr>
                             <td>${qUser.questionUserNo}</td>
-                            <td>${qUser.questionUserTitle}</td>
+                            <td>
+                            <a href="/question/questionViewPage.do?questionUserNo=${qUser.questionUserNo}">${qUser.questionUserTitle}</a></td>
                             <td>${qUser.questionUserRegdate}</td>
                         </tr>
                     </c:forEach>	
