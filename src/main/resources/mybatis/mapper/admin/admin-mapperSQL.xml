@@ -308,4 +308,50 @@
 			</when>
 		</choose>
 	</select>
+	<select id="memberList" parameterType="hashmap" resultType="member">
+		SELECT
+			user_no as userNo,
+			user_id as userId,
+			user_pwd as userPwd,
+			user_name as userName,
+			user_nick as userNick,
+			user_email as userEmail,
+			user_phone as userPhone,
+			user_address_main as userAddressMain,
+			user_address_sub as userAddressSub,
+			user_enrolldate as userEnrollDate,
+			user_end_yn as userEndYN,
+			rating as rating
+		FROM (select row_number() over (order by user_no desc) as num,member.* from member)
+		where num between #{start} and #{end}
+	</select>
+	<select id="memberListTotalCount" resultType="integer">
+		select count(*) from member
+	</select>
+	<select id="selectMember" parameterType="integer" resultType="member">
+		SELECT
+			user_no as userNo,
+			user_id as userId,
+			user_pwd as userPwd,
+			user_name as userName,
+			user_nick as userNick,
+			user_email as userEmail,
+			user_phone as userPhone,
+			user_address_main as userAddressMain,
+			user_address_sub as userAddressSub,
+			user_enrolldate as userEnrollDate,
+			user_end_yn as userEndYN,
+			rating as rating
+		from member where user_no = #{_parameter}
+	</select>
+	<update id="memberEndYNUpdate" parameterType="hashmap">
+		update member set 
+		<if test='endYN.equals("N")'>
+			user_end_yn='Y'
+		</if>
+		<if test='endYN.equals("Y")'>
+			user_end_yn='N'
+		</if>
+		where user_no = #{userNo}
+	</update>
 </mapper>

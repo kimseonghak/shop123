@@ -10,6 +10,7 @@ import com.hot.shop.admin.model.dao.AdminDAO;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
 
@@ -150,5 +151,27 @@ public class AdminServiceImpl implements AdminService{
 		map.put("pageNavi", pageNavi);
 		
 		return map;
+	}
+
+	@Override
+	public HashMap<String, Object> memberList(int currentPage) {
+		int recordCountPerPage=10;
+		ArrayList<Member> list = aDAO.memberList(currentPage,recordCountPerPage);
+		int naviCountPerPage=10;
+		String pageNavi = aDAO.getMemberPageNavi(recordCountPerPage,naviCountPerPage,currentPage);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("pageNavi", pageNavi);
+		return map;
+	}
+
+	@Override
+	public Member selectMember(int userNo) {
+		return aDAO.selectMember(userNo);
+	}
+
+	@Override
+	public int memberEndYNUpdate(HashMap<String, Object> map) {
+		return aDAO.memberEndYNUpdate(map);
 	}
 }

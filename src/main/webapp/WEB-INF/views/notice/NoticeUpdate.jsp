@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -193,6 +194,7 @@ color: #3BBD5A;
 	<div id="contentForm">
 	<div id="content_background"><br>
 	<form action="/notice/noticeUpdate.do" method="post">
+		<input type="hidden" name="noticeNo" value="${notice.noticeNo}"/>
 		<div id="notice_name">
 			<span id="font">공지사항을 수정해 주세요</span>
 		</div>
@@ -200,12 +202,12 @@ color: #3BBD5A;
 		<div id="notice_userCategory_Form">
 			<select required name="noticeCode">
 				<option value="" disabled selected>사용자 분류 카테고리</option>
-				<option value="A">전체 회원</option>
-				<option value="F">농가</option>
-				<option value="U">사용자</option>
+				<option id="ALL" value="A">전체 회원</option>
+				<option id="Farm" value="F">농가</option>
+				<option id="User" value="U">사용자</option>
 			</select>
 		</div><br>
-				
+		
 		<div id="noticeCategory_Form">
 			
 			<select required name="noticeCategory">
@@ -217,17 +219,17 @@ color: #3BBD5A;
 		</div><br>
 		
 		<div id="notice_title_Form">
-			<input type="text" id="notice_title" name="noticeTitle" placeholder="제목을 입력하시오"/>
+			<input type="text" id="notice_title" name="noticeTitle" placeholder="${notice.noticeTitle}" />
 		</div><br>
 		
 		<div id="notice_content_Form">
-			<textarea style="resize:none" id="notice_content" name="noticeContent" placeholder="내용을 입력하시오"></textarea>
+			<textarea style="resize:none" id="notice_content" name="noticeContent" placeholder="${notice.noticeContent}"></textarea>
 		</div><br>
 		
 		<div id="write_Btn_form">
-			<div id="list_btn"><button id="mainBtn">메인으로</button></div>
-			<div id="reset_btn"><button id="resetBtn">다시쓰기</button></div>
-			<div id="submit_btn"><button id="submitBtn">글  수정</button></div>
+			<div id="list_btn"><button type="button" id="mainBtn">메인으로</button></div>
+			<div id="reset_btn"><button type="reset" id="resetBtn">다시쓰기</button></div>
+			<div id="submit_btn"><button type="submit" id="submitBtn">글  수정</button></div>
 		</div>
 		</form>
 	</div>
