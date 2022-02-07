@@ -38,7 +38,7 @@
 			</div>
 		</c:when>
 		
-		<c:when test="${sessionScope.farm != null && sessionScope.farm.rating =='farm' }">
+		<c:when test="${sessionScope.farm != null && (sessionScope.farm.rating =='farm' || sessionScope.farm.rating =='FARM')}">
 			<div class="link-user">
 				<div class="box-user">
 					<a href="/farm/farmDashBoardPage.do">농가 ${sessionScope.farm.farmName }님</a> 

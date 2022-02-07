@@ -180,7 +180,7 @@
 				$('input[name=userNick]').blur(function() {
 					//한글+영문 대소문자 4~15 자
 					//DB 수정하기
-					var nickCheck = RegExp(/^[가-힣a-zA-Z]{4,15}$/);
+					var nickCheck = RegExp(/^[가-힣a-zA-Z0-9]{4,15}$/);
 					var userNick = $('input[name=userNick]').val();
 	
 					if ($('input[name=userNick]').val()==null || $('input[name=userNick]').val()=='') {
@@ -190,7 +190,7 @@
 					}
 							
 					if (!nickCheck.test($('input[name=userNick]').val())) {
-						$("#nick_msg").html("닉네임은 4~15자 한글과 영문 대소문자만 입력 가능합니다.").css("color","red");
+						$("#nick_msg").html("닉네임은 4~15자 한글과 영문 대소문자와 숫자만 입력 가능합니다.").css("color","red");
 						return;
 						inval_Arr[4] = false;
 					}
