@@ -12,7 +12,7 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="/resources/admin/css/common.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>123상회 farmQNA관리</title>
 <style>
 	#mainContents{
 		padding: 0px;
@@ -42,6 +42,7 @@
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
+		cursor: pointer;
 	}
 	#qnaWrap{
 		border:1px solid black;
@@ -166,5 +167,14 @@
 			</div>
 		</div>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+		crossorigin="anonymous"></script>
+	<script>
+	<%-- 해당 페이지 최초 페이지 이동 --%>
+		$('#title').click(function(){
+			location.replace('/admin/adminFarmQNAPage.do');
+		});
+	</script>
 </body>
 </html>

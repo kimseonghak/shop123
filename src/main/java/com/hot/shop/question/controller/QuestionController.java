@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
@@ -106,11 +108,10 @@ public class QuestionController {
 	public ModelAndView QuestionUserWrite(QuestionUser qUser, ModelAndView mav,@SessionAttribute Member member) {
 		int userNo = member.getUserNo();
 		qUser.setUserNo(userNo);
-		System.out.println(qUser);
 		
 		int result = qService.insertUserWrite(qUser);
 		
-		if(result >= 2 ) {
+		if(result >= 3 ) {
 			mav.addObject("msg", "글 작성에 성공했습니다." );
 			mav.addObject("location", "/question/QuestionUserPage.do");
 		}else {
@@ -123,5 +124,56 @@ public class QuestionController {
 	}
 	
 	
+	//1:1문의(사용자) 게시판 조회
+	@RequestMapping(value = "/question/questionViewPage.do",method = RequestMethod.GET)
+	public ModelAndView questionView(@RequestParam int questionUserNo,
+									 ModelAndView mav) {
+		QuestionUser qu = qService.questionView(questionUserNo);
+		
+		mav.addObject("qUser", qu);
+		mav.setViewName("question/QuestionView");
+		return mav;
+	}
 	
+	
+	//1:1 문의 글수정 페이지
+	//리스트 페이지에서 글 쓰기 버튼을 누르면 글 작성 페이지로 이동하는 메소드 (유저 문의)
+		@RequestMapping(value="/question/QuestionUserUpdatePage.do", method=RequestMethod.POST)
+		public ModelAndView QuestionUserUpdatePage(QuestionPhoto qhoto,QuestionUser qUser,ModelAndView mav,@SessionAttribute Member member) {
+			mav.addObject("qUser", qUser);
+			mav.addObject("QuestionPhoto", qhoto);
+			mav.setViewName("question/QuestionUserUpdate");
+			return mav;
+	}
+		
+	//1:1 문의 글수정 
+		@RequestMapping(value = "/question/questionUpdate.do",method = RequestMethod.POST)
+		public ModelAndView test(HttpServletRequest request, ModelAndView mav,@SessionAttribute Member member,QuestionUser quser) {
+			//글 쓰는 동안 세션 유지해야함
+			String userId = member.getUserId();
+			//글 번호 갖고와야함
+			int questionUserNo = Integer.parseInt(request.getParameter("questionUserNo"));
+
+			int result = qService.questionUpdate(quser);
+			
+			if(result >= 2 ) {
+				mav.addObject("location", "/question/QuestionUserUpdatePage.do");
+			}else {
+				mav.addObject("location", "/question/QuestionUserUpdatePage.do");
+			}
+			
+			mav.setViewName("commons/msg");
+			return mav;
+		}
+		// 구매목록리스트 불러오기
+		@RequestMapping(value = "/question/buyListCheck.do",method = RequestMethod.GET)
+		public ModelAndView buyListCheck(ModelAndView mav,
+				@RequestParam(required = false,defaultValue = "1") int currentPage,
+				@SessionAttribute Member member) {
+			HashMap<String, Object> map = qService.buyListCheck(currentPage,member);
+			mav.addObject("map",map);
+			mav.addObject("currentPage",currentPage);
+			mav.setViewName("question/QuestionUserListCheck");
+			return mav;
+		}
 }

@@ -10,7 +10,7 @@
 	href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap"
 	rel="stylesheet">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>123상회 Member관리</title>
 <link rel="stylesheet" href="/resources/admin/css/common.css">
 <style>
 	*{
@@ -97,13 +97,13 @@
 		height:0.5vmin
 	}
 	#titleSpace{
-		border:1px solid #48bb78;
+		border:1px solid #198754;
 		width:10%;
 		height:5vmin;
 		text-align: center;
 		border-radius: 10px;
 		background-color: white;
-		color:#48bb78;
+		color:#198754;
 		font-weight: bold;
 	}
 	#title{
@@ -112,6 +112,7 @@
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
+		cursor: pointer;
 	}
 	.tdTr:hover>td{
 		background-color: rgb(240, 240, 240);
@@ -196,16 +197,17 @@
 		<div id="mainContents">
 			<div id="backgroundColor">
 			<div id="titleSpace">
-				<span id="title">Farm QNA</span>
+				<span id="title">Member</span>
 			</div>
 			<div id="searchWrap">
-					<form action="" method="get" style="widht:100%; height:100%;" id="searchForm">
+					<form action="/admin/adminMemberPage.do" method="get" style="widht:100%; height:100%;" id="searchForm">
 						<button type="submit" id="searchBtn"><img alt="" src="/resources/admin/img/searchLeaf.png"></button>
 						<input type="text" name="keyword" id="searchText" />
 						<select name="type" id="searchSelect">
 							<option value="userNo">회원 번호</option>
 							<option value="userName">회원 이름</option>
-							<option value="all">제목+내용</option>
+							<option value="userNick">회원 닉네임</option>
+							<option value="all">회원 이름+닉네임</option>
 						</select>
 					</form>
 			</div>
@@ -273,12 +275,17 @@
 			var userNo = $(this).prev().html();
 			window.open("/admin/adminMemberInfoPage.do?userNo="+userNo,"_blank","width=500px, height=430px");
 		});
+<%-- 회원 탈퇴/복구 버튼 로직 --%>
 		$('.endYNbtn').click(function(){
 			var endYN = $(this).attr('data');
 			var userNo = $(this).parent().siblings().eq(0).html();
 			var currentPage = ${currentPage };
 			
 			location.replace("/admin/adminMemberEndYNUpdate.do?endYN="+endYN+"&userNo="+userNo+"&currentPage="+currentPage);
+		});
+<%-- 해당 페이지 최초 페이지 이동 --%>
+		$('#title').click(function(){
+			location.replace('/admin/adminMemberPage.do');
 		});
 	</script>
 </body>

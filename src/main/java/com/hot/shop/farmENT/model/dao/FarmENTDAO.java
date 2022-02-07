@@ -68,7 +68,13 @@ public class FarmENTDAO {
 			
 		{	
 			sb.append("<li class='page-item'>");
-			sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmProductListPage.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
+			if(searchMap.get("keyWord")!=null)
+			{
+				sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmProductListPage.do?currentPage="+(startNavi-1)+"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' aria-label='Previous'>");
+			}else
+			{
+				sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmProductListPage.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
+			}
 			sb.append("<span aria-hidden='true'>&laquo;</span>");
 			sb.append("</a>");
 			sb.append("</li>");
@@ -81,12 +87,24 @@ public class FarmENTDAO {
 			if(i==currentPage)
 			{
 				sb.append("<li class='page-item'>");
-				sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmProductListPage.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");
+				
+				if(searchMap.get("keyWord")!=null)
+				{
+					sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmProductListPage.do?currentPage="+ i +"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' ><B>"+ i +"</B></a> ");
+				}else {
+					sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmProductListPage.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");	
+				}
 				sb.append("</li>");
 				
 			}else
 			{	sb.append("<li class='page-item'>");
-				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmProductListPage.do?currentPage="+ i +"'>"+ i +"</a> ");
+			
+				if(searchMap.get("keyWord")!=null)
+				{
+					sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmProductListPage.do?currentPage="+ i +"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"'>"+ i +"</a> ");
+				}else {
+					sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmProductListPage.do?currentPage="+ i +"'>"+ i +"</a> ");
+				}
 				sb.append("</li>");
 			}
 		}
@@ -94,7 +112,13 @@ public class FarmENTDAO {
 		if(endNavi != pageTotalCount)	
 		{
 			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmProductListPage.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
+			if(searchMap.get("keyWord")!=null)
+			{
+				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmProductListPage.do?currentPage="+(endNavi+1)+"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' aria-label='Next'");
+			}else
+			{
+				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmProductListPage.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
+			}
 			sb.append("<span aria-hidden='true'>&raquo;</span>");
 			sb.append("</a>");
 			sb.append("</li>");
@@ -156,7 +180,13 @@ public class FarmENTDAO {
 			
 		{	
 			sb.append("<li class='page-item'>");
-			sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmOrdertListPage.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
+			if(searchMap.get("keyWord")!=null)
+			{
+				sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmOrdertListPage.do?currentPage="+(startNavi-1)+"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' aria-label='Previous'>");
+			}else
+			{
+				sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmOrdertListPage.doo?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
+			}
 			sb.append("<span aria-hidden='true'>&laquo;</span>");
 			sb.append("</a>");
 			sb.append("</li>");
@@ -169,12 +199,22 @@ public class FarmENTDAO {
 			if(i==currentPage)
 			{
 				sb.append("<li class='page-item'>");
-				sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmOrdertListPage.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");
+				if(searchMap.get("keyWord")!=null)
+				{
+					sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmOrdertListPage.do?currentPage="+ i +"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' ><B>"+ i +"</B></a> ");
+				}else {
+					sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmOrdertListPage.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");	
+				}
 				sb.append("</li>");
 				
 			}else
 			{	sb.append("<li class='page-item'>");
-				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmOrdertListPage.do?currentPage="+ i +"'>"+ i +"</a> ");
+				if(searchMap.get("keyWord")!=null)
+				{
+					sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmOrdertListPage.do?currentPage="+ i +"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"'>"+ i +"</a> ");
+				}else {
+					sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmOrdertListPage.do?currentPage="+ i +"'>"+ i +"</a> ");
+				}
 				sb.append("</li>");
 			}
 		}
@@ -182,7 +222,13 @@ public class FarmENTDAO {
 		if(endNavi != pageTotalCount)	
 		{
 			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmOrdertListPage.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
+			if(searchMap.get("keyWord")!=null)
+			{
+				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmOrdertListPage.do?currentPage="+(endNavi+1)+"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' aria-label='Next'");
+			}else
+			{
+				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmOrdertListPage.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
+			}
 			sb.append("<span aria-hidden='true'>&raquo;</span>");
 			sb.append("</a>");
 			sb.append("</li>");
@@ -274,7 +320,13 @@ public class FarmENTDAO {
 		if(startNavi!=1)
 		{	
 			sb.append("<li class='page-item'>");
-			sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmNoticePage.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
+			if(searchMap.get("keyWord")!=null)
+			{
+				sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmNoticePage.do?currentPage="+(startNavi-1)+"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' aria-label='Previous'>");
+			}else
+			{
+				sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmNoticePage.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
+			}
 			sb.append("<span aria-hidden='true'>&laquo;</span>");
 			sb.append("</a>");
 			sb.append("</li>");
@@ -287,12 +339,22 @@ public class FarmENTDAO {
 			if(i==currentPage)
 			{
 				sb.append("<li class='page-item'>");
-				sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmNoticePage.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");
+				if(searchMap.get("keyWord")!=null)
+				{
+					sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmNoticePage.do?currentPage="+ i +"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' ><B>"+ i +"</B></a> ");
+				}else {
+					sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmNoticePage.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");	
+				}
 				sb.append("</li>");
 				
 			}else
 			{	sb.append("<li class='page-item'>");
-				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmNoticePage.do?currentPage="+ i +"'>"+ i +"</a> ");
+				if(searchMap.get("keyWord")!=null)
+				{
+					sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmNoticePage.do?currentPage="+ i +"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"'>"+ i +"</a> ");
+				}else {
+					sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmNoticePage.do?currentPage="+ i +"'>"+ i +"</a> ");
+				}
 				sb.append("</li>");
 			}
 		}
@@ -300,7 +362,13 @@ public class FarmENTDAO {
 		if(endNavi != pageTotalCount)	
 		{
 			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmNoticePage.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
+			if(searchMap.get("keyWord")!=null)
+			{
+				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmNoticePage.do?currentPage="+(endNavi+1)+"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' aria-label='Next'");
+			}else
+			{
+				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmNoticePage.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
+			}
 			sb.append("<span aria-hidden='true'>&raquo;</span>");
 			sb.append("</a>");
 			sb.append("</li>");
@@ -330,6 +398,7 @@ public class FarmENTDAO {
 		
 	}
 
+	//문의사항 pageNavi
 	public String getQnaListNavi(int recordCountPerPage, int naviCountPerPage, int currentPage, HashMap<String, Object> searchMap) {
 		
 		
@@ -358,7 +427,13 @@ public class FarmENTDAO {
 		if(startNavi!=1)
 		{	
 			sb.append("<li class='page-item'>");
-			sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmQnaPage.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
+			if(searchMap.get("keyWord")!=null)
+			{
+				sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmQnaPage.do?currentPage="+(startNavi-1)+"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' aria-label='Previous'>");
+			}else
+			{
+				sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmQnaPage.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
+			}
 			sb.append("<span aria-hidden='true'>&laquo;</span>");
 			sb.append("</a>");
 			sb.append("</li>");
@@ -371,12 +446,22 @@ public class FarmENTDAO {
 			if(i==currentPage)
 			{
 				sb.append("<li class='page-item'>");
-				sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmQnaPage.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");
+				if(searchMap.get("keyWord")!=null)
+				{
+					sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmQnaPage.do?currentPage="+ i +"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' ><B>"+ i +"</B></a> ");
+				}else {
+					sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmQnaPage.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");	
+				}
 				sb.append("</li>");
 				
 			}else
 			{	sb.append("<li class='page-item'>");
-				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmQnaPage.do?currentPage="+ i +"'>"+ i +"</a> ");
+				if(searchMap.get("keyWord")!=null)
+				{
+					sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmQnaPage.do?currentPage="+ i +"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"'>"+ i +"</a> ");
+				}else {
+					sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmQnaPage.do?currentPage="+ i +"'>"+ i +"</a> ");
+				}
 				sb.append("</li>");
 			}
 		}
@@ -384,7 +469,13 @@ public class FarmENTDAO {
 		if(endNavi != pageTotalCount)	
 		{
 			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmQnaPage.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
+			if(searchMap.get("keyWord")!=null)
+			{
+				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmQnaPage.do?currentPage="+(endNavi+1)+"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' aria-label='Next'");
+			}else
+			{
+				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmQnaPage.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
+			}
 			sb.append("<span aria-hidden='true'>&raquo;</span>");
 			sb.append("</a>");
 			sb.append("</li>");
@@ -443,7 +534,14 @@ public class FarmENTDAO {
 		if(startNavi!=1)
 		{	
 			sb.append("<li class='page-item'>");
-			sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmRefundList.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
+			
+			if(searchMap.get("keyWord")!=null)
+			{
+				sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmRefundList.do?currentPage="+(startNavi-1)+"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' aria-label='Previous'>");
+			}else
+			{
+				sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmRefundList.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
+			}
 			sb.append("<span aria-hidden='true'>&laquo;</span>");
 			sb.append("</a>");
 			sb.append("</li>");
@@ -456,12 +554,25 @@ public class FarmENTDAO {
 			if(i==currentPage)
 			{
 				sb.append("<li class='page-item'>");
-				sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmRefundList.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");
+				
+				if(searchMap.get("keyWord")!=null)
+				{
+					sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmRefundList.do?currentPage="+ i +"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' ><B>"+ i +"</B></a> ");
+				}else {
+					sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmRefundList.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");	
+				}
 				sb.append("</li>");
 				
 			}else
 			{	sb.append("<li class='page-item'>");
-				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmRefundList.do?currentPage="+ i +"'>"+ i +"</a> ");
+			
+				if(searchMap.get("keyWord")!=null)
+				{
+					sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmRefundList.do?currentPage="+ i +"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"'>"+ i +"</a> ");
+				}else {
+					sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmRefundList.do?currentPage="+ i +"'>"+ i +"</a> ");
+				}
+				
 				sb.append("</li>");
 			}
 		}
@@ -469,7 +580,13 @@ public class FarmENTDAO {
 		if(endNavi != pageTotalCount)	
 		{
 			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmRefundList.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
+			if(searchMap.get("keyWord")!=null)
+			{
+				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmRefundList.do?currentPage="+(endNavi+1)+"&type="+searchMap.get("type")+"&keyWord="+searchMap.get("keyWord")+"' aria-label='Next'");
+			}else
+			{
+				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmRefundList.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
+			}
 			sb.append("<span aria-hidden='true'>&raquo;</span>");
 			sb.append("</a>");
 			sb.append("</li>");

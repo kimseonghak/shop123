@@ -39,19 +39,17 @@ public interface AdminService {
 
 	ArrayList<QuestionFarm> questionFarm();
 
-	HashMap<String, Object> farmQNAList(int currentPage);
-
 	HashMap<String, Object> farmQNASearchList(HashMap<String, Object> map, int currentPage);
 
 	QuestionFarm questionFarmContent(int questionFarmNo);
 
-	HashMap<String, Object> userQNAList(int currentPage);
-
 	HashMap<String, Object> userQNASearchList(HashMap<String, Object> map, int currentPage);
-
-	HashMap<String, Object> memberList(int currentPage);
 
 	Member selectMember(int userNo);
 
 	int memberEndYNUpdate(HashMap<String, Object> map);
+
+	HashMap<String, Object> memberSearchList(HashMap<String, Object> map, int currentPage);
+
+	HashMap<String, Object> refundList(int currentPage, HashMap<String, Object> map);
 }

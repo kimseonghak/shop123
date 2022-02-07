@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hot.shop.admin.model.vo.Auction;
+import com.hot.shop.admin.model.vo.SellForm;
 import com.hot.shop.auction.model.service.AuctionService;
 import com.hot.shop.farm.model.vo.Farm;
+import com.hot.shop.member.model.vo.Member;
 
 @Controller
 public class AuctionController {
@@ -54,7 +56,7 @@ public class AuctionController {
 		int auctionCount1 = auc.getAuctionCount1();
 		int auctionPrice = auc.getAuctionPrice();
 		
-		if(auctionCount1>0 && auctionPrice<currentPrice) {
+		if(auctionCount1>49 && auctionPrice<currentPrice) {
 		
 			int result = aucService.inputLowestPrice(auc, farmNo);
 			
@@ -73,11 +75,41 @@ public class AuctionController {
 		
 	}
 	
-	
-	@RequestMapping(value="/auction/auctionSalePage.do",method=RequestMethod.POST)
-	public String auctionSalePage() {
+	//진행 중인 구매 폼 찾아서 데이터 가져오기
+	@RequestMapping(value="/auction/auctionSalePage.do",method=RequestMethod.GET)
+	public ModelAndView auctionSalePage(ModelAndView mav) {
 		
-		return "auction/auction_sale";
+		HashMap<String, Object> map = aucService.selectAuctionSale();
+		
+		mav.addObject("map",map);
+		
+		mav.setViewName("auction/auction_sale");
+		
+		return mav;
+		
 	}
 	
+	//구매하기 누를 경우 수량 비교하고, 해당 유저 데이터 가져와서 주문 하기 페이지로 이동
+	@RequestMapping(value="/auction/orderPage.do", method = RequestMethod.POST)
+	public String orderPage(SellForm sf, Member member,
+							@RequestParam int currentCount,
+							@RequestParam int farmNo,
+							ModelAndView mav) {
+		
+		int auctionCount = sf.getAuctionCount1();
+		
+		if(currentCount<auctionCount) {
+			
+			mav.addObject("msg","잘못된 접근입니다. 다시 확인해주세요.");
+		
+		}else {
+			
+			Member m = aucService.selectMember(member);
+			
+			
+			
+		}
+		
+		return "auction/orderPage";
+	}
 }

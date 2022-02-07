@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>123상회 경매 관리</title>
 <link rel="stylesheet" href="/resources/admin/css/common.css">
 <style>
 	.auctionWrap{

@@ -59,6 +59,87 @@
 		<update id="updateQPhote" parameterType="integer">
 			update QuestionPhoto set questionPhoto_Use_YN='Y' where QUESTIONPHOTO_NO=#{_parameter}
 		</update>
+		
+		<!-- 1:1문의 사용자 뷰(조회) -->
+		<select id="questionView" parameterType="integer" resultType="qUser">
+		select
+				QUESTION_USER_NO as QuestionUserNo,
+				QUESTION_USER_TITLE as QuestionUserTitle,
+				QUESTION_USER_CONTENT as QuestionUserContent,
+				QUESTION_USER_REGDATE as QuestionUserRegdate,
+				USER_NO as UserNo,
+				QUESTION_USER_END_YN as QuestionUserEndYN,
+				QUESTION_USER.QUESTIONPHOTO_NO as QuestionPhotoNo,
+				QUESTION_USER_CODE as QuestionUserCode,
+				QUESTION_USER_CLASSIFY as QuestionUserClassify,
+				FARM_NO as FarmNo,
+				ORDER_NO as OrderNo,
+				QUESTION_USER_ANSWER_YN as QuestionUserAnswer,
+				QUESTIONPHOTO.QUESTIONPHOTO_FILEPATH as questionPhotoFilePath
+			from QUESTION_USER left join QUESTIONPHOTO on (QUESTION_USER.QUESTIONPHOTO_NO = QUESTIONPHOTO.QUESTIONPHOTO_NO)
+			where QUESTION_USER_NO = #{_parameter}
+		</select>
+		
+		
+		<!-- 글 수정단 -->
+		<update id="questionUpdate" parameterType="qUser">
+			update		QUESTION_USER
+			set			QUESTION_USER_TITLE=#{QuestionUserTitle},
+						QUESTION_USER_CONTENT=#{QuestionUserContent},
+						QUESTIONPHOTO_NO=#{QuestionPhotoNo},
+						QUESTION_USER_CODE=#{QuestionUserCode},
+						QUESTION_USER_CLASSIFY=#{QuestionUserClassify}
+			where 		QUESTION_USER_NO=#{QuestionUserNo}
+		</update>
+
+		<!-- 이미지 수정 -->
+		<update id="questionPhotoUpdate" parameterType="qUser">
+			<selectKey keyProperty="questionPhotoNo" resultType="integer" order="AFTER">
+                SELECT QUESTIONPHOTO_NO FROM QuestionPhoto WHERE QUESTIONPHOTO_UPDATETIME=#{questionPhotoUpdateTime}
+            </selectKey>
+            update		QuestionPhoto
+            set			QUESTIONPHOTO_ORIGINAL=#{questionPhotoOriginal},
+            			QUESTIONPHOTO_CHANGE=#{questionPhotoChange},
+            			QUESTIONPHOTO_FILEPATH=#{questionPhotoFilePath},
+            			QUESTIONPHOTO_FILESIZE=#{questionPhotoFileSize},
+            			QUESTIONPHOTO_UPDATETIME=#{questionPhotoUpdateTime}
+            where		QUESTIONPHOTO_NO=#{QuestionPhotoNo}
+		</update>
+		<!-- 글 수정단 완료 -->
+		<!-- 유저 구매 목록 가져오기 -->
+		<select id="buyCheckList" parameterType="hashmap" resultType="pur">
+			select
+				buy_no as buyNo,
+				user_no as userNo,
+				farm_no as farmNo,
+				product_name as productName,
+				product_count as productCount,
+				pay_amount as payAmount,
+				purchase_date as purchaseDate,
+			 	order_no as orderNo
+			 from (select row_number() over (order by buy_no desc) as num, purchaselist.* from purchaselist 
+			 where user_No=#{userNo} and refund_yn='N')
+			 where num between #{start} and #{end}
+		</select>
+		<select id="buyListTotalCount" parameterType="integer" resultType="integer">
+			select count(*) from purchaselist where user_no=#{_parameter} and refund_yn='N'
+		</select>
+		<select id="selectPurchaselist" parameterType="qUser" resultType="pur">
+			select
+				buy_no as buyNo,
+				user_no as userNo,
+				farm_no as farmNo,
+				product_name as productName,
+				product_count as productCount,
+				pay_amount as payAmount,
+				purchase_date as purchaseDate,
+			 	order_no as orderNo
+			 from purchaselist 
+			 where order_no=#{orderNo}
+		</select>
+		<insert id="refund" parameterType="pur">
+			insert into refund values(refund_seq.nextval,#{buyNo},#{userNo},#{farmNo},'X','X','N')
+		</insert>
 	</mapper>
 
 

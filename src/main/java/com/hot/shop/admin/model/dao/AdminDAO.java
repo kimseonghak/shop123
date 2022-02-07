@@ -57,7 +57,7 @@ public class AdminDAO {
 		}
 		System.out.println("경매 날짜 지난 경매 종료");
 		sql.update("admin.sellFormEndYN");
-		System.out.println("판매 날짜 지난 경매 종료");
+		System.out.println("판매 날짜 지난 판매 종료");
 		System.out.println("예약 작업 종료");
 	}
 	// BID 목록과 정보 가져오는 로직
@@ -169,51 +169,6 @@ public class AdminDAO {
 		return new ArrayList<QuestionFarm>(sql.selectList("admin.questionFarmListMain"));
 	}
 
-	public ArrayList<QuestionFarm> questiopFarmList(int recordCountPerPage, int currentPage) {
-		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
-		int end = currentPage*recordCountPerPage;
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("start", start);
-		map.put("end", end);
-		
-		return new ArrayList<QuestionFarm>(sql.selectList("admin.questionFarmList",map));
-	}
-
-	public String getFarmQNAPageNavi(int recordCountPerPage, int currentPage, int naviCountPerPage) {
-		int recordTotalCount = farmQNATotalCount(); 
-		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
-		
-		int startNavi = ((currentPage-1)/naviCountPerPage) *naviCountPerPage+1;
-		int endNavi = startNavi+naviCountPerPage-1;
-		
-		if(endNavi>pageTotalCount) {
-			endNavi=pageTotalCount;
-		}
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage=1&' class='naviArrow'>&lt;&lt;</a>");
-		sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
-		for(int i= startNavi; i<=endNavi; i++) {
-			if(i==currentPage) {
-				sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+i+"' id='currentNavi'>"+i+"</a>");
-			}else {
-				sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+i+"' class='otherNavi'>"+i+"</a>");
-			}
-		}
-		if((currentPage+10)>pageTotalCount) {
-			sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+pageTotalCount+"' class='naviArrow' id='next'>&gt;</a>");
-		}else {
-			sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+(currentPage+10)+"' class='naviArrow' id='next'>&gt;</a>");
-		}
-		sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+pageTotalCount+"' class='naviArrow'>&gt;&gt;</a>");
-		
-		return sb.toString();
-	}
-
-	private int farmQNATotalCount() {
-		return sql.selectOne("admin.farmQNATotalCount");
-	}
-
 	public ArrayList<QuestionFarm> questionFarmSearchList(int recordCountPerPage, int currentPage,
 			HashMap<String, Object> map) {
 		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
@@ -238,21 +193,21 @@ public class AdminDAO {
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&lt;&lt;</a>");
-		sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
+		sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
 		for(int i= startNavi; i<=endNavi; i++) {
 			if(i==currentPage) {
-				sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='currentNavi'>"+i+"</a>");
+				sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='currentNavi'>"+i+"</a>");
 			}else {
-				sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='otherNavi'>"+i+"</a>");
+				sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='otherNavi'>"+i+"</a>");
 			}
 		}
 		if((currentPage+10)>pageTotalCount) {
-			sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+			sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
 		}else {
-			sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+			sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
 		}
-		sb.append("<a href='/admin/adminFarmQNASearch.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&gt;&gt;</a>");
+		sb.append("<a href='/admin/adminFarmQNAPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&gt;&gt;</a>");
 		
 		return sb.toString();
 	}
@@ -263,51 +218,6 @@ public class AdminDAO {
 
 	public QuestionFarm questionFarmContent(int questionFarmNo) {
 		return sql.selectOne("admin.questionFarmContent",questionFarmNo);
-	}
-
-	public ArrayList<QuestionUser> questiopUserList(int recordCountPerPage, int currentPage) {
-		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
-		int end = currentPage*recordCountPerPage;
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("start", start);
-		map.put("end", end);
-		
-		return new ArrayList<QuestionUser>(sql.selectList("admin.questionUserList",map));
-	}
-
-	public String getUserQNAPageNavi(int recordCountPerPage, int currentPage, int naviCountPerPage) {
-		int recordTotalCount = userQNATotalCount(); 
-		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
-		
-		int startNavi = ((currentPage-1)/naviCountPerPage) *naviCountPerPage+1;
-		int endNavi = startNavi+naviCountPerPage-1;
-		
-		if(endNavi>pageTotalCount) {
-			endNavi=pageTotalCount;
-		}
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("<a href='/admin/adminUserQNAPage.do?currentPage=1&' class='naviArrow'>&lt;&lt;</a>");
-		sb.append("<a href='/admin/adminUserQNAPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
-		for(int i= startNavi; i<=endNavi; i++) {
-			if(i==currentPage) {
-				sb.append("<a href='/admin/adminUserQNAPage.do?currentPage="+i+"' id='currentNavi'>"+i+"</a>");
-			}else {
-				sb.append("<a href='/admin/adminUserQNAPage.do?currentPage="+i+"' class='otherNavi'>"+i+"</a>");
-			}
-		}
-		if((currentPage+10)>pageTotalCount) {
-			sb.append("<a href='/admin/adminUserQNAPage.do?currentPage="+pageTotalCount+"' class='naviArrow' id='next'>&gt;</a>");
-		}else {
-			sb.append("<a href='/admin/adminUserQNAPage.do?currentPage="+(currentPage+10)+"' class='naviArrow' id='next'>&gt;</a>");
-		}
-		sb.append("<a href='/admin/adminUserQNAPage.do?currentPage="+pageTotalCount+"' class='naviArrow'>&gt;&gt;</a>");
-		
-		return sb.toString();
-	}
-
-	private int userQNATotalCount() {
-		return sql.selectOne("admin.userQNATotalCount");
 	}
 
 	public ArrayList<QuestionUser> questionUserSearchList(int recordCountPerPage, int currentPage,
@@ -334,21 +244,21 @@ public class AdminDAO {
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("<a href='/admin/adminUserQNASearch.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&lt;&lt;</a>");
-		sb.append("<a href='/admin/adminUserQNASearch.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
+		sb.append("<a href='/admin/adminUserQNAPage.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/admin/adminUserQNAPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
 		for(int i= startNavi; i<=endNavi; i++) {
 			if(i==currentPage) {
-				sb.append("<a href='/admin/adminUserQNASearch.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='currentNavi'>"+i+"</a>");
+				sb.append("<a href='/admin/adminUserQNAPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='currentNavi'>"+i+"</a>");
 			}else {
-				sb.append("<a href='/admin/adminUserQNASearch.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='otherNavi'>"+i+"</a>");
+				sb.append("<a href='/admin/adminUserQNAPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='otherNavi'>"+i+"</a>");
 			}
 		}
 		if((currentPage+10)>pageTotalCount) {
-			sb.append("<a href='/admin/adminUserQNASearch.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+			sb.append("<a href='/admin/adminUserQNAPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
 		}else {
-			sb.append("<a href='/admin/adminUserQNASearch.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+			sb.append("<a href='/admin/adminUserQNAPage.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
 		}
-		sb.append("<a href='/admin/adminUserQNASearch.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&gt;&gt;</a>");
+		sb.append("<a href='/admin/adminUserQNAPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&gt;&gt;</a>");
 		
 		return sb.toString();
 	}
@@ -357,51 +267,6 @@ public class AdminDAO {
 		return sql.selectOne("admin.userQNASearchTotalCount",map);
 	}
 
-	public ArrayList<Member> memberList(int currentPage, int recordCountPerPage) {
-		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
-		int end = currentPage*recordCountPerPage;
-		
-		HashMap<String,Object> map = new HashMap<String, Object>();
-		map.put("start", start);
-		map.put("end", end);
-		
-		return new ArrayList<Member>(sql.selectList("admin.memberList",map));
-	}
-
-	public String getMemberPageNavi(int recordCountPerPage, int naviCountPerPage, int currentPage) {
-		int recordTotalCount = memberListTotalCount(); 
-		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
-		
-		int startNavi = ((currentPage-1)/naviCountPerPage)*naviCountPerPage+1;
-		int endNavi = startNavi+naviCountPerPage-1;
-		
-		if(endNavi>pageTotalCount) {
-			endNavi=pageTotalCount;
-		}
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("<a href='/admin/adminMemberPage.do?currentPage=1&' class='naviArrow'>&lt;&lt;</a>");
-		sb.append("<a href='/admin/adminMemberPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
-		for(int i= startNavi; i<=endNavi; i++) {
-			if(i==currentPage) {
-				sb.append("<a href='/admin/adminMemberPage.do?currentPage="+i+"' id='currentNavi'>"+i+"</a>");
-			}else {
-				sb.append("<a href='/admin/adminMemberPage.do?currentPage="+i+"' class='otherNavi'>"+i+"</a>");
-			}
-		}
-		if((currentPage+10)>pageTotalCount) {
-			sb.append("<a href='/admin/adminMemberPage.do?currentPage="+pageTotalCount+"' class='naviArrow' id='next'>&gt;</a>");
-		}else {
-			sb.append("<a href='/admin/adminMemberPage.do?currentPage="+(currentPage+10)+"' class='naviArrow' id='next'>&gt;</a>");
-		}
-		sb.append("<a href='/admin/adminMemberPage.do?currentPage="+pageTotalCount+"' class='naviArrow'>&gt;&gt;</a>");
-		
-		return sb.toString();
-	}
-
-	private int memberListTotalCount() {
-		return sql.selectOne("admin.memberListTotalCount");
-	}
 
 	public Member selectMember(int userNo) {
 		return sql.selectOne("admin.selectMember",userNo);
@@ -409,5 +274,57 @@ public class AdminDAO {
 
 	public int memberEndYNUpdate(HashMap<String, Object> map) {
 		return sql.update("admin.memberEndYNUpdate",map);
+	}
+
+	public ArrayList<Member> memberSearchList(int currentPage, int recordCountPerPage, HashMap<String, Object> map) {
+		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
+		int end = currentPage*recordCountPerPage;
+		map.put("start", start);
+		map.put("end", end);
+		return new ArrayList<Member>(sql.selectList("admin.memberSearchList",map));
+	}
+
+	public String getMemberSearchPageNavi(int recordCountPerPage, int currentPage, HashMap<String, Object> map,
+			int naviCountPerPage) {
+		int recordTotalCount = memberSeqarchTotalCount(map); 
+		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
+		
+		int startNavi = ((currentPage-1)/naviCountPerPage) *naviCountPerPage+1;
+		int endNavi = startNavi+naviCountPerPage-1;
+		
+		if(endNavi>pageTotalCount) {
+			endNavi=pageTotalCount;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<a href='/admin/adminMemberPage.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/admin/adminMemberPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
+		for(int i= startNavi; i<=endNavi; i++) {
+			if(i==currentPage) {
+				sb.append("<a href='/admin/adminMemberPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='currentNavi'>"+i+"</a>");
+			}else {
+				sb.append("<a href='/admin/adminMemberPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='otherNavi'>"+i+"</a>");
+			}
+		}
+		if((currentPage+10)>pageTotalCount) {
+			sb.append("<a href='/admin/adminMemberPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+		}else {
+			sb.append("<a href='/admin/adminMemberPage.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+		}
+		sb.append("<a href='/admin/adminMemberPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&gt;&gt;</a>");
+		
+		return sb.toString();
+	}
+
+	private int memberSeqarchTotalCount(HashMap<String, Object> map) {
+		return sql.selectOne("admin.memberSearchTotalCount",map);
+	}
+
+	public ArrayList<Member> refundList(int currentPage, int recordCountPerPage, HashMap<String, Object> map) {
+		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
+		int end = currentPage*recordCountPerPage;
+		map.put("start", start);
+		map.put("end", end);
+		return new ArrayList<Member>(sql.selectList("admin.refundList",map));
 	}
 }

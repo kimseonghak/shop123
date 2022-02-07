@@ -161,21 +161,6 @@
 			farm_Name as farmName
 		from (select row_number() over (order by question_farm_no desc) as num, question_farm.*,farm_name from question_farm left join farm on(question_farm.farm_no = farm.farm_no)) where num between 1 and 5
 	</select>
-	<select id="questionFarmList" parameterType="hashmap" resultType="qFarm">
-		select
-			question_Farm_No as questionFarmNo,
-			question_Farm_Title as questionFarmTitle,
-			question_Farm_Content as questionFarmContent,
-			question_Farm_Regdate as questionFarmRegdate,
-			farm_No as farmNo,
-			question_Farm_End_YN as questionFarmEndYN,
-			farm_Name as farmName,
-			question_Farm_Answer_YN as questionFarmAnswerYN
-		from (select row_number() over (order by question_farm_no desc) as num, question_farm.*,farm_name from question_farm left join farm on(question_farm.farm_no = farm.farm_no) where question_farm_end_yn='N') where num between #{start} and #{end}
-	</select>
-	<select id="farmQNATotalCount" resultType="integer">
-		select count(*) from question_farm where question_farm_end_yn='N'
-	</select>
 	<select id="questionFarmSearchList" parameterType="hashmap" resultType="qFarm">
 		select
 			question_Farm_No as questionFarmNo,
@@ -187,39 +172,42 @@
 			farm_Name as farmName,
 			question_Farm_Answer_YN as questionFarmAnswerYN
 		from (select row_number() over (order by question_farm_no desc) as num, question_farm.*,farm_name from question_farm left join farm on(question_farm.farm_no = farm.farm_no) 
-		where question_farm_end_yn='N' and 
+		where question_farm_end_yn='N'
 		<choose>
 			<when test="type.equals('title')">
-				question_farm_title like '%'||#{keyword}||'%'
+				and question_farm_title like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('name')">
-				farm_name like '%'||#{keyword}||'%'
+				and farm_name like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('content')">
-				question_farm_content like '%'||#{keyword}||'%'
+				and question_farm_content like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('all')">
-				question_farm_title like '%'||#{keyword}||'%' or question_farm_content like '%'||#{keyword}||'%'
+				and (question_farm_title like '%'||#{keyword}||'%' or question_farm_content like '%'||#{keyword}||'%')
 			</when>
+			<otherwise>	
+			</otherwise>
 		</choose>
 		) where num between #{start} and #{end}
 	</select>
 	<select id="farmQNASearchTotalCount" parameterType="hashmap" resultType="integer">
 		select count(*) from question_farm left join farm on(question_farm.farm_no = farm.farm_no)
-		where 
+		where question_farm.question_farm_end_yn='N'
 		<choose>
 			<when test="type.equals('title')">
-				question_farm_title like '%'||#{keyword}||'%'
+				and question_farm_title like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('name')">
-				farm_name like '%'||#{keyword}||'%'
+				and farm_name like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('content')">
-				question_farm_content like '%'||#{keyword}||'%'
+				and question_farm_content like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('all')">
-				question_farm_title like '%'||#{keyword}||'%' or question_farm_content like '%'||#{keyword}||'%'
+				and (question_farm_title like '%'||#{keyword}||'%' or question_farm_content like '%'||#{keyword}||'%')
 			</when>
+			<otherwise></otherwise>
 		</choose>
 	</select>
 	<select id="questionFarmContent" parameterType="integer" resultType="qFarm">
@@ -233,28 +221,6 @@
 			farm_Name as farmName,
 			question_Farm_Answer_YN as questionFarmAnswerYN
 		from question_farm left join farm on(question_farm.farm_no = farm.farm_no) where question_farm_no=#{_parameter}
-	</select>
-	<select id="questionUserList" parameterType="hashmap" resultType="qUser">
-		select
-			question_User_No as questionUserNo,
-			question_User_Title as questionUserTitle,
-			question_User_Content as questionUserContent,
-			question_User_Regdate as questionUserRegdate,
-			user_No as userNo,
-			question_User_End_YN as questionUserEndYN,
-			questionphoto_No as questionphotoNo,
-			question_User_Code as questionUserCode,
-			question_User_Classify as questionUserClassify,
-			farm_No as farmNo,
-			order_No as orderNo,
-			user_Nick as userNick,
-			question_User_Answer_YN as questionUserAnswerYN
-		from (select row_number() over (order by question_user_no desc) as num, question_user.*, member.user_nick 
-		from question_user left join member on(question_user.user_no = member.user_no) where question_user_end_yn='N' and question_user_classify='A')
-		where num between #{start} and #{end}
-	</select>
-	<select id="userQNATotalCount" resultType="integer">
-		select count(*) from question_user where question_user_end_yn='N' and question_user_classify='A'
 	</select>
 	<select id="questionUserSearchList" parameterType="hashmap" resultType="qUser">
 		select
@@ -273,60 +239,42 @@
 			question_User_Answer_YN as questionUserAnswerYN
 		from (select row_number() over (order by question_user_no desc) as num, question_user.*, member.user_nick 
 		from question_user left join member on(question_user.user_no = member.user_no)
-		where question_user_end_yn='N' and question_user_classify='A' and 
+		where question_user_end_yn='N' and question_user_classify='A' 
 		<choose>
 			<when test="type.equals('title')">
-				question_user_title like '%'||#{keyword}||'%'
+				and question_user_title like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('name')">
-				user_nick like '%'||#{keyword}||'%'
+				and user_nick like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('content')">
-				question_user_content like '%'||#{keyword}||'%'
+				and question_user_content like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('all')">
-				question_user_title like '%'||#{keyword}||'%' or question_user_content like '%'||#{keyword}||'%'
+				and (question_user_title like '%'||#{keyword}||'%' or question_user_content like '%'||#{keyword}||'%')
 			</when>
+			<otherwise></otherwise>
 		</choose>
 		) where num between #{start} and #{end}
 	</select>
 	<select id="userQNASearchTotalCount" parameterType="hashmap" resultType="integer">
 		select count(*) from question_user left join member on(question_user.user_no = member.user_no)
-		where question_user_classify='A' and
+		where question_user_classify='A' and question_user_end_yn='N'
 		<choose>
 			<when test="type.equals('title')">
-				question_user_title like '%'||#{keyword}||'%'
+				and question_user_title like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('name')">
-				user_nick like '%'||#{keyword}||'%'
+				and user_nick like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('content')">
-				question_user_content like '%'||#{keyword}||'%'
+				and question_user_content like '%'||#{keyword}||'%'
 			</when>
 			<when test="type.equals('all')">
-				question_user_title like '%'||#{keyword}||'%' or question_user_content like '%'||#{keyword}||'%'
+				and (question_user_title like '%'||#{keyword}||'%' or question_user_content like '%'||#{keyword}||'%')
 			</when>
+			<otherwise></otherwise>
 		</choose>
-	</select>
-	<select id="memberList" parameterType="hashmap" resultType="member">
-		SELECT
-			user_no as userNo,
-			user_id as userId,
-			user_pwd as userPwd,
-			user_name as userName,
-			user_nick as userNick,
-			user_email as userEmail,
-			user_phone as userPhone,
-			user_address_main as userAddressMain,
-			user_address_sub as userAddressSub,
-			user_enrolldate as userEnrollDate,
-			user_end_yn as userEndYN,
-			rating as rating
-		FROM (select row_number() over (order by user_no desc) as num,member.* from member)
-		where num between #{start} and #{end}
-	</select>
-	<select id="memberListTotalCount" resultType="integer">
-		select count(*) from member
 	</select>
 	<select id="selectMember" parameterType="integer" resultType="member">
 		SELECT
@@ -354,4 +302,55 @@
 		</if>
 		where user_no = #{userNo}
 	</update>
+	<select id="memberSearchList" parameterType="hashmap" resultType="member">
+		SELECT
+			user_no as userNo,
+			user_id as userId,
+			user_pwd as userPwd,
+			user_name as userName,
+			user_nick as userNick,
+			user_email as userEmail,
+			user_phone as userPhone,
+			user_address_main as userAddressMain,
+			user_address_sub as userAddressSub,
+			user_enrolldate as userEnrollDate,
+			user_end_yn as userEndYN,
+			rating as rating
+		FROM (select row_number() over (order by user_no desc) as num,member.* from member
+			<choose>
+				<when test="type.equals('userNo')">
+					where user_no = #{keyword}
+				</when>
+				<when test="type.equals('userName')">
+					where user_name like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('userNick')">
+					where user_nick like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('all')">
+					where user_nick like '%'||#{keyword}||'%' or user_name like '%'||#{keyword}||'%'
+				</when>
+				<otherwise></otherwise>
+			</choose>
+		)
+		where num between #{start} and #{end}
+	</select>
+	<select id="memberSearchTotalCount" parameterType="hashmap" resultType="integer">
+		select count(*) from member
+			<choose>
+				<when test="type.equals('userNo')">
+					where user_no = #{keyword}
+				</when>
+				<when test="type.equals('userName')">
+					where user_name like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('userNick')">
+					where user_nick like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('all')">
+					where user_nick like '%'||#{keyword}||'%' or user_name like '%'||#{keyword}||'%'
+				</when>
+				<otherwise></otherwise>
+			</choose>
+	</select>
 </mapper>

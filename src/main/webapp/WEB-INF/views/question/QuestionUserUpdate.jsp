@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,13 +10,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 
-<title>문의 사항 조회하기</title>
+<title>1:1문의 글 수정</title>
 
 <style type="text/css">
 *{
 	box-sizing: border-box;
 }
-
 
 #warpForm{
 	width: 100%;
@@ -31,6 +31,7 @@
 #contentForm{
 	width: 100%;
 	height: 1200px;
+	background-color: #f0f0f0;
 }
 
 #footerForm{
@@ -40,16 +41,17 @@
 
 #question_background{
 	width: 80%;
-	height: 90%;
-	border: 2px solid #08E200;
+	height: 80%;
+	border: 2px solid white;
 	border-radius: 20px;
-	margin : 50px auto;
+	margin : 100px auto;
+	background-color: white;
 }
 
 #question_name{
 	width: 90%;
 	height: 80px;
-	color: #08E200;
+	color: #3BBD5A;
 	font-size: 30px;
 	margin: 30px auto;
 }
@@ -74,7 +76,7 @@
 	height: 60px;
 	text-align: left;
 	display : inline-block;
-	margin: 10px auto;
+	margin: 20px auto;
 }
 /*문의 대상 폼 끝*/
 
@@ -99,20 +101,21 @@
 
 
 /*문의 카테코리 폼*/
-#question_KategorieForm{
+#question_CategorieForm{
 	width: 80%;
 	height: 30px;
 	text-align: left;
+	margin: 20px auto;
 }
 
-#question_KategorieForm02{
+#question_CategorieForm02{
 	width: 20%;
 	height: 30px;
 	text-align: left;
 	display : inline-block;
 }
 
-#question_KategorieForm03{
+#question_CategorieForm03{
 	width: 80%;
 	height: 60px;
 	text-align: left;
@@ -161,6 +164,17 @@
 	text-align: left;
 }
 
+#img_Submit{
+	float: right;
+	width: 100px;
+	height: 30px;
+	background-color: #3BBD5A;
+	font : normal bold 17.5px "고딕체";
+	color: #ffffff;
+	border-radius: 15px;
+	border : none;
+	cursor : pointer;
+}
 
 #write_Btn_form{
 	width: 80%;
@@ -186,7 +200,7 @@
 #submitBtn{
 	width: 90px;
 	height: 40px;
-	background-color: #08E200;
+	background-color: #3BBD5A;
 	font : normal bold 17.5px "고딕체";
 	color: #ffffff;
 	border-radius: 30px / 30px;	
@@ -197,7 +211,7 @@
 #listBtn{
 	width: 90px;
 	height: 40px;
-	background-color: #08E200;
+	background-color: #3BBD5A;
 	font : normal bold 17.5px "고딕체";
 	color: #ffffff;
 	border-radius: 30px / 30px;
@@ -239,76 +253,114 @@ select option[value=""][disabled] {
 <body>
 
 <div id="warpForm" align="center">
-	<div id="headerFrom">
+	<div id="headerForm">
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
 		
-		<div id="contentForm">
+	<div id="contentForm">
 		<div id="question_background">
-		
-			<div id="question_name">
-				<h3>불편 사항을 적어주세요</h3>
-			</div><br>
+			<form action='/question/questionUpdate.do' method="post" id="textUpate">
+			<input type="hidden" name="questionUserNo" value="${qUser.questionUserNo }">
+			<input type="hidden" name="questionphotoNo" value="1">
 			
-			<!-- 문의 대상 설정하는 곳 -->
-			<div id="question_farmForm">
-				<span style="font-size: 20px; color: #08E200;">카테고리 : </span>
-				<div id="question_farmForm02">
-					<select required>
-						<option value="" disabled selected>문의 대상</option>
-						<option>농가</option>
-						<option>운영자</option>
-					</select>
+				<div id="question_name">
+					<h3>불편 사항을 적어주세요</h3>
 				</div>
-			</div>
-
-			<div id="question_farmForm03">
-				<span style="font-size: 20px; color: #08E200;">농가번호 : </span>
-				<input type="text" id="farmNo" placeholder="농가 번호를 적어주세요"/>
-			</div><br>
-			<!-- 문의 대상 설정하는 곳 끝-->
-			
-			<br>
-			
-			<!-- 문의 내용 설정하는 곳 -->
-			<div id="question_KategorieForm">
-				<span style="font-size: 20px; color: #08E200;">문의내역 : </span>
-				<div id="question_KategorieForm02">
-					<select required>
-						<option value="" disabled selected>문의 목록</option>
-						<option>환불</option>
-						<option>문의</option>
-					</select>
+				
+				<!-- 문의 대상 설정하는 곳 -->
+				<div id="question_farmForm">
+					<span style="font-size: 20px; color: #08E200;">카테고리 : </span>
+					<div id="question_farmForm02">
+						<select id="questionUserClassify" name="questionUserClassify" required>
+							<option value="" disabled selected>문의 대상</option>
+							<option value="F">농가</option>
+							<option value="A">운영자</option>
+						</select>
+					</div>
 				</div>
-			</div>
-
-			<div id="question_KategorieForm03">
-				<span style="font-size: 20px; color: #08E200;">상품번호 : </span>
-				<input type="text" id="GoodsNo" placeholder="상품 번호를 적어주세요"/>
-			</div><br>
-			<!-- 문의 내용 설정하는 곳 끝 -->
+	
+				<script>
+					$('#questionUserClassify').change(function(){
+						var result = $('#questionUserClassify option:selected').val();
+						if(result == 'F'){
+							$('#question_farmForm03').css("display", "block");
+						}else{
+							$('#question_farmForm03').css("display", "none");
+						}
+					});
+				</script>
+	
+				<div id="question_farmForm03" style="display: none;">
+					<span style="font-size: 20px; color: #08E200;">농가번호 : </span>
+					<input type="text" id="farmNo" name="farmNo" value="1" placeholder="농가 번호를 적어주세요"/>
+				</div>
+				<!-- 문의 대상 설정하는 곳 끝-->
+				
+				<!-- 문의 내용 설정하는 곳 -->
+				<div id="question_CategorieForm">
+					<span style="font-size: 20px; color: #08E200;">문의내역 : </span>
+					<div id="question_CategorieForm02">
+						<select id="questionUserCode" name="questionUserCode" required>
+							<option value="" disabled selected>문의 목록</option>
+							<option value='Q-1'>환불</option>
+							<option value='Q-2'>문의</option>
+						</select>
+					</div>
+				</div>
+	
+				<script>
+					$('#questionUserCode').change(function(){
+						var result = $('#questionUserCode option:selected').val();
+						if(result == 'Q-1'){
+							$('#question_CategorieForm03').css("display", "block");
+						}else{
+							$('#question_CategorieForm03').css("display", "none");
+						}
+					});
+				</script>
+	
+				<div id="question_CategorieForm03" style="display: none;">
+					<span style="font-size: 20px; color: #08E200;">상품번호 : </span>
+					<input type="text" id="GoodsNo" name="OrderNo" placeholder="상품 번호를 적어주세요"/>
+				</div><br>
+				<!-- 문의 내용 설정하는 곳 끝 -->
+				
+				<br>
+				
+				<div id="question_titleForm">
+					<input type="text" name="questionUserTitle" id="question_title" placeholder="글 제목을 적어주세요" value="${qUser.questionUserTitle}">
+				</div><br>
+	
+				<div id="question_contentForm">
+					<textarea placeholder="글 내용을 적어주세요" name="questionUserContent" id="question_content" style="resize: none;">${qUser.questionUserContent }</textarea>
+				</div><br>
+			</form>	
 			
-			<br>
-			
-			<div id="question_titleForm">
-				<input type="text" id="question_title" placeholder="글 제목을 적어주세요">
-			</div><br>
-
-			<div id="question_contentForm">
-				<textarea placeholder="글 내용을 적어주세요" id="question_content" style="resize: none;"></textarea>
-			</div><br>
-			
-			<div id="img_Form">
-				<input type="file"/>
-			</div><br>
-
-			<div id="write_Btn_form">
-				<div id="submit_btn"><button id="submitBtn">수정하기</button></div>
-				<div id="list_btn"><button id="listBtn">리스트</button></div>
-				<div id="reset_btn"><button id="resetBtn">다시 쓰기</button></div>
-			</div>
-		</div><br>
+				<div id="img_Form">
+					현재 업로드된 파일 : <br>
+					<input type="file" name="file"/>
+					<button id="img_Submit">업로드하기</button>
+				</div>
+				
+				<br>
+				<br>
+				<div id="write_Btn_form">
+					<div id="submit_btn">
+						<input type="submit" id="submitBtn" value="글 수정"/>
+						
+					</div>
+									
+					<div id="list_btn">
+						<button id="listBtn" type="button">리스트</button>
+					</div>
+					
+					<div id="reset_btn">
+						<input type="reset" value="다시쓰기" id="resetBtn"/>
+					</div>
+				</div>
+						
 		</div>
+	</div>
 	
 
 	<div id="footerFrom">
@@ -316,5 +368,44 @@ select option[value=""][disabled] {
 	</div>
 </div>
 
+<script>
+$('#img_Submit').click(function(){
+    var formData = new FormData();
+
+    var inputFile = $("input[name='file']");
+
+    var files = inputFile[0].files;
+
+
+    formData.append("file", files[0]);
+
+
+    $.ajax({
+        url : "/question/questionWriteFileUpload.do",
+        processData : false,
+        contentType : false,
+        data : formData,
+        type : "POST",
+        success:function(result){
+            if(result != null && result != 0){
+                alert("파일이 업로드되었습니다.");
+                $("input[name='questionphotoNo']").val(result);
+                console.log($("input[name='questionphotoNo']").val());
+            }else{
+                alert("파일 업로드에 실패하였습니다.");
+            }
+
+        }
+    });
+
+});
+</script>
+
+
+<script type="text/javascript">
+$('#submitBtn').click(function(){
+	$("#textUpate").submit();
+});
+</script>
 </body>
 </html>

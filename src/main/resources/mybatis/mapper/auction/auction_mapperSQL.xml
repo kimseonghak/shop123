@@ -18,7 +18,7 @@
 			auction_Count3 as auctionCount3,
 			auction_EndYN as auctionEndYN
   	from (select row_number() over (order by auction_no desc) as num, auction.* from auction 
-	where auction_form_no=#{_parameter} and to_date(auction_end)>=to_date(sysdate))
+	where auction_form_no=#{_parameter} and to_date(auction_end)>=to_date(sysdate) and auction_endyn='N')
 	where num=1 
 	
   </select>
@@ -38,8 +38,28 @@
   							   0,
   							   default)
   </insert>
-   
+   <select id="selectAuctionSale" parameterType="integer" resultType="sellForm">
+	select 
+		SELL_NO as sellNo,
+  		SELL_START as sellStart,
+  		SELL_END as sellEnd,
+  		AUCTION_NO as auctionNo,
+  		SELL_FORM_NO as sellFormNo,
+  		BOARD_NO as boardNo,
+  		SELL_END_YN as sellEndYN,
+  		auction_product as auctionProduct,
+		auction_Price as auctionPrice,
+		auction_Count1 as auctionCount1,
+		farm_No as farmNo
+	from (select row_number() over (order by sell_no desc) as num, 
+	sell_form.*,auction_product,auction_price,auction_count1,farm_no from sell_form
+	left join auction on(sell_form.auction_no=auction.auction_no)
+	where sell_form_no=#{_parameter} and to_date(sell_end)>=to_date(sysdate) and sell_end_yn='N')
+	where num=1
+	
+  </select>
+ 
   
-  
+
 
 </mapper>

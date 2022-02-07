@@ -1,6 +1,5 @@
 package com.hot.shop.auction.model.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.auction.model.dao.AuctionDAO;
+import com.hot.shop.farm.model.vo.Farm;
+import com.hot.shop.member.model.vo.Member;
 
 @Service
 public class AuctionServiceImpl implements AuctionService{
@@ -27,5 +28,21 @@ public class AuctionServiceImpl implements AuctionService{
 
 		return aucDAO.inputLowestPrice(auc,farmNo);
 	}
+
+	@Override
+	public HashMap<String, Object> selectAuctionSale() {
+		
+		
+		return aucDAO.selectAuctionSale();
+		
+	}
+
+	@Override
+	public Member selectMember(Member member) {
+
+		return aucDAO.selectLoginMember(member);
+	}
+
+	
 
 }

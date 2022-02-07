@@ -10,7 +10,7 @@
 	href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap"
 	rel="stylesheet">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>123상회 관리자 페이지</title>
 <link rel="stylesheet" href="/resources/admin/css/common.css">
 <link rel="stylesheet" href="/resources/admin/css/main.css">
 </head>
