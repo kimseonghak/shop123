@@ -1,6 +1,7 @@
 package com.hot.shop.notice.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,23 @@ public class NoticeServiceImpl implements NoticeService{
 
 	//공지사항 리스트
 	@Override
-	public ArrayList<Notice> noticeList() {
-		// TODO Auto-generated method stub
-		return nDAO.noticeList();
+	public HashMap<String, Object> noticeList(int currentPage,HashMap<String, Object> searchMap) {
+		
+		int recordCountPerPage = 10;
+		
+		//공지사항 리스트 가져오기
+		ArrayList<Notice> list = nDAO.noticeList(currentPage,recordCountPerPage,searchMap);
+		
+		//페이지네비 생성하기
+		int naviCountPerPage=5;
+		String pageNavi = nDAO.NoticeListPageNavi(recordCountPerPage, currentPage, naviCountPerPage,searchMap);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("list", list);
+		map.put("pageNavi", pageNavi);
+		
+		return map;
 	}
 
 	//공지사항 글쓰기
@@ -34,5 +49,18 @@ public class NoticeServiceImpl implements NoticeService{
 	public Notice NoticeViewPage(int noticeNo) {
 		//nDAO.NoticeCountUpdate(noticeNo);
 		return nDAO.NoticeViewPage(noticeNo);
+	}
+
+	//공지사항 수정
+	@Override
+	public int updateWrite(Notice n) {
+		// TODO Auto-generated method stub
+		return nDAO.updateWrite(n);
+	}
+
+	@Override
+	public int noticeDelete(int noticeNo) {
+		
+		return nDAO.noticeDelete(noticeNo);
 	}
 }
