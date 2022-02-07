@@ -120,8 +120,7 @@
     
     .orderNoA
     {
-        text-decoration: none;
-        color: black;
+   		cursor: pointer;
     }
     .orderNoA:hover
     {
@@ -138,8 +137,7 @@
     
     .userNoA
     {
-        text-decoration: none;
-        color: black;
+        cursor: pointer;
     }
     .userNoA:hover
     {
@@ -154,12 +152,11 @@
     }
     
     
-    .boardNo a
+    .boardNoA 
     {
-        text-decoration: none;
-        color: black;
+		cursor: pointer;        
     }
-    .boardNo a:hover
+    .boardNoA:hover
     {
        font-weight: bolder;
        color: #21C967;
