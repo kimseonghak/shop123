@@ -96,7 +96,7 @@
                          <c:forEach items="${list}" var="q" varStatus="i">
                            <tr>
                                <td>${i.count}</td>
-                                <td class="subject"><span class="qnaTitle">${q.getQuestionTitle()}</span></td>
+                                <td class="subject"><span class="qnaTitle" qnaBoardNo="${q.getQuestionNo()}" >${q.getQuestionTitle()}</span></td>
                                 <td class="writer">${q.getUserName()}</td>
                                 <td class="writeDate">${q.getQuestionRegdate()}</td>
                            </tr>
@@ -133,6 +133,29 @@
 	    });
     
    </script>
+   
+     <!-- 글 번호 가져오기 -->
+  <script>
+  		$('.qnaTitle').click(function(){
+  			
+  			var boardNo=$(this).attr('qnaBoardNo');
+  			 
+  			alert(boardNo);
+  			
+            // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+            var _width = '800';
+            var _height = '620';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+           
+            //window.open('/farm/farmNoticeContent.do?noticeContent='+noticeContent+'&noticeTitle='+noticeTitle+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+  			
+  			
+  		});
+  
+  
+  </script>
+   
 
 
 </body>

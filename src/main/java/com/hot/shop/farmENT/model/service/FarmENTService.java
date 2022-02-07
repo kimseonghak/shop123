@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
+import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
 import com.hot.shop.member.model.vo.Member;
 
@@ -24,6 +25,14 @@ public interface FarmENTService {
 	HashMap<String, Object> selectNoticeList(int currentPage,HashMap<String, Object> searchMap);
 
 	HashMap<String, Object> selectFarmQnaList(int currentPage, HashMap<String, Object> searchMap);
+
+	HashMap<String, Object> selectRefundList(int currentPage, HashMap<String, Object> searchMap);
+
+	ArrayList<FarmENTOrder> selectOrdertDetailInfo(String orderNo);
+
+	boolean insertRefund(HashMap<String, Object> dataMap);
+
+	boolean updatePurchaselistRefundCancel(HashMap<String, Object> dataMap);
 
 
 

@@ -25,6 +25,15 @@
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmMain.css">
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmRefundList.css">
 
+<style>
+	 #naviArea
+	 {
+	 	display:inline-block;
+	 	margin-left:450px;
+	 	text-align: center;
+	 }
+</style>
+
 </head>
 <body>
 <c:import url="/resources/farm/common/farmMainHeader.jsp"/>
@@ -39,18 +48,33 @@
             </div>
             <div id="farmContentContent">
                 <div id="serchArea">
-                    <form action="" method="get">
-                         <select style="width:90px;height:30px" id="serchSelect">
-                            <option value="orderNo">주문번호</option> 
-                            <option value="memberNo">회원번호</option>
+                    <form action="/farm/farmRefundList.do" method="get">
+                         <select name="type" style="width:90px;height:30px" id="serchSelect">
+                         <c:choose>
+                       		  <c:when test="${type eq 'orderNo'}">
+	                           	 <option value="orderNo" selected='selected'>주문번호</option> 
+	                           	 <option value="userNo">회원번호</option>
+	                           </c:when>
+	                           <c:when test="${type eq 'userNo'}">
+	                           	 <option value="orderNo">주문번호</option> 
+	                           	 <option value="userNo" selected='selected'>회원번호</option>
+	                           </c:when>
+                        
+	                          <c:otherwise>
+	                          		  <option value="orderNo">주문번호</option> 
+		                           	  <option value="userNo">회원번호</option>
+	                          </c:otherwise>
+                          </c:choose>
                           </select>
-                    <input type="text" name="keyWord" size="30" id=serchKeyword>
-                    <button type="button" class="btn btn-outline-success btn-sm">검색</button>
+                    <input type="text" name="keyWord" size="30" id=serchKeyword value="${requestScope.keyWord}">
+                    <button type="submit" class="btn btn-outline-success btn-sm">검색</button>
                 </form>
                     
                 </div>
                 <div id="emptyArea"></div>
                 <div id="contentArea">
+                <c:choose>
+                	<c:when test="${!requestScope.list.isEmpty()}">
                     <table>
                            <tr>
                                 <th>번호</th>
@@ -63,36 +87,46 @@
                                 <th></th>
                            </tr>
                          <tbody>
+                         
+                         <c:forEach items="${requestScope.list}" var="r" varStatus="i">
                            <tr>
-                                <td>2</td>
-                                <td class="boardNo"><a href="">23</a></td>
-                                <td class="userNo"><a type="button" class="userNoA">3</a></td>
-                               <td class="orderNo"><a type="button" class="orderNoA">A3232132324</a></td>
-                                <td class="acceptDate">2022/01/25</td>
-                                <td class="refundStatus">N</td>
-                                <td><button type="button" class="btn btn-success btn-sm acceptBtn">환불승인</button></td>
-                                <td><button type="button" class="btn btn-success btn-sm cancelBtn">접수취소</button></td>
+                                <td>${i.count}</td>
+                                <td class="boardNo"><span class="boardNoA">${r.getRefundNo()}</span></td>
+                                <td class="userNo"><span class="userNoA">${r.getUserNo()}</span></td>
+                                <td class="orderNo"><span class="orderNoA">${r.getOrderNo()}</span></td>
+                                <td class="acceptDate">${r.getRefundRegdate()}</td>
+                                <td class="refundStatus">${r.getRefundYN()}</td>
+                              <c:choose>  
+	                               <c:when test="${String.valueOf(r.getRefundYN()) eq 'X'}">
+		                                <td><button type="button" class="btn btn-success btn-sm acceptBtn" buyNo="${r.getBuyNo()}" farmNo="${r.getFarmNo()}" userNo="${r.getUserNo()}">환불승인</button></td>
+		                                <td><button type="button" class="btn btn-success btn-sm cancelBtn" buyNo="${r.getBuyNo()}" farmNo="${r.getFarmNo()}" userNo="${r.getUserNo()}">접수취소</button></td>
+	                               	</c:when>
+	                               	<c:otherwise>
+	                               		 <td><button type="button" class="btn btn-success btn-sm acceptBtn" buyNo="${r.getBuyNo()}" farmNo="${r.getFarmNo()}" userNo="${r.getUserNo()}" disabled="disabled" >환불승인</button></td>
+	                               		 <td><button type="button" class="btn btn-success btn-sm cancelBtn" buyNo="${r.getBuyNo()}" farmNo="${r.getFarmNo()}" userNo="${r.getUserNo()}" disabled="disabled">접수취소</button></td>
+	                               	</c:otherwise>
+                               </c:choose>
                            </tr>
-                           <tr>
-                                <td>1</td>
-                                <td class="boardNo"><a href="">12</a></td>
-                               <td class="userNo"><a type="button" class="userNoA">41</a></td>
-                               <td class="orderNo"><a type="button" class="orderNoA">BJE1239473</a></td>
-                                <td class="acceptDate">2022/01/27</td>
-                                <td class="refundStatus">N</td>
-                                <td><button type="button" class="btn btn-success btn-sm acceptBtn">환불승인</button></td>
-                                <td><button type="button" class="btn btn-success btn-sm cancelBtn">접수취소</button></td>
-                           </tr>
-                     
-                  
+                           </c:forEach>
                           </tbody>
                     </table>
-                    
+                    </c:when>
+                    <c:otherwise>
+                    	<H2 style="text-align:center; position:relative; bottom:-100px">접수된 환불이 없습니다.</H2>
+                    </c:otherwise>
+                  </c:choose>  
                 </div>
             </div>
           <!--page Navi-->
-            <div id="farmContentFooter"></div>
-        
+            <div id="farmContentFooter">
+            	<div id="naviArea">
+	            	<c:choose>
+	            		<c:when test="${!requestScope.list.isEmpty()}">
+	            				${requestScope.pageNavi}
+	            		</c:when>
+	            	</c:choose>
+          	  </div>    
+            </div>
         </div>
         <div id="farmContent3"></div>
     </div>
@@ -112,15 +146,7 @@
         
         $('.userNo').click(function(){
             
-            
             var userNo=$(this).text();
-           //alert(userNo);
-            //회원정보 불러오기 로직
-            
-            
-            
-            
-            
             
             // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
             var _width = '400';
@@ -128,10 +154,8 @@
             var _left = Math.ceil(( window.screen.width - _width )/2);
             var _top = Math.ceil(( window.screen.height - _height )/2);
            
-            window.open('/farm/farmMemberInfoPage.do', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+            window.open('/farm/farmMemberInfoPage.do?userNo='+userNo+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
            
-            
-            
         });
     </script> 
     
@@ -144,24 +168,41 @@
                              
            var orderNo=$(this).text();
            //alert(orderNo);
-           //회원정보 불러오기 로직
+           //주문 상세 불러오기 로직
 
-            
-            
-            
-            
-            
             // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
             var _width = '400';
             var _height = '250';
             var _left = Math.ceil(( window.screen.width - _width )/2);
             var _top = Math.ceil(( window.screen.height - _height )/2); 
 
-            window.open('/farm/farmOrdertDetailInfoPage.do', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+            window.open('/farm/farmOrdertDetailInfoPage.do?orderNo='+orderNo+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
 
             
         });
     </script> 
+    
+   <!--글 번호 클릭 시 글 내용 띄우기-->
+    <script>
+        
+        $('.boardNo').click(function(){
+                             
+           var boardNo=$(this).text();
+           //alert(boardNo);
+
+            // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+            var _width = '400';
+            var _height = '250';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2); 
+
+            //해당 글번호로
+            //window.open('/farm/farmOrdertDetailInfoPage.do?boardNo='+boardNo+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+
+            
+        });
+    </script> 
+    
     
     
     <!--환불 승인/취소 버튼을 눌렀을 때 관리자 환불테이블에 데이터가 N 또는 Y로 들어가면 2개의 버튼 비활성화 시키기-->
@@ -169,25 +210,71 @@
     <script>
         $('.acceptBtn').click(function(){
             
-            var result = window.confirm('환불을 승인하시겠습니까?');
-           // alert(result); //승인 시 ture 값으로 넘어옴
-            //버튼 비활성화 disabled="disabled"
-            
-        })
- 
+            var result = window.confirm('환불을 승인하시겠습니까? 승인 시 취소가 불가합니다.');
+              //alert(result); //승인 시 ture 값으로 넘어옴
+              //버튼 비활성화 disabled="disabled"
+              
+            var buyNo = $(this).attr('buyNo');
+            var farmNo = $(this).attr('farmNo');
+            var userNo = $(this).attr('userNo');
+            var refundYN = 'Y';
+           
+           
+              if(result==true)
+            	{
+    				$.ajax({
+    					url:"/farm/farmRefundApproval.do",
+    					type:"post",
+    					data:{"buyNo":buyNo,"farmNo":farmNo,"userNo":userNo,"refundYN":refundYN},
+    					success:function(result){
+    						
+    						alert(result);
+    						location.reload();
+    					
+    					},
+    					error:function(){
+    						consol.log("ajax2.do 서버 호출 실패");
+    					}
+    				});
+           		 };
+        });
     
     </script>
+    
     
         <!--환불취소 버튼 눌렀을 때-->
     <script>
         $('.cancelBtn').click(function(){
             
-            var result = window.confirm('접수를 취소하시겠습니까?');
-            alert(result); //승인 시 ture 값으로 넘어옴
-            
+            var result = window.confirm('환불 접수를 취소하시겠습니까? 환불 접수 취소 시 취소가 불가합니다.');
+            var $this = $(this)
+           
+            if(result==true)
+            {
+                var buyNo = $(this).attr('buyNo');
+                var farmNo = $(this).attr('farmNo');
+                var userNo = $(this).attr('userNo');
+               	var refundYN = 'N';
+               
+                  if(result==true)
+                	{
+        				$.ajax({
+        					url:"/farm/farmRefundCancel.do",
+        					type:"post",
+        					data:{"buyNo":buyNo,"farmNo":farmNo,"userNo":userNo,"refundYN":refundYN},
+        					success:function(result){
+        						
+        						alert(result);
+        						location.reload();
+        					
+        					},
+        					error:function(){
+        						consol.log("ajax2.do 서버 호출 실패");
+        					}
+        				});
+               		 };
+            }
         })
- 
-    
     </script>
 
 
