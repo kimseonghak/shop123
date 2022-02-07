@@ -11,6 +11,7 @@
 <body>
 	<script>
 		alert('${requestScope.msg}');
+		opener.parent.location.reload();
 		window.close();
 	</script>
 </body>
