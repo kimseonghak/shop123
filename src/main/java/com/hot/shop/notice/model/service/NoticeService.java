@@ -16,4 +16,6 @@ public interface NoticeService {
 
 	int updateWrite(Notice n); //공지사항 수정
 
+	int noticeDelete(int noticeNo); //공지사항 삭제
+
 }

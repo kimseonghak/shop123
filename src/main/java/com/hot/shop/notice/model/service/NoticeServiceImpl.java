@@ -57,4 +57,10 @@ public class NoticeServiceImpl implements NoticeService{
 		// TODO Auto-generated method stub
 		return nDAO.updateWrite(n);
 	}
+
+	@Override
+	public int noticeDelete(int noticeNo) {
+		
+		return nDAO.noticeDelete(noticeNo);
+	}
 }

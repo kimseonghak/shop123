@@ -22,6 +22,9 @@
 			<if test="type!=null and type.equals('content')">
 				AND NOTICE_CONTENT like '%'||#{keyWord}||'%'
 			</if>
+			<if test="type!=null and type.equals('all')">
+				AND (NOTICE_TITLE like '%'||#{keyWord}||'%' or NOTICE_CONTENT like '%'||#{keyWord}||'%')
+			</if>
 		</select>
 		
 		<!-- 공지사항 글 총 개수 -->
@@ -74,6 +77,12 @@
 			WHERE NOTICE_NO=#{noticeNo}
 		</update>
 		
+		<!-- 공지사항 삭제 -->
+		<update id="deleteNotice" parameterType="integer">
+			UPDATE NOTICE 
+			SET NOTICE_END_YN='Y'
+			WHERE NOTICE_NO=#{noticeNo}
+		</update>
 	</mapper>
 
 

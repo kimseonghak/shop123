@@ -113,6 +113,12 @@ public class NoticeDAO {
 		return sqlSession.update("notice.updateNotice", n);
 	}
 
+	//공지사항 삭제
+	public int noticeDelete(int noticeNo) {
+		
+		return sqlSession.update("notice.deleteNotice", noticeNo);
+	}
+
 	
 	
 	/*

@@ -105,6 +105,23 @@ public class NoticeController {
 		return mav;
 	};
 	
-	
-	
+	//공지사항 삭제
+	@RequestMapping(value="/notice/noticeDelete.do", method = RequestMethod.POST)
+	public ModelAndView NoticeDelete(HttpServletRequest request, ModelAndView mav, @SessionAttribute Farm farm) {
+		
+		int NoticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		
+		System.out.println(NoticeNo);
+		
+		int result = nService.noticeDelete(NoticeNo);
+		
+		if(result > 0) {
+			mav.addObject("location", "/notice/noticeListPage.do");
+		}else {
+			mav.addObject("location", "/notice/noticeView.do");
+		}
+		mav.setViewName("commons/msg");
+		return mav;
+
+	}
 }

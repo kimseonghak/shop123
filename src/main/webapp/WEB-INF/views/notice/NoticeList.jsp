@@ -168,24 +168,25 @@
 			</div>
 			
 			<!-- 검색 공간 -->
-			<form action="" method="get">
+			<form action="/notice/noticeListPage.do" method="get">
 			<div id="notice_searchWrap">
+				
 				<div id="notice_search_btnFrom" align="center">
-					<button id="serachBtn">글 검색</button>
+					<button type="submit" id="serachBtn">글 검색</button>
 				</div>
 				
 				<div id="notice_search_textFrom">
-					<input type="text" name="keyword" id=searchkeyword style="font-size: 14px;" placeholder="${requestScope.keyWord}"/>
+					<input type="text" name="keyWord" id=searchkeyword style="font-size: 14px;" placeholder="${requestScope.keyWord}"/>
 				</div>
 				
 				<div id="notice_search_select">
-					<select name="type" required style="font-size: 14px;">
-						<option disabled selected style="display:none;">검색필터</option>
+					<select name="type" style="font-size: 14px;">
 						<option value="subject">제목</option>
 						<option value="content">내용</option>
 						<option value="all">제목+내용</option>
 					</select>
 				</div>
+
 			</div>
 			</form>
 			<!-- 검색 공간 -->
