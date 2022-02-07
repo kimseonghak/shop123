@@ -277,7 +277,7 @@ select option[value=""][disabled] {
 				</div>
 				<div id="question_CategorieForm03" style="display: none;">
 					<span style="font-size: 20px; color: #08E200;">주문번호 : </span>
-					<input type="text" id="GoodsNo" name="OrderNo" placeholder="주문 번호를 적어주세요"/><button id="buyListCheckBtn">구매 내역 확인</button>
+					<input type="text" id="GoodsNo" name="OrderNo" placeholder="주문 번호를 적어주세요" readonly="readonly"/><button type="button" id="buyListCheckBtn">구매 내역 확인</button>
 				</div>
 				<!-- 문의 내용 설정하는 곳 끝 -->
 				<!-- 문의 대상 설정하는 곳 -->
@@ -324,15 +324,12 @@ select option[value=""][disabled] {
 			</div>
 		</div>
 	</div>
-	
-
 	<div id="footerFrom">
 		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
 </div>
 
 <script>
-
 
 $('#questionUserClassify').change(function(){
 	var result = $('#questionUserClassify option:selected').val();

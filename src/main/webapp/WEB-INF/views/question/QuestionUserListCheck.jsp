@@ -71,9 +71,19 @@
 			<th>구매 날짜</th>
 			<th>정보 입력</th>
 		</tr>
-		
+		<c:forEach items="${map.list }" var="p">
+			<tr>
+				<td>${p.buyNo }</td>
+				<td>${p.productName }</td>
+				<td>${p.farmNo }</td>
+				<td>${p.productCount }</td>
+				<td>${p.payAmount }</td>
+				<td>${p.purchaseDate }</td>
+				<td><button id="outputBtn" data="${p.orderNo }" data2="${p.farmNo }">입력하기</button></td>
+			</tr>
+		</c:forEach>
 		<tr>
-			<td colspan="6" align="center"></td>
+			<td colspan="7" align="center">${map.pageNavi }</td>
 		</tr>
 	</table>
 <script>
@@ -88,6 +98,13 @@
 			$('#prev').removeAttr('href');
 			$('#prev').unbind('mouseenter mouseleave');
 		}
+	});
+	$('#outputBtn').click(function(){
+		var orderNo=$(this).attr('data');
+		var farmNo=$(this).attr('data2');
+		window.opener.document.getElementById('GoodsNo').value=orderNo;
+		window.opener.document.getElementById('farmNo').value=farmNo;
+		window.close();
 	});
 </script>
 </body>

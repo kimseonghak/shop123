@@ -177,32 +177,23 @@
 				<div id="img_Form">
 					<img alt="" src="${qUser.questionPhotoFilePath }" style="width: 100%" height="100%">
 				</div>
-				
 				<div id="Customer_titleForm" style="font-size: 20px;">
 					<span>[ ${qUser.questionUserCode } ] : ${qUser.questionUserTitle }</span>
 				</div>
 			</div>
-	
 			<div id="Customer_regForm">
 				<span>[ 작성일 : ${qUser.questionUserRegdate } ]</span>
 			</div>
-			
 			<div id="Customer_contentForm">
 				${qUser.questionUserContent }
-				
-				
 			</div>
-			
 				<div id="btnForm">
 					<div id="write_btn">
 						<input type="submit" value="글 수정" id="writeBtn"/>
 					</div>
-					
 					<div id="delete_btn"><button id="deleteBtn">글 삭제</button></div>
-					
 					<div id="list_btn"><button id="listBtn">글 목록</button></div>
 				</div>
-			
 			</form>
 		</div>
 	</div>
