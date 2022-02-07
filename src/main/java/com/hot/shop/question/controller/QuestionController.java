@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -166,5 +167,12 @@ public class QuestionController {
 			return mav;
 		}
 		
-		
+		@RequestMapping(value = "/question/buyListCheck.do",method = RequestMethod.GET)
+		public ModelAndView buyListCheck(ModelAndView mav,
+				@RequestParam(required = false,defaultValue = "1") int currentPage,
+				@SessionAttribute Member member) {
+			HashMap<String, Object> map = qService.buyListCheck(currentPage,member);
+			mav.setViewName("question/QuestionUserListCheck");
+			return mav;
+		}
 }

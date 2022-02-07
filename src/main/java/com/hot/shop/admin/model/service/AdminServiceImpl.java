@@ -101,18 +101,6 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public HashMap<String, Object> farmQNAList(int currentPage) {
-		int recordCountPerPage=10;
-		ArrayList<QuestionFarm> list = aDAO.questiopFarmList(recordCountPerPage,currentPage); 
-		int naviCountPerPage=10;
-		String pageNavi = aDAO.getFarmQNAPageNavi(recordCountPerPage, currentPage, naviCountPerPage);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("pageNavi", pageNavi);
-		return map;
-	}
-
-	@Override
 	public HashMap<String, Object> farmQNASearchList(HashMap<String, Object> map, int currentPage) {
 		int recordCountPerPage=10;
 		ArrayList<QuestionFarm> list = aDAO.questionFarmSearchList(recordCountPerPage,currentPage,map);
@@ -130,18 +118,6 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public HashMap<String, Object> userQNAList(int currentPage) {
-		int recordCountPerPage=10;
-		ArrayList<QuestionUser> list = aDAO.questiopUserList(recordCountPerPage,currentPage); 
-		int naviCountPerPage=10;
-		String pageNavi = aDAO.getUserQNAPageNavi(recordCountPerPage, currentPage, naviCountPerPage);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("pageNavi", pageNavi);
-		return map;
-	}
-
-	@Override
 	public HashMap<String, Object> userQNASearchList(HashMap<String, Object> map, int currentPage) {
 		int recordCountPerPage=10;
 		ArrayList<QuestionUser> list = aDAO.questionUserSearchList(recordCountPerPage,currentPage,map);
@@ -154,18 +130,6 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public HashMap<String, Object> memberList(int currentPage) {
-		int recordCountPerPage=10;
-		ArrayList<Member> list = aDAO.memberList(currentPage,recordCountPerPage);
-		int naviCountPerPage=10;
-		String pageNavi = aDAO.getMemberPageNavi(recordCountPerPage,naviCountPerPage,currentPage);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("pageNavi", pageNavi);
-		return map;
-	}
-
-	@Override
 	public Member selectMember(int userNo) {
 		return aDAO.selectMember(userNo);
 	}
@@ -173,5 +137,31 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int memberEndYNUpdate(HashMap<String, Object> map) {
 		return aDAO.memberEndYNUpdate(map);
+	}
+
+	@Override
+	public HashMap<String, Object> memberSearchList(HashMap<String, Object> map, int currentPage) {
+		int recordCountPerPage=10;
+		ArrayList<Member> list = aDAO.memberSearchList(currentPage,recordCountPerPage,map);
+		int naviCountPerPage=10;
+		String pageNavi = aDAO.getMemberSearchPageNavi(recordCountPerPage,currentPage,map,naviCountPerPage);
+		
+		map.put("list", list);
+		map.put("pageNavi", pageNavi);
+		
+		return map;
+	}
+
+	@Override
+	public HashMap<String, Object> refundList(int currentPage, HashMap<String, Object> map) {
+		int recordCountPerPage=10;
+		ArrayList<Member> list = aDAO.refundList(currentPage,recordCountPerPage,map);
+		int naviCountPerPage=10;
+		String pageNavi = aDAO.getMemberSearchPageNavi(recordCountPerPage,currentPage,map,naviCountPerPage);
+		
+		map.put("list", list);
+		map.put("pageNavi", pageNavi);
+		
+		return map;
 	}
 }

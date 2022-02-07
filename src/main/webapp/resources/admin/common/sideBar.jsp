@@ -8,7 +8,7 @@
 			<li><a href="/admin/adminAuctionPage.do">Auction</a></li>
 			<li><a href="/admin/adminFarmQNAPage.do">farmQNA</a></li>
 			<li><a href="/admin/adminUserQNAPage.do">userQNA</a></li>
-			<li><a href="">Refund</a></li>
+			<li><a href="/admin/adminRefundPage.do">Refund</a></li>
 			<li><a>AD</a></li>
 			<li><a href="/admin/adminMemberPage.do">Member</a></li>
 			<li><a>board</a></li>

@@ -1,12 +1,15 @@
 package com.hot.shop.question.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.hot.shop.admin.model.vo.BID;
+import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 
@@ -42,6 +45,17 @@ public class QuestionDAO {
 	public int questionUpdate(QuestionUser quser) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("qUser.questionUpdate", quser) + sqlSession.update("qUser.questionPhotoUpdate", quser.getQuestionphotoNo());
+	}
+
+	public ArrayList<Member> getBuyList(int currentPage, Member member, int recordCountPerPage) {
+		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
+		int end = currentPage*recordCountPerPage;
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("start", start);
+		map.put("end",end);
+		map.put("userNo", member.getUserNo());
+		return new ArrayList<Member>(sqlSession.selectList("qUser.buyCheckList",map));
 	}
 
 }

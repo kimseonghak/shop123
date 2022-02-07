@@ -20,7 +20,7 @@
 		<typeAlias type="com.hot.shop.promotion.model.vo.Promotion" alias="promotion"/>
 		<typeAlias type="com.hot.shop.promotion.model.vo.PromotionPhoto" alias="pPhoto"/>
 		<typeAlias type="com.hot.shop.faq.model.vo.FAQ" alias="faq"/>
-		
+		<typeAlias type="com.hot.shop.auction.model.vo.Purchaselist" alias="pur"/>
 		
 		<!-- farmENT -->
 		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTProduct" alias="farmENTProduct"/>

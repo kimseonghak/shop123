@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -140,26 +141,14 @@ public class AdminController {
 		aService.countInput();
 		return "1";
 	}
-	
-	// 최초 farm QNA 페이지 
+	// farmQNA 페이지
 	@RequestMapping(value = "/admin/adminFarmQNAPage.do", method = RequestMethod.GET)
-	public ModelAndView farmQNAPage(ModelAndView mav,HttpServletRequest request,
-			@RequestParam(required = false, defaultValue = "1") int currentPage) {
-		HashMap<String,Object> map = aService.farmQNAList(currentPage);
-		mav.addObject("map",map);
-		mav.addObject("currentPage",currentPage);
-		mav.setViewName("admin/admin_farmQNA");
-		return mav;
-	}
-	
-	// farmQNA 검색 페이지
-	@RequestMapping(value = "/admin/adminFarmQNASearch.do", method = RequestMethod.GET)
-	public ModelAndView farmQNASearch(@RequestParam String type, @RequestParam String keyword, 
+	public ModelAndView farmQNASearch(@RequestParam(required = false, defaultValue = "default") String type, 
+			@RequestParam(required = false, defaultValue = "") String keyword, 
 			@RequestParam(required = false, defaultValue = "1") int currentPage, ModelAndView mav) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("type", type);
 		map.put("keyword", keyword);
-		
 		map = aService.farmQNASearchList(map,currentPage);
 		
 		mav.addObject("map",map);
@@ -182,20 +171,14 @@ public class AdminController {
 		
 		return mav;
 	}
-	// userQNA 최초 페이지
-	@RequestMapping(value = "/admin/adminUserQNAPage.do", method = RequestMethod.GET)
-	public ModelAndView userQNAPage(ModelAndView mav,HttpServletRequest request,
-			@RequestParam(required = false, defaultValue = "1") int currentPage) {
-		HashMap<String,Object> map = aService.userQNAList(currentPage);
-		mav.addObject("map",map);
-		mav.addObject("currentPage",currentPage);
-		mav.setViewName("admin/admin_userQNA");
-		return mav;
-	}
+	
 	// userQNA 검색 페이지
-	@RequestMapping(value = "/admin/adminUserQNASearch.do", method = RequestMethod.GET)
-	public ModelAndView userQNASearch(@RequestParam String type, @RequestParam String keyword, 
+	@RequestMapping(value = "/admin/adminUserQNAPage.do", method = RequestMethod.GET)
+	public ModelAndView userQNASearch(
+			@RequestParam(required = false, defaultValue = "default") String type, 
+			@RequestParam(required = false, defaultValue = "") String keyword, 
 			@RequestParam(required = false, defaultValue = "1") int currentPage, ModelAndView mav) {
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("type", type);
 		map.put("keyword", keyword);
@@ -208,17 +191,7 @@ public class AdminController {
 		
 		return mav;
 	}
-	// member 관리 페이지
-	@RequestMapping(value = "/admin/adminMemberPage.do", method = RequestMethod.GET)
-	public ModelAndView memberManagementPage(@RequestParam(required = false,defaultValue = "1") int currentPage,
-			ModelAndView mav) {
-		HashMap<String, Object> map = aService.memberList(currentPage);
-		mav.addObject("map",map);
-		mav.addObject("currentPage",currentPage);
-		mav.setViewName("admin/admin_member");
-		return mav;
-	}
-	
+	// member 상세정보 팝업창
 	@RequestMapping(value = "/admin/adminMemberInfoPage.do", method = RequestMethod.GET)
 	public ModelAndView memberInfoPage(@RequestParam int userNo,ModelAndView mav) {
 		Member m = aService.selectMember(userNo);
@@ -226,7 +199,7 @@ public class AdminController {
 		mav.setViewName("admin/admin_member_info");
 		return mav;
 	}
-	
+	// member 탈퇴 관리 (EndYN 변경)
 	@RequestMapping(value = "/admin/adminMemberEndYNUpdate.do", method = RequestMethod.GET)
 	public ModelAndView memberEndYNUpdate(ModelAndView mav,@RequestParam int userNo,@RequestParam int currentPage,@RequestParam String endYN) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -241,6 +214,44 @@ public class AdminController {
 			mav.addObject("location","/admin/adminMemberPage.do?curretnPage="+currentPage);
 		}
 		mav.setViewName("commons/msg");
+		return mav;
+	}
+	// member 검색 페이지
+	@RequestMapping(value = "/admin/adminMemberPage.do", method = RequestMethod.GET)
+	public ModelAndView memberSearchList(ModelAndView mav,
+			@RequestParam(required = false,defaultValue = "1") int currentPage,
+			@RequestParam(required = false,defaultValue = "default") String type, 
+			@RequestParam(required = false,defaultValue = "") String keyword) {
+		
+		if(type.equals("userNo")) {
+			boolean isNumber = Pattern.matches("^[0-9]*$", keyword);
+			if(isNumber==false) {
+				keyword="";
+			}
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		map = aService.memberSearchList(map,currentPage);
+		
+		mav.addObject("map",map);
+		mav.addObject("currentPage",currentPage);
+		mav.setViewName("admin/admin_member");
+		
+		return mav;
+	}
+	// 최초 refund 페이지
+	@RequestMapping(value = "/admin/adminRefundPage.do", method = RequestMethod.GET)
+	public ModelAndView adminRefund(ModelAndView mav,
+			@RequestParam(required = false,defaultValue = "1") int currentPage,
+			@RequestParam(required = false,defaultValue = "default") String type,
+			@RequestParam(required = false,defaultValue = "") String keyword) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		map = aService.refundList(currentPage,map);
+		mav.setViewName("admin/admin_refund");
 		return mav;
 	}
 }

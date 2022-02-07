@@ -2,7 +2,9 @@ package com.hot.shop.question.model.service;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 
@@ -19,6 +21,8 @@ public interface QuestionService {
 	QuestionUser questionView(int questionUserNo);
 
 	int questionUpdate(QuestionUser quser);
+
+	HashMap<String, Object> buyListCheck(int currentPage, Member member);
 
 
 	

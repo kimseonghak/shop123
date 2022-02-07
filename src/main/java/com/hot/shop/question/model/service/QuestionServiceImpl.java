@@ -1,10 +1,12 @@
 package com.hot.shop.question.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.dao.QuestionDAO;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -53,6 +55,13 @@ public class QuestionServiceImpl implements QuestionService{
 	public int questionUpdate(QuestionUser quser) {
 		// TODO Auto-generated method stub
 		return qDAO.questionUpdate(quser);
+	}
+
+	@Override
+	public HashMap<String, Object> buyListCheck(int currentPage, Member member) {
+		int recordCountPerPage=5;
+		ArrayList<Member> list = qDAO.getBuyList(currentPage,member,recordCountPerPage);
+		return null;
 	}
 
 	
