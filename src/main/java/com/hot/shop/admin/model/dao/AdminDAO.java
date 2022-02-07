@@ -57,7 +57,7 @@ public class AdminDAO {
 		}
 		System.out.println("경매 날짜 지난 경매 종료");
 		sql.update("admin.sellFormEndYN");
-		System.out.println("판매 날짜 지난 경매 종료");
+		System.out.println("판매 날짜 지난 판매 종료");
 		System.out.println("예약 작업 종료");
 	}
 	// BID 목록과 정보 가져오는 로직

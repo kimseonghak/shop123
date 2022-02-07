@@ -226,6 +226,7 @@ public class AdminController {
 		if(type.equals("userNo")) {
 			boolean isNumber = Pattern.matches("^[0-9]*$", keyword);
 			if(isNumber==false) {
+				type="default";
 				keyword="";
 			}
 		}

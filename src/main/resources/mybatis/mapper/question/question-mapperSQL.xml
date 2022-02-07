@@ -106,7 +106,8 @@
             where		QUESTIONPHOTO_NO=#{QuestionPhotoNo}
 		</update>
 		<!-- 글 수정단 완료 -->
-		<select id="buyCheckList" parameterType="hashmap">
+		<!-- 유저 구매 목록 가져오기 -->
+		<select id="buyCheckList" parameterType="hashmap" resultType="pur">
 			select
 				buy_no as buyNo,
 				user_no as userNo,
@@ -114,12 +115,31 @@
 				product_name as productName,
 				product_count as productCount,
 				pay_amount as payAmount,
-				purchase_date as purchaseDate
+				purchase_date as purchaseDate,
 			 	order_no as orderNo
-			 from (select row_number over (order by buy_no desc) as num, purchaselist.* from purchaselist 
-			 where userNo=#{userNo})
+			 from (select row_number() over (order by buy_no desc) as num, purchaselist.* from purchaselist 
+			 where user_No=#{userNo} and refund_yn='N')
 			 where num between #{start} and #{end}
 		</select>
+		<select id="buyListTotalCount" parameterType="integer" resultType="integer">
+			select count(*) from purchaselist where user_no=#{_parameter} and refund_yn='N'
+		</select>
+		<select id="selectPurchaselist" parameterType="qUser" resultType="pur">
+			select
+				buy_no as buyNo,
+				user_no as userNo,
+				farm_no as farmNo,
+				product_name as productName,
+				product_count as productCount,
+				pay_amount as payAmount,
+				purchase_date as purchaseDate,
+			 	order_no as orderNo
+			 from purchaselist 
+			 where order_no=#{orderNo}
+		</select>
+		<insert id="refund" parameterType="pur">
+			insert into refund values(refund_seq.nextval,#{buyNo},#{userNo},#{farmNo},'X','X','N')
+		</insert>
 	</mapper>
 
 
