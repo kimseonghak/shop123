@@ -50,7 +50,7 @@
                            <tr>
                                 <th><img src="/resources/farm/image/고정핀.png" class="pinImage"/></th>
                                 <th><span class="boardTitle">공지사항</span></th>
-                                <th><span class="plusBoard"><a href="" >+ 더보기</a></span></th>
+                                <th><span class="plusBoard"><a href="/farm/farmNoticePage.do" >+ 더보기</a></span></th>
 
                            </tr>
                          <tbody>
@@ -72,7 +72,7 @@
                            <tr>
                                 <th><img src="/resources/farm/image/고정핀.png" class="pinImage"/></th>
                                 <th><span class="boardTitle">문의사항</span></th>
-                                <th><span class="plusBoard"><a href="" >+ 더보기</a></span></th>
+                                <th><span class="plusBoard"><a href="/farm/farmQnaPage.do">+ 더보기</a></span></th>
 
                            </tr>
                          <tbody>
@@ -95,7 +95,7 @@
                            <tr>
                                <th><img src="/resources/farm/image/고정핀.png" class="pinImage"/></th>
                                 <th><span class="boardTitle">환불접수</span></th>
-                                <th><span class="plusBoard"><a href="" >+ 더보기</a></span></th>
+                                <th><span class="plusBoard"><a href="/farm/farmRefundList.do" >+ 더보기</a></span></th>
 
                            </tr>
                          <tbody>
