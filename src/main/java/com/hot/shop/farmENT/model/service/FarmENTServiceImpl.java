@@ -11,6 +11,7 @@ import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
 import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
 import com.hot.shop.farmENT.model.vo.FarmENTQna;
+import com.hot.shop.farmENT.model.vo.FarmENTRefund;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.notice.model.vo.Notice;
 
@@ -141,6 +142,72 @@ public class FarmENTServiceImpl implements FarmENTService{
 		
 		return map;
 		
+	}
+
+	@Override
+	public HashMap<String, Object> selectRefundList(int currentPage, HashMap<String, Object> searchMap) {
+		
+		//환불 리스트
+		int recordCountPerPage = 5;
+		ArrayList<FarmENTRefund> list =fENTdao.selectRefundList(recordCountPerPage,currentPage,searchMap);
+		
+		//pagrNavi
+		int naviCountPerPage=5;
+		String pageNavi	= fENTdao.getRefundListNavi(recordCountPerPage,naviCountPerPage,currentPage,searchMap);
+	
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("list", list);
+		map.put("pageNavi", pageNavi);
+		
+		return map;
+		
+		
+	}
+
+	@Override
+	public ArrayList<FarmENTOrder> selectOrdertDetailInfo(String orderNo) {
+		
+		ArrayList<FarmENTOrder> list =fENTdao.selectOrdertDetailInfo(orderNo);
+				
+		return list;
+	}
+
+	@Override
+	public boolean insertRefund(HashMap<String, Object> dataMap) {
+		
+		int num = fENTdao.insertRefund(dataMap)+ fENTdao.updatePurchaselistRefund(dataMap);
+		
+		boolean result;
+		
+		if(num>1)
+		{
+			result = true;
+		}else
+		{
+			result = false;
+		}
+		
+		return result;
+		
+	}
+
+	@Override
+	public boolean updatePurchaselistRefundCancel(HashMap<String, Object> dataMap) {
+		
+		int num = fENTdao.updatePurchaselistRefundCancel(dataMap);
+		
+		boolean result;
+		
+		if(num>0)
+		{
+			result = true;
+		}else
+		{
+			result = false;
+		}
+		
+		return result;
 	}
 
 

@@ -1,20 +1,27 @@
 package com.hot.shop.farmENT.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.farmENT.model.service.FarmENTService;
 import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
+import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
 import com.hot.shop.member.model.vo.Member;
 
@@ -72,11 +79,11 @@ public class FarmENTContoller {
 	//문의사항 게시판
 	@RequestMapping(value="/farm/farmQnaPage.do",method = RequestMethod.GET)
 	public ModelAndView  farmQnaPage(@RequestParam(required = false,defaultValue = "1") int currentPage,
-											ModelAndView mv,HttpServletRequest request) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
+											ModelAndView mv,HttpServletRequest request, @SessionAttribute Farm farm ) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
 	{
 		//session 연동되면 사용하기
-		//int farmNo = farm.getFarmNo(); 
-		int farmNo = 1;
+		int farmNo = farm.getFarmNo(); 
+		//int farmNo = 4;
 		
 		//검색 조건 
 		String type = request.getParameter("type");
@@ -102,11 +109,11 @@ public class FarmENTContoller {
 	//낙찰상품 목록 게시판
 	@RequestMapping(value="/farm/farmProductListPage.do",method = RequestMethod.GET)
 	public ModelAndView farmProductListPage(HttpServletRequest request,ModelAndView mv,
-			@RequestParam(required = false,defaultValue = "1") int currentPage) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
+			@RequestParam(required = false,defaultValue = "1") int currentPage, @SessionAttribute Farm farm ) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
 	{
 		//session 연동되면 사용하기
-		//int farmNo = farm.getFarmNo(); 
-		int farmNo = 1;
+		int farmNo = farm.getFarmNo(); 
+		//int farmNo = 4;
 		
 		//검색 값이 있다면
 		String type = request.getParameter("type");
@@ -148,11 +155,11 @@ public class FarmENTContoller {
 	//주문목록 게시판
 	@RequestMapping(value="/farm/farmOrdertListPage.do",method = RequestMethod.GET)
 	public ModelAndView farmOrdertListPage(HttpServletRequest request,ModelAndView mv,
-			@RequestParam(required = false,defaultValue = "1") int currentPage) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
+			@RequestParam(required = false,defaultValue = "1") int currentPage, @SessionAttribute Farm farm ) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
 	{
 		//session 연동되면 사용하기
-		//int farmNo = farm.farmNo();
-		int farmNo = 1;
+		int farmNo = farm.getFarmNo(); 
+		//int farmNo = 4;
 		
 		//검색 값 받아오기 
 		String type = request.getParameter("type");
@@ -193,11 +200,11 @@ public class FarmENTContoller {
 	
 	//주문목록 게시판 팝업창 2(상품정보)
 	@RequestMapping(value="/farm/farmProductInfoPage.do",method = RequestMethod.GET)
-	public ModelAndView farmProductInfoPage(@RequestParam String productName,ModelAndView mv)//session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
+	public ModelAndView farmProductInfoPage(@RequestParam String productName,ModelAndView mv, @SessionAttribute Farm farm )//session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
 	{
 		//session 연동되면 사용하기
-		//int farmNo = farm.farmNo();
-		int farmNo = 1;		
+		int farmNo = farm.getFarmNo(); 
+		//int farmNo = 4;		
 		ArrayList<FarmENTProduct>list =fENTservice.selectOneProduct(productName,farmNo);
 		
 		mv.addObject("list", list);
@@ -266,16 +273,95 @@ public class FarmENTContoller {
 	
 	//환불목록 게시판
 	@RequestMapping(value="/farm/farmRefundList.do",method = RequestMethod.GET)
-	public String farmRefundListPage()
+	public ModelAndView farmRefundListPage(@RequestParam (required = false,defaultValue = "1")int currentPage,
+													ModelAndView mv,HttpServletRequest request, @SessionAttribute Farm farm ) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
 	{
-		return "farm/farmRefundList";
+		
+		//session 연동되면 사용하기
+		int farmNo = farm.getFarmNo(); 
+		//int farmNo = 4;	
+		
+		//검색 조건이 있다면
+		String type = request.getParameter("type");
+		String keyWord = request.getParameter("keyWord");
+		
+		HashMap<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("type",type);
+		searchMap.put("keyWord", keyWord);
+		searchMap.put("farmNo", farmNo);
+		
+		HashMap<String, Object> map = fENTservice.selectRefundList(currentPage,searchMap);
+		
+		mv.addObject("list",map.get("list"));
+		mv.addObject("pageNavi",map.get("pageNavi"));
+		mv.addObject("type",type);
+		mv.addObject("keyWord",keyWord);
+		mv.setViewName("farm/farmRefundList");
+		
+		return mv;
+	
 	}
 	
 	//환불목록 게시판 팝업창 1(주문상세)
 	@RequestMapping(value="/farm/farmOrdertDetailInfoPage.do",method = RequestMethod.GET)
-	public String farmOrdertDetailInfoPage()
+	public ModelAndView farmOrdertDetailInfoPage(@RequestParam String orderNo,ModelAndView mv)
 	{
-		return "farm/farmOrderDetailInfo";
+		ArrayList<FarmENTOrder> list = fENTservice.selectOrdertDetailInfo(orderNo);
+		
+		mv.addObject("list",list);
+		mv.setViewName("farm/farmOrderDetailInfo");
+		
+		return mv;
+	}
+	
+	//환불 승인
+	@ResponseBody
+	@RequestMapping(value="/farm/farmRefundApproval.do", method = RequestMethod.POST,produces = "application/text; charset=UTF-8")
+	public String farmRefundApproval(@RequestParam int farmNo,@RequestParam int userNo,@RequestParam int buyNo,@RequestParam String refundYN,
+									ModelAndView mv,HttpServletResponse response) throws IOException
+	{
+		
+		HashMap<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("farmNo", farmNo);
+		dataMap.put("userNo", userNo);
+		dataMap.put("buyNo", buyNo);
+		dataMap.put("refundYN", refundYN);
+		
+		boolean result	= fENTservice.insertRefund(dataMap);
+			
+			if(result==true)
+			{
+				return "환불 요청에 성공하였습니다.";
+			}else
+			{
+				return "환불 요청에 실패하였습니다.";
+			}
+			
+		
+		
+	}
+	
+	//환불 승인 & 접수취소
+	@ResponseBody
+	@RequestMapping(value="/farm/farmRefundCancel.do", method = RequestMethod.POST,produces = "application/text; charset=UTF-8")
+	public String farmRefundCancel(@RequestParam int farmNo,@RequestParam int userNo,@RequestParam int buyNo,@RequestParam String refundYN,
+									ModelAndView mv,HttpServletResponse response) throws IOException
+	{
+		
+		HashMap<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("farmNo", farmNo);
+		dataMap.put("userNo", userNo);
+		dataMap.put("buyNo", buyNo);
+		dataMap.put("refundYN", refundYN);
+		
+		boolean result	= fENTservice.updatePurchaselistRefundCancel(dataMap);
+			if(result==true)
+			{
+				return "환불 접수 취소를 성공하였습니다.";
+			}else
+			{
+				return "환불 접수 취소를 실패하였습니다.";
+			}
 	}
 	
 

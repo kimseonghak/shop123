@@ -45,6 +45,7 @@
   		SELECT BUY_NO AS buyNo,
   			   USER_NO AS userNo,
   			   FARM_NO AS farmNo,
+  			   ORDER_NO AS orderNo,
   			   PRODUCT_NAME AS productName,
   			   PRODUCT_COUNT AS productCount,
   			   PAY_AMOUNT AS payAmount,
@@ -240,6 +241,84 @@
 	
 	</select>
 	
-
+	<!-- 환불 게시물 리스트 -->
+	<select id="selectRefundList" parameterType="hashmap" resultType="farmENTRefund">
+		SELECT Q.QUESTION_USER_NO AS refundNo,
+		       P.ORDER_NO AS orderNo,
+		       Q.QUESTION_USER_REGDATE AS refundRegdate,
+		       P.USER_NO AS userNo,
+		       P.BUY_NO AS buyNo,
+		       P.FARM_NO AS farmNo,
+		       P.REFUND_YN AS refundYN
+		FROM QUESTION_USER Q
+		LEFT JOIN PURCHASELIST P ON (Q.ORDER_NO=P.ORDER_NO)
+		WHERE Q.QUESTION_USER_CODE='Q-1' AND Q.QUESTION_USER_END_YN='N' AND Q.FARM_NO=#{farmNo}
+		<if test="type!=null and type.equals('orderNo')">
+			AND P.ORDER_NO like '%'||#{keyWord}||'%'
+		</if>    
+		<if test="type!=null and type.equals('userNo')">
+			AND P.USER_NO like '%'||#{keyWord}||'%'
+		</if>   
+	
+	</select>
+	
+	<!-- 환불 게시물 총 개수 -->
+	
+	<select id="selectRefundListTotalCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*)
+		FROM QUESTION_USER Q
+		LEFT JOIN PURCHASELIST P ON (Q.ORDER_NO=P.ORDER_NO)
+		WHERE Q.QUESTION_USER_CODE='Q-1' AND Q.QUESTION_USER_END_YN='N' AND Q.FARM_NO=#{farmNo}
+		<if test="type!=null and type.equals('orderNo')">
+			AND P.ORDER_NO like '%'||#{keyWord}||'%'
+		</if>    
+		<if test="type!=null and type.equals('userNo')">
+			AND P.USER_NO like '%'||#{keyWord}||'%'
+		</if>   
+		
+	</select>
+	
+	<!--주문상세정보 (환불게시판)-->
+	
+	<select id="selectOrdertDetailInfo" parameterType="String" resultType="farmENTOrder">
+  		SELECT BUY_NO AS buyNo,
+  			   USER_NO AS userNo,
+  			   FARM_NO AS farmNo,
+  			   ORDER_NO AS orderNo,
+  			   PRODUCT_NAME AS productName,
+  			   PRODUCT_COUNT AS productCount,
+  			   PAY_AMOUNT AS payAmount,
+  			   PURCHASE_DATE AS purchaseDate,
+  			   D_CODE AS dName
+		FROM PURCHASELIST
+		WHERE ORDER_NO = #{_parameter}
+	</select>
+	
+	
+	<!-- 사업자 환불 승인 -->
+	<insert id="insertRefund" parameterType="hashmap">
+			INSERT INTO REFUND VALUES(REFUND_SEQ.NEXTVAL,
+										#{buyNo},
+										#{userNo},
+										#{farmNo},
+										'Y',
+										'N',
+										'N')
+	
+	</insert>
+	
+	<!-- 구매 테이블에서 환불 상태  Y로 변경 -->
+	<update id="updatePurchaselistRefund" parameterType="hashmap">
+	
+		UPDATE PURCHASELIST SET REFUND_YN='Y' WHERE BUY_NO=#{buyNo}
+	
+	</update>
+	
+  	<!-- 구매 테이블에서 환불 상태  N으로 변경 -->
+	<update id="updatePurchaselistRefundCancel" parameterType="hashmap">
+	
+		UPDATE PURCHASELIST SET REFUND_YN='N' WHERE BUY_NO=#{buyNo}
+	
+	</update>
   	
 </mapper>

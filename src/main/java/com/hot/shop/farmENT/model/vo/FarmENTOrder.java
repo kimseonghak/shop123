@@ -7,6 +7,7 @@ public class FarmENTOrder {
 	private int buyNo; 
 	private int userNo;
 	private int farmNo;
+	private String orderNo;
 	private String productName;
 	private int productCount;
 	private int payAmount;
@@ -20,18 +21,21 @@ public class FarmENTOrder {
 	}
 
 
-	public FarmENTOrder(int buyNo, int userNo, int farmNo, String productName, int productCount, int payAmount,
-			Date purchaseDate, String dName) {
+
+	public FarmENTOrder(int buyNo, int userNo, int farmNo, String orderNo, String productName, int productCount,
+			int payAmount, Date purchaseDate, String dName) {
 		super();
 		this.buyNo = buyNo;
 		this.userNo = userNo;
 		this.farmNo = farmNo;
+		this.orderNo = orderNo;
 		this.productName = productName;
 		this.productCount = productCount;
 		this.payAmount = payAmount;
 		this.purchaseDate = purchaseDate;
 		this.dName = dName;
 	}
+
 
 
 	public int getBuyNo() {
@@ -39,9 +43,11 @@ public class FarmENTOrder {
 	}
 
 
+
 	public void setBuyNo(int buyNo) {
 		this.buyNo = buyNo;
 	}
+
 
 
 	public int getUserNo() {
@@ -49,9 +55,11 @@ public class FarmENTOrder {
 	}
 
 
+
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
+
 
 
 	public int getFarmNo() {
@@ -59,9 +67,23 @@ public class FarmENTOrder {
 	}
 
 
+
 	public void setFarmNo(int farmNo) {
 		this.farmNo = farmNo;
 	}
+
+
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+
 
 
 	public String getProductName() {
@@ -69,9 +91,11 @@ public class FarmENTOrder {
 	}
 
 
+
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
 
 
 	public int getProductCount() {
@@ -79,9 +103,11 @@ public class FarmENTOrder {
 	}
 
 
+
 	public void setProductCount(int productCount) {
 		this.productCount = productCount;
 	}
+
 
 
 	public int getPayAmount() {
@@ -89,9 +115,11 @@ public class FarmENTOrder {
 	}
 
 
+
 	public void setPayAmount(int payAmount) {
 		this.payAmount = payAmount;
 	}
+
 
 
 	public Date getPurchaseDate() {
@@ -99,9 +127,11 @@ public class FarmENTOrder {
 	}
 
 
+
 	public void setPurchaseDate(Date purchaseDate) {
 		this.purchaseDate = purchaseDate;
 	}
+
 
 
 	public String getdName() {
@@ -109,9 +139,13 @@ public class FarmENTOrder {
 	}
 
 
+
 	public void setdName(String dName) {
 		this.dName = dName;
 	}
+
+
+	
 	
 	
 	
