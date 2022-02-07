@@ -260,6 +260,7 @@ select option[value=""][disabled] {
 	<div id="contentForm">
 		<div id="question_background">
 			<form action='/question/questionWrite.do' method="post" id="textWrite">
+			
 			<input type="hidden" name="questionphotoNo" value="1">
 			
 				<div id="question_name">
@@ -291,7 +292,7 @@ select option[value=""][disabled] {
 	
 				<div id="question_farmForm03" style="display: none;">
 					<span style="font-size: 20px; color: #08E200;">농가번호 : </span>
-					<input type="text" id="farmNo" placeholder="농가 번호를 적어주세요"/>
+					<input type="text" id="farmNo" name="farmNo" value="1" placeholder="농가 번호를 적어주세요"/>
 				</div>
 				<!-- 문의 대상 설정하는 곳 끝-->
 				
@@ -320,7 +321,7 @@ select option[value=""][disabled] {
 	
 				<div id="question_CategorieForm03" style="display: none;">
 					<span style="font-size: 20px; color: #08E200;">상품번호 : </span>
-					<input type="text" id="GoodsNo" placeholder="상품 번호를 적어주세요"/>
+					<input type="text" id="GoodsNo" name="OrderNo" placeholder="상품 번호를 적어주세요"/>
 				</div><br>
 				<!-- 문의 내용 설정하는 곳 끝 -->
 				
@@ -335,12 +336,10 @@ select option[value=""][disabled] {
 				</div><br>
 			</form>	
 			
-			<form action="/question/questionWriteFileUpload.do" method="post" enctype="multipart/form-data">
 				<div id="img_Form">
 					<input type="file" name="file"/>
 					<button id="img_Submit">업로드하기</button>
 				</div>
-			</form>
 				
 				<br>
 				<br>
@@ -369,31 +368,43 @@ select option[value=""][disabled] {
 </div>
 
 <script>
-	$("#img_Submit").on("click",function(e){
-		var formData = new formData();
-		var file = $("input[name='file']");
-		var files = inputFile.files;
-		formData.append("file",files);
-		
-		$.ajax({
-			url : '/question/questionWriteFileUpload.do',
-			processDara : false,
-			contentType : false,
-			data : formData,
-			type : "POST",
-			success : function(result){
-				if(result != null && result != 0){
-					alret('사진이 들어갔습니다!');
-					$("input[name='questionphotoNo']").val(result);
-				}else{
-					alret('사진이 들어가지 못했습니다!');
-				}
-			}
-		});
-	});
+$('#img_Submit').click(function(){
+    var formData = new FormData();
+
+    var inputFile = $("input[name='file']");
+
+    var files = inputFile[0].files;
+
+
+    formData.append("file", files[0]);
+
+
+    $.ajax({
+        url : "/question/questionWriteFileUpload.do",
+        processData : false,
+        contentType : false,
+        data : formData,
+        type : "POST",
+        success:function(result){
+            if(result != null && result != 0){
+                alert("파일이 업로드되었습니다.");
+                $("input[name='questionphotoNo']").val(result);
+                console.log($("input[name='questionphotoNo']").val());
+            }else{
+                alert("파일 업로드에 실패하였습니다.");
+            }
+
+        }
+    });
+
+});
 </script>
 
 
-
+<script type="text/javascript">
+$('#submitBtn').click(function(){
+	$("#textWrite").submit();
+});
+</script>
 </body>
 </html>
