@@ -17,37 +17,27 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member selectLoginMember(Member member) {
-		
 		return mDAO.selectLoginMember(member);
-		
 	}
 
 	@Override
 	public int selectIdCheck(String userId) {
-		
 		return mDAO.selectIdCheck(userId);
-		
 	}
 
 	@Override
 	public int selectNickCheck(String userNick) {
-		
 		return mDAO.selectNickCheck(userNick);
-		
 	}
 
 	@Override
 	public int selectEmailCheck(String userEmail) {
-		
 		return mDAO.selectEmailCheck(userEmail);
-		
 	}
 	
 	@Override
 	public int insertMember(Member member) {
-		
 		return mDAO.insertMember(member);
-		
 	}
 
 	@Override

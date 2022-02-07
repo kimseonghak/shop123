@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component("Sha256Util")
 public class SHA256Util {
 	
-	public String encrypionData(String data, String salt) throws Exception {
+	public String encryptionData(String data, String salt) throws Exception {
 		
 		MessageDigest mDigest = MessageDigest.getInstance("SHA-256");
 		
