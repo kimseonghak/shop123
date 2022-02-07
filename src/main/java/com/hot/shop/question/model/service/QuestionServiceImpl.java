@@ -1,10 +1,12 @@
 package com.hot.shop.question.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.dao.QuestionDAO;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -41,7 +43,26 @@ public class QuestionServiceImpl implements QuestionService{
 		return qDAO.insertWriteFile(qp);
 	}
 
+	//1:1문의 작성글 조회
+	@Override
+	public QuestionUser questionView(int questionUserNo) {
+		// TODO Auto-generated method stub
+		return qDAO.questionView(questionUserNo);
+	}
 
+	//글 수정
+	@Override
+	public int questionUpdate(QuestionUser quser) {
+		// TODO Auto-generated method stub
+		return qDAO.questionUpdate(quser);
+	}
+
+	@Override
+	public HashMap<String, Object> buyListCheck(int currentPage, Member member) {
+		int recordCountPerPage=5;
+		ArrayList<Member> list = qDAO.getBuyList(currentPage,member,recordCountPerPage);
+		return null;
+	}
 
 	
 }

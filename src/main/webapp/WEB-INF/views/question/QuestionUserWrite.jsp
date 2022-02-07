@@ -91,7 +91,7 @@
 }
 
 #GoodsNo{
-	width: 88.5%;
+	width: 50%;
 	height: 30px;
 	border: none;
 	border-radious: 5px;
@@ -256,46 +256,14 @@ select option[value=""][disabled] {
 	<div id="headerForm">
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
-		
+	
 	<div id="contentForm">
 		<div id="question_background">
 			<form action='/question/questionWrite.do' method="post" id="textWrite">
-			
-			<input type="hidden" name="questionphotoNo" value="1">
-			
+				<input type="hidden" name="questionphotoNo" value="1">
 				<div id="question_name">
 					<h3>불편 사항을 적어주세요</h3>
 				</div>
-				
-				<!-- 문의 대상 설정하는 곳 -->
-				<div id="question_farmForm">
-					<span style="font-size: 20px; color: #08E200;">카테고리 : </span>
-					<div id="question_farmForm02">
-						<select id="questionUserClassify" name="questionUserClassify" required>
-							<option value="" disabled selected>문의 대상</option>
-							<option value="F">농가</option>
-							<option value="A">운영자</option>
-						</select>
-					</div>
-				</div>
-	
-				<script>
-					$('#questionUserClassify').change(function(){
-						var result = $('#questionUserClassify option:selected').val();
-						if(result == 'F'){
-							$('#question_farmForm03').css("display", "block");
-						}else{
-							$('#question_farmForm03').css("display", "none");
-						}
-					});
-				</script>
-	
-				<div id="question_farmForm03" style="display: none;">
-					<span style="font-size: 20px; color: #08E200;">농가번호 : </span>
-					<input type="text" id="farmNo" name="farmNo" value="1" placeholder="농가 번호를 적어주세요"/>
-				</div>
-				<!-- 문의 대상 설정하는 곳 끝-->
-				
 				<!-- 문의 내용 설정하는 곳 -->
 				<div id="question_CategorieForm">
 					<span style="font-size: 20px; color: #08E200;">문의내역 : </span>
@@ -307,57 +275,53 @@ select option[value=""][disabled] {
 						</select>
 					</div>
 				</div>
-	
-				<script>
-					$('#questionUserCode').change(function(){
-						var result = $('#questionUserCode option:selected').val();
-						if(result == 'Q-1'){
-							$('#question_CategorieForm03').css("display", "block");
-						}else{
-							$('#question_CategorieForm03').css("display", "none");
-						}
-					});
-				</script>
-	
 				<div id="question_CategorieForm03" style="display: none;">
-					<span style="font-size: 20px; color: #08E200;">상품번호 : </span>
-					<input type="text" id="GoodsNo" name="OrderNo" placeholder="상품 번호를 적어주세요"/>
-				</div><br>
+					<span style="font-size: 20px; color: #08E200;">주문번호 : </span>
+					<input type="text" id="GoodsNo" name="OrderNo" placeholder="주문 번호를 적어주세요"/><button id="buyListCheckBtn">구매 내역 확인</button>
+				</div>
 				<!-- 문의 내용 설정하는 곳 끝 -->
-				
+				<!-- 문의 대상 설정하는 곳 -->
+				<div id="question_farmForm">
+					<span style="font-size: 20px; color: #08E200;">카테고리 : </span>
+					<div id="question_farmForm02">
+						<select id="questionUserClassify" name="questionUserClassify" required>
+							<option value="" disabled selected>문의 대상</option>
+							<option value="F">농가</option>
+							<option value="A">운영자</option>
+						</select>
+					</div>
+				</div>
+				<div id="question_farmForm03" style="display: none;">
+					<span style="font-size: 20px; color: #08E200;">농가번호 : </span>
+					<input type="text" id="farmNo" name="farmNo" value="1" placeholder="농가 번호를 적어주세요"/>
+				</div>
 				<br>
-				
+				<!-- 문의 대상 설정하는 곳 끝-->
+				<br>
 				<div id="question_titleForm">
 					<input type="text" name="questionUserTitle" id="question_title" placeholder="글 제목을 적어주세요">
 				</div><br>
-	
 				<div id="question_contentForm">
 					<textarea placeholder="글 내용을 적어주세요" name="questionUserContent" id="question_content" style="resize: none;"></textarea>
 				</div><br>
 			</form>	
-			
-				<div id="img_Form">
-					<input type="file" name="file"/>
-					<button id="img_Submit">업로드하기</button>
+			<div id="img_Form">
+				<input type="file" name="file"/>
+				<button id="img_Submit">업로드하기</button>
+			</div>
+			<br>
+			<br>
+			<div id="write_Btn_form">
+				<div id="submit_btn">
+					<input type="submit" id="submitBtn" value="글 쓰기"/>
 				</div>
-				
-				<br>
-				<br>
-				<div id="write_Btn_form">
-					<div id="submit_btn">
-						<input type="submit" id="submitBtn" value="글 쓰기"/>
-						
-					</div>
-									
-					<div id="list_btn">
-						<button id="listBtn" type="button">리스트</button>
-					</div>
-					
-					<div id="reset_btn">
-						<input type="reset" value="다시쓰기" id="resetBtn"/>
-					</div>
+				<div id="list_btn">
+					<button id="listBtn" type="button">리스트</button>
 				</div>
-						
+				<div id="reset_btn">
+					<input type="reset" value="다시쓰기" id="resetBtn"/>
+				</div>
+			</div>
 		</div>
 	</div>
 	
@@ -368,6 +332,26 @@ select option[value=""][disabled] {
 </div>
 
 <script>
+
+
+$('#questionUserClassify').change(function(){
+	var result = $('#questionUserClassify option:selected').val();
+	if(result == 'F'){
+		$('#question_farmForm03').css("display", "block");
+	}else{
+		$('#question_farmForm03').css("display", "none");
+	}
+});
+
+$('#questionUserCode').change(function(){
+	var result = $('#questionUserCode option:selected').val();
+	if(result == 'Q-1'){
+		$('#question_CategorieForm03').css("display", "block");
+	}else{
+		$('#question_CategorieForm03').css("display", "none");
+	}
+});
+
 $('#img_Submit').click(function(){
     var formData = new FormData();
 
@@ -375,9 +359,7 @@ $('#img_Submit').click(function(){
 
     var files = inputFile[0].files;
 
-
     formData.append("file", files[0]);
-
 
     $.ajax({
         url : "/question/questionWriteFileUpload.do",
@@ -398,13 +380,15 @@ $('#img_Submit').click(function(){
     });
 
 });
-</script>
 
-
-<script type="text/javascript">
 $('#submitBtn').click(function(){
 	$("#textWrite").submit();
 });
+
+<%-- 구매내역 확인 버튼 --%>
+	$('#buyListCheckBtn').click(function(){
+		window.open("/question/buyListCheck.do","_blank","width=800px, height=500px");
+	});
 </script>
 </body>
 </html>

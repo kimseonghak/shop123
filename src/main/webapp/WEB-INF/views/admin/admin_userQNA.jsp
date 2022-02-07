@@ -10,7 +10,7 @@
 	href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap"
 	rel="stylesheet">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>123상회 userQNA관리</title>
 <link rel="stylesheet" href="/resources/admin/css/common.css">
 <style>
 	*{
@@ -97,13 +97,13 @@
 		height:0.5vmin
 	}
 	#titleSpace{
-		border:1px solid #48bb78;
+		border:1px solid #198754;
 		width:10%;
 		height:5vmin;
 		text-align: center;
 		border-radius: 10px;
 		background-color: white;
-		color:#48bb78;
+		color:#198754;
 		font-weight: bold;
 	}
 	#title{
@@ -112,6 +112,7 @@
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
+		cursor: pointer;
 	}
 	.tdTr:hover{
 		cursor: pointer;
@@ -189,7 +190,7 @@
 				<span id="title">User QNA</span>
 			</div>
 			<div id="searchWrap">
-					<form action="/admin/adminUserQNASearch.do" method="get" style="widht:100%; height:100%;" id="searchForm">
+					<form action="/admin/adminUserQNAPage.do" method="get" style="widht:100%; height:100%;" id="searchForm">
 						<button type="submit" id="searchBtn"><img alt="" src="/resources/admin/img/searchLeaf.png"></button>
 						<input type="text" name="keyword" id="searchText" />
 						<select name="type" id="searchSelect">
@@ -265,6 +266,10 @@
 <%-- 검색아이콘 클릭시 서브밋 --%>
 		$('#searchIcon').click(function(){
 			$(this).parents('form').submit();
+		});
+<%-- 해당 페이지 최초 페이지 이동 --%>
+		$('#title').click(function(){
+			location.replace('/admin/adminUserQNAPage.do');
 		});
 	</script>
 </body>
