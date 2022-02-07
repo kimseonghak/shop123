@@ -37,6 +37,11 @@
         position: relative;
         bottom: -10px
     }
+    #closeBtn
+    {
+        position: relative;
+        left: 45%;
+    }
 </style>	
 	
 </head>
@@ -53,33 +58,51 @@
                         	<input type="hidden" name="buyNo" value="${requestScope.buyNo}">
                         </td>
                       </tr>
-                      <tr>
-                         <td style="font-weight: bolder">택배사</td>
-                        
-                         <td><input type="text" name="deliveryCompany" value="${list.get(0).getDeliveryCompany()}"></td>
-                        
-                      </tr>
-                      <tr>
-                          <td style="font-weight: bolder">송장번호</td>
-                          <td><input type="text" name="sendNo" value="${list.get(0).getDeliveryNum()}" ></td>
-                      </tr>
-                      <tr>
-                          <td style="font-weight: bolder">발송일</td>
-                           <td><input type="text" name="sendDate" placeholder="    ex) 2022/01/28" value="${list.get(0).getDeliveryDate()}"></td>
-                      </tr> 
+                    <c:choose>
+                    	<c:when test="${list.get(0).getDeliveryStatus() eq 'D_03'}">
+	                      <tr>
+	                         <td style="font-weight: bolder">택배사</td>
+	                         <td><input type="text" name="deliveryCompany" value="${list.get(0).getDeliveryCompany()}" disabled="disabled"></td>
+	                        
+	                      </tr>
+	                      <tr>
+	                          <td style="font-weight: bolder">송장번호</td>
+	                          <td><input type="text" name="sendNo" value="${list.get(0).getDeliveryNum()}" disabled="disabled"></td>
+	                      </tr>
+	                      <tr>
+	                          <td style="font-weight: bolder">발송일</td>
+	                           <td><input type="text" name="sendDate" placeholder="    ex) 2022/01/28" value="${list.get(0).getDeliveryDate()}" disabled="disabled"></td>
+	                      </tr> 
+                      </c:when>
+                      <c:otherwise>
+	                      <tr>
+	                         <td style="font-weight: bolder">택배사</td>
+	                         <td><input type="text" name="deliveryCompany" value="${list.get(0).getDeliveryCompany()}"></td>
+	                        
+	                      </tr>
+	                      <tr>
+	                          <td style="font-weight: bolder">송장번호</td>
+	                          <td><input type="text" name="sendNo" value="${list.get(0).getDeliveryNum()}" ></td>
+	                      </tr>
+	                      <tr>
+	                          <td style="font-weight: bolder">발송일</td>
+	                           <td><input type="text" name="sendDate" placeholder="    ex) 2022/01/28" value="${list.get(0).getDeliveryDate()}"></td>
+	                      </tr> 
+                      </c:otherwise>
+                    </c:choose>  
                       <tr>
                       <c:choose>
                       	<c:when test="${list.get(0).getDeliveryStatus() eq 'D_02'}">
-                          <td><input type="checkbox" name="deliveryStatus" class="sendStatus" value="D_02" checked="checked"> 배송중</td>
-                          <td><input type="checkbox" name="deliveryStatus" class="sendStatus" value="D_03"> 배송완료</td>
+                          <td><input type="radio" name="deliveryStatus" id="D_02" class="sendStatus" value="D_02" checked="checked"> 배송중</td>
+                          <td><input type="radio" name="deliveryStatus" id="D_03" class="sendStatus" value="D_03"> 배송완료</td>
                       	</c:when>
                       	  <c:when test="${list.get(0).getDeliveryStatus() eq 'D_03'}">
-                          <td><input type="checkbox" name="deliveryStatus" class="sendStatus" value="D_02" disabled="disabled"> 배송중</td>
-                          <td><input type="checkbox" name="deliveryStatus" class="sendStatus" value="D_03"  checked="checked" disabled="disabled" > 배송완료</td>
+                          <td><input type="radio" name="deliveryStatus" id="D_02" class="sendStatus" value="D_02" disabled="disabled"> 배송중</td>
+                          <td><input type="radio" name="deliveryStatus" id="D_03" class="sendStatus" value="D_03"  checked="checked" disabled="disabled" > 배송완료</td>
                       	</c:when>
                       	<c:otherwise>
-                      	  <td><input type="checkbox" name="deliveryStatus" class="sendStatus" value="D_02"> 배송중</td>
-                          <td><input type="checkbox" name="deliveryStatus" class="sendStatus" value="D_03"> 배송완료</td>
+                      	  <td><input type="radio" name="deliveryStatus" id="D_02" class="sendStatus" value="D_02"> 배송중</td>
+                          <td><input type="radio" name="deliveryStatus" id="D_03" class="sendStatus" value="D_03"> 배송완료</td>
                       	</c:otherwise>
                       </c:choose>	
                       </tr>                         
@@ -87,10 +110,16 @@
                     </tbody>
                 </table>
                 <br> 
-                <button type="submit" class="btn btn-success btn-sm" id="lastBtn">완료</button>
+               <c:choose>
+               	<c:when test="${list.get(0).getDeliveryStatus() ne 'D_03'}">
+                	<button type="submit" class="btn btn-success btn-sm" id="lastBtn">완료</button>
+                </c:when>
+                <c:otherwise>
+                	<button type="button" class="btn btn-success btn-sm" id="closeBtn">닫기</button>
+                </c:otherwise>
+               </c:choose>
             </form>
     </div>
-    
    
     
     <script>
@@ -105,33 +134,39 @@
     			return false;
     		}
   
-    		
-    		if($("input:checkbox[name=deliveryStatus]:checked").length>=2 || $("input:checkbox[name=deliveryStatus]:checked").length==0 )
-    		{
-    			alert('배송 상태는 한가지 체크하셔야합니다.')
-    			return false;
-    		}
-    		
-      		if($("input:checkbox[name=deliveryStatus]:checked"))
-    		{
-      			 var result = window.confirm('배송 완료를 선택할 경우 수정이 불가합니다. 배송입력을 완료하시겠습니까?')
-      			 if(result==true){
-      				return true; 
-      				
-      			 }else
-      			{
-      				alert('취소하였습니다. ')	 
-      				return false;
-      			 }
-    		}
-      		
     		//체크박스 비활성화 풀고 submit
     		$('.sendStatus').attr("disabled", false);
     	});
     
+    </script>
     
+    <!-- 배송완료 버튼 누를 시  -->
+    <script>
+    	$('#D_03').click(function(){
+			 var result = window.confirm('배송 완료를 선택할 경우 수정이 불가합니다. 배송입력을 완료하시겠습니까?')
+  			 if(result==true){
+  				return true; 
+  				
+  			 }else
+  			{
+  				alert('취소하였습니다. ')	 
+  				return false;
+  			 }
+    	});
     
     </script>
+    
+    
+    <!-- 닫기 버튼 -->
+    <script>
+    	$('#closeBtn').click(function(){
+    		
+    		window.close();
+    		
+    	});
+    
+    </script>
+    
 	
 </body>
 </html>
