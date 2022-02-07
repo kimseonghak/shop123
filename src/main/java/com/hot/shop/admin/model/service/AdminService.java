@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
 
@@ -47,4 +48,10 @@ public interface AdminService {
 	HashMap<String, Object> userQNAList(int currentPage);
 
 	HashMap<String, Object> userQNASearchList(HashMap<String, Object> map, int currentPage);
+
+	HashMap<String, Object> memberList(int currentPage);
+
+	Member selectMember(int userNo);
+
+	int memberEndYNUpdate(HashMap<String, Object> map);
 }

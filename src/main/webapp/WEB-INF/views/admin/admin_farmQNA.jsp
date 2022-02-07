@@ -58,7 +58,7 @@
 		height: 3.5vmin;
 		margin : 1px;
 		font-weight: bolder;
-		line-height: 150%;
+		line-height: 200%;
 	}
 	.otherNavi{
 		text-decoration: none;
@@ -69,7 +69,7 @@
 		height: 3.5vmin;
 		margin : 1px;
 		font-weight: bolder;
-		line-height: 150%;
+		line-height: 200%;
 	}
 	.otherNavi:hover{
 		color: white;

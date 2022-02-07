@@ -58,7 +58,7 @@
 		height: 3.5vmin;
 		margin : 1px;
 		font-weight: bolder;
-		line-height: 200%;
+		line-height: 150%;
 	}
 	.otherNavi{
 		text-decoration: none;
@@ -69,7 +69,7 @@
 		height: 3.5vmin;
 		margin : 1px;
 		font-weight: bolder;
-		line-height: 200%;
+		line-height: 150%;
 	}
 	.otherNavi:hover{
 		color: white;
@@ -112,9 +112,6 @@
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
-	}
-	.tdTr:hover{
-		cursor: pointer;
 	}
 	.tdTr:hover>td{
 		background-color: rgb(240, 240, 240);
@@ -166,13 +163,26 @@
 	#searchBtn>img{
 		height:100%;
 	}
-	.answerImgTd{
-		padding:0.5vmin;
-		line-height: 100%;
+	.userInfo{
+		cursor: pointer;
 	}
-	.answerImg{
-		width:60%;
-		height:60%;
+	.endYNN{
+		width:80%;
+		height:100%;
+		border:1px solid #198754;
+		border-radius:3px;
+		background-color: white;
+		cursor: pointer;
+		color: #198754;
+	}
+	.endYNY{
+		width:80%;
+		height:100%;
+		border:1px solid #198754;
+		border-radius:3px;
+		background-color: #198754;
+		cursor: pointer;
+		color: white;
 	}
 </style>
 </head>
@@ -186,41 +196,40 @@
 		<div id="mainContents">
 			<div id="backgroundColor">
 			<div id="titleSpace">
-				<span id="title">User QNA</span>
+				<span id="title">Farm QNA</span>
 			</div>
 			<div id="searchWrap">
-					<form action="/admin/adminUserQNASearch.do" method="get" style="widht:100%; height:100%;" id="searchForm">
+					<form action="" method="get" style="widht:100%; height:100%;" id="searchForm">
 						<button type="submit" id="searchBtn"><img alt="" src="/resources/admin/img/searchLeaf.png"></button>
 						<input type="text" name="keyword" id="searchText" />
 						<select name="type" id="searchSelect">
-							<option value="title">제목</option>
-							<option value="name">유저 이름</option>
-							<option value="content">내용</option>
+							<option value="userNo">회원 번호</option>
+							<option value="userName">회원 이름</option>
 							<option value="all">제목+내용</option>
 						</select>
 					</form>
 			</div>
 				<table>
 					<tr id="thTr">
-						<th width="10%">문의 번호</th>
-						<th width="40%">문의 제목</th>
-						<th width="10%">유저 번호</th>
-						<th width="15%">유저 이름</th>
-						<th width="15%">문의 날짜</th>
-						<th width="10%">진행 상황</th>
+						<th width="10%">회원 번호</th>
+						<th width="20%">회원 ID</th>
+						<th width="10%">회원 이름</th>
+						<th width="20%">회원 닉네임</th>
+						<th width="30%">회원 이메일</th>
+						<th width="10%">탈퇴 여부</th>
 					</tr>
-					<c:forEach items="${map.list }" var="q">
-					<tr class="tdTr" qUserNo=${q.questionUserNo }>
-						<td>${q.questionUserNo }</td>
-						<td style="font-weight:bolder;">${q.questionUserTitle }</td>
-						<td>${q.userNo }</td>
-						<td style="font-weight:bolder;">${q.userNick }</td>
-						<td>${q.questionUserRegdate }</td>
-						<c:if test="${String.valueOf(q.questionUserAnswerYN) eq 'N'}">
-							<td class="answerImgTd"><img class="answerImg" alt="" src="/resources/admin/img/답변 대기.png"></td>
+					<c:forEach items="${map.list }" var="m">
+					<tr class="tdTr">
+						<td>${m.userNo }</td>
+						<td class="userInfo">${m.userId }</td>
+						<td>${m.userName }</td>
+						<td>${m.userNick }</td>
+						<td>${m.userEmail }</td>
+						<c:if test="${String.valueOf(m.userEndYN) eq 'N'}">
+							<td class="endYNtd"><button class="endYNbtn endYNN" data="${m.userEndYN }">탈퇴</button></td>
 						</c:if>
-						<c:if test="${String.valueOf(q.questionUserAnswerYN) eq 'Y'}">
-							<td class="answerImgTd"><img class="answerImg" alt="" src="/resources/admin/img/문의 종료.png"></td>
+						<c:if test="${String.valueOf(m.userEndYN) eq 'Y'}">
+							<td class="endYNtd"><button class="endYNbtn endYNY" data="${m.userEndYN }">복구</button></td>
 						</c:if>
 					</tr>
 					<tr class="listSpace"></tr>
@@ -238,9 +247,9 @@
 	<script>
 <%-- 사이드바 선택 표시 --%>
 		$(function() {
-			$('#mainUl>li').eq(3).css('background-color', '#34734e');
-			$('#mainUl>li>a').eq(3).css('color', 'white');
-			$('#mainUl>li>a').eq(3).css('font-weight','bolder');
+			$('#mainUl>li').eq(6).css('background-color', '#34734e');
+			$('#mainUl>li>a').eq(6).css('color', 'white');
+			$('#mainUl>li>a').eq(6).css('font-weight','bolder');
 		});
 <%-- 네비화살표 hover시 투명도 조절 --%>
 		$('.naviArrow').hover(function() {
@@ -256,15 +265,20 @@
 				$('#prev').unbind('mouseenter mouseleave');
 			}
 		});
-<%-- 글 tr 클릭시 해당 글 내용으로 이동하는 스크립트 --%>
-		$('.tdTr').click(function(){
-			var qUserNo = $(this).attr('qUserNo');
-			var currentPage = ${currentPage};
-			location.replace('/admin/adminUserQNAContent.do?currentPage='+currentPage+'&questionUserNo='+qUserNo);
-		});
 <%-- 검색아이콘 클릭시 서브밋 --%>
 		$('#searchIcon').click(function(){
 			$(this).parents('form').submit();
+		});
+		$('.userInfo').click(function(){
+			var userNo = $(this).prev().html();
+			window.open("/admin/adminMemberInfoPage.do?userNo="+userNo,"_blank","width=500px, height=430px");
+		});
+		$('.endYNbtn').click(function(){
+			var endYN = $(this).attr('data');
+			var userNo = $(this).parent().siblings().eq(0).html();
+			var currentPage = ${currentPage };
+			
+			location.replace("/admin/adminMemberEndYNUpdate.do?endYN="+endYN+"&userNo="+userNo+"&currentPage="+currentPage);
 		});
 	</script>
 </body>

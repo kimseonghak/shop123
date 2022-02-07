@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.hot.shop.admin.model.service.AdminService;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
 
@@ -205,6 +206,41 @@ public class AdminController {
 		mav.addObject("currentPage",currentPage);
 		mav.setViewName("admin/admin_userQNA");
 		
+		return mav;
+	}
+	// member 관리 페이지
+	@RequestMapping(value = "/admin/adminMemberPage.do", method = RequestMethod.GET)
+	public ModelAndView memberManagementPage(@RequestParam(required = false,defaultValue = "1") int currentPage,
+			ModelAndView mav) {
+		HashMap<String, Object> map = aService.memberList(currentPage);
+		mav.addObject("map",map);
+		mav.addObject("currentPage",currentPage);
+		mav.setViewName("admin/admin_member");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/admin/adminMemberInfoPage.do", method = RequestMethod.GET)
+	public ModelAndView memberInfoPage(@RequestParam int userNo,ModelAndView mav) {
+		Member m = aService.selectMember(userNo);
+		mav.addObject("m",m);
+		mav.setViewName("admin/admin_member_info");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/admin/adminMemberEndYNUpdate.do", method = RequestMethod.GET)
+	public ModelAndView memberEndYNUpdate(ModelAndView mav,@RequestParam int userNo,@RequestParam int currentPage,@RequestParam String endYN) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("userNo", userNo);
+		map.put("endYN", endYN);
+		int result = aService.memberEndYNUpdate(map);
+		if(result>0 && endYN.equals("N")) {
+			mav.addObject("msg","탈퇴 처리 되었습니다.");
+			mav.addObject("location","/admin/adminMemberPage.do?curretnPage="+currentPage);
+		}else {
+			mav.addObject("msg","복구 처리 되었습니다.");
+			mav.addObject("location","/admin/adminMemberPage.do?curretnPage="+currentPage);
+		}
+		mav.setViewName("commons/msg");
 		return mav;
 	}
 }

@@ -12,6 +12,7 @@ import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.admin.model.vo.Count;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
 
@@ -354,5 +355,59 @@ public class AdminDAO {
 
 	private int userQNASeqarchTotalCount(HashMap<String, Object> map) {
 		return sql.selectOne("admin.userQNASearchTotalCount",map);
+	}
+
+	public ArrayList<Member> memberList(int currentPage, int recordCountPerPage) {
+		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
+		int end = currentPage*recordCountPerPage;
+		
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		return new ArrayList<Member>(sql.selectList("admin.memberList",map));
+	}
+
+	public String getMemberPageNavi(int recordCountPerPage, int naviCountPerPage, int currentPage) {
+		int recordTotalCount = memberListTotalCount(); 
+		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
+		
+		int startNavi = ((currentPage-1)/naviCountPerPage)*naviCountPerPage+1;
+		int endNavi = startNavi+naviCountPerPage-1;
+		
+		if(endNavi>pageTotalCount) {
+			endNavi=pageTotalCount;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<a href='/admin/adminMemberPage.do?currentPage=1&' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/admin/adminMemberPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
+		for(int i= startNavi; i<=endNavi; i++) {
+			if(i==currentPage) {
+				sb.append("<a href='/admin/adminMemberPage.do?currentPage="+i+"' id='currentNavi'>"+i+"</a>");
+			}else {
+				sb.append("<a href='/admin/adminMemberPage.do?currentPage="+i+"' class='otherNavi'>"+i+"</a>");
+			}
+		}
+		if((currentPage+10)>pageTotalCount) {
+			sb.append("<a href='/admin/adminMemberPage.do?currentPage="+pageTotalCount+"' class='naviArrow' id='next'>&gt;</a>");
+		}else {
+			sb.append("<a href='/admin/adminMemberPage.do?currentPage="+(currentPage+10)+"' class='naviArrow' id='next'>&gt;</a>");
+		}
+		sb.append("<a href='/admin/adminMemberPage.do?currentPage="+pageTotalCount+"' class='naviArrow'>&gt;&gt;</a>");
+		
+		return sb.toString();
+	}
+
+	private int memberListTotalCount() {
+		return sql.selectOne("admin.memberListTotalCount");
+	}
+
+	public Member selectMember(int userNo) {
+		return sql.selectOne("admin.selectMember",userNo);
+	}
+
+	public int memberEndYNUpdate(HashMap<String, Object> map) {
+		return sql.update("admin.memberEndYNUpdate",map);
 	}
 }
