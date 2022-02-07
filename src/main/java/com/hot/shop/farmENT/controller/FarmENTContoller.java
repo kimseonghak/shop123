@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,16 @@ public class FarmENTContoller {
 
 	@Autowired	
 	private FarmENTService fENTservice;
+	
+	//사업자 페이지에서 로그아웃
+	@RequestMapping(value="/farm/farmENTlogout.do", method=RequestMethod.GET)
+	public String logout(HttpSession session,
+			@SessionAttribute Farm farm) {
+			
+			session.invalidate();
+			
+			return "redirect:/";
+	}
 	
 	//대시보드 (사업자 메인페이지)
 	@RequestMapping(value="/farm/farmDashBoardPage.do",method = RequestMethod.GET)
