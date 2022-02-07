@@ -80,6 +80,32 @@
 			where QUESTION_USER_NO = #{_parameter}
 		</select>
 		
+		
+		<!-- 글 수정단 -->
+		<update id="questionUpdate" parameterType="qUser">
+			update		QUESTION_USER
+			set			QUESTION_USER_TITLE=#{QuestionUserTitle},
+						QUESTION_USER_CONTENT=#{QuestionUserContent},
+						QUESTIONPHOTO_NO=#{QuestionPhotoNo},
+						QUESTION_USER_CODE=#{QuestionUserCode},
+						QUESTION_USER_CLASSIFY=#{QuestionUserClassify}
+			where 		QUESTION_USER_NO=#{QuestionUserNo}
+		</update>
+
+		<!-- 이미지 수정 -->
+		<update id="questionPhotoUpdate" parameterType="qUser">
+			<selectKey keyProperty="questionPhotoNo" resultType="integer" order="AFTER">
+                SELECT QUESTIONPHOTO_NO FROM QuestionPhoto WHERE QUESTIONPHOTO_UPDATETIME=#{questionPhotoUpdateTime}
+            </selectKey>
+            update		QuestionPhoto
+            set			QUESTIONPHOTO_ORIGINAL=#{questionPhotoOriginal},
+            			QUESTIONPHOTO_CHANGE=#{questionPhotoChange},
+            			QUESTIONPHOTO_FILEPATH=#{questionPhotoFilePath},
+            			QUESTIONPHOTO_FILESIZE=#{questionPhotoFileSize},
+            			QUESTIONPHOTO_UPDATETIME=#{questionPhotoUpdateTime}
+            where		QUESTIONPHOTO_NO=#{QuestionPhotoNo}
+		</update>
+		<!-- 글 수정단 완료 -->
 	</mapper>
 
 

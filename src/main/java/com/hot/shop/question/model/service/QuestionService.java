@@ -18,6 +18,8 @@ public interface QuestionService {
 
 	QuestionUser questionView(int questionUserNo);
 
+	int questionUpdate(QuestionUser quser);
+
 
 	
 

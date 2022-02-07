@@ -108,7 +108,6 @@ public class QuestionController {
 	public ModelAndView QuestionUserWrite(QuestionUser qUser, ModelAndView mav,@SessionAttribute Member member) {
 		int userNo = member.getUserNo();
 		qUser.setUserNo(userNo);
-		System.out.println(qUser);
 		
 		int result = qService.insertUserWrite(qUser);
 		
@@ -135,4 +134,37 @@ public class QuestionController {
 		mav.setViewName("question/QuestionView");
 		return mav;
 	}
+	
+	
+	//1:1 문의 글수정 페이지
+	//리스트 페이지에서 글 쓰기 버튼을 누르면 글 작성 페이지로 이동하는 메소드 (유저 문의)
+		@RequestMapping(value="/question/QuestionUserUpdatePage.do", method=RequestMethod.POST)
+		public ModelAndView QuestionUserUpdatePage(QuestionPhoto qhoto,QuestionUser qUser,ModelAndView mav,@SessionAttribute Member member) {
+			mav.addObject("qUser", qUser);
+			mav.addObject("QuestionPhoto", qhoto);
+			mav.setViewName("question/QuestionUserUpdate");
+			return mav;
+	}
+		
+	//1:1 문의 글수정 
+		@RequestMapping(value = "/question/questionUpdate.do",method = RequestMethod.POST)
+		public ModelAndView test(HttpServletRequest request, ModelAndView mav,@SessionAttribute Member member,QuestionUser quser) {
+			//글 쓰는 동안 세션 유지해야함
+			String userId = member.getUserId();
+			//글 번호 갖고와야함
+			int questionUserNo = Integer.parseInt(request.getParameter("questionUserNo"));
+
+			int result = qService.questionUpdate(quser);
+			
+			if(result >= 2 ) {
+				mav.addObject("location", "/question/QuestionUserUpdatePage.do");
+			}else {
+				mav.addObject("location", "/question/QuestionUserUpdatePage.do");
+			}
+			
+			mav.setViewName("commons/msg");
+			return mav;
+		}
+		
+		
 }

@@ -38,4 +38,10 @@ public class QuestionDAO {
 		return sqlSession.selectOne("qUser.questionView", questionUserNo);
 	}
 
+	//글 수정
+	public int questionUpdate(QuestionUser quser) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("qUser.questionUpdate", quser) + sqlSession.update("qUser.questionPhotoUpdate", quser.getQuestionphotoNo());
+	}
+
 }

@@ -48,5 +48,12 @@ public class QuestionServiceImpl implements QuestionService{
 		return qDAO.questionView(questionUserNo);
 	}
 
+	//글 수정
+	@Override
+	public int questionUpdate(QuestionUser quser) {
+		// TODO Auto-generated method stub
+		return qDAO.questionUpdate(quser);
+	}
+
 	
 }

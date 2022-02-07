@@ -163,6 +163,16 @@
 
 	<div id="contentForm">
 		<div id="content_background">
+			<form action="/question/QuestionUserUpdatePage.do" method="post">
+			<!-- 히든으로 보내줄 값 -->
+			<input type="hidden" name="questionUserNo" value="${qUser.questionUserNo }"/>
+			<input type="hidden" name="questionUserTitle" value="${qUser.questionUserTitle }"/>
+			
+			<input type="hidden" name="questionUserContent" value="${qUser.questionUserContent }"/>
+			<input type="hidden" name="questionUserCode" value="${qUser.questionUserCode }"/>
+			<input type="hidden" name="questionUserClassify" value="${qUser.questionUserClassify }"/>
+			<input type="hidden" name="questionPhotoFilePath" value="${qUser.questionPhotoFilePath }"/>
+			
 			<div id="img_title_zone">
 				<div id="img_Form">
 					<img alt="" src="${qUser.questionPhotoFilePath }" style="width: 100%" height="100%">
@@ -183,15 +193,17 @@
 				
 			</div>
 			
-			<form action="">
 				<div id="btnForm">
-					<div id="write_btn"><button id="writeBtn">글 쓰기</button></div>
+					<div id="write_btn">
+						<input type="submit" value="글 수정" id="writeBtn"/>
+					</div>
+					
 					<div id="delete_btn"><button id="deleteBtn">글 삭제</button></div>
+					
 					<div id="list_btn"><button id="listBtn">글 목록</button></div>
 				</div>
+			
 			</form>
-			
-			
 		</div>
 	</div>
 			
