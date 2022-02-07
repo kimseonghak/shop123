@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -162,28 +163,47 @@
 
 	<div id="contentForm">
 		<div id="content_background">
+			<form action="/question/QuestionUserUpdatePage.do" method="post">
+			<!-- 히든으로 보내줄 값 -->
+			<input type="hidden" name="questionUserNo" value="${qUser.questionUserNo }"/>
+			<input type="hidden" name="questionUserTitle" value="${qUser.questionUserTitle }"/>
+			
+			<input type="hidden" name="questionUserContent" value="${qUser.questionUserContent }"/>
+			<input type="hidden" name="questionUserCode" value="${qUser.questionUserCode }"/>
+			<input type="hidden" name="questionUserClassify" value="${qUser.questionUserClassify }"/>
+			<input type="hidden" name="questionPhotoFilePath" value="${qUser.questionPhotoFilePath }"/>
+			
 			<div id="img_title_zone">
 				<div id="img_Form">
-					<img alt="" src="">
+					<img alt="" src="${qUser.questionPhotoFilePath }" style="width: 100%" height="100%">
 				</div>
 				
 				<div id="Customer_titleForm" style="font-size: 20px;">
-					<span>[ 분류 ] : 글 제목</span>
+					<span>[ ${qUser.questionUserCode } ] : ${qUser.questionUserTitle }</span>
 				</div>
 			</div>
 	
 			<div id="Customer_regForm">
-				<span>[ 작성일 : ] [ 조회수 : ]</span>
+				<span>[ 작성일 : ${qUser.questionUserRegdate } ]</span>
 			</div>
 			
 			<div id="Customer_contentForm">
+				${qUser.questionUserContent }
+				
+				
 			</div>
 			
-			<div id="btnForm">
-				<div id="write_btn"><button id="writeBtn">글 쓰기</button></div>
-				<div id="delete_btn"><button id="deleteBtn">글 삭제</button></div>
-				<div id="list_btn"><button id="listBtn">글 목록</button></div>
-			</div>
+				<div id="btnForm">
+					<div id="write_btn">
+						<input type="submit" value="글 수정" id="writeBtn"/>
+					</div>
+					
+					<div id="delete_btn"><button id="deleteBtn">글 삭제</button></div>
+					
+					<div id="list_btn"><button id="listBtn">글 목록</button></div>
+				</div>
+			
+			</form>
 		</div>
 	</div>
 			
