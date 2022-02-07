@@ -96,13 +96,12 @@ public class QuestionController {
 		qp.setQuestionPhotoFileSize(fileSize);
 		qp.setQuestionPhotoUpdateTime(uploadTime);
 		
-		
 		int result = qService.insertWriteFile(qp);
 		System.out.println(qp.getQuestionPhotoNo());
 		return qp.getQuestionPhotoNo();
 	};
 	
-	
+	//미리 올려둔 파일과 같이 글을 작성하는 메소드(유저문의)
 	@RequestMapping(value="/question/questionWrite.do", method=RequestMethod.POST)
 	public ModelAndView QuestionUserWrite(QuestionUser qUser, ModelAndView mav,@SessionAttribute Member member) {
 		int userNo = member.getUserNo();
