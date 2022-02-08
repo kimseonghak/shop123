@@ -256,7 +256,7 @@
 	        Q.ORDER_NO AS orderNo
 		FROM REFUND R
 		LEFT JOIN QUESTION_USER Q ON(R.QUESTION_USER_NO=Q.QUESTION_USER_NO)
-		WHERE R.FARM_NO=#{farmNo}
+		WHERE R.FARM_NO=#{farmNo} AND Q.QUESTION_USER_END_YN='N' AND R.DEL_YN='N'
 		<if test="type!=null and type.equals('orderNo')">
 			AND Q.ORDER_NO like '%'||#{keyWord}||'%'
 		</if>    
@@ -270,14 +270,14 @@
 	
 	<select id="selectRefundListTotalCount" parameterType="hashmap" resultType="int">
 		SELECT COUNT(*)
-		FROM QUESTION_USER Q
-		LEFT JOIN PURCHASELIST P ON (Q.ORDER_NO=P.ORDER_NO)
-		WHERE Q.QUESTION_USER_CODE='Q-1' AND Q.QUESTION_USER_END_YN='N' AND Q.FARM_NO=#{farmNo}
+		FROM REFUND R
+		LEFT JOIN QUESTION_USER Q ON(R.QUESTION_USER_NO=Q.QUESTION_USER_NO)
+		WHERE R.FARM_NO=#{farmNo} AND Q.QUESTION_USER_END_YN='N' AND R.DEL_YN='N'
 		<if test="type!=null and type.equals('orderNo')">
-			AND P.ORDER_NO like '%'||#{keyWord}||'%'
+			AND Q.ORDER_NO like '%'||#{keyWord}||'%'
 		</if>    
 		<if test="type!=null and type.equals('userNo')">
-			AND P.USER_NO like '%'||#{keyWord}||'%'
+			AND R.USER_NO like '%'||#{keyWord}||'%'
 		</if>   
 		
 	</select>
