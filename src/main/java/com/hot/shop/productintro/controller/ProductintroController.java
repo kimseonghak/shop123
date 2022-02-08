@@ -22,14 +22,12 @@ public class ProductintroController {
 		return mav;
 	}
 	
+	//제철 특산물 리스트 작성
 	
-	//지역 특산물 리스트 출력
 	
-	//페이지 네비
 	
 	//지역 특산물 리스트 조회
 	
-	//지역 특산물 리스트 작성
 	
 	//지역 특산물 리스트 수정
 	

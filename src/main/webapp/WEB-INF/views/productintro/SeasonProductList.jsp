@@ -170,58 +170,16 @@
 				<div class="list_titleForm">
 					<span>[ 글 제목 ]</span>
 				</div>
-				
-				<div id="write_Btn_form">
-					<button id="submit_btn">글 쓰기</button>
-				</div>
+					
 			</div>
 			
-			<div class="list_contentForm">
-				
-				<div class="list_imgForm">
-					<img>
-				</div>
-				
-				<div class="list_loaction_Form">
-					<span>[월]</span>
-				</div><br>
-				
-				<div class="list_titleForm">
-					<span>[ 글 제목 ]</span>
-				</div>
-			</div>
 			
-			<div class="list_contentForm">
-				
-				<div class="list_imgForm">
-					<img>
-				</div>
-				
-				<div class="list_loaction_Form">
-					<span>[월]</span>
-				</div><br>
-				
-				<div class="list_titleForm">
-					<span>[ 글 제목 ]</span>
-				</div>
-			</div>
-			
-			<div class="list_contentForm">
-				
-				<div class="list_imgForm">
-					<img>
-				</div>
-				
-				<div class="list_loaction_Form">
-					<span>[월]</span>
-				</div><br>
-				
-				<div class="list_titleForm">
-					<span>[ 글 제목 ]</span>
-				</div>
-			</div>
 
 		</div><br>
+		
+		<div id="write_Btn_form">
+			<button id="submit_btn">글 쓰기</button>
+		</div>
 		
 	</div><br>
 	
