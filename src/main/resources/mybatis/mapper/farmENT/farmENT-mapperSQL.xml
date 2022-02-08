@@ -243,21 +243,25 @@
 	
 	<!-- 환불 게시물 리스트 -->
 	<select id="selectRefundList" parameterType="hashmap" resultType="farmENTRefund">
-		SELECT Q.QUESTION_USER_NO AS refundNo,
-		       P.ORDER_NO AS orderNo,
-		       Q.QUESTION_USER_REGDATE AS refundRegdate,
-		       P.USER_NO AS userNo,
-		       P.BUY_NO AS buyNo,
-		       P.FARM_NO AS farmNo,
-		       P.REFUND_YN AS refundYN
-		FROM QUESTION_USER Q
-		LEFT JOIN PURCHASELIST P ON (Q.ORDER_NO=P.ORDER_NO)
-		WHERE Q.QUESTION_USER_CODE='Q-1' AND Q.QUESTION_USER_END_YN='N' AND Q.FARM_NO=#{farmNo}
+		SELECT 
+	        R.REFUND_NO AS refundNo,
+	        R.BUY_NO AS buyNo,
+	        R.USER_NO AS userNo,
+	        R.FARM_NO AS farmNo,
+	        R.FARM_YN AS farmYN,
+	        Q.QUESTION_USER_NO AS questionUserNo,
+	        Q.QUESTION_USER_TITLE AS questionUserTitle,
+	        Q.QUESTION_USER_CONTENT AS questionUserContent,
+	        Q.QUESTION_USER_REGDATE AS questionUserRegdate,
+	        Q.ORDER_NO AS orderNo
+		FROM REFUND R
+		LEFT JOIN QUESTION_USER Q ON(R.QUESTION_USER_NO=Q.QUESTION_USER_NO)
+		WHERE R.FARM_NO=#{farmNo}
 		<if test="type!=null and type.equals('orderNo')">
-			AND P.ORDER_NO like '%'||#{keyWord}||'%'
+			AND Q.ORDER_NO like '%'||#{keyWord}||'%'
 		</if>    
 		<if test="type!=null and type.equals('userNo')">
-			AND P.USER_NO like '%'||#{keyWord}||'%'
+			AND R.USER_NO like '%'||#{keyWord}||'%'
 		</if>   
 	
 	</select>
@@ -296,29 +300,77 @@
 	
 	
 	<!-- 사업자 환불 승인 -->
-	<insert id="insertRefund" parameterType="hashmap">
-			INSERT INTO REFUND VALUES(REFUND_SEQ.NEXTVAL,
-										#{buyNo},
-										#{userNo},
-										#{farmNo},
-										'Y',
-										'N',
-										'N')
-	
-	</insert>
-	
-	<!-- 구매 테이블에서 환불 상태  Y로 변경 -->
-	<update id="updatePurchaselistRefund" parameterType="hashmap">
-	
-		UPDATE PURCHASELIST SET REFUND_YN='Y' WHERE BUY_NO=#{buyNo}
+	<update id="updateRefund" parameterType="hashmap">
+		
+		UPDATE REFUND 
+		SET 
+		<if test='refundYN!=null and refundYN.equals("Y")'>
+			FARM_YN='Y'
+		</if>    
+		<if test='refundYN!=null and refundYN.equals("N")'>
+			FARM_YN='N'
+		</if> 
+		WHERE BUY_NO=#{buyNo}
 	
 	</update>
 	
-  	<!-- 구매 테이블에서 환불 상태  N으로 변경 -->
-	<update id="updatePurchaselistRefundCancel" parameterType="hashmap">
 	
-		UPDATE PURCHASELIST SET REFUND_YN='N' WHERE BUY_NO=#{buyNo}
+	<!-- 대시보드 공지사항 -->
+	<select id="selectNoticeDashBoard" resultType="notice">
+		SELECT 
+				NOTICE_NO AS noticeNo,
+				NOTICE_TITLE AS noticeTitle,
+				NOTICE_CONTENT AS noticeContent,
+				NOTICE_REGDATE AS noticeRegdate,
+				FARM_NO AS farmNo,
+				NOTICE_COUNT AS noticeCount,
+				NOTICE_END_YN AS noticeEndYN,
+				NOTICE_CODE AS noticeCode,
+				NOTICE_CATEGORY AS noticeCategory
+		FROM NOTICE 
+		WHERE NOTICE_CODE IN ('A','F') AND NOTICE_END_YN='N' 
+		ORDER BY 1 DESC
+
+	</select>
 	
-	</update>
+	<!-- 대시보드 문의사항 -->
+	<select id="selectQnaDashBoard" parameterType="int" resultType="farmENTQna">
+		SELECT
+			   Q.QUESTION_USER_NO AS questionNo,
+	           Q.QUESTION_USER_TITLE AS questionTitle,
+	           Q.QUESTION_USER_CONTENT AS questionContent,
+	           Q.QUESTION_USER_REGDATE AS questionRegdate,
+	           Q.USER_NO AS userNo,
+	           M.USER_NAME AS userName,
+	           M.USER_ID AS userId,
+	           Q.QUESTIONPHOTO_NO AS questionPhotoNo,
+	           Q.FARM_NO AS farmNo
+		FROM QUESTION_USER Q
+	    LEFT JOIN MEMBER M ON(M.USER_NO=Q.USER_NO)
+		WHERE QUESTION_USER_CODE='Q-2' AND QUESTION_USER_CLASSIFY='F'
+	            AND FARM_NO=#{_parameter} AND QUESTION_USER_END_YN='N'
+		ORDER BY 1 DESC
+	
+	</select>
+	
+	<!-- 대시보드 환불접수 -->
+	<select id="selectRefundBoard" parameterType="int" resultType="farmENTRefund">
+		SELECT 
+	        R.REFUND_NO AS refundNo,
+	        R.BUY_NO AS buyNo,
+	        R.USER_NO AS userNo,
+	        R.FARM_NO AS farmNo,
+	        R.FARM_YN AS farmYN,
+	        Q.QUESTION_USER_NO AS questionUserNo,
+	        Q.QUESTION_USER_TITLE AS questionUserTitle,
+	        Q.QUESTION_USER_CONTENT AS questionUserContent,
+	        Q.QUESTION_USER_REGDATE AS questionUserRegdate,
+	        Q.ORDER_NO AS orderNo
+		FROM REFUND R
+		LEFT JOIN QUESTION_USER Q ON(R.QUESTION_USER_NO=Q.QUESTION_USER_NO)
+		WHERE R.FARM_NO=#{_paremeter}
+	
+	</select>
+
   	
 </mapper>

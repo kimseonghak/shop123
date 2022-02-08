@@ -6,10 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<!-- jQuery 라이브러리 -->
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
-
 <title>문의 사항 조회하기</title>
 
 <style type="text/css">
@@ -242,7 +238,6 @@ select{
     background-color: #f0f0f0;
 }
 
-
 select option[value=""][disabled] {
 	display: none;
 }
@@ -256,7 +251,6 @@ select option[value=""][disabled] {
 	<div id="headerForm">
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
-	
 	<div id="contentForm">
 		<div id="question_background">
 			<form action='/question/questionWrite.do' method="post" id="textWrite">
@@ -329,63 +323,76 @@ select option[value=""][disabled] {
 	</div>
 </div>
 
+
+<!-- jQuery 라이브러리 -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script>
+	$('#questionUserClassify').change(function(){
+		var result = $('#questionUserClassify option:selected').val();
+		if(result == 'F'){
+			$('#question_farmForm03').css("display", "block");
+		}else{
+			$('#question_farmForm03').css("display", "none");
+		}
+	});
+	
+	$('#questionUserCode').change(function(){
+		var result = $('#questionUserCode option:selected').val();
+		if(result == 'Q-1'){
+			$('#question_CategorieForm03').css("display", "block");
+		}else{
+			$('#question_CategorieForm03').css("display", "none");
+		}
+	});
 
-$('#questionUserClassify').change(function(){
-	var result = $('#questionUserClassify option:selected').val();
-	if(result == 'F'){
-		$('#question_farmForm03').css("display", "block");
-	}else{
-		$('#question_farmForm03').css("display", "none");
-	}
-});
-
-$('#questionUserCode').change(function(){
-	var result = $('#questionUserCode option:selected').val();
-	if(result == 'Q-1'){
-		$('#question_CategorieForm03').css("display", "block");
-	}else{
-		$('#question_CategorieForm03').css("display", "none");
-	}
-});
-
-$('#img_Submit').click(function(){
-    var formData = new FormData();
-
-    var inputFile = $("input[name='file']");
-
-    var files = inputFile[0].files;
-
-    formData.append("file", files[0]);
-
-    $.ajax({
-        url : "/question/questionWriteFileUpload.do",
-        processData : false,
-        contentType : false,
-        data : formData,
-        type : "POST",
-        success:function(result){
-            if(result != null && result != 0){
-                alert("파일이 업로드되었습니다.");
-                $("input[name='questionphotoNo']").val(result);
-                console.log($("input[name='questionphotoNo']").val());
-            }else{
-                alert("파일 업로드에 실패하였습니다.");
-            }
-
-        }
-    });
-
-});
-
-$('#submitBtn').click(function(){
-	$("#textWrite").submit();
-});
+	$('#img_Submit').click(function(){
+	    var formData = new FormData();
+	
+	    var inputFile = $("input[name='file']");
+	
+	    var files = inputFile[0].files;
+	
+	    formData.append("file", files[0]);
+	
+	    $.ajax({
+	        url : "/question/questionWriteFileUpload.do",
+	        processData : false,
+	        contentType : false,
+	        data : formData,
+	        type : "POST",
+	        success:function(result){
+	            if(result != null && result != 0){
+	                alert("파일이 업로드되었습니다.");
+	                $("input[name='questionphotoNo']").val(result);
+	                console.log($("input[name='questionphotoNo']").val());
+	            }else{
+	                alert("파일 업로드에 실패하였습니다.");
+	            }
+	
+	        }
+	    });
+	});
+	$('#submitBtn').click(function(){
+		$("#textWrite").submit();
+	});
 
 <%-- 구매내역 확인 버튼 --%>
 	$('#buyListCheckBtn').click(function(){
 		window.open("/question/buyListCheck.do","_blank","width=800px, height=500px");
 	});
+	
+	$('#questionUserCode').on("change",function(){
+		if($(this).val()=='Q-1'){
+			$('#questionUserClassify').val('F');
+			$('#questionUserClassify option').eq(2).prop("disabled",true)
+			$('#question_farmForm03').css("display","block");
+			$('#farmNo').prop("readonly",true);
+		}else{
+			$('#farmNo').prop("readonly",false);
+			$('#questionUserClassify option').eq(2).prop("disabled",false)
+		}
+	});
+	
 </script>
 </body>
 </html>

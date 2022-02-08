@@ -101,8 +101,14 @@
 	                                <td class="shopStatus">${o.getdName()}</td>
 	                                <td class="inputBtn">
 	                                
-	                                <button type="button" class="btn btn-success btn-sm" dataUserNo="${o.getUserNo()}" dataBuyNo="${o.getBuyNo()}" >배송입력</button></td>
-	                                <!--배송완료 시 배송입력 버튼 비활성화(여유있으면 속성값: disabled )-->
+	                            <c:choose>
+	                            	<c:when test="${o.getdName() eq '배송완료'}">
+	                                	<button type="button" class="btn btn-success btn-sm" dataUserNo="${o.getUserNo()}" dataBuyNo="${o.getBuyNo()}" >배송정보</button></td>
+									</c:when>
+									<c:otherwise>
+										<button type="button" class="btn btn-success btn-sm" dataUserNo="${o.getUserNo()}" dataBuyNo="${o.getBuyNo()}" >배송입력</button></td>
+									</c:otherwise>
+								</c:choose> 	                             
 	                           </tr>
                        	 </c:forEach>
                           </tbody>

@@ -59,7 +59,16 @@
 	
   </select>
  
-  
+  <select id="selectFarmName" resultType="farm">
+  	select 
+  		farm_no as farmNo,
+		farm_name as farmName
+  	from farm 	
+	where farm_no=#{farmNo} and farm_end_yn='N'
+  </select>  
 
-
+  <insert id="insertOrder" parameterType="pur">
+  	insert into purchaselist values
+  	(buy_no_SEQ.nextval,#{userNo},#{farmNo},#{productName},#{productCount},#{payAmount},sysdate,#{phone},#{address1},#{address2},default,#{payMethod},default,#{orderNo})
+  </insert>
 </mapper>

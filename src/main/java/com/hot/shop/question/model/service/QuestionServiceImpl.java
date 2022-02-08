@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.hot.shop.auction.model.vo.Purchaselist;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.dao.QuestionDAO;
+import com.hot.shop.question.model.vo.QuestionAnswer;
+import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 
@@ -18,12 +20,6 @@ public class QuestionServiceImpl implements QuestionService{
 	@Autowired
 	private QuestionDAO qDAO;
 
-	//1:1문의 리스트(유저)
-	@Override
-	public ArrayList<QuestionUser> selectUserQuestionList() {
-		return qDAO.selectUserQuestionList();
-	}
-	
 	//1:1문의 글쓰기 (유저 실질적인 백단)
 	@Override
 	public int insertUserWrite(QuestionUser qUser) {
@@ -39,7 +35,7 @@ public class QuestionServiceImpl implements QuestionService{
 
 	//1:1문의 작성글 조회
 	@Override
-	public QuestionUser questionView(int questionUserNo) {
+	public HashMap<String, Object> questionView(int questionUserNo) {
 		return qDAO.questionView(questionUserNo);
 	}
 
@@ -60,6 +56,38 @@ public class QuestionServiceImpl implements QuestionService{
 		map.put("pageNavi",pageNavi);
 		return map;
 	}
+	
+	@Override
+	public HashMap<String, Object> selectUserQuestionList(HashMap<String, Object> map) {
+		int recordCountPerPage=10;
+		ArrayList<QuestionUser> list = qDAO.getUserQuestionList(recordCountPerPage,map);
+		int naviCountPerPage=10;
+		String pageNavi = qDAO.getUserQuestionNavi(recordCountPerPage,naviCountPerPage,map);
+		HashMap<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("list", list);
+		returnMap.put("pageNavi",pageNavi);
+		return returnMap;
+	}
+
+	//-----------------------------------------농가 문의-----------------------------------------
+	
+	@Override
+	public ArrayList<QuestionFarm> QuestionFarmPage() {
+		// TODO Auto-generated method stub
+		return qDAO.QuestionFarmPage();
+	}
+
+	@Override
+	public int questionUserDelete(int questionUserNo,String questionUserCode) {
+		return qDAO.questionUserDelete(questionUserNo,questionUserCode);
+	}
+
+	@Override
+	public boolean questionAnswer(QuestionAnswer qAnswer) {
+		return qDAO.questionAnswer(qAnswer);
+	}
+
+	
 
 	
 }

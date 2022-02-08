@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,10 @@ import com.hot.shop.farmENT.model.service.FarmENTService;
 import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
 import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
+import com.hot.shop.farmENT.model.vo.FarmENTQna;
+import com.hot.shop.farmENT.model.vo.FarmENTRefund;
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.notice.model.vo.Notice;
 
 @Controller
 public class FarmENTContoller {
@@ -32,21 +34,29 @@ public class FarmENTContoller {
 	@Autowired	
 	private FarmENTService fENTservice;
 	
-	//사업자 페이지에서 로그아웃
-	@RequestMapping(value="/farm/farmENTlogout.do", method=RequestMethod.GET)
-	public String logout(HttpSession session,
-			@SessionAttribute Farm farm) {
-			
-			session.invalidate();
-			
-			return "redirect:/";
-	}
-	
 	//대시보드 (사업자 메인페이지)
 	@RequestMapping(value="/farm/farmDashBoardPage.do",method = RequestMethod.GET)
-	public String farmDashBoardPage()
+	public ModelAndView farmDashBoardPage(ModelAndView mv,@SessionAttribute Farm farm)
 	{
-		return "farm/farmDashBoard";
+		int farmNo = farm.getFarmNo(); 
+		
+		//공지사항 가져오기
+		ArrayList<Notice> noticeList=fENTservice.selectNoticeDashBoard();
+		
+		//문의사항 가져오기
+		ArrayList<FarmENTQna> qnaList =fENTservice.selectQnaDashBoard(farmNo);
+		
+		//환불 접수 가져오기
+		
+		ArrayList<FarmENTRefund> refundList	= fENTservice.selectRefundBoard(farmNo);
+		
+		mv.addObject("noticeList",noticeList);
+		mv.addObject("qnaList",qnaList);
+		mv.addObject("refundList",refundList);
+		
+		mv.setViewName("farm/farmDashBoard");
+		
+		return mv;
 	}
 	
 	
@@ -64,7 +74,6 @@ public class FarmENTContoller {
 		searchMap.put("keyWord", keyWord);
 					
 		HashMap<String, Object> map	=fENTservice.selectNoticeList(currentPage,searchMap);
-		
 		mv.addObject("list", map.get("list"));
 		mv.addObject("pageNavi", map.get("pageNavi"));
 		mv.addObject("type", type);
@@ -90,11 +99,9 @@ public class FarmENTContoller {
 	//문의사항 게시판
 	@RequestMapping(value="/farm/farmQnaPage.do",method = RequestMethod.GET)
 	public ModelAndView  farmQnaPage(@RequestParam(required = false,defaultValue = "1") int currentPage,
-											ModelAndView mv,HttpServletRequest request, @SessionAttribute Farm farm ) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
+											ModelAndView mv,HttpServletRequest request,@SessionAttribute Farm farm)
 	{
-		//session 연동되면 사용하기
 		int farmNo = farm.getFarmNo(); 
-		//int farmNo = 4;
 		
 		//검색 조건 
 		String type = request.getParameter("type");
@@ -107,7 +114,6 @@ public class FarmENTContoller {
 		searchMap.put("farmNo",farmNo);
 		
 		HashMap<String, Object> map = fENTservice.selectFarmQnaList(currentPage,searchMap);
-		
 		mv.addObject("list",map.get("list"));
 		mv.addObject("pageNavi",map.get("pageNavi"));
 		mv.addObject("type",type);
@@ -120,11 +126,9 @@ public class FarmENTContoller {
 	//낙찰상품 목록 게시판
 	@RequestMapping(value="/farm/farmProductListPage.do",method = RequestMethod.GET)
 	public ModelAndView farmProductListPage(HttpServletRequest request,ModelAndView mv,
-			@RequestParam(required = false,defaultValue = "1") int currentPage, @SessionAttribute Farm farm ) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
+			@RequestParam(required = false,defaultValue = "1") int currentPage,@SessionAttribute Farm farm) 
 	{
-		//session 연동되면 사용하기
 		int farmNo = farm.getFarmNo(); 
-		//int farmNo = 4;
 		
 		//검색 값이 있다면
 		String type = request.getParameter("type");
@@ -135,21 +139,7 @@ public class FarmENTContoller {
 		searchMap.put("type",type);
 		searchMap.put("keyWord", keyWord);
 		
-		//현재 페이지 값
-		/*int currentPage;
-		
-		if(request.getParameter("currentPage")==null)
-		{
-			currentPage=1;
-		}else
-		{
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		*/
-		
 		HashMap <String,Object> list =fENTservice.selectFarmENTProductList(currentPage,searchMap);
-		
-		
 		mv.addObject("list",list.get("list"));
 		mv.addObject("pageNavi",list.get("pageNavi"));
 		mv.addObject("type",type);
@@ -166,11 +156,10 @@ public class FarmENTContoller {
 	//주문목록 게시판
 	@RequestMapping(value="/farm/farmOrdertListPage.do",method = RequestMethod.GET)
 	public ModelAndView farmOrdertListPage(HttpServletRequest request,ModelAndView mv,
-			@RequestParam(required = false,defaultValue = "1") int currentPage, @SessionAttribute Farm farm ) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
+			@RequestParam(required = false,defaultValue = "1") int currentPage,@SessionAttribute Farm farm ) 
 	{
-		//session 연동되면 사용하기
+		
 		int farmNo = farm.getFarmNo(); 
-		//int farmNo = 4;
 		
 		//검색 값 받아오기 
 		String type = request.getParameter("type");
@@ -183,7 +172,6 @@ public class FarmENTContoller {
 
 				
 		HashMap <String,Object> map	 = fENTservice.selectFarmENTOrderList(currentPage,searchMap);
-		
 		mv.addObject("list",map.get("list"));
 		mv.addObject("pageNavi",map.get("pageNavi"));
 		mv.addObject("type",type);
@@ -211,11 +199,10 @@ public class FarmENTContoller {
 	
 	//주문목록 게시판 팝업창 2(상품정보)
 	@RequestMapping(value="/farm/farmProductInfoPage.do",method = RequestMethod.GET)
-	public ModelAndView farmProductInfoPage(@RequestParam String productName,ModelAndView mv, @SessionAttribute Farm farm )//session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
+	public ModelAndView farmProductInfoPage(@RequestParam String productName,ModelAndView mv,@SessionAttribute Farm farm )
 	{
-		//session 연동되면 사용하기
 		int farmNo = farm.getFarmNo(); 
-		//int farmNo = 4;		
+		
 		ArrayList<FarmENTProduct>list =fENTservice.selectOneProduct(productName,farmNo);
 		
 		mv.addObject("list", list);
@@ -285,12 +272,10 @@ public class FarmENTContoller {
 	//환불목록 게시판
 	@RequestMapping(value="/farm/farmRefundList.do",method = RequestMethod.GET)
 	public ModelAndView farmRefundListPage(@RequestParam (required = false,defaultValue = "1")int currentPage,
-													ModelAndView mv,HttpServletRequest request, @SessionAttribute Farm farm ) //session 연동되면 매개변수에 @SessionAttribute Farm farm 추가하기
+													ModelAndView mv,HttpServletRequest request,@SessionAttribute Farm farm )
 	{
 		
-		//session 연동되면 사용하기
 		int farmNo = farm.getFarmNo(); 
-		//int farmNo = 4;	
 		
 		//검색 조건이 있다면
 		String type = request.getParameter("type");
@@ -328,19 +313,17 @@ public class FarmENTContoller {
 	//환불 승인
 	@ResponseBody
 	@RequestMapping(value="/farm/farmRefundApproval.do", method = RequestMethod.POST,produces = "application/text; charset=UTF-8")
-	public String farmRefundApproval(@RequestParam int farmNo,@RequestParam int userNo,@RequestParam int buyNo,@RequestParam String refundYN,
+	public String farmRefundApproval(@RequestParam int buyNo,@RequestParam String refundYN,
 									ModelAndView mv,HttpServletResponse response) throws IOException
 	{
 		
 		HashMap<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("farmNo", farmNo);
-		dataMap.put("userNo", userNo);
 		dataMap.put("buyNo", buyNo);
 		dataMap.put("refundYN", refundYN);
 		
-		boolean result	= fENTservice.insertRefund(dataMap);
+		int result	= fENTservice.updateRefund(dataMap);
 			
-			if(result==true)
+			if(result>0)
 			{
 				return "환불 요청에 성공하였습니다.";
 			}else
@@ -352,21 +335,19 @@ public class FarmENTContoller {
 		
 	}
 	
-	//환불 승인 & 접수취소
+	//접수취소
 	@ResponseBody
 	@RequestMapping(value="/farm/farmRefundCancel.do", method = RequestMethod.POST,produces = "application/text; charset=UTF-8")
-	public String farmRefundCancel(@RequestParam int farmNo,@RequestParam int userNo,@RequestParam int buyNo,@RequestParam String refundYN,
+	public String farmRefundCancel(@RequestParam int buyNo,@RequestParam String refundYN,
 									ModelAndView mv,HttpServletResponse response) throws IOException
 	{
 		
 		HashMap<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("farmNo", farmNo);
-		dataMap.put("userNo", userNo);
 		dataMap.put("buyNo", buyNo);
 		dataMap.put("refundYN", refundYN);
 		
-		boolean result	= fENTservice.updatePurchaselistRefundCancel(dataMap);
-			if(result==true)
+		int result	= fENTservice.updateRefund(dataMap);
+			if(result>0)
 			{
 				return "환불 접수 취소를 성공하였습니다.";
 			}else

@@ -358,7 +358,6 @@ select option[value=""][disabled] {
 						<input type="reset" value="다시쓰기" id="resetBtn"/>
 					</div>
 				</div>
-						
 		</div>
 	</div>
 	
@@ -368,6 +367,7 @@ select option[value=""][disabled] {
 	</div>
 </div>
 
+<!-- 이미지 수정 -->
 <script>
 $('#img_Submit').click(function(){
     var formData = new FormData();
