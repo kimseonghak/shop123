@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.service.QuestionService;
+import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 import com.oreilly.servlet.MultipartRequest;
@@ -175,5 +176,16 @@ public class QuestionController {
 			mav.addObject("currentPage",currentPage);
 			mav.setViewName("question/QuestionUserListCheck");
 			return mav;
+		}
+		
+		//-----------------------------------------농가 문의-----------------------------------------
+		
+		//헤더에서 1:1문의 버튼을 누르면 문의 리스트로 이동하는 메소드(유저 문의)	
+		@RequestMapping(value = "/question/QuestionFarmPage.do",method = RequestMethod.GET)
+		public ModelAndView QuestionFarmPage(ModelAndView mav) {
+		       ArrayList<QuestionFarm> list = qService.QuestionFarmPage();
+		       mav.addObject("list", list);
+		       mav.setViewName("question/QuestionFarmList");
+		       return mav;
 		}
 }
