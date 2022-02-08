@@ -28,8 +28,20 @@ public class QuestionDAO {
 
 	//1:1문의 글쓰기(유저 실질적인 백단)
 	public int insertUserWrite(QuestionUser qUser) {
-		Purchaselist pur = sqlSession.selectOne("qUser.selectPurchaselist",qUser);
-		return sqlSession.insert("qUser.insertUserWrite", qUser) + sqlSession.update("qUser.updateQPhote",qUser.getQuestionphotoNo()) + sqlSession.insert("qUser.refund",pur);
+		int result1 = sqlSession.insert("qUser.insertUserWrite", qUser);
+		int result2 = 0;
+		int result3 = 0;
+		if(qUser.getQuestionphotoNo()!=1) {
+			result2 = sqlSession.update("qUser.updateQPhote",qUser.getQuestionphotoNo());
+		}
+		if(qUser.getQuestionUserCode().equals("Q-1")) {
+			Purchaselist pur = sqlSession.selectOne("qUser.selectPurchaselist",qUser);
+			HashMap<String,Object> map = new HashMap<String, Object>();
+			map.put("qUser", qUser);
+			map.put("pur", pur);
+			result3 = sqlSession.insert("qUser.refund",map);
+		}
+		return result1+result2+result3;
 	}
 
 	//1:1문의 사진 넣기

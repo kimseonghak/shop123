@@ -109,9 +109,18 @@ public class QuestionController {
 		int userNo = member.getUserNo();
 		qUser.setUserNo(userNo);
 		
+		boolean check = false;
 		int result = qService.insertUserWrite(qUser);
-		
-		if(result >= 3 ) {
+		if(qUser.getQuestionUserCode().equals("Q-2")&&qUser.getQuestionphotoNo()==1&&result>0) {
+			check=true;
+		}else if(qUser.getQuestionUserCode().equals("Q-2")&&qUser.getQuestionphotoNo()!=1&&result>1) {
+			check=true;
+		}else if(qUser.getQuestionUserCode().equals("Q-1")&&qUser.getQuestionphotoNo()==1&&result>1) {
+			check=true;
+		}else if(qUser.getQuestionUserCode().equals("Q-1")&&qUser.getQuestionphotoNo()!=1&&result>2) {
+			check=true;
+		}
+		if(check) {
 			mav.addObject("msg", "글 작성에 성공했습니다." );
 			mav.addObject("location", "/question/QuestionUserPage.do");
 		}else {

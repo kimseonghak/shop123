@@ -25,6 +25,9 @@
 		
 		<!-- 1:1문의 사용자 글 쓰기 -->
 		<insert id="insertUserWrite" parameterType="qUser">
+			<selectKey keyProperty="questionUserNo" resultType="integer" order="AFTER">
+				select max(question_user_no) as questionUserNo from question_user
+			</selectKey>
 			INSERT INTO             QUESTION_USER
 			VALUES                  (QUESTION_USER_Seq.nextval,
 			                        #{questionUserTitle},
@@ -137,8 +140,8 @@
 			 from purchaselist 
 			 where order_no=#{orderNo}
 		</select>
-		<insert id="refund" parameterType="pur">
-			insert into refund values(refund_seq.nextval,#{buyNo},#{userNo},#{farmNo},'X','X','N')
+		<insert id="refund" parameterType="hashmap">
+			insert into refund values(refund_seq.nextval,#{pur.buyNo},#{pur.userNo},#{pur.farmNo},'X','X','N',#{qUser.questionUserNo)
 		</insert>
 	</mapper>
 
