@@ -206,6 +206,7 @@
    background-color: #3BBD5A;
    display: block;
    margin: 0 auto;
+   cursor:pointer;
 }
 
 .promotionBtn{
@@ -220,6 +221,7 @@
    display: block;
    margin: 0 auto;
    margin-top: 10px;
+   cursor:pointer;
 }
 
 .font-style{
@@ -402,7 +404,8 @@
 							<form action="/auction/orderPage.do" method="post">
 							<input type="hidden" name="endYN2" value="${map.au2.sellEndYN }"/>
 							<input type="hidden" name="currentCount" value="${map.au2.auctionCount1 }"/>
-							<input type="hidden" name="userNo" value="${sessionScope.member.userNo }"/>
+							<input type="hidden" name="userId" value="${sessionScope.member.userId }"/>
+							<input type="hidden" name="userPwd" value="${sessionScope.member.userPwd }"/>
 							<input type="hidden" name="auctionProduct" value="${map.au2.auctionProduct }"/>
 							<input type="hidden" name="auctionPrice" value="${map.au2.auctionPrice }"/>
 							<input type="hidden" name="farmNo" value="${map.au2.farmNo }"/>
@@ -476,32 +479,33 @@
 							<span>구매 가능</span>
 						</div>
 						<div class="auctionSaleProduct">
-							<span>${map.au1.auctionProduct }</span>
+							<span>${map.au3.auctionProduct }</span>
 						</div>
 					</div>
 						<div class="auctionSale-info">
 							<div class="auctionSaleBox-leftSpace"></div>
 							<!-- 구매 폼 로직-->
 							<form action="/auction/orderPage.do" method="post">
-							<input type="hidden" name="endYN2" value="${map.au3.sellEndYN }"/>
+							<input type="hidden" name="endYN3" value="${map.au3.sellEndYN }"/>
 							<input type="hidden" name="currentCount" value="${map.au3.auctionCount1 }"/>
-							<input type="hidden" name="userNo" value="${sessionScope.member.userNo }"/>
+							<input type="hidden" name="userId" value="${sessionScope.member.userId }"/>
+							<input type="hidden" name="userPwd" value="${sessionScope.member.userPwd }"/>
 							<input type="hidden" name="auctionProduct" value="${map.au3.auctionProduct }"/>
 							<input type="hidden" name="auctionPrice" value="${map.au3.auctionPrice }"/>
 							<input type="hidden" name="farmNo" value="${map.au3.farmNo }"/>
 							<input type="hidden" name="no" value="${sessionScope.farm.farmNo }"/>
 							
 							<span class="spanLeft">시작일 :</span>
-                     		<span class="spanRight">${map.au1.sellStart}</span>
+                     		<span class="spanRight">${map.au3.sellStart}</span>
                     		<span class="spanLeft">종료일 :</span>
-                     		<span class="spanmiddel endDate3">${map.au1.sellEnd}</span>
+                     		<span class="spanmiddel endDate3">${map.au3.sellEnd}</span>
                             <span class="spanLast">23:59:59</span>
                      		<span class="spanLeft">남은시간 :</span>
-                     		<span class="spanRight fontWeight" style="color: #FE0011">-</span>
+                     		<span class="spanRight fontWeight remainTime3" style="color: #FE0011">-</span>
 							<span class="spanLeft">현재 상품 수량 :</span>
-							<span class="spanRight font-style">${map.au1.auctionCount1}&nbsp;상자</span>
+							<span class="spanRight font-style">${map.au3.auctionCount1}&nbsp;상자</span>
 							<span class="spanLeft">낙찰된 가격 :</span>
-							<span class="spanRight font-style">${map.au1.auctionPrice} &nbsp;원</span>
+							<span class="spanRight font-style">${map.au3.auctionPrice} &nbsp;원</span>
 							<span class="spanLeft">구매 수량 :</span>
 							<span class="spanRight-test margin-bottom">
 		                    	<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>

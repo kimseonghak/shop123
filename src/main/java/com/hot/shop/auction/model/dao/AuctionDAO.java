@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.auction.model.vo.Purchaselist;
 import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
 
@@ -58,12 +59,22 @@ public class AuctionDAO {
 		return map;
 		
 	}
-
+	
+	//주문하기 페이지를 눌렀을 경우 회원 정보 가져오기
 	public Member selectLoginMember(Member member) {
 
 		return sql.selectOne("member.selectLoginMember",member);
 	}
 
-	
+	public Farm selectFarmName(Farm f) {
+		
+		return sql.selectOne("auction.selectFarmName",f);
+	}
+
+	//결제하기 눌렀을 경우 Purchaselist 테이블의 데이터 삽입
+	public int insertOrder(Purchaselist p) {
+
+		return sql.insert("auction.insertOrder",p);
+	}
 
 }

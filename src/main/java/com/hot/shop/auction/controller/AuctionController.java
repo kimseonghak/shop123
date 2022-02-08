@@ -2,8 +2,10 @@ package com.hot.shop.auction.controller;
 
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.SellForm;
 import com.hot.shop.auction.model.service.AuctionService;
+import com.hot.shop.auction.model.vo.Purchaselist;
 import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
 
@@ -91,9 +94,8 @@ public class AuctionController {
 	
 	//구매하기 누를 경우 수량 비교하고, 해당 유저 데이터 가져와서 주문 하기 페이지로 이동
 	@RequestMapping(value="/auction/orderPage.do", method = RequestMethod.POST)
-	public String orderPage(SellForm sf, Member member,
+	public ModelAndView orderPage(SellForm sf, Member member, Farm f,
 							@RequestParam int currentCount,
-							@RequestParam int farmNo,
 							ModelAndView mav) {
 		
 		int auctionCount = sf.getAuctionCount1();
@@ -105,11 +107,40 @@ public class AuctionController {
 		}else {
 			
 			Member m = aucService.selectMember(member);
+			f = aucService.selectFarm(f);
 			
+			mav.addObject("m",m);
+			mav.addObject("f",f);
+			mav.addObject("sf",sf);
 			
+		
+			mav.setViewName("auction/orderPage");
 			
 		}
 		
-		return "auction/orderPage";
+		return mav;
+	}
+	
+	//결제하기 누를 경우 Purchaselist 테이블에 데이터 삽입, 수량 빼기
+	@RequestMapping(value="auction/orderPay.do", method = RequestMethod.POST)
+	public void orderPay(Purchaselist p, HttpServletResponse response)throws IOException {
+		
+		int result = aucService.insertOrder(p);
+		
+		if(result>0) {
+			
+			response.getWriter().print(true);
+			
+		}else {
+			
+			response.getWriter().print(false);
+		}
+	
+	}
+	
+	@RequestMapping(value="/auction/orderComplete.do",method = RequestMethod.GET)
+	public String test() {
+		
+		return "auction/orderComplete";
 	}
 }
