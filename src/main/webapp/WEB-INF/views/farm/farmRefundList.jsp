@@ -91,13 +91,13 @@
                          <c:forEach items="${requestScope.list}" var="r" varStatus="i">
                            <tr>
                                 <td>${i.count}</td>
-                                <td class="boardNo"><span class="boardNoA">${r.getRefundNo()}</span></td>
+                                <td class="boardNo"><span class="boardNoA">${r.getQuestionUserNo()}</span></td>
                                 <td class="userNo"><span class="userNoA">${r.getUserNo()}</span></td>
                                 <td class="orderNo"><span class="orderNoA">${r.getOrderNo()}</span></td>
-                                <td class="acceptDate">${r.getRefundRegdate()}</td>
-                                <td class="refundStatus">${r.getRefundYN()}</td>
+                                <td class="acceptDate">${r.getQuestionUserRegdate()}</td>
+                                <td class="refundStatus">${r.getFarmYN()}</td>
                               <c:choose>  
-	                               <c:when test="${String.valueOf(r.getRefundYN()) eq 'X'}">
+	                               <c:when test="${String.valueOf(r.getFarmYN()) eq 'X'}">
 		                                <td><button type="button" class="btn btn-success btn-sm acceptBtn" buyNo="${r.getBuyNo()}" farmNo="${r.getFarmNo()}" userNo="${r.getUserNo()}">환불승인</button></td>
 		                                <td><button type="button" class="btn btn-success btn-sm cancelBtn" buyNo="${r.getBuyNo()}" farmNo="${r.getFarmNo()}" userNo="${r.getUserNo()}">접수취소</button></td>
 	                               	</c:when>
@@ -215,8 +215,6 @@
               //버튼 비활성화 disabled="disabled"
               
             var buyNo = $(this).attr('buyNo');
-            var farmNo = $(this).attr('farmNo');
-            var userNo = $(this).attr('userNo');
             var refundYN = 'Y';
            
            
@@ -225,7 +223,7 @@
     				$.ajax({
     					url:"/farm/farmRefundApproval.do",
     					type:"post",
-    					data:{"buyNo":buyNo,"farmNo":farmNo,"userNo":userNo,"refundYN":refundYN},
+    					data:{"buyNo":buyNo,"refundYN":refundYN},
     					success:function(result){
     						
     						alert(result);
@@ -252,8 +250,6 @@
             if(result==true)
             {
                 var buyNo = $(this).attr('buyNo');
-                var farmNo = $(this).attr('farmNo');
-                var userNo = $(this).attr('userNo');
                	var refundYN = 'N';
                
                   if(result==true)
@@ -261,7 +257,7 @@
         				$.ajax({
         					url:"/farm/farmRefundCancel.do",
         					type:"post",
-        					data:{"buyNo":buyNo,"farmNo":farmNo,"userNo":userNo,"refundYN":refundYN},
+        					data:{"buyNo":buyNo,"refundYN":refundYN},
         					success:function(result){
         						
         						alert(result);

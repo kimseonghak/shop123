@@ -28,6 +28,7 @@
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmMain.css">
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmDashBoard.css">
 
+
 </head>
 <body>
 <c:import url="/resources/farm/common/farmMainHeader.jsp"/>
@@ -47,67 +48,104 @@
             <div id="boardWrap">
                 <div id="noticeWrap" class="boardWrap">
                       <table>
+                          <c:choose>
+                         	<c:when test="${!noticeList.isEmpty()}">
                            <tr>
                                 <th><img src="/resources/farm/image/고정핀.png" class="pinImage"/></th>
                                 <th><span class="boardTitle">공지사항</span></th>
-                                <th><span class="plusBoard"><a href="" >+ 더보기</a></span></th>
-
+                                <th><span class="plusBoard"><a href="/farm/farmNoticePage.do" >+ 더보기</a></span></th>
                            </tr>
                          <tbody>
-                           <tr>
-                                <td class="boardSubject" colspan="2"><a href="">공지사항입니다.공지사항입니다</a></td>
-                                <td></td>
-                                <td class="writeDate">2022/01/28</td>
-                           </tr>
-                           
-
-                         
+                         		<c:forEach items="${requestScope.noticeList}" var="n" varStatus="i">
+		                           <tr>
+		                                <td class="boardSubject" colspan="2"><span class="noticeTitle" noticeContent="${n.getNoticeContent()}">${n.getNoticeTitle()}</span></td>
+		                                <td></td>
+		                                <td class="writeDate">${n.getNoticeRegdate()}</td>
+		                           </tr>
+		                         </c:forEach>  
+	                          </c:when>
+	                          <c:otherwise>
+	                          		<tr>
+	                                	<th><img src="/resources/farm/image/고정핀.png" class="pinImageEmpty"/></th>
+	                                	<th><span class="boardTitleEmpty">공지사항</span></th>
+	                                	<th><span class="plusBoardEmpty"><a href="/farm/farmNoticePage.do">+ 더보기</a></span></th>
+                          		 	</tr>
+                          		 <tbody>
+	                         	        <tr>
+		                            	    <td class="boardSubject" colspan="3" rowspan="1"><span class="writeEmpty">등록된 공지가 없습니다.</span></td>
+		                         	   </tr>
+	                          </c:otherwise>
+                           </c:choose>
                           </tbody>
                     </table>
                     
                 </div>
                 <div class="boardEmpty"></div>
                 <div id="qnaWrap" class="boardWrap">
-                    <table>
+                  <table>
+                  <c:choose>
+                    <c:when test="${!qnaList.isEmpty()}">
                            <tr>
                                 <th><img src="/resources/farm/image/고정핀.png" class="pinImage"/></th>
                                 <th><span class="boardTitle">문의사항</span></th>
-                                <th><span class="plusBoard"><a href="" >+ 더보기</a></span></th>
-
+                                <th><span class="plusBoard"><a href="/farm/farmQnaPage.do">+ 더보기</a></span></th>
                            </tr>
                          <tbody>
-                           <tr>
-                                <td class="boardSubject" colspan="2"><a href="">문의사항입니다.문의사항입니다</a></td>
-                                <td></td>
-                                <td class="writeDate">2022/01/28</td>
-                           </tr>
-                           
-                           
-
-                         
+                         		<c:forEach items="${requestScope.qnaList}" var="q" varStatus="i">
+		                        	   <tr>
+		                            	    <td class="boardSubject" colspan="2"><span class="qnaTitle" qnaBoardNo=${q.getQuestionNo()}>${q.getQuestionTitle()}</span></td>
+		                                	<td></td>
+		                                	<td class="writeDate">${q.getQuestionRegdate()}</td>
+		                         	   </tr>
+		                         </c:forEach> 
+	                      </c:when>
+	                      <c:otherwise>
+	                         	<tr>
+	                                <th><img src="/resources/farm/image/고정핀.png" class="pinImageEmpty"/></th>
+	                                <th><span class="boardTitleEmpty">문의사항</span></th>
+	                                <th><span class="plusBoardEmpty"><a href="/farm/farmQnaPage.do">+ 더보기</a></span></th>
+                          		 </tr>
+                          		 <tbody>
+	                         	        <tr>
+		                            	    <td class="boardSubject" colspan="3" rowspan="1"><span class="writeEmpty">등록된 문의가 없습니다.</span></td>
+		                         	   </tr>
+	                       </c:otherwise>  
+						</c:choose>
                           </tbody>
                     </table>
                     
                 </div>
                 <div class="boardEmpty"></div>
                 <div id="refundWrap" class="boardWrap">
-                                        <table>
+                 <table>
+                  <c:choose>
+                    <c:when test="${!refundList.isEmpty()}">
                            <tr>
-                               <th><img src="/resources/farm/image/고정핀.png" class="pinImage"/></th>
+                                <th><img src="/resources/farm/image/고정핀.png" class="pinImage"/></th>
                                 <th><span class="boardTitle">환불접수</span></th>
-                                <th><span class="plusBoard"><a href="" >+ 더보기</a></span></th>
-
+                                <th><span class="plusBoard"><a href="/farm/farmQnaPage.do">+ 더보기</a></span></th>
                            </tr>
                          <tbody>
-                           <tr>
-                                <td class="boardSubject" colspan="2"><a href="">문의사항입니다.문의사항입니다</a></td>
-                                <td></td>
-                                <td class="writeDate">2022/01/28</td>
-                           </tr>
-                           
-                           
-
-                         
+                         		<c:forEach items="${requestScope.refundList}" var="r" varStatus="i">
+		                        	   <tr>
+		                            	    <td class="boardSubject" colspan="2"><span class="refundTitle" refundBoardNo=${r.getQuestionUserNo()}>${r.getQuestionUserTitle()}</span></td>
+		                                	<td></td>
+		                                	<td class="writeDate">${r.getQuestionUserRegdate()}</td>
+		                         	   </tr>
+		                         </c:forEach> 
+	                      </c:when>
+	                      <c:otherwise>
+	                         	<tr>
+	                                <th><img src="/resources/farm/image/고정핀.png" class="pinImageEmpty"/></th>
+	                                <th><span class="boardTitleEmpty">환불접수</span></th>
+	                                <th><span class="plusBoardEmpty"><a href="/farm/farmRefundList.do">+ 더보기</a></span></th>
+                          		 </tr>
+                          		 <tbody>
+	                         	        <tr>
+		                            	    <td class="boardSubject" colspan="3" rowspan="1"><span class="writeEmpty">접수된 환불이 없습니다.</span></td>
+		                         	   </tr>
+	                       </c:otherwise>  
+						</c:choose>
                           </tbody>
                     </table>
                 </div>
@@ -118,50 +156,111 @@
     </div>
 
 
-<!--매출 그래프-->
-<script>
-	$(function(){
-		var context1 = document.getElementById('enterHome').getContext('2d');
-		var enterHome = new Chart(context1,{
-			type:'bar',
-			data:{
-                //상품은 5개로 제한하고 Top-N으로 최근 경매로 한다.
-				labels:['감귤','도라지','사과','배','한라봉'],
-				datasets:[{
-					label: '상품별 매출', // 차트 제목
-					fill:false, // line 형태일 때 선 안쪽을 채울지 말지
-                    
-                    //판매된 개수로 
-					data: [10, 100,30,40,20],
-					backgroundColor:[
-						'rgba(255,99,132,0.2)',
-						'rgba(54,162,235,0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)'
-					],
-					borderColor:[
-						'rgba(255,99,132,1)',
-						'rgba(54,162,235,1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
-
-					],
-					borderWidth:1
-				}]
-			},
-			options:{
-				maintainAspectRatio: false, //false일 경우 포함된 div의 크기에 맞춰서 그려짐.
-				scales:{
-					y:{
-						beginAtZero:true
+	<!--매출 그래프-->
+	<script>
+		$(function(){
+			var context1 = document.getElementById('enterHome').getContext('2d');
+			var enterHome = new Chart(context1,{
+				type:'bar',
+				data:{
+	                //상품은 5개로 제한하고 Top-N으로 최근 경매로 한다.
+					labels:['감귤','도라지','사과','배','한라봉'],
+					datasets:[{
+						label: '상품별 매출', // 차트 제목
+						fill:false, // line 형태일 때 선 안쪽을 채울지 말지
+	                    
+	                    //판매된 개수로 
+						data: [10, 100,30,40,20],
+						backgroundColor:[
+							'rgba(255,99,132,0.2)',
+							'rgba(54,162,235,0.2)',
+	                        'rgba(255, 206, 86, 0.2)',
+	                        'rgba(75, 192, 192, 0.2)',
+	                        'rgba(153, 102, 255, 0.2)'
+						],
+						borderColor:[
+							'rgba(255,99,132,1)',
+							'rgba(54,162,235,1)',
+	                        'rgba(255, 206, 86, 1)',
+	                        'rgba(75, 192, 192, 1)',
+	                        'rgba(153, 102, 255, 1)'
+	
+						],
+						borderWidth:1
+					}]
+				},
+				options:{
+					maintainAspectRatio: false, //false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+					scales:{
+						y:{
+							beginAtZero:true
+						}
 					}
 				}
-			}
-		});
-	});	
-	</script>    
+			});
+		});	
+   </script>    
+
+  <!-- 공지사항 내용 팝업창 -->
+  <script>
+  		$('.noticeTitle').click(function(){
+  			
+  			
+  			var noticeContent=$(this).attr('noticeContent');
+  			 var noticeTitle=$(this).text();
+  			
+            // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+            var _width = '800';
+            var _height = '620';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+           
+            window.open('/farm/farmNoticeContent.do?noticeContent='+noticeContent+'&noticeTitle='+noticeTitle+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+  			
+  		});
+  </script>
+  
+  
+  <!-- 문의사항  팝업창 -->
+  <script>
+  		$('.qnaTitle').click(function(){
+  			
+  			
+  			var qnaBoardNo=$(this).attr('qnaBoardNo');
+  			
+  			//alert(qnaBoardNo);
+  			
+            // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+            var _width = '800';
+            var _height = '620';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+           
+            //window.open('/farm/farmNoticeContent.do?noticeContent='+noticeContent+'&noticeTitle='+noticeTitle+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+  			
+  		});
+  </script>
+  
+    <!-- 환불접수  팝업창 -->
+  <script>
+  		$('.refundTitle').click(function(){
+  			
+  			
+  			var refundBoardNo=$(this).attr('refundBoardNo');
+  			
+  			//alert(refundBoardNo);
+  			
+            // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+            var _width = '800';
+            var _height = '620';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+           
+            //window.open('/farm/farmNoticeContent.do?noticeContent='+noticeContent+'&noticeTitle='+noticeTitle+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+  			
+  		});
+  </script>
+
 
 
 

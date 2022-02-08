@@ -61,7 +61,15 @@
         border-spacing: 0px;
         margin-top: 5px;
         line-height: 50px;
+        table-layout: fixed;
     }
+    
+    tbody>tr>td
+    {
+        overflow: hidden;
+       
+    }
+   /*list안에 데이터가 있을 때*/ 
     .pinImage
     {
         width:1.8vw;
@@ -73,9 +81,10 @@
     .boardTitle
     {
       position: relative; 
-      right:80px;
+      right:60px;
       font-weight: bolder;   
     }
+    
     
     /*더보기*/
     .plusBoard>a
@@ -83,7 +92,7 @@
         text-decoration: none;
         color: gray;
         position: relative; 
-        left:70px;"
+        left:80px;"
         
     }
     .plusBoard>a:hover
@@ -92,19 +101,60 @@
         color: black;
         
     }
+        
+    /*list안에 데이터가 없을 때*/ 
+    .pinImageEmpty
+    {
+        width:1.8vw;
+        height:3.8vh;
+        position: relative; 
+        right:30px;
+    }
+    
+    .boardTitleEmpty
+    {
+      position: relative; 
+      right:100px;
+      font-weight: bolder;   
+    }
+    
+    .plusBoardEmpty>a
+    {
+        text-decoration: none;
+        color: gray;
+        position: relative; 
+        left:10px;
+        
+    }
+    .plusBoardEmpty>a:hover
+    {
+        
+        color: black;
+        
+    }
+    .writeEmpty
+    {
+        position: relative; 
+        right:35px;
+    }   
+    
+    
+    
     .boardSubject
     {
         width:200px; 
         word-break:break-all;
+        text-overflow: ellipsis; white-space: nowrap; max-width: 80px;
+        position: relative;
+        left:35px;
     }
     
     /*게시글 제목*/
-    .boardSubject>a
+    .boardSubject>span
     {
-      text-decoration: none;
-        color: black;
+   	 	cursor: pointer;
     }
-    .boardSubject>a:hover
+    .boardSubject>span:hover
     {
       color: gray;
       

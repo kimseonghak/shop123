@@ -106,6 +106,12 @@ public class FarmENTQna {
 	public void setFarmNo(int farmNo) {
 		this.farmNo = farmNo;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "FarmENTQna [questionNo=" + questionNo + ", questionTitle=" + questionTitle + ", questionContent="
+				+ questionContent + ", questionRegdate=" + questionRegdate + ", userNo=" + userNo + ", userName="
+				+ userName + ", userId=" + userId + ", questionPhotoNo=" + questionPhotoNo + ", farmNo=" + farmNo + "]";
+	}
 	
 }

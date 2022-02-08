@@ -23,6 +23,7 @@ public class FarmENTServiceImpl implements FarmENTService{
 	@Autowired
 	private FarmENTDAO fENTdao;
 
+	//낙찰 목록 페이지
 	@Override
 	public HashMap <String,Object> selectFarmENTProductList(int currentPage,HashMap<String, Object>searchMap) {
 		
@@ -45,6 +46,7 @@ public class FarmENTServiceImpl implements FarmENTService{
 		
 	}
 
+	//주문 목록 페이지
 	@Override
 	public HashMap <String,Object> selectFarmENTOrderList(int currentPage, HashMap<String, Object> searchMap) {
 		
@@ -85,23 +87,23 @@ public class FarmENTServiceImpl implements FarmENTService{
 		
 	}
 
+	//배송 입력
 	@Override
 	public int farmDeliveryInput(HashMap<String, Object> map) {
 		
 		return	fENTdao.farmDeliveryInput(map);
 	}
 
+	//입력한 배송 데이터 가져오기
 	@Override
 	public ArrayList<FarmENTDeliveryStatus> selectDeliveryInputData(int buyNo) {
 		
-		//공지사항 목록 가져오기
 		 ArrayList<FarmENTDeliveryStatus> list = (fENTdao.selectDeliveryInputData(buyNo));
 		
 		 return list;
-		
 	}
 
-	//공지사항 질문 리스트
+	//공지사항 페이지
 	@Override
 	public HashMap<String, Object> selectNoticeList(int currentPage,HashMap<String, Object> searchMap) {
 		
@@ -124,12 +126,14 @@ public class FarmENTServiceImpl implements FarmENTService{
 		
 	}
 
+	//문의사항 페이지
 	@Override
 	public HashMap<String, Object> selectFarmQnaList(int currentPage, HashMap<String, Object> searchMap) {
 		
 		int recordCountPerPage = 10;
 		
 		ArrayList<FarmENTQna> list = fENTdao.selectFarmQnaList(recordCountPerPage,currentPage,searchMap);
+		
 		
 		//navi 생성
 		int naviCountPerPage=5;
@@ -143,7 +147,8 @@ public class FarmENTServiceImpl implements FarmENTService{
 		return map;
 		
 	}
-
+	
+	//환붊 목록 페이지
 	@Override
 	public HashMap<String, Object> selectRefundList(int currentPage, HashMap<String, Object> searchMap) {
 		
@@ -161,10 +166,9 @@ public class FarmENTServiceImpl implements FarmENTService{
 		map.put("pageNavi", pageNavi);
 		
 		return map;
-		
-		
 	}
 
+	//사업자 환불 승인
 	@Override
 	public ArrayList<FarmENTOrder> selectOrdertDetailInfo(String orderNo) {
 		
@@ -172,42 +176,38 @@ public class FarmENTServiceImpl implements FarmENTService{
 				
 		return list;
 	}
-
+	//사업자 환불 접수 취소
 	@Override
-	public boolean insertRefund(HashMap<String, Object> dataMap) {
+	public int updateRefund(HashMap<String, Object> dataMap) {
 		
-		int num = fENTdao.insertRefund(dataMap)+ fENTdao.updatePurchaselistRefund(dataMap);
-		
-		boolean result;
-		
-		if(num>1)
-		{
-			result = true;
-		}else
-		{
-			result = false;
-		}
-		
-		return result;
+		return fENTdao.updateRefund(dataMap);
 		
 	}
 
+	//대쉬보드-공지사항
 	@Override
-	public boolean updatePurchaselistRefundCancel(HashMap<String, Object> dataMap) {
+	public ArrayList<Notice> selectNoticeDashBoard() {
 		
-		int num = fENTdao.updatePurchaselistRefundCancel(dataMap);
+		ArrayList<Notice> list = fENTdao.selectNoticeDashBoard();
 		
-		boolean result;
+		return list;
+	}
+
+	//대쉬보드-문의사항
+	@Override
+	public ArrayList<FarmENTQna> selectQnaDashBoard(int farmNo) {
 		
-		if(num>0)
-		{
-			result = true;
-		}else
-		{
-			result = false;
-		}
+		ArrayList<FarmENTQna> list = fENTdao.selectQnaDashBoard(farmNo);
 		
-		return result;
+		return list;
+	}
+
+	@Override
+	public ArrayList<FarmENTRefund> selectRefundBoard(int farmNo) {
+		
+		ArrayList<FarmENTRefund> list = fENTdao.selectRefundBoard(farmNo);
+		
+		return list;
 	}
 
 
