@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.service.QuestionService;
+import com.hot.shop.question.model.vo.QuestionAnswer;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -134,7 +135,6 @@ public class QuestionController {
 		qp.setQuestionPhotoUpdateTime(uploadTime);
 		
 		int result = qService.insertWriteFile(qp);
-		System.out.println(qp.getQuestionPhotoNo());
 		return qp.getQuestionPhotoNo();
 	};
 	
@@ -175,12 +175,12 @@ public class QuestionController {
 			@RequestParam(required = false, defaultValue = "") String keyword,
 			@RequestParam(required = false, defaultValue = "default") String type, 
 			ModelAndView mav) {
-		QuestionUser qu = qService.questionView(questionUserNo);
+		HashMap<String, Object> map = qService.questionView(questionUserNo);
 		
 		mav.addObject("currentPage",currentPage);
 		mav.addObject("type",type);
 		mav.addObject("keyword",keyword);
-		mav.addObject("qUser", qu);
+		mav.addObject("map", map);
 		mav.setViewName("question/QuestionView");
 		return mav;
 	}
@@ -197,23 +197,25 @@ public class QuestionController {
 	}
 		
 	//1:1 문의 글수정 
-		@RequestMapping(value = "/question/questionUpdate.do",method = RequestMethod.POST)
-		public ModelAndView test(HttpServletRequest request, ModelAndView mav,@SessionAttribute Member member,QuestionUser quser) {
+		@RequestMapping(value = "/question/questionUpdate.do",method = RequestMethod.GET)
+		public void test(HttpServletRequest request, ModelAndView mav,@SessionAttribute(required =false ) Member member,QuestionUser quser) {
 			//글 쓰는 동안 세션 유지해야함
-			String userId = member.getUserId();
+			//String userId = member.getUserId();
 			//글 번호 갖고와야함
+			System.out.println(member);
+			if(member==null) {
+				System.out.println("호출");
+			}
 			int questionUserNo = Integer.parseInt(request.getParameter("questionUserNo"));
 
-			int result = qService.questionUpdate(quser);
+			//int result = qService.questionUpdate(quser);
 			
-			if(result >= 2 ) {
-				mav.addObject("location", "/question/QuestionUserUpdatePage.do");
-			}else {
-				mav.addObject("location", "/question/QuestionUserUpdatePage.do");
-			}
+			//if(result >= 2 ) {
+			//	mav.addObject("location", "/question/QuestionUserUpdatePage.do");
+			//}else {
+			//	mav.addObject("location", "/question/QuestionUserUpdatePage.do");
+			//}
 			
-			mav.setViewName("commons/msg");
-			return mav;
 		}
 		// 구매목록리스트 불러오기
 		@RequestMapping(value = "/question/buyListCheck.do",method = RequestMethod.GET)
@@ -224,6 +226,40 @@ public class QuestionController {
 			mav.addObject("map",map);
 			mav.addObject("currentPage",currentPage);
 			mav.setViewName("question/QuestionUserListCheck");
+			return mav;
+		}
+		
+		@RequestMapping(value = "/question/questionUserDelete.do", method = RequestMethod.GET)
+		public ModelAndView questionUserDelete(ModelAndView mav,
+				@RequestParam int questionUserNo,
+				@RequestParam String questionUserCode) {
+			int result = qService.questionUserDelete(questionUserNo,questionUserCode);
+			if(result>0) {
+				mav.addObject("msg", "글이 삭제되었습니다." );
+				mav.addObject("location", "/question/QuestionUserPage.do");
+			}else {
+				mav.addObject("msg", "오류가 발생했습니다." );
+				mav.addObject("location", "/question/QuestionUserPage.do");
+			}
+			mav.setViewName("commons/msg");
+			return mav;
+		}
+		
+		@RequestMapping(value = "/qustionUser/questionAnswer.do", method = RequestMethod.POST)
+		public ModelAndView questionAnswer(ModelAndView mav,QuestionAnswer qAnswer,
+				@RequestParam(required = false,defaultValue = "1") int currentPage,
+				@RequestParam(required = false, defaultValue = "") String keyword,
+				@RequestParam(required = false, defaultValue = "default") String type) {
+			boolean result = qService.questionAnswer(qAnswer);
+			int questionUserNo = qAnswer.getQuestionBoardNo();
+			if(result) {
+				mav.addObject("msg", "답변이 등록되었습니다." );
+				mav.addObject("location", "/question/questionViewPage.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword);
+			}else {
+				mav.addObject("msg", "오류가 발생하였습니다.." );
+				mav.addObject("location", "/question/questionViewPage.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword+"&questionUserNo="+questionUserNo);
+			}
+			mav.setViewName("commons/msg");
 			return mav;
 		}
 		

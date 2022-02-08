@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.question.model.vo.QuestionAnswer;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -17,7 +18,7 @@ public interface QuestionService {
 
 	int insertWriteFile(QuestionPhoto qp);
 
-	QuestionUser questionView(int questionUserNo);
+	HashMap<String, Object> questionView(int questionUserNo);
 
 	int questionUpdate(QuestionUser quser);
 
@@ -29,6 +30,10 @@ public interface QuestionService {
 	
 	//-----------------------------------------농가 문의-----------------------------------------
 	ArrayList<QuestionFarm> QuestionFarmPage();
+
+	int questionUserDelete(int questionUserNo,String questionUserCode);
+
+	boolean questionAnswer(QuestionAnswer qAnswer);
 	
 	
 	

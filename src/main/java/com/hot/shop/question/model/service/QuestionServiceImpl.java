@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hot.shop.auction.model.vo.Purchaselist;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.dao.QuestionDAO;
+import com.hot.shop.question.model.vo.QuestionAnswer;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -34,7 +35,7 @@ public class QuestionServiceImpl implements QuestionService{
 
 	//1:1문의 작성글 조회
 	@Override
-	public QuestionUser questionView(int questionUserNo) {
+	public HashMap<String, Object> questionView(int questionUserNo) {
 		return qDAO.questionView(questionUserNo);
 	}
 
@@ -74,6 +75,16 @@ public class QuestionServiceImpl implements QuestionService{
 	public ArrayList<QuestionFarm> QuestionFarmPage() {
 		// TODO Auto-generated method stub
 		return qDAO.QuestionFarmPage();
+	}
+
+	@Override
+	public int questionUserDelete(int questionUserNo,String questionUserCode) {
+		return qDAO.questionUserDelete(questionUserNo,questionUserCode);
+	}
+
+	@Override
+	public boolean questionAnswer(QuestionAnswer qAnswer) {
+		return qDAO.questionAnswer(qAnswer);
 	}
 
 	

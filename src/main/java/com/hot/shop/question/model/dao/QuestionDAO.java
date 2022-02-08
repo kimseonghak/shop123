@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.hot.shop.admin.model.vo.BID;
+import com.hot.shop.admin.model.vo.Refund;
 import com.hot.shop.auction.model.vo.Purchaselist;
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.question.model.vo.QuestionAnswer;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -46,10 +48,12 @@ public class QuestionDAO {
 	}
 
 	//1:1문의 조회(사용자)
-	public QuestionUser questionView(int questionUserNo) {
-		sqlSession.selectOne("qUser.questionView", questionUserNo);
-		//sqlSession.selectOne("qUser.questionViewRefund",questionUserNo);
-		return null;
+	public HashMap<String, Object> questionView(int questionUserNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("qUser", sqlSession.selectOne("qUser.questionView", questionUserNo));
+		map.put("refund", sqlSession.selectOne("qUser.questionViewRefund",questionUserNo));
+		map.put("qAnswer", sqlSession.selectOne("qUser.questionAnswerCheck",questionUserNo));
+		return map;
 	}
 
 	//글 수정
@@ -154,6 +158,29 @@ public class QuestionDAO {
 
 	private int qUserTotalCount(HashMap<String, Object> map) {
 		return sqlSession.selectOne("qUser.qUserTotalCount",map);
+	}
+
+	public int questionUserDelete(int questionUserNo,String questionUserCode) {
+		if(questionUserCode.equals("Q-1")) {
+			sqlSession.update("qUser.refundDelete",questionUserNo);
+		}
+		return sqlSession.update("qUser.questionUserDelete",questionUserNo);
+	}
+
+	public boolean questionAnswer(QuestionAnswer qAnswer) {
+		if(qAnswer.getQuestionUserAnswerYN() == 'N') {
+			int result =sqlSession.insert("qUser.questionAnswer",qAnswer);
+			int result2 = sqlSession.update("qUser.questionUserAnswerYN",qAnswer);
+			if(result+result2>1) {
+				return true;
+			}
+		}else {
+			int result = sqlSession.update("qUser.questionAnswerUpdate",qAnswer);
+			if(result>0) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	
