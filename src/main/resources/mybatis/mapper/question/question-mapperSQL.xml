@@ -141,7 +141,7 @@
 			 where order_no=#{orderNo}
 		</select>
 		<insert id="refund" parameterType="hashmap">
-			insert into refund values(refund_seq.nextval,#{pur.buyNo},#{pur.userNo},#{pur.farmNo},'X','X','N',#{qUser.questionUserNo)
+			insert into refund values(refund_seq.nextval,#{pur.buyNo},#{pur.userNo},#{pur.farmNo},'X','X','N',#{qUser.questionUserNo})
 		</insert>
 	</mapper>
 
