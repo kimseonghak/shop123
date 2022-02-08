@@ -112,7 +112,7 @@ public class QuestionController {
 		
 		int result = qService.insertUserWrite(qUser);
 		
-		if(result >= 2 ) {
+		if(result >= 3 ) {
 			mav.addObject("msg", "글 작성에 성공했습니다." );
 			mav.addObject("location", "/question/QuestionUserPage.do");
 		}else {
@@ -166,12 +166,14 @@ public class QuestionController {
 			mav.setViewName("commons/msg");
 			return mav;
 		}
-		
+		// 구매목록리스트 불러오기
 		@RequestMapping(value = "/question/buyListCheck.do",method = RequestMethod.GET)
 		public ModelAndView buyListCheck(ModelAndView mav,
 				@RequestParam(required = false,defaultValue = "1") int currentPage,
 				@SessionAttribute Member member) {
 			HashMap<String, Object> map = qService.buyListCheck(currentPage,member);
+			mav.addObject("map",map);
+			mav.addObject("currentPage",currentPage);
 			mav.setViewName("question/QuestionUserListCheck");
 			return mav;
 		}
