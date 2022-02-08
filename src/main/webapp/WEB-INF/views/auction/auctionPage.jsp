@@ -210,6 +210,7 @@
    background-color: #3BBD5A;
    display: block;
    margin: 0 auto;
+   cursor:pointer;
 }
 
 .font-style{
@@ -562,6 +563,7 @@
                if(result=="true"){
                   alert('최저가로 입찰되었습니다.');
                   currentPrice.html(auctionPrice);
+                  auctionCount1.html('0');
                }else{
                   alert('잘못된 접근입니다');
                }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.auction.model.dao.AuctionDAO;
+import com.hot.shop.auction.model.vo.Purchaselist;
 import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
 
@@ -41,6 +42,18 @@ public class AuctionServiceImpl implements AuctionService{
 	public Member selectMember(Member member) {
 
 		return aucDAO.selectLoginMember(member);
+	}
+
+	@Override
+	public Farm selectFarm(Farm f) {
+
+		return aucDAO.selectFarmName(f);
+	}
+
+	@Override
+	public int insertOrder(Purchaselist p) {
+
+		return aucDAO.insertOrder(p);
 	}
 
 	

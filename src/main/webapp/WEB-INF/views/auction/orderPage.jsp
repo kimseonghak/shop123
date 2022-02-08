@@ -2,9 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script src="https://code.jquery.com/jquery-3.6.0.js"
-	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,15 +62,26 @@
 	height: 70px;
 	float: left;
 }
-#main2 {
-    width: 27%;
-    height: 500px;
+#order-wrapBox {
+    width: 50%;
+    height: 100%;
     float: left;
     margin-left: 150px;
 }
+#order-memberInfoBox{
+	width : 380px;
+	height: 100%;
+	float: left;
+}
+#order-payBox{
+	width: 300px;
+	height: 100%;
+	float: left;
+	margin-left: 25px;
+}
 
-#main3 {
-    width: 22%;
+#payBox {
+    width: 296px;
     height: 320px;
     float: left;
     border: 1px solid #E9E9E9;
@@ -76,9 +89,9 @@
     background-color: white;
 }
 
-#td-1 {
-    line-height: 50px;
+#memberInfoBox {
     width: 380px;
+    height : 50px;
     border: 1px solid #E9E9E9;
     font-size: 14px;
     box-shadow: 5px 5px 5px #E9E9E9;
@@ -88,18 +101,18 @@
 #customer {
     display: block;
     float: left;
-    margin-left: 15px;
-    margin-right: 130px;
     font-weight: bold;
+	margin: 15px 15px;
+	margin-right: 145px;
 }
 
 #customer-name {
     display: block;
     float: left;
-    margin-left: 20px;
+    margin-top: 15px;
 }
 
-#main2-1 {
+#memberInputBox {
     width: 380px;
     height: 315px;
     border: 1px solid #E9E9E9;
@@ -154,6 +167,7 @@
     margin-top: 5px;
     border: 2px solid #E9E9E9;
     border-radius: 3px;
+    padding-left: 5px;
 }
 
 .addr-box {
@@ -162,10 +176,10 @@
     margin-top: 5px;
     border: 2px solid #E9E9E9;
     border-radius: 3px;
-    margin-left: 6px;
+    cursor:pointer;
 }
 
-#main2-2 {
+#orderInfo {
     width: 380px;
     height: 205px;
     border: 1px solid #E9E9E9;
@@ -225,7 +239,7 @@
 .pay-span {
     font-size: 15px;
     display: block;
-    margin-top: 15px;
+    margin-top: 18px;
     font-weight: bold;
     text-align: center;
 }
@@ -250,7 +264,7 @@
     display: block;
     float: left;
     margin-top: 17px;
-    margin-left: 85px;
+    margin-left: 50px;
     font-weight: bold;
 }
 
@@ -260,7 +274,7 @@
     display: block;
     float: left;
     margin-top: 17px;
-    margin-left: 5px;
+    margin-left: 15px;
 }
 
 .terms {
@@ -275,7 +289,7 @@
 .terms-text {
     width: 80%;
     height: 30px;
-    margin: 25px 0 0 38px;
+    margin: 20px 0 0 38px;
     font-size: 13px;
     font-family: 'Nanum Gothic', sans-serif;
     color: #707070;
@@ -291,7 +305,7 @@
     margin: 30px auto;
 }
 #payBtn{
-    width: 90%;
+    width: 46.5%;
     height: 100%;
     border-radius: 5px;
     background-color: #3BBD5A;
@@ -299,7 +313,24 @@
     color: white;
     font-size: 14px;
     font-family: 'NanumSquare';
-    margin-left: 13px;
+	display: block;
+	float: left;    
+	margin-right: 15px;
+	cursor:pointer;
+	
+}
+#cancleBtn{
+	width: 46.5%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: #ffff;
+    border: 3px solid #3BBD5A;
+    color: #3BBD5A;
+    font-size: 14px;
+    font-family: 'NanumSquare';
+    display: block;
+	float: left;    
+	cursor:pointer;
 }
 
 
@@ -317,110 +348,206 @@
 				</div>
 			</div>
 			<div id="leftSpace-footer"></div>
-			 <div id="main2">
-                 <form>
-                     <table>
-                         <tr>
-                             <td id="td-1">
-                             <span id="customer">주문고객</span>
-                             <span id="customer-name">이현아(010-8910-3649)</span>
-                             </td>
-                         </tr>
-                         <!--구매 로직-->
-                         <tr>
-                             <td>
-                                 <div id="main2-1">
-                                     <div class="farm-box">
-                                         <span class="farm-name">주소 (배송지)</span>
-                                     </div>
-                                     <div class="address-box">
-                                         <div class="name"><span class="star" style="color: darksalmon">*</span>
-                                         <span class="name-span">받는분</span></div>
-                                         <div class="name-box">
-                                             <input type="text" name="userName" class="name-input" value="이현아" />
-                                         </div>
+			 <div id="order-wrapBox">
+                <div id="order-memberInfoBox">
+                	<div id="memberInfoBox">
+                		<span id="customer">주문고객</span>
+                        <span id="customer-name">${requestScope.m.userName }&nbsp;( ${requestScope.m.userPhone } )</span>
+                	</div>
+                	
+                	<div id="memberInputBox">
+                        <div class="farm-box">
+                            <span class="farm-name">주소 (배송지)</span>
+                        </div>
+                        <div class="address-box">
+                            <div class="name"><span class="star" style="color: darksalmon">*</span>
+                            <span class="name-span">받는분</span></div>
+                            <div class="name-box">
+                                <input type="text" name="userName" class="name-input" value="${requestScope.m.userName }" />
+                            </div>
 
-                                         <div class="name"><span class="star" style="color: darksalmon">*</span>
-                                         <span class="name-span">전화번호</span></div>
-                                         <div class="name-box">
-                                             <input type="text" name="userPhone" class="name-input" value="01011112222" />
-                                         </div>
+                            <div class="name"><span class="star" style="color: darksalmon">*</span>
+                            <span class="name-span">전화번호</span></div>
+                            <div class="name-box">
+                                <input type="text" name="userPhone" class="name-input" id="phone" value="${requestScope.m.userPhone }" />
+                            </div>
 
-                                         <div class="name"><span class="star" style="color: darksalmon">*</span>
-                                         <span class="name-span">주소</span></div>
-                                         <div class="name-box">
-                                             <input type="text" name="userPhone" class="addr-box" disabled="true" />
-                                             <input type="button" class="addr-box" value="주소찾기" />
-                                         </div>
+                            <div class="name"><span class="star" style="color: darksalmon">*</span>
+                            <span class="name-span">주소</span></div>
+                            <div class="name-box">
+                                <input type="text" name="userPhone" class="addr-box" disabled="true" />
+                                <input type="button" class="addr-box" onclick="sample4_execDaumPostcode()" value="주소찾기" />
+                            </div>
 
-                                         <div class="name"></div>
-                                         <div class="name-box">
-                                             <input type="text" name="addressMain" class="name-input" value="경기도 고양시 일산서구 일현로 120" />
-                                         </div>
+                            <div class="name"></div>
+                            <div class="name-box">
+                                <input type="text" name="addressMain" class="name-input address1" id="sample4_roadAddress" value="${requestScope.m.userAddressMain }" />
+                            </div>
 
-                                         <div class="name"></div>
-                                         <div class="name-box">
-                                             <input type="text" name="addressDetail" class="name-input" value="606동 301호" />
-                                         </div>
-                                     </div>
-                                 </div>
-                             </td>
-                         </tr>
-                         <tr>
-                             <td>
-                                 <div id="main2-2">
-                                     <div class="farm-box">
-                                         <p class="farm-name">모닝팜</p>
-                                         <div class="address-box">
-                                             <span class="product-span">햇터 곶감</span><span class="count-span">1kg</span>
-                                         </div>
-                                         <div class="address-box">
-                                             <span class="product-span">수량 : </span><span class="mount-span">1 개</span>
-                                         </div>
-                                         <div class="address-box">
-                                             <span class="product-span">총 금액 : </span><span class="price-span">25000 원</span>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </td>
-                         </tr>
-                     </table>
-                 </form>
+                            <div class="name"></div>
+                            <div class="name-box">
+                                <input type="text" name="addressDetail" class="name-input" id="address2" value="${requestScope.m.userAddressSub }" />
+                            </div>
+                        </div>
+                   </div>
+                   <div id="orderInfo">
+                        <div class="farm-box">
+                            <p class="farm-name">${requestScope.f.farmName }</p>
+                            <div class="address-box">
+                                <span class="product-span" id="product">${requestScope.sf.auctionProduct }</span>
+                            </div>
+                            <div class="address-box">
+                                <span class="product-span">수량 : </span><span class="mount-span">${requestScope.sf.auctionCount1 } 개</span>
+                            </div>
+                            <div class="address-box">
+                                <span class="product-span">총 금액 : </span><span class="price-span totalMoney"></span>
+                            </div>
+                        </div>
+                   </div>
+               
                </div>
-               <div id="main3">
-                   <tr>
-                       <div class="pay-box">
-                           <span class="pay-span">결제정보</span>
-                       </div>
-                       <div class="payment-box">
-                           <span class="payspan">최종 결제 금액 </span><span class="payment-span">25000 원</span>
-                       </div>
-                       <p class="terms-text">결제 시 개인정보 제공에 동의합니다.</p>
-                       <div class="terms">
-                           <p class="terms-box" style="padding: 10px">
-                                                                         ‣ 목적 : 판매자와 구매자 사이의 원활한 거래 진행, 상품의 배송을 위한 배송지 확인, 고객상담 및 불만처리 등
+               <div id="order-payBox">
+	               <div id="payBox">
+	                      <div class="pay-box">
+	                          <span class="pay-span">결제정보</span>
+	                      </div>
+	                      <div class="payment-box">
+	                          <span class="payspan">최종 결제 금액 </span><span class="payment-span totalMoney"></span>
+	                      </div>
+	                      <p class="terms-text">결제 시 개인정보 제공에 동의합니다.</p>
+	                      <div class="terms">
+	                          <p class="terms-box" style="padding: 10px">
+	                                                                        ‣ 목적 : 판매자와 구매자 사이의 원활한 거래 진행, 상품의 배송을 위한 배송지 확인, 고객상담 및 불만처리 등
 						       ‣ 정보 : 주문자 정보(성명, 연락처), 수령인 정보(성명, 연락처, 주소)
 						       ‣ 보유기간 : 발송완료 후 15일
 						     아이이디어스는 통신판매중개자이며 통신판매의 당사자가 아닙니다. 따라서 아이디어스는 상품 거래정보 및 거래에 대하여 책임을 지지 않습니다.
 						     고객님께서는 개인정보 제공에 대하여 동의를 거부하실 수 있으나, 거부 시 상품 구매가 어렵습니다.
-                           </p>
-                            </div>
-                       <div id="pay-button">
-                           <input type="button" id="payBtn" value="51200원 카드결제"/>
-                       </div>
-                    </tr>
+	                          </p>
+	                           </div>
+	                      <div id="pay-button">
+	                      	   <button id="payBtn" onclick="requestPay()">카드결제</button>
+	                          <input type="button" id="cancleBtn" value="취소"/>
+	                      </div>
+					</div>
                </div>
-            </div>
+             </div>
          </div>
-	</div>
 	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 </div>
 
+	<!-- 다음 주소 API -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
+		function sample4_execDaumPostcode() {
+		    new daum.Postcode({
+		        oncomplete: function(data) {
+		
+		            var roadAddr = data.roadAddress;
+		            var extraRoadAddr = '';
+		
+		            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		                extraRoadAddr += data.bname;
+		            }
+		           
+		            if(data.buildingName !== '' && data.apartment === 'Y'){
+		               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		            }
+		            
+		            if(extraRoadAddr !== ''){
+		                extraRoadAddr = ' (' + extraRoadAddr + ')';
+		            }
+		            document.getElementById("sample4_roadAddress").value = roadAddr;
+		        
+		        }
+		    }).open();
+		}
+
+		var auctionPrice = ${requestScope.sf.auctionPrice };     
+		var productCount = ${requestScope.sf.auctionCount1 };	 //수량
+		var productName = $('#product').html();					 //상품명
+		var userNo = ${requestScope.m.userNo };					 //회원번호
+		var farmNo = ${requestScope.f.farmNo };					 //농가번호
+		var phone = $('#phone').val();							 //폰번호
+		var address1 = $('.address1').val();					 //메인 주소
+		var address2 = $('#address2').val();					 //메인 주소
+		var orderNo = new Date().getTime();						 //주문번호
+		
+		var payMethod = '';
+		
+		//var payAmount = auctionPrice * productCount;			 //총 금액
+		var payAmount = 100;
+		
+		//총 금액 구해서 값 넣어주기
+		$(function(){
+			
+			var totalMoney = $('.totalMoney').html(payAmount+" 원");
+			alert(userName);
+		});
+		
+		//취소 버튼 누를 경우 구매 페이지로 이동
+		$('#cancleBtn').click(function(){
+			
+		 	location.replace('/auction/auctionSalePage.do');
+		})
+
 	
+  
+        var IMP = window.IMP; // 생략 가능
+        IMP.init("imp95571012"); // 예: imp00000000
 
-	</script>
+        
+        function requestPay() {
+            // IMP.request_pay(param, callback) 결제창 호출
+            IMP.request_pay({ // param 자바스크립트 객체 key:value
+                pg: "html5_inicis",
+                pay_method: "card",
+                merchant_uid: orderNo,
+                name: productName,
+                amount: payAmount
+                
+                
+            }, function(rsp) { // callback
+            	  if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+           	        
+           	        $.ajax({
+           	            url: "/auction/orderPay.do", 
+           	            method: "POST",
+           	            data: {	"productCount": productCount,
+           	               		"productName": productName,
+           	               		"userNo" : userNo,
+           	               		"farmNo" : farmNo,
+           	               		"phone" : phone,
+           	               		"address1" : address1,
+           	               		"address2" : address2,
+           	               		"payAmount" : payAmount,
+           	               		"orderNo" : orderNo,
+           	               		"payMethod" : rsp.pay_method
+           	               		 
+           	            },
+           	            
+           	     		success : function(result){
+							if(result=="true"){
+							
+								alert('결제가 완료되었습니다.');
+								location.href = "/auction/orderComplete.do"; 
+							
+							}else{
+								
+								alert('잘못된 접근입니다');
+							}
+						},
+						error : function(){
+							
+							console.log('ajax 통신 실패');
+						}
+           	        })
+           	      } else {
+           	        alert( rsp.error_msg);
+           	      }
+            });
+        }
 
+    </script>
 
 
 
