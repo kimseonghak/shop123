@@ -145,8 +145,13 @@ public class FarmENTOrder {
 	}
 
 
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "FarmENTOrder [buyNo=" + buyNo + ", userNo=" + userNo + ", farmNo=" + farmNo + ", orderNo=" + orderNo
+				+ ", productName=" + productName + ", productCount=" + productCount + ", payAmount=" + payAmount
+				+ ", purchaseDate=" + purchaseDate + ", dName=" + dName + "]";
+	}
+
 	
 }

@@ -100,8 +100,14 @@ public class FarmENTDeliveryStatus {
 	public void setDeliveryStatus(String deliveryStatus) {
 		this.deliveryStatus = deliveryStatus;
 	}
-	
-	
+
+
+	@Override
+	public String toString() {
+		return "FarmENTDeliveryStatus [deliveryNo=" + deliveryNo + ", buyNo=" + buyNo + ", deliveryCompany="
+				+ deliveryCompany + ", deliveryNum=" + deliveryNum + ", deliveryDate=" + deliveryDate + ", delYN="
+				+ delYN + ", deliveryStatus=" + deliveryStatus + "]";
+	}
 	
 	
 }

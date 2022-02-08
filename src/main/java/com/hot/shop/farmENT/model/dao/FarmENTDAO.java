@@ -605,29 +605,46 @@ public class FarmENTDAO {
 		
 	}
 
+	//환불게시판-주문상세
 	public ArrayList<FarmENTOrder> selectOrdertDetailInfo(String orderNo) {
 		
-		
 		return new ArrayList<FarmENTOrder>(sql.selectList("farmENT.selectOrdertDetailInfo",orderNo));
+	}
+	
+	//환불 승인 및 환불 접수 취소
+	public int updateRefund(HashMap<String, Object> dataMap) {
+		
+		return	sql.insert("farmENT.updateRefund",dataMap);
 		
 	}
 
-	public int insertRefund(HashMap<String, Object> dataMap) {
+	//대시보드-공지사항
+	public ArrayList<Notice> selectNoticeDashBoard() {
 		
-		return	sql.insert("farmENT.insertRefund",dataMap);
+		RowBounds rb = new RowBounds(0,5);
 		
-	}
-
-	public int updatePurchaselistRefund(HashMap<String, Object> dataMap) {
-		
-		return	sql.update("farmENT.updatePurchaselistRefund",dataMap);
+		return new ArrayList<Notice>(sql.selectList("farmENT.selectNoticeDashBoard",null,rb));
 		
 	}
 
-	public int updatePurchaselistRefundCancel(HashMap<String, Object> dataMap) {
+	//대시보드-문의사항
+	public ArrayList<FarmENTQna> selectQnaDashBoard(int farmNo) {
 		
-		return	sql.update("farmENT.updatePurchaselistRefundCancel",dataMap);
+		RowBounds rb = new RowBounds(0,5);
+		
+		return new ArrayList<FarmENTQna>(sql.selectList("farmENT.selectQnaDashBoard",farmNo,rb));
 	}
+
+	//대시보드-환불접수
+	public ArrayList<FarmENTRefund> selectRefundBoard(int farmNo) {
+		
+		RowBounds rb = new RowBounds(0,5);
+			
+		return new ArrayList<FarmENTRefund>(sql.selectList("farmENT.selectRefundBoard",farmNo,rb));
+		
+	}
+
+
 
 
 	

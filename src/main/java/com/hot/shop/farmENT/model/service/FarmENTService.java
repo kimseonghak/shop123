@@ -6,7 +6,10 @@ import java.util.HashMap;
 import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
 import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
+import com.hot.shop.farmENT.model.vo.FarmENTQna;
+import com.hot.shop.farmENT.model.vo.FarmENTRefund;
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.notice.model.vo.Notice;
 
 public interface FarmENTService {
 
@@ -30,9 +33,18 @@ public interface FarmENTService {
 
 	ArrayList<FarmENTOrder> selectOrdertDetailInfo(String orderNo);
 
-	boolean insertRefund(HashMap<String, Object> dataMap);
+	int updateRefund(HashMap<String, Object> dataMap);
 
-	boolean updatePurchaselistRefundCancel(HashMap<String, Object> dataMap);
+	//대쉬보드 공지사항
+	ArrayList<Notice> selectNoticeDashBoard();
+
+	//대쉬보드 문의사항
+	ArrayList<FarmENTQna> selectQnaDashBoard(int farmNo);
+
+	//대쉬보드 환불목록
+	ArrayList<FarmENTRefund> selectRefundBoard(int farmNo);
+
+	
 
 
 
