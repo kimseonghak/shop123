@@ -58,6 +58,7 @@ public class NoticeServiceImpl implements NoticeService{
 		return nDAO.updateWrite(n);
 	}
 
+	//공지사항 삭제
 	@Override
 	public int noticeDelete(int noticeNo) {
 		
