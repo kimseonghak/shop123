@@ -106,7 +106,7 @@
 }
 
 #write_Btn_form{
-	width: 64%;
+	width: 50px;
 	height: 40px;	
 	margin: 0 auto;
 }
@@ -156,7 +156,6 @@
 		</div>
 		
 		<div id="listForm" align="center">
-			<!-- for문 -->
 
 			<div class="list_contentForm">
 				
@@ -165,21 +164,23 @@
 				</div>
 				
 				<div class="list_loaction_Form">
-					<span>[ 지역 ]</span>
+					<span>[월]</span>
 				</div><br>
 				
 				<div class="list_titleForm">
 					<span>[ 글 제목 ]</span>
 				</div>
+					
 			</div>
 			
-			<!-- for문 -->
+			
+
 		</div><br>
-		
 		
 		<div id="write_Btn_form">
 			<button id="submit_btn">글 쓰기</button>
 		</div>
+		
 	</div><br>
 	
 	<div id="footerForm">

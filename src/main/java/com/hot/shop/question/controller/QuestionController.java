@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.service.QuestionService;
+import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 import com.oreilly.servlet.MultipartRequest;
@@ -98,21 +99,29 @@ public class QuestionController {
 		qp.setQuestionPhotoFileSize(fileSize);
 		qp.setQuestionPhotoUpdateTime(uploadTime);
 		
-		
 		int result = qService.insertWriteFile(qp);
 		System.out.println(qp.getQuestionPhotoNo());
 		return qp.getQuestionPhotoNo();
 	};
 	
-	
+	//미리 올려둔 파일과 같이 글을 작성하는 메소드(유저문의)
 	@RequestMapping(value="/question/questionWrite.do", method=RequestMethod.POST)
 	public ModelAndView QuestionUserWrite(QuestionUser qUser, ModelAndView mav,@SessionAttribute Member member) {
 		int userNo = member.getUserNo();
 		qUser.setUserNo(userNo);
 		
+		boolean check = false;
 		int result = qService.insertUserWrite(qUser);
-		
-		if(result >= 3 ) {
+		if(qUser.getQuestionUserCode().equals("Q-2")&&qUser.getQuestionphotoNo()==1&&result>0) {
+			check=true;
+		}else if(qUser.getQuestionUserCode().equals("Q-2")&&qUser.getQuestionphotoNo()!=1&&result>1) {
+			check=true;
+		}else if(qUser.getQuestionUserCode().equals("Q-1")&&qUser.getQuestionphotoNo()==1&&result>1) {
+			check=true;
+		}else if(qUser.getQuestionUserCode().equals("Q-1")&&qUser.getQuestionphotoNo()!=1&&result>2) {
+			check=true;
+		}
+		if(check) {
 			mav.addObject("msg", "글 작성에 성공했습니다." );
 			mav.addObject("location", "/question/QuestionUserPage.do");
 		}else {
@@ -176,5 +185,16 @@ public class QuestionController {
 			mav.addObject("currentPage",currentPage);
 			mav.setViewName("question/QuestionUserListCheck");
 			return mav;
+		}
+		
+		//-----------------------------------------농가 문의-----------------------------------------
+		
+		//헤더에서 1:1문의 버튼을 누르면 문의 리스트로 이동하는 메소드(유저 문의)	
+		@RequestMapping(value = "/question/QuestionFarmPage.do",method = RequestMethod.GET)
+		public ModelAndView QuestionFarmPage(ModelAndView mav) {
+		       ArrayList<QuestionFarm> list = qService.QuestionFarmPage();
+		       mav.addObject("list", list);
+		       mav.setViewName("question/QuestionFarmList");
+		       return mav;
 		}
 }
