@@ -11,7 +11,7 @@ import com.hot.shop.question.model.vo.QuestionUser;
 
 public interface QuestionService {
 
-	ArrayList<QuestionUser> selectUserQuestionList();//1:1문의 리스트(유저)
+	HashMap<String, Object> selectUserQuestionList(HashMap<String, Object> map);//1:1문의 리스트(유저)
 	
 	int insertUserWrite(QuestionUser qUser);//1:1 문의 글쓰기(유저 실질적인 백단)
 

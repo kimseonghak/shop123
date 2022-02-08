@@ -358,7 +358,6 @@ select option[value=""][disabled] {
 						<input type="reset" value="다시쓰기" id="resetBtn"/>
 					</div>
 				</div>
-						
 		</div>
 	</div>
 	

@@ -4,132 +4,174 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
-<!-- jQuery 라이브러리 -->
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap"
+	rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
 <style type="text/css">
 
-*{
-	box-sizing: border-box;
-}
-
-#warpForm{
-	width: 100%;
-	height: 1417px;
-}
-
-#headerFrom{
-	width: 100%;
-	height: 175px;
-}
-
-#contentForm{
-	width: 100%;
-	height: 1000px;
-	background-color: #f0f0f0;
-}
-
-#footerFrom{
-	width: 100%;
-	height: 242px;
-}
-
-#questionWrap{
-	width: 70%;
-	height: 90%;
-	border: none;
-	border-radius: 5px;
-	margin: 0 auto;
-	background-color: white;
-}
-
-#question_name{
-	width: 30%;
-	height: 70px;
-	text-align: center;
-	font : normal bold 30px "Nanum Gothic",sans-serif;
-	color: #08E200;
-	margin: 0 auto;
-}
-
-#question_searchWrap{
-	width: 80%;
-	height: 40px;
-	margin: 0 auto;
-}
-
-#question_search_textFrom{
-	float: right;
-	width: 300px;
-	height: 40px;
-}
-
-#keyword{
-	width: 100%;
-	height: 100%;
-	border: none;
-	border-radius: 5px;
-	background-color: #f0f0f0;
-}
-
-#question_search_btnFrom{
-	float: right;
-	width: 70px;
-	height: 40px;
-	margin-left: 20px;
-}
-
-#searchbtn{
-	width: 95%;
-	height: 100%;
-	border: none;
-	color: #ffffff;
-	border-radius: 5px;
-	background-color: #3BBD5A;
-	font-size: 20px;
-	cursor: pointer;
-}
-
-#question_table_form{
-	width: 80%;
-	height: 60%;
-	border: 2px solid black;
-	border-radius: 5px;
-	margin: 0 auto;
-}
-
-#question_pageNavi{
-	width: 80%;
-	height: 30px;
-	margin: 0 auto;
-}
-
-#question_table{
-	width: 100%;
-	border: 1px solid black;
-}
-
-
-#question_search_writeFrom{
-	height: 40px;
-	width: 80%;
-	margin: 0 auto;
-}
-
-#write_btn{
-	width: 120px;
-	height: 100%;
-	float: right;
-	border-radius: 5px;
-	background-color:#3BBD5A;
-	color: white;
-	cursor: pointer;
-	border: none;
-}
+	*{
+		box-sizing: border-box;
+		font-family: 'Nanum Gothic', 'sans-serif';
+	}
+	
+	#warpForm{
+		width: 100%;
+		height: 1417px;
+	}
+	
+	#headerForm{
+		width: 100%;
+		height: 175px;
+	}
+	
+	#contentForm{
+		width: 100%;
+		height: 1000px;
+		background-color: #f0f0f0;
+	}
+	
+	#footerFrom{
+		width: 100%;
+		height: 242px;
+	}
+	
+	#questionWrap{
+		width: 70%;
+		height: 90%;
+		border: none;
+		border-radius: 5px;
+		margin: 0 auto;
+		background-color: white;
+	}
+	
+	#question_name{
+		width: 30%;
+		height: 70px;
+		text-align: center;
+		font : normal bold 30px "Nanum Gothic",sans-serif;
+		color: #08E200;
+		margin: 0 auto;
+	}
+	
+	#question_searchWrap{
+		width: 80%;
+		height: 40px;
+		margin: 0 auto;
+	}
+	
+	#question_search_textFrom{
+		float: right;
+		width: 300px;
+		height: 40px;
+	}
+	
+	#keyword{
+		width: 100%;
+		height: 100%;
+		border: none;
+		border-radius: 5px;
+		background-color: #f0f0f0;
+	}
+	
+	#question_search_btnFrom{
+		float: right;
+		width: 70px;
+		height: 40px;
+		margin-left: 20px;
+	}
+	
+	#searchbtn{
+		width: 95%;
+		height: 100%;
+		border: none;
+		color: #ffffff;
+		border-radius: 5px;
+		background-color: #3BBD5A;
+		font-size: 20px;
+		cursor: pointer;
+	}
+	
+	#question_table_form{
+		width: 80%;
+		height: 60%;
+		border: 2px solid black;
+		border-radius: 5px;
+		margin: 0 auto;
+	}
+	
+	#question_pageNavi{
+		width: 80%;
+		height: 30px;
+		margin: 0 auto;
+	}
+	
+	#question_table{
+		width: 100%;
+		border: 1px solid black;
+	}
+	
+	
+	#question_search_writeFrom{
+		height: 40px;
+		width: 80%;
+		margin: 0 auto;
+	}
+	
+	#write_btn{
+		width: 120px;
+		height: 100%;
+		float: right;
+		border-radius: 5px;
+		background-color:#3BBD5A;
+		color: white;
+		cursor: pointer;
+		border: none;
+	}
+/* 페이지 네비 CSS */
+	.naviArrow{
+		text-decoration: none;
+		display : inline-block;
+		color: black;
+		margin : 2px;
+		width : 3.5vmin;
+		height: 3.5vmin;
+		font-weight: bolder;
+		opacity: 0.3;
+		line-height: 150%;
+	}
+	#currentNavi{
+		text-decoration: none;
+		display:inline-block;
+		color: white;
+		background-color:#48bb78;
+		border : 1px solid #48bb78;
+		width : 3.5vmin;
+		height: 3.5vmin;
+		margin : 1px;
+		font-weight: bolder;
+		line-height: 150%;
+	}
+	.otherNavi{
+		text-decoration: none;
+		display:inline-block;
+		color: #48bb78;
+		border : 1px solid #48bb78;
+		width : 3.5vmin;
+		height: 3.5vmin;
+		margin : 1px;
+		font-weight: bolder;
+		line-height: 150%;
+	}
+	.otherNavi:hover{
+		color: white;
+		background-color:#48bb78;
+		opacity: 0.3;
+	}
 
 </style>
 
@@ -137,16 +179,14 @@
 <body>
 
 <div id="warpForm" align="center">
-	<div id="headerFrom">
+	<div id="headerForm">
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
-		
 	<div id="contentForm" align="left"><br>
 		<div id="questionWrap">
 			<div id="question_name">
 				문의 게시판
 			</div>
-			
 			<!-- 검색 공간 -->
 			<div id="question_searchWrap">
 				<div id="question_search_btnFrom">
@@ -166,11 +206,11 @@
 						<th>제목</th>
 						<th>작성일</th>
 					</tr>
-					<c:forEach items="${requestScope.list}" var="qUser">
+					<c:forEach items="${map.list}" var="qUser">
                         <tr>
                             <td>${qUser.questionUserNo}</td>
                             <td>
-                            <a href="/question/questionViewPage.do?questionUserNo=${qUser.questionUserNo}">${qUser.questionUserTitle}</a></td>
+                            <a href="/question/questionViewPage.do?questionUserNo=${qUser.questionUserNo}&currentPage=${currentPage}&type=${map.type}&keyword=${keyword}">${qUser.questionUserTitle}</a></td>
                             <td>${qUser.questionUserRegdate}</td>
                         </tr>
                     </c:forEach>	
@@ -179,7 +219,7 @@
 			
 			<!-- 페이지 네비게이션 -->
 			<div id="question_pageNavi" align="center">
-				페이지 네비바 들가는 공간
+				${map.pageNavi }
 			</div>
 			<!-- 글 쓰기 버튼 -->
 			<div id="question_search_writeFrom">
@@ -194,5 +234,24 @@
 	</div>
 </div>
 
+
+<!-- jQuery 라이브러리 -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+<%-- 네비화살표 hover시 투명도 조절 --%>
+		$('.naviArrow').hover(function() {
+			$(this).css('opacity', '1');
+		}, function() {
+			$(this).css('opacity', '0.3');
+		});
+<%-- 현재페이지가 10페이지 이하일 경우 이전 페이지목록 비활성화 --%>
+		$(function() {
+			var currentPage = ${currentPage};
+			if (currentPage < 11) {
+				$('#prev').removeAttr('href');
+				$('#prev').unbind('mouseenter mouseleave');
+			}
+		});
+</script>
 </body>
 </html>
