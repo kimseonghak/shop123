@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 
@@ -23,6 +24,12 @@ public interface QuestionService {
 	HashMap<String, Object> buyListCheck(int currentPage, Member member);
 
 
-	
 
+
+	
+	//-----------------------------------------농가 문의-----------------------------------------
+	ArrayList<QuestionFarm> QuestionFarmPage();
+	
+	
+	
 }

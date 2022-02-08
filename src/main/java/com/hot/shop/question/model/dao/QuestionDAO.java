@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.auction.model.vo.Purchaselist;
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 
@@ -94,5 +95,14 @@ public class QuestionDAO {
 	private int buyTotalCount(Member member) {
 		return sqlSession.selectOne("qUser.buyListTotalCount",member.getUserNo());
 	}
+
+
+	//-----------------------------------------농가 문의-----------------------------------------
+	public ArrayList<QuestionFarm> QuestionFarmPage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 
 }

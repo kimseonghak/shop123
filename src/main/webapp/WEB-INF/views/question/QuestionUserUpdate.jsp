@@ -368,6 +368,7 @@ select option[value=""][disabled] {
 	</div>
 </div>
 
+<!-- 이미지 수정 -->
 <script>
 $('#img_Submit').click(function(){
     var formData = new FormData();
