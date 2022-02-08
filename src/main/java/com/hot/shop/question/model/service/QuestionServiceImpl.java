@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hot.shop.auction.model.vo.Purchaselist;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.dao.QuestionDAO;
+import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 
@@ -60,6 +61,16 @@ public class QuestionServiceImpl implements QuestionService{
 		map.put("pageNavi",pageNavi);
 		return map;
 	}
+
+
+	//-----------------------------------------농가 문의-----------------------------------------
+	
+	@Override
+	public ArrayList<QuestionFarm> QuestionFarmPage() {
+		// TODO Auto-generated method stub
+		return qDAO.QuestionFarmPage();
+	}
+	
 
 	
 }
