@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	<mapper namespace="promotion">
+	
+		<!-- 홍보게시판 리스트 불러오기 -->
+		<select id="promotionList" parameterType="hashmap" resultType="promotion">
+			select
+				PROMOTION_NO as PromotionNo,
+				PROMOTION_TITLE as PromotionTitle,
+				PROMOTION_CONTENT as PromotionContent,
+				PROMOTION_REGDATE as PromotionRegdate,
+				FARM_NO as FarmNo,
+				FARM_NAME as FarmName,
+				PROMOTION_COUNT as PromotionCount,
+				PROMOTION_END_YN as PromotionEnd,
+				PROMOTIONPHOTO_NO as PromotionPhotoNo,
+				ADVERTISE_YN as Advertise
+			from (select row_number() over(order by PROMOTION_NO desc)as num, PROMOTION.* ,FARM_NAME
+				from PROMOTION 
+				left join FARM on (PROMOTION.FARM_NO=FARM.FARM_NO) 
+				where PROMOTION_END_YN='N'
+				<choose>
+					<when test="type.equals('title')">
+						and PROMOTION_TITLE like '%'||#{keyword}||'%'
+					</when>
+					<when test="type.equals('content')">
+						and PROMOTION_CONTENT like '%'||#{keyword}||'%'
+					</when>
+					<when test="type.equals('all')">
+						and (PROMOTION_TITLE like '%'||#{keyword}||'%' or PROMOTION_CONTENT like '%'||#{keyword}||'%')
+					</when>
+					<otherwise></otherwise>
+				</choose>
+				)
+				where num between #{start} and #{end}
+		</select>
+	
+		<select id="promotionTotalCount" parameterType="hashmap" resultType="integer">
+			select count(*) from promotion  
+			<choose>
+				<when test="type.equals('title')">
+					where PROMOTION_TITLE like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('content')">
+					where PROMOTION_CONTENT like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('all')">
+					where PROMOTION_TITLE like '%'||#{keyword}||'%' or PROMOTION_CONTENT like '%'||#{keyword}||'%'
+				</when>
+				<otherwise></otherwise>
+			</choose>		
+		</select>
+		
+		<!-- 여기 사실 뭔가 이상함, promotion where 했을때는 오류나는데, where을 choose 문 아래 같다붙이니 에러가 안남, 사실 쟤가 
+			where 인슥을 못한다면 검색로직 작살난거, 여기 다시 봐줘야함 -->
+		
+	</mapper>
