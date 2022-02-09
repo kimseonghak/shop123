@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -138,6 +139,14 @@ public class FarmENTContoller {
 				mv.setViewName("farm/farmDashBoard");
 				
 				return mv;
+	}
+	
+	//사업자 로그아웃
+	@RequestMapping(value="/farm/farmENTlogout.do",method = RequestMethod.GET)
+	public String farmENTlogout(HttpSession session,@SessionAttribute Farm farm)
+	{
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 	
