@@ -78,7 +78,7 @@
 
 
 #farmNo{
-	width: 88.5%;
+	width: 50%;
 	height: 30px;
 	border: none;
 	border-radious: 5px;
@@ -258,7 +258,7 @@ select option[value=""][disabled] {
 				<div id="question_name">
 					<h3>불편 사항을 적어주세요</h3>
 				</div>
-				<!-- 문의 내용 설정하는 곳 -->
+<%-- 문의 내용 설정하는 곳 --%>
 				<div id="question_CategorieForm">
 					<span style="font-size: 20px; color: #08E200;">문의내역 : </span>
 					<div id="question_CategorieForm02">
@@ -271,10 +271,10 @@ select option[value=""][disabled] {
 				</div>
 				<div id="question_CategorieForm03" style="display: none;">
 					<span style="font-size: 20px; color: #08E200;">주문번호 : </span>
-					<input type="text" id="GoodsNo" name="OrderNo" placeholder="주문 번호를 적어주세요" readonly="readonly"/><button type="button" id="buyListCheckBtn">구매 내역 확인</button>
+					<input type="text" id="GoodsNo" name="OrderNo" placeholder="주문 번호를 적어주세요" readonly="readonly"/>
+					<button type="button" id="buyListCheckBtn">구매 내역 확인</button>
 				</div>
-				<!-- 문의 내용 설정하는 곳 끝 -->
-				<!-- 문의 대상 설정하는 곳 -->
+<%-- 문의 대상 설정하는 곳 --%>
 				<div id="question_farmForm">
 					<span style="font-size: 20px; color: #08E200;">카테고리 : </span>
 					<div id="question_farmForm02">
@@ -288,9 +288,10 @@ select option[value=""][disabled] {
 				<div id="question_farmForm03" style="display: none;">
 					<span style="font-size: 20px; color: #08E200;">농가번호 : </span>
 					<input type="text" id="farmNo" name="farmNo" value="1" placeholder="농가 번호를 적어주세요"/>
+					<button type="button" id="farmCheckBtn">농가 검색</button>
 				</div>
 				<br>
-				<!-- 문의 대상 설정하는 곳 끝-->
+<%-- 본문 시작 --%>
 				<br>
 				<div id="question_titleForm">
 					<input type="text" name="questionUserTitle" id="question_title" placeholder="글 제목을 적어주세요">
@@ -299,12 +300,14 @@ select option[value=""][disabled] {
 					<textarea placeholder="글 내용을 적어주세요" name="questionUserContent" id="question_content" style="resize: none;"></textarea>
 				</div><br>
 			</form>	
+<%-- 파일 업로드 --%>
 			<div id="img_Form">
 				<input type="file" name="file"/>
 				<button id="img_Submit">업로드하기</button>
 			</div>
 			<br>
 			<br>
+<%-- 버튼 목록 --%>
 			<div id="write_Btn_form">
 				<div id="submit_btn">
 					<input type="submit" id="submitBtn" value="글 쓰기"/>
@@ -318,6 +321,7 @@ select option[value=""][disabled] {
 			</div>
 		</div>
 	</div>
+<%-- footer --%>
 	<div id="footerFrom">
 		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
@@ -327,6 +331,7 @@ select option[value=""][disabled] {
 <!-- jQuery 라이브러리 -->
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script>
+<%-- 농가 선택시 농가번호 입력 폼 생성 --%>
 	$('#questionUserClassify').change(function(){
 		var result = $('#questionUserClassify option:selected').val();
 		if(result == 'F'){
@@ -335,7 +340,7 @@ select option[value=""][disabled] {
 			$('#question_farmForm03').css("display", "none");
 		}
 	});
-	
+<%-- 환불 선택시 환불 입력 폼 생성 --%>
 	$('#questionUserCode').change(function(){
 		var result = $('#questionUserCode option:selected').val();
 		if(result == 'Q-1'){
@@ -344,7 +349,19 @@ select option[value=""][disabled] {
 			$('#question_CategorieForm03').css("display", "none");
 		}
 	});
-
+<%-- 환불 선택시 입력 못하게 막는 스크립트 --%>
+	$('#questionUserCode').on("change",function(){
+		if($(this).val()=='Q-1'){
+			$('#questionUserClassify').val('F');
+			$('#questionUserClassify option').eq(2).prop("disabled",true)
+			$('#question_farmForm03').css("display","block");
+			$('#farmNo').prop("readonly",true);
+		}else{
+			$('#farmNo').prop("readonly",false);
+			$('#questionUserClassify option').eq(2).prop("disabled",false)
+		}
+	});
+<%-- 파일 ajax 처리 업로드 --%>
 	$('#img_Submit').click(function(){
 	    var formData = new FormData();
 	
@@ -378,21 +395,12 @@ select option[value=""][disabled] {
 
 <%-- 구매내역 확인 버튼 --%>
 	$('#buyListCheckBtn').click(function(){
-		window.open("/question/buyListCheck.do","_blank","width=800px, height=500px");
+		window.open("/question/buyListCheckPage.do","_blank","width=800px, height=500px");
 	});
-	
-	$('#questionUserCode').on("change",function(){
-		if($(this).val()=='Q-1'){
-			$('#questionUserClassify').val('F');
-			$('#questionUserClassify option').eq(2).prop("disabled",true)
-			$('#question_farmForm03').css("display","block");
-			$('#farmNo').prop("readonly",true);
-		}else{
-			$('#farmNo').prop("readonly",false);
-			$('#questionUserClassify option').eq(2).prop("disabled",false)
-		}
+<%-- 농가 번호 검색 버튼 --%>
+	$('#farmCheckBtn').click(function(){
+		window.open("/question/farmCheck.do","_blank","width=400px, height=400px");
 	});
-	
 </script>
 </body>
 </html>

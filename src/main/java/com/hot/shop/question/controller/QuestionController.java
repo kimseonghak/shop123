@@ -285,6 +285,18 @@ public class QuestionController {
 			return mav;
 		}
 		
+		@RequestMapping(value = "/question/farmCheckPage.do",method = RequestMethod.GET)
+		public String farmCheckPage() {
+			
+			return "question/QuestionUserListFarmCheck";
+		}
+		@RequestMapping(value = "/question/farmCheck.do",method = RequestMethod.GET)
+		@ResponseBody
+		public ArrayList<Farm> farmCheck(@RequestParam(required = false, defaultValue = "") String farmName) {
+			ArrayList<Farm> farm = qService.farmCheck(farmName);
+			
+			return farm;
+		}
 		//-----------------------------------------농가 문의-----------------------------------------
 		
 		//헤더에서 1:1문의 버튼을 누르면 문의 리스트로 이동하는 메소드(유저 문의)	

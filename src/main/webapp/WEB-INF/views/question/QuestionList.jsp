@@ -18,10 +18,13 @@
 		box-sizing: border-box;
 		font-family: 'Nanum Gothic', 'sans-serif';
 	}
+	a{
+		text-decoration: none;
+		color: inherit;
+	}
 	
 	#warpForm{
 		width: 100%;
-		height: 1417px;
 	}
 	
 	#headerForm{
@@ -31,11 +34,10 @@
 	
 	#contentForm{
 		width: 100%;
-		height: 1000px;
-		background-color: #f0f0f0;
+		padding-top:130px;
 	}
 	
-	#footerFrom{
+	#footerForm{
 		width: 100%;
 		height: 242px;
 	}
@@ -50,26 +52,28 @@
 	}
 	
 	#question_name{
-		width: 30%;
-		height: 70px;
-		text-align: center;
+		width: 25%;
+		height: 50px;
 		font : normal bold 30px "Nanum Gothic",sans-serif;
 		color: #08E200;
 		margin: 0 auto;
+		float:left;
 	}
 	
+/* 검색 부분 CSS */
 	#question_searchWrap{
-		width: 80%;
-		height: 40px;
+		width: 75%;
+		height: 50px;
 		margin: 0 auto;
+		float:left;
+		
 	}
-	
-	#question_search_textFrom{
+	#question_search_textForm{
 		float: right;
 		width: 300px;
-		height: 40px;
+		height: 30px;
+		margin-left: 5px;
 	}
-	
 	#keyword{
 		width: 100%;
 		height: 100%;
@@ -77,14 +81,12 @@
 		border-radius: 5px;
 		background-color: #f0f0f0;
 	}
-	
-	#question_search_btnFrom{
+	#question_search_btnForm{
 		float: right;
 		width: 70px;
-		height: 40px;
-		margin-left: 20px;
+		height: 30px;
+		margin-left: 5px;
 	}
-	
 	#searchbtn{
 		width: 95%;
 		height: 100%;
@@ -92,34 +94,49 @@
 		color: #ffffff;
 		border-radius: 5px;
 		background-color: #3BBD5A;
-		font-size: 20px;
+		font-size: 18px;
+		line-height:30px;
 		cursor: pointer;
 	}
-	
-	#question_table_form{
-		width: 80%;
-		height: 60%;
-		border: 2px solid black;
-		border-radius: 5px;
-		margin: 0 auto;
+	#qeustion_search_typeForm{
+		float:right;
+		height:30px;
+		padding:1px;
+	}
+	#select{
+		height:100%;
+	}
+	#select:focus{
+		outline: none;
 	}
 	
-	#question_pageNavi{
-		width: 80%;
-		height: 30px;
+/* 테이블 부분 CSS */
+	#question_table_form{
+		width: 100%;
 		margin: 0 auto;
 	}
 	
 	#question_table{
 		width: 100%;
-		border: 1px solid black;
+		border-spacing: none;
+		text-align: center;
+	}
+	#question_table th{
+		border-bottom: 2px solid black;
+		height:31.5px;
+	}
+	#question_table td{
+		height: 31.5px;
+		line-height: 31.5px;
+		border-bottom: 1px solid #e4e4e4;
+	}
+	#question_table tr:last-child>td{
+		border-bottom: 2px solid black;
 	}
 	
-	
-	#question_search_writeFrom{
+	#question_search_writeForm{
 		height: 40px;
-		width: 80%;
-		margin: 0 auto;
+		width: 100%;
 	}
 	
 	#write_btn{
@@ -132,14 +149,15 @@
 		cursor: pointer;
 		border: none;
 	}
+	
 /* 페이지 네비 CSS */
 	.naviArrow{
 		text-decoration: none;
 		display : inline-block;
 		color: black;
 		margin : 2px;
-		width : 3.5vmin;
-		height: 3.5vmin;
+		width : 25px;
+		height: 25px;
 		font-weight: bolder;
 		opacity: 0.3;
 		line-height: 150%;
@@ -150,8 +168,8 @@
 		color: white;
 		background-color:#48bb78;
 		border : 1px solid #48bb78;
-		width : 3.5vmin;
-		height: 3.5vmin;
+		width : 25px;
+		height: 25px;
 		margin : 1px;
 		font-weight: bolder;
 		line-height: 150%;
@@ -161,8 +179,8 @@
 		display:inline-block;
 		color: #48bb78;
 		border : 1px solid #48bb78;
-		width : 3.5vmin;
-		height: 3.5vmin;
+		width : 25px;
+		height: 25px;
 		margin : 1px;
 		font-weight: bolder;
 		line-height: 150%;
@@ -184,21 +202,30 @@
 	</div>
 	<div id="contentForm" align="left"><br>
 		<div id="questionWrap">
+<%-- 타이틀 --%>  
 			<div id="question_name">
 				문의 게시판
 			</div>
-			<!-- 검색 공간 -->
+<%-- 검색 공간 --%>
 			<div id="question_searchWrap">
-				<div id="question_search_btnFrom">
-					<button id="searchbtn">검색</button>
-				</div>
-				
-				<div id="question_search_textFrom">
-					<input type="text" id="keyword"/>
-				</div>
-			</div><br>
-			<!-- 검색 공간 -->
-			
+				<form action="/question/QuestionUserPage.do" method="get">
+					<div id="question_search_btnForm">
+						<button id="searchbtn">검색</button>
+					</div>
+					<div id="question_search_textForm">
+						<input type="text" id="keyword" name="keyword"/>
+					</div>
+					<div id="qeustion_search_typeForm">
+						<select name="type" id="select">
+							<option value="title">제목</option>
+							<option value="content">내용</option>
+							<option value="all">제목+내용</option>
+						</select>
+					</div>
+				</form>
+			</div>
+			<hr style="border:1px solid black; margin-top:0px; margin-bottom:10px;">
+<%-- 테이블 영역 --%>
 			<div id="question_table_form" align="center">
 				<table id="question_table">
 					<tr>
@@ -213,23 +240,21 @@
                             <a href="/question/questionViewPage.do?questionUserNo=${qUser.questionUserNo}&currentPage=${currentPage}&type=${map.type}&keyword=${keyword}">${qUser.questionUserTitle}</a></td>
                             <td>${qUser.questionUserRegdate}</td>
                         </tr>
-                    </c:forEach>	
+                    </c:forEach>
 				</table>
 			</div><br>
-			
-			<!-- 페이지 네비게이션 -->
+<%-- 페이지 네비게이션 --%>
 			<div id="question_pageNavi" align="center">
 				${map.pageNavi }
 			</div>
-			<!-- 글 쓰기 버튼 -->
-			<div id="question_search_writeFrom">
-				<button id="write_btn"><a href="/question/questionWritePage.do">글 쓰기</a></button>
-				<!-- href="/question/questionWrite.do" -->
+<%-- 버튼 wrap --%>
+			<div id="question_search_writeForm">
+				<button id="write_btn">글 쓰기</button>
 			</div>
 		</div>
 	</div><br>
 		
-	<div id="footerFrom">
+	<div id="footerForm">
 		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
 </div>
@@ -251,6 +276,10 @@
 				$('#prev').removeAttr('href');
 				$('#prev').unbind('mouseenter mouseleave');
 			}
+		});
+<%-- 글쓰기 버튼 --%>
+		$('#write_btn').click(function(){
+			location.replace("/question/questionWritePage.do");
 		});
 </script>
 </body>

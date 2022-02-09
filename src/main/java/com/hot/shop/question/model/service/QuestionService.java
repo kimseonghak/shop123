@@ -4,6 +4,7 @@ package com.hot.shop.question.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionAnswer;
 import com.hot.shop.question.model.vo.QuestionFarm;
@@ -36,6 +37,8 @@ public interface QuestionService {
 	QuestionPhoto deleteFileCheck(int originalQuestionphotoNo);
 
 	int questionUserUpdate(QuestionUser qUser);
+
+	ArrayList<Farm> farmCheck(String farmName);
 	
 	
 	

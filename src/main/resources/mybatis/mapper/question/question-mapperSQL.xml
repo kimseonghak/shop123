@@ -263,4 +263,11 @@
 				questionphoto_No=#{questionphotoNo}
 			where question_user_no=#{questionUserNo}
 		</update>
+		<select id="farmCheck" parameterType="string" resultType="farm">
+			select 
+				farm_No as farmNo
+				farm_Name as farmName
+			from farm
+			where farm_Name like '%'||#{_parameter}||'%'
+		</select>
 	</mapper>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.admin.model.vo.Refund;
 import com.hot.shop.auction.model.vo.Purchaselist;
+import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionAnswer;
 import com.hot.shop.question.model.vo.QuestionFarm;
@@ -184,6 +185,10 @@ public class QuestionDAO {
 
 	public int questiouUserUpdate(QuestionUser qUser) {
 		return sqlSession.update("qUser.questionUserUpdate",qUser)+sqlSession.update("qUser.updateQPhote",qUser.getQuestionphotoNo());
+	}
+
+	public ArrayList<Farm> farmCheck(String farmName) {
+		return new ArrayList<Farm>(sqlSession.selectList("qUser.farmCheck",farmName));
 	}
 	
 	

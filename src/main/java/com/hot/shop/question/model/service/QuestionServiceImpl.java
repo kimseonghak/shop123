@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hot.shop.auction.model.vo.Purchaselist;
+import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.dao.QuestionDAO;
 import com.hot.shop.question.model.vo.QuestionAnswer;
@@ -63,14 +64,6 @@ public class QuestionServiceImpl implements QuestionService{
 		return returnMap;
 	}
 
-	//-----------------------------------------농가 문의-----------------------------------------
-	
-	@Override
-	public ArrayList<QuestionFarm> QuestionFarmPage() {
-		// TODO Auto-generated method stub
-		return qDAO.QuestionFarmPage();
-	}
-
 	@Override
 	public int questionUserDelete(int questionUserNo,String questionUserCode) {
 		return qDAO.questionUserDelete(questionUserNo,questionUserCode);
@@ -90,6 +83,21 @@ public class QuestionServiceImpl implements QuestionService{
 	public int questionUserUpdate(QuestionUser qUser) {
 		return qDAO.questiouUserUpdate(qUser);
 	}
+
+	@Override
+	public ArrayList<Farm> farmCheck(String farmName) {
+		return qDAO.farmCheck(farmName);
+	}
+
+
+	//-----------------------------------------농가 문의-----------------------------------------
+	
+	@Override
+	public ArrayList<QuestionFarm> QuestionFarmPage() {
+		// TODO Auto-generated method stub
+		return qDAO.QuestionFarmPage();
+	}
+
 
 	
 
