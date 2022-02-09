@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class LocalProductFile {
 	private int LocalProductPhotoNo;//사진 번호
-	private int LocalProductNo;//작성한 글 번호
+
 	private String LocalProductPhotoOriginal;
 	private String LocalProductPhotoChange;
 	private String LocalProductPhotoFilePath;
@@ -20,7 +20,6 @@ public class LocalProductFile {
 			Timestamp localProductPhotoUpdateTime, char localProductDelYN) {
 		super();
 		LocalProductPhotoNo = localProductPhotoNo;
-		LocalProductNo = localProductNo;
 		LocalProductPhotoOriginal = localProductPhotoOriginal;
 		LocalProductPhotoChange = localProductPhotoChange;
 		LocalProductPhotoFilePath = localProductPhotoFilePath;
@@ -34,12 +33,7 @@ public class LocalProductFile {
 	public void setLocalProductPhotoNo(int localProductPhotoNo) {
 		LocalProductPhotoNo = localProductPhotoNo;
 	}
-	public int getLocalProductNo() {
-		return LocalProductNo;
-	}
-	public void setLocalProductNo(int localProductNo) {
-		LocalProductNo = localProductNo;
-	}
+
 	public String getLocalProductPhotoOriginal() {
 		return LocalProductPhotoOriginal;
 	}
@@ -78,7 +72,7 @@ public class LocalProductFile {
 	}
 	@Override
 	public String toString() {
-		return "LocalProductFile [LocalProductPhotoNo=" + LocalProductPhotoNo + ", LocalProductNo=" + LocalProductNo
+		return "LocalProductFile [LocalProductPhotoNo=" + LocalProductPhotoNo
 				+ ", LocalProductPhotoOriginal=" + LocalProductPhotoOriginal + ", LocalProductPhotoChange="
 				+ LocalProductPhotoChange + ", LocalProductPhotoFilePath=" + LocalProductPhotoFilePath
 				+ ", LocalProductPhotoFileSize=" + LocalProductPhotoFileSize + ", LocalProductPhotoUpdateTime="
