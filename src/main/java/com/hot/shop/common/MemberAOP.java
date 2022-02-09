@@ -70,4 +70,20 @@ public class MemberAOP {
 		map.put("userNewPwd", data);
 	}
 	
+	//user 회원탈퇴시 입력 비밀번호 암호화 처리
+	@Pointcut("execution(* com.hot.shop.mypage.model.service.MemberMypageServiceImpl.updateWithdraw(..))")
+	public void updateWithdrawPointCut() {}
+	
+	@Before("updateWithdrawPointCut()")
+	public void updateWithdrawEncrypt(JoinPoint jp) throws Exception {
+		
+		HashMap<String, Object> map = (HashMap<String, Object>)jp.getArgs()[0];
+		
+		String userId = map.get("userId").toString();
+		String userPwd = map.get("userPwd").toString();
+		
+		String data = enc.encryptionData(userPwd, userId);
+		map.put("userPwd", data);
+	}
+	
 }
