@@ -74,7 +74,7 @@
 				
 			<script>
 				
-				var inval_Arr = new Array(10).fill(false);
+				var inval_Arr = new Array(11).fill(false);
 				
 				//ID
 				$('input[name=userId]').blur(function() {
@@ -377,10 +377,29 @@
 					}
 				});
 				
+				//termsCheckbox1
+				$('input[name=termsCheckbox]').change(function() {
+					if($('input[name=termsCheckbox]').is(":checked")) {
+						$('#terms_msg').css({'color': 'black'});
+						inval_Arr[10] = true;
+					}
+				})
+				
+				//termsCheckbox2
+				termsCheckbox = function() {
+					if(!$('input[name=termsCheckbox]').is(":checked")) {
+						$('#terms_msg').css({'color': 'red'});
+						inval_Arr[10] = false;
+					} else {
+						$('#terms_msg').css({'color': 'black'});
+						inval_Arr[10] = true;
+					}
+				}
 				
 				//function validationCheck() {}
-				//submit 버튼 클릭시 입력값(10가지)의 유효성 검사
+				//submit 버튼 클릭시 입력값(11가지)의 유효성 검사
 				validationCheck = function() {
+					termsCheckbox();
 					var validAll = true;
 					for(var i = 0; i < inval_Arr.length; i++){
 						
