@@ -1,194 +1,280 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    
+<%-- jstl 라이브러리 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+
+<%--jQuery 라이브러리 --%>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<%-- 폰트 설정 라이브러리 --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+
+<%-- 부트스트랩 라이브러리 --%>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<%-- css import --%>
+
+<!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>홍보 게시판 조회</title>
-
-<style type="text/css">
-
+<style>
 *{
+	
 	box-sizing: border-box;
 }
 
-#warpForm{
-	width: 100%;
-	height: 1417px;
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
 }
 
-#headerFrom{
+.wrapForm{
+	width: 100%;
+	height: 100%;
+}
+
+.headerForm{
 	width: 100%;
 	height: 175px;
 }
 
-#contentForm{
+.contentForm{
+	padding: 30px;
 	width: 100%;
-	height: 1000px;
-	padding: 10px;
-	margin: 10px auto;
+	background-color: #f0f0f0;
 }
 
-#footerFrom{
+.footerForm{
 	width: 100%;
 	height: 242px;
 }
 
+.contentwrap{
+	width: 90%;
+	min-height: 1200px;
+	margin: 100px auto;
+	background-color: white;
+	border-radius: 5px/5px;
+}
 
-#promotionName{
-	width: 200px;
-	height: 70px;
+.page_name{
+	width: 25%;
+	height: 60px;
 	text-align: center;
-	margin: 0 auto;
+	padding: 50px 20px 0px;
+	margin: 5% 75% 5% 5%;
+	color: #3BBD5A;
+	font : normal bold 30px "Nanum Gothic",sans-serif;
 }
 
-#promotion_searchWrap{
+.page_search_zone{
 	width: 90%;
-	height: 40px;
-	margin: 0 auto;
+	height: 80px;
+	padding: 10px;
+	text-align: right;
+	font : normal bold 17px "Nanum Gothic",sans-serif;
+	margin-right: 50px;
 }
 
-#promotion_search_textFrom{
-	float: right;
-	width: 300px;
-	height: 40px;
+.search_select{
+	width: 10%;
+	height: 35px;
+	margin: 5px auto;
+	border: 0.5px solid #3BBD5A;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+	
 }
 
-
-#promotion_search_btnFrom{
-	float: right;
-	width: 70px;
-	height: 40px;
+.searchkeyword{
+	width: 20%;
+	height: 35px;
+	margin: 5px auto;
+	background-color: #f0f0f0;
+	border: none;
 }
 
-#promotion_search_writeFrom{
-	float: right;
-	width: 100px;
+.searchBtn{
+	width: 130px;
 	height: 40px;
-}
-
-#promotion_listForm{
-	width: 90%;
-	height: 75%;
-	margin: 0 auto;
-	padding: 2px;
-}
-
-#submitBtn{
-	width: 95px;
-	height: 40px;
-	background-color: #08E200;
-	font : normal bold 17.5px "고딕체";
+	background-color: #3BBD5A;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 	color: #ffffff;
-	border-radius: 30px / 30px;	
+	border-radius: 5px / 5px;	
 	border : none;
 	cursor : pointer;
-	margin: 0 auto;
+	margin-right: 30px;
 }
 
-
-#promotion_pageNavi{
-	width: 90%;
-	height: 50px;
+.list_zone{
+	width: 80%;
+	min-height: 1000px;
+	padding: 2px;
 	border: 1px solid black;
-	margin: 0 auto;
 }
 
+.list{
+	width: 100%;
+	height: 22%;
+	margin: 5px auto;
+}
 
-/*홍보게시판 리스트 안에 디자인*/
-.img_Form{
-	width: 20%;
-	height: 200px;
+.list_img{
+	width:20%;
+	height: 100%;
 	float: left;
 }
 
-.promotion_titleFrom{
-	width: 80%;
-	height: 200px;
-	float: right;
-}
-/*홍보게시판 리스트 안에 디자인 끝*/
-
-
-#keyword{ 
-	width: 98%;
-	height: 100%;
-	outline: none;
+.titleform1{
+	width: 75%;
+	height: 25%;
+	float: left;
+	text-align: left;
+	margin-left: 30px;
+	font : normal 17.5px "Nanum Gothic",sans-serif;
 }
 
-#searchBtn{
+.titleform2{
+	width: 75%;
+	height: 60%;
+	float: left;
+	text-align: left;
+	margin-left: 30px;
+	font : normal 17.5px "Nanum Gothic",sans-serif;
+}
+
+.pageNavi{
 	width: 100%;
-	height: 100%;
-	background-color: #08E200;
-	border: none;
-	font : normal bold 17.5px "고딕체";
+	height: 50px;
+	margin-top: 40px;
+	text-align: center;
+}
+
+.buttonform{
+	width: 100%;
+	height: 40px;
+	margin-top: 40px;
+	margin-right: 40px;
+	text-align: right;
+}
+
+.writeBtn{
+	width: 130px;
+	height: 40px;
+	background-color: #3BBD5A;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 	color: #ffffff;
 	border-radius: 5px / 5px;	
+	border : none;
+	margin-right: 20px;
 	cursor : pointer;
-	margin: 0 auto;
 }
-</style>
 
+.mainBtin{
+	width: 130px;
+	height: 40px;
+	background-color: gray;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+	color: #ffffff;
+	border-radius: 5px / 5px;	
+	border : none;
+	margin-right: 60px;
+	cursor : pointer;
+}
+
+.empty{
+	width: 100%;
+	height: 40px;
+}
+
+</style>
 
 </head>
 <body>
 
-<div id="warpForm" align="center">
-	<div id="headerFrom">
+<div class="wrapForm" align="center">
+	<div class="headerForm">
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
-	</div>	
+	</div>
 	
-	<div id="contentForm" align="left">
-		<div id="promotionName" >
-		<span></span>
-			<span style="font-size: 30px; color: #3BBD5A; font-family: 'Nanum Gothic', sans-serif;">홍보 게시판</span>
-		</div><br>
-		
-			<!-- 검색 공간 -->
-			<div id="promotion_searchWrap">
-				<div id="promotion_search_btnFrom">
-					<button id="searchBtn">검색</button>
-				</div>
-				
-				<div id="promotion_search_textFrom">
-					<input type="text" id="keyword">
-				</div>
-
-				<div id="promotion_search_writeFrom">
-					<button id="submitBtn">글 쓰기</button>
-				</div>
-			</div><br>
-			<!-- 검색 공간 -->
+	<div class="contentForm">
+		<div class="contentwrap">
 			
-				<div id="promotion_listForm">
-					<!-- 리스트 글 갯수for문 돌릴시 나오는 게시글 형태 4개씩 나오도록 할것-->
-					<div class="img_Form">
-						<img alt="" src="" width="100%" height="100%">
+			<%-- 제목 공간 --%>
+			<div class="page_name">
+				<span>제목 입력</span>
+			</div>
+			
+			<%-- 검색 공간 --%>
+			<form action="" method="get">
+				<div class="page_search_zone">
+				
+					<select name="type" class="search_select">
+						<option value="subject">제목</option>
+						<option value="content">내용</option>
+						<option value="all">제목+내용</option>
+					</select>
+					
+					<input type="text" name="" class="searchkeyword" placeholder=""/>
+
+					<button class="searchBtn">글 검색</button>
+				</div>
+			</form>
+			
+			<%-- 리스트 공간 --%>
+			<div class="list_zone">
+				<%-- for문 --%>
+				<div class="list">
+					<div class="list_img">
+						<img src="" width="100%" height="100%"/>
 					</div>
 					
-					<div class="promotion_titleFrom">
-						<span>[ 이천 쌀 ]</span>
-						<hr>
-						<span>[ 작성일 : 2022-01-27 ]</span><br>
-						<span>[ 조회수 : 22 ]</span>
+					<div class="titleform1">
+						<span>제목</span>
 					</div>
-					<!-- 리스트 글 갯수for문 돌릴시 나오는 게시글 형태 -->
-				</div><br>
-		
-		
-			<!-- 페이지 네비게이션 -->
-			<div id="promotion_pageNavi" align="center">
-				페이지 네비바 들가는 공간
+					
+					<div class="titleform2">
+						<P>[ 작성일 : 2022-01-27 ]</P>
+						<p>[ 조회수 : 22 ]</p>
+					</div>
+					
+				</div>
+				<%-- for문 --%>
+				<%-- 5개만 처리 --%>
+			
 			</div>
-			<!-- 페이지 네비게이션 -->
+			
+			<%-- 네비 공간 --%>
+			<div class="pageNavi" align="center">
+				페이지 네비 공간
+			</div>
+			
+			<%-- 버튼 공간 --%>
+			
+			<div class="buttonform">
+				<%-- <c:if test="${farm != null && (farm.rating eq 'admin' or farm.rating eq 'root')}"> --%>					
+				<input type="submit" value="글 쓰기" class="writeBtn" onclick="">
+				<%-- </c:if> --%>
+				<input type="button" value="메인으로" class="mainBtin" onclick="location.href='/'">
+			</div>
+			
+			<div class="empty"></div>
+			
+		</div>
 	</div>
 	
-	<div id="footerFrom">
-	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
+	<div class="footerForm">
+		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
 </div>
+
 
 </body>
 </html>

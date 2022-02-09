@@ -1,209 +1,281 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 
+<%-- jstl 라이브러리 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
+<%--jQuery 라이브러리 --%>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
-<style type="text/css">
+<%-- 폰트 설정 라이브러리 --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+
+<%-- 부트스트랩 라이브러리 --%>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<%-- css import --%>
+
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<style>
 
 *{
-	font-family: 'Nanum Gothic', sans-serif;
 	box-sizing: border-box;
 }
 
-#warpForm{
-	width: 100%;
-	height: 1417px;
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
 }
 
-#headerFrom{
+.wrapForm{
+	width: 100%;
+	min-height: 100%;
+}
+
+.headerForm{
 	width: 100%;
 	height: 175px;
 }
 
-#contentForm{
+.contentForm{
+	padding: 30px;
 	width: 100%;
-	height: 1000px;
+	background-color: #f0f0f0;
+	
 }
 
-#footerFrom{
+.footerForm{
 	width: 100%;
 	height: 242px;
 }
 
-#content_background{
+.contentwrap{
 	width: 90%;
 	height: 80%;
-	border: 2px solid #08E200;
-		border-radius: 5px / 5px;	
-	margin: 50px auto;
+	margin: 100px auto;
+	padding: 10px;
+	background-color: white;
+	border-radius: 5px/5px;
 }
 
-#promotionName{
-	width: 60%;
-	height: 70px;
+.page_name{
+	width: 25%;
+	height: 60px;
 	text-align: center;
-	margin: 30px auto;
+	padding: 50px 20px 0px;
+	margin: 5% 75% 5% 5%;
+	color: #3BBD5A;
+	font : normal bold 30px "Nanum Gothic",sans-serif;
 }
 
-#promotion_titleForm{
-	width: 90%;
+.insert_zone{
+	width: 80%;
+	min-height: 900px;
+}
+
+.empty{
+	width: 100%;
 	height: 30px;
+}
+
+.optiontitle{
+	min-width: 100px;
+	height: 30px;
+	color: #3BBD5A;
+	font : normal bold 20px "Nanum Gothic",sans-serif;
+	margin: 10px;
 	text-align: left;
+}
+
+.option_form{
+	width: 100%;
+	height: 50px;
+}
+
+.option{
+	min-width: 100px;
+	height: 30px;
+	border: none;
+	text-align: left;
+	font : normal bold 20px "Nanum Gothic",sans-serif;
+	float: left;
+	margin-left: 30px;
+	outline: none;
+}
+
+.title{
+	width: 100%;
+	height: 40px;
+	border-radius: 5px / 5px;
+	border: none;
+	background-color: #f0f0f0;
+	font : normal 20px "Nanum Gothic",sans-serif;
+	outline: none;
+}
+
+.contextForm{
+	width: 100%;
+	min-height: 400px;
+	margin-top: 30px;
 	
 }
 
-#promotion_contentForm{
-	width: 90%;
-	height: 400px;
+.content{
+	width: 100%;
+	min-height: 400px;
 	text-align: left;
+	border: none;
+	resize: none;
+	font : normal 20px "Nanum Gothic",sans-serif;
 	background-color: #f0f0f0;
+	outline: none;
 }
 
-#img_Form{
-	width: 90%;
+.imgForm{
+	width: 100%;
 	height: 30px;
 	text-align: left;
 }
 
-
-
-/*버튼 태그*/
-#write_Btn_form{
-	width: 90%;
-	height: 40px;
-}
-
-
-#submit_btn{
-	width: 100px;
-	height: 40px;
-	float: right;
-}
-#list_btn{
-	width: 100px;
-	height: 40px;
-	float: right;
-}
-#reset_btn{
-	width: 100px;
-	height: 40px;
-	float: right;
-}
-
-#submitBtn{
-	width: 95px;
-	height: 40px;
-	float: right;
-	background-color: #08E200;
-	font : normal bold 17.5px "고딕체";
-	color: #ffffff;
-	border-radius: 30px / 30px;	
-	border : none;
-	cursor : pointer;
-	margin: 0 auto;
-}
-
-#listBtn{
-	width: 95px;
-	height: 40px;
-	float: right;
-	background-color: #08E200;
-	font : normal bold 17.5px "고딕체";
-	color: #ffffff;
-	border-radius: 30px / 30px;	
-	border : none;
-	cursor : pointer;
-	margin: 0 auto;
-}
-
-#resetBtn{
-	width: 95px;
-	height: 40px;
-	float: right;
-	background-color: #9B9B9B;
-	font : normal bold 17.5px "고딕체";
-	color: #ffffff;
-	border-radius: 30px / 30px;	
-	border : none;
-	cursor : pointer;
-	margin: 0 auto;
-}
-/*버튼 태그*/
-
-
-
-#promotion_title{
+.btnform{
 	width: 100%;
-	height: 100%;
-	border: 1px solid #9B9B9B;
-	outline: none;
-	border-radius: 5px / 5px;	
-	background-color: #f0f0f0;
+	height: 40px;
+	padding: 10px;
+	margin-top: 40px;
+	text-align: center;
 }
 
-#promotion_content{
-	width: 100%;
-	height: 100%;
-	border: 1px solid #9B9B9B;
-	outline: none;
-	resize: none;
-	border-radius: 5px / 5px;	
-	background-color: #f0f0f0;
+.listbtn{
+	width: 100px;
+	height: 40px;
+	border: none;
+	border-radius: 5px;
+	background-color: gray;
+	color: white;
+	margin: 15px;
+	cursor: pointer;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 }
 
-#promotionFont{
-	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 30px;
-	color: #3BBD5A;
+.resetbtn{
+	width: 100px;
+	height: 40px;
+	border: none;
+	border-radius: 5px;
+	background-color: gray;
+	color: white;
+	margin: 15px;
+	cursor: pointer;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 }
+
+.submitbtn{
+	width: 100px;
+	height: 40px;
+	border: none;
+	border-radius: 5px;
+	background-color:#3BBD5A;
+	color: white;
+	margin: 15px;
+	cursor: pointer;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+}
+
 </style>
 
-
-
-</head>
 <body>
 
-<div id="warpForm" align="center">
-	<div id="headerFrom">
+<div id="wrapForm" align="center">
+	
+	<div class="headerForm">
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
 	
-	
-	<div id="contentForm" align="center">
-		<div id="content_background">
-			<div id="promotionName" >
-				<span id="promotionFont"">제일 자신있는 농산물을 홍보해보세요!</span>
-			</div><br>
+	<div class="contentForm">
+		<div class="contentwrap">
 			
-				<div id="promotion_titleForm">
-					<input type="text" id="promotion_title" placeholder="제목을 입력하시오."/>
-				</div><br>
-	
-				<div id="promotion_contentForm">
-					<textarea id="promotion_content" placeholder="내용을 입력하시오."></textarea>
-				</div><br>
+			<%-- 제목 공간 --%>
+			<div class="page_name">
+				<span>제목 입력</span>
+			</div>
+			
+			<%-- 빈 공간 --%>		
+			<div class="empty"></div>
+			
+			<%-- 입력 폼 --%>
+			<div class="insert_zone">
+			<form action="">
 				
-				<div id="img_Form">
-					<input type="file"/>
-				</div><br>
-	
-				<div id="write_Btn_form">
-					<div id="list_btn"><button id="listBtn">메인으로</button></div>
-					<div id="reset_btn"><button id="resetBtn">다시 쓰기</button></div>
-					<div id="submit_btn"><button id="submitBtn">글 쓰기</button></div>
+				<%-- 옵션 1 --%>
+				<div class="optiontitle">옵션 내용 입력</div>
+					<div class="option_form">
+						<select class="option">
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+						</select>
+					</div>
+					
+				<%-- 옵션 2 --%>
+				<div class="optiontitle">옵션 내용 입력</div>
+					<div class="option_form">
+						<select class="option">
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+						</select>
+					</div>
+				
+				<%-- 빈 공간 --%>		
+				<div class="empty"></div>	
+						
+				<%-- 글 제목 입력 --%>
+				<input type="text" class="title" placeholder="제목을 입력하시오"/>
+				
+				<%-- 글 제목 입력 --%>
+				<div class="contextForm">
+					<textarea class="content" placeholder="내용을 입력하시오"></textarea>
 				</div>
-		</div>	
+				
+				<%-- 빈 공간 --%>		
+				<div class="empty"></div>
+				
+				<%-- 첨부파일 --%>
+				<div class="imgForm">
+					<input type="file" id="file_submit"/>
+				</div>
+				
+				<%-- 빈 공간 --%>		
+				<div class="empty"></div>
+				
+				<%-- 버튼 폼 --%>
+				<div class="Btnform">
+					<button type="button" class="listbtn">리스트</button>
+					<button type="reset" class="resetbtn">다시 쓰기</button>
+					<button type="submit" class="submitbtn">글 작성하기</button>
+				</div>
+				
+			</form>
+			
+			</div>
+		</div>
 	</div>
 	
-	
-	<div id="footerFrom">
-	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
-	</div>
+	<div class="footerForm">
+		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
+	</div>	
+
 </div>
 
 </body>
