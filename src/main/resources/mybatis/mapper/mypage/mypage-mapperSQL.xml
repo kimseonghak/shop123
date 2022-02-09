@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mypage">
+
+	<update id="updateWithdraw" parameterType="hashmap">
+	
+		UPDATE MEMBER SET user_end_yn='Y'
+		WHERE user_id=#{userId} AND user_pwd=#{userPwd}
+	
+	</update>
+	
+	<update id="updateMember" parameterType="member">
+	
+		UPDATE MEMBER SET
+			user_name=#{userName}, user_nick=#{userNick}, user_email=#{userEmail},
+			user_phone=#{userPhone}, user_address_main=#{userAddressMain}, user_address_sub=#{userAddressSub}
+		WHERE user_id=#{userId}
+	
+	</update>
+
+</mapper>
