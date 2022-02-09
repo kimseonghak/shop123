@@ -62,6 +62,7 @@
     {
         position: relative;
         left: 45%;
+        bottom: 2vh;
     }
 </style>
 </head>
