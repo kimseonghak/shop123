@@ -56,12 +56,6 @@ public class QuestionDAO {
 		return map;
 	}
 
-	//글 수정
-	public int questionUpdate(QuestionUser quser) {
-		// TODO Auto-generated method stub
-		return sqlSession.update("qUser.questionUpdate", quser) + sqlSession.update("qUser.questionPhotoUpdate", quser.getQuestionphotoNo());
-	}
-
 	public ArrayList<Purchaselist> getBuyList(int currentPage, Member member, int recordCountPerPage) {
 		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
 		int end = currentPage*recordCountPerPage;
@@ -181,6 +175,15 @@ public class QuestionDAO {
 			}
 		}
 		return false;
+	}
+
+	public QuestionPhoto deleteFileCheck(int originalQuestionphotoNo) {
+			sqlSession.update("qUser.deleteFileUpdate",originalQuestionphotoNo);
+		return sqlSession.selectOne("qUser.deleteFileCheck",originalQuestionphotoNo);
+	}
+
+	public int questiouUserUpdate(QuestionUser qUser) {
+		return sqlSession.update("qUser.questionUserUpdate",qUser)+sqlSession.update("qUser.updateQPhote",qUser.getQuestionphotoNo());
 	}
 	
 	

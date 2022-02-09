@@ -173,9 +173,26 @@ public class QuestionController {
 	public ModelAndView questionView(@RequestParam int questionUserNo,
 			@RequestParam(required = false,defaultValue = "1") int currentPage,
 			@RequestParam(required = false, defaultValue = "") String keyword,
-			@RequestParam(required = false, defaultValue = "default") String type, 
+			@RequestParam(required = false, defaultValue = "default") String type,
+			@SessionAttribute(required = false) Member member,
+			@SessionAttribute(required = false) Farm farm,
 			ModelAndView mav) {
 		HashMap<String, Object> map = qService.questionView(questionUserNo);
+		
+		if(member!=null) {
+			if(member.getUserNo()!=((QuestionUser)map.get("qUser")).getUserNo()) {
+				mav.setViewName("commons/error");
+				return mav;
+			}
+		}else if(farm != null) {
+			if(farm.getFarmNo()!=((QuestionUser)map.get("qUser")).getFarmNo()) {
+				mav.setViewName("commons/error");
+				return mav;
+			}
+		}else if(member==null && farm==null) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
 		
 		mav.addObject("currentPage",currentPage);
 		mav.addObject("type",type);
@@ -186,36 +203,41 @@ public class QuestionController {
 	}
 	
 	
-	//1:1 문의 글수정 페이지
-	//리스트 페이지에서 글 쓰기 버튼을 누르면 글 작성 페이지로 이동하는 메소드 (유저 문의)
-		@RequestMapping(value="/question/QuestionUserUpdatePage.do", method=RequestMethod.POST)
-		public ModelAndView QuestionUserUpdatePage(QuestionPhoto qhoto,QuestionUser qUser,ModelAndView mav,@SessionAttribute Member member) {
-			mav.addObject("qUser", qUser);
-			mav.addObject("QuestionPhoto", qhoto);
-			mav.setViewName("question/QuestionUserUpdate");
+	//1:1 문의 글수정 최초 페이지
+		@RequestMapping(value="/question/questionUserUpdatePage.do", method=RequestMethod.GET)
+		public ModelAndView QuestionUserUpdatePage(ModelAndView mav,
+				@RequestParam int questionUserNo) {
+			HashMap<String, Object> map = qService.questionView(questionUserNo);
+			mav.addObject("map", map);
+			mav.setViewName("question/QuestionUserUpdate2");
 			return mav;
 	}
 		
-	//1:1 문의 글수정 
-		@RequestMapping(value = "/question/questionUpdate.do",method = RequestMethod.GET)
-		public void test(HttpServletRequest request, ModelAndView mav,@SessionAttribute(required =false ) Member member,QuestionUser quser) {
-			//글 쓰는 동안 세션 유지해야함
-			//String userId = member.getUserId();
-			//글 번호 갖고와야함
-			System.out.println(member);
-			if(member==null) {
-				System.out.println("호출");
+	//1:1 문의 수정 로직
+		@RequestMapping(value = "/question/questionUserUpdate.do",method = RequestMethod.GET)
+		public ModelAndView questionUserUpdate(QuestionUser qUser,ModelAndView mav) {
+			if(qUser.getQuestionphotoNo()==1) {
+				qUser.setQuestionphotoNo(qUser.getOriginalQuestionphotoNo());
+			}else if(qUser.getQuestionphotoNo()!=1 && qUser.getOriginalQuestionphotoNo()!=1) {
+				QuestionPhoto qPhoto = qService.deleteFileCheck(qUser.getOriginalQuestionphotoNo());
+				String path = context.getRealPath("/resources/questionphoto/img/");
+				String filePath = path+qPhoto.getQuestionPhotoFilePath().toString().substring(29);
+				
+				File file = new File(filePath);
+				file.delete();
 			}
-			int questionUserNo = Integer.parseInt(request.getParameter("questionUserNo"));
-
-			//int result = qService.questionUpdate(quser);
 			
-			//if(result >= 2 ) {
-			//	mav.addObject("location", "/question/QuestionUserUpdatePage.do");
-			//}else {
-			//	mav.addObject("location", "/question/QuestionUserUpdatePage.do");
-			//}
+			int result = qService.questionUserUpdate(qUser);
+			if(result>1) {
+				mav.addObject("msg", "글이 수정되었습니다.." );
+				mav.addObject("location", "/question/questionViewPage.do?questionUserNo="+qUser.getQuestionUserNo());
+			}else {
+				mav.addObject("msg", "글 작성에 실패했습니다." );
+				mav.addObject("location", "/question/QuestionUserPage.do");
+			}
+			mav.setViewName("commons/msg");
 			
+			return mav;
 		}
 		// 구매목록리스트 불러오기
 		@RequestMapping(value = "/question/buyListCheck.do",method = RequestMethod.GET)

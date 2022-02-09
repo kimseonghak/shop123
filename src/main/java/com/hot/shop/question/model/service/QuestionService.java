@@ -20,8 +20,6 @@ public interface QuestionService {
 
 	HashMap<String, Object> questionView(int questionUserNo);
 
-	int questionUpdate(QuestionUser quser);
-
 	HashMap<String, Object> buyListCheck(int currentPage, Member member);
 
 
@@ -34,6 +32,10 @@ public interface QuestionService {
 	int questionUserDelete(int questionUserNo,String questionUserCode);
 
 	boolean questionAnswer(QuestionAnswer qAnswer);
+
+	QuestionPhoto deleteFileCheck(int originalQuestionphotoNo);
+
+	int questionUserUpdate(QuestionUser qUser);
 	
 	
 	

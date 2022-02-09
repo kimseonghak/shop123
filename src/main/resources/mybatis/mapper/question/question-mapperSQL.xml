@@ -245,4 +245,22 @@
 			from question_answer 
 			where question_board_code='U' and question_board_no=#{_parameter}
 		</select>
+<!-- 문의 수정 파일 변경시 삭제해야 할 파일 찾아오는 로직 -->
+		<select id="deleteFileCheck" parameterType="integer" resultType="qPhoto">
+			select 
+				questionPhoto_FilePath as questionPhotoFilePath
+			from questionphoto
+			where questionPhoto_no = #{_parameter}
+		</select>
+		<update id="deleteFileUpdate" parameterType="integer">
+			update questionphoto set questionphoto_del_yn='Y' where questionphoto_no = #{_parameter}
+		</update>
+<!-- 최종적으로 1:1유저문의 수정 로직 -->
+		<update id="questionUserUpdate" parameterType="qUser">
+			update question_user set 
+				question_User_Title=#{questionUserTitle},
+				question_User_Content=#{questionUserContent},
+				questionphoto_No=#{questionphotoNo}
+			where question_user_no=#{questionUserNo}
+		</update>
 	</mapper>
