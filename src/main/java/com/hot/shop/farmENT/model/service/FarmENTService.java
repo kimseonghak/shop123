@@ -3,6 +3,7 @@ package com.hot.shop.farmENT.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.hot.shop.farmENT.model.vo.FarmENTBidProductCount;
 import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
 import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
@@ -43,6 +44,9 @@ public interface FarmENTService {
 
 	//대쉬보드 환불목록
 	ArrayList<FarmENTRefund> selectRefundBoard(int farmNo);
+	
+	//대시보드 매출
+	ArrayList<FarmENTBidProductCount> selectProductSales(int farmNo);
 
 	
 

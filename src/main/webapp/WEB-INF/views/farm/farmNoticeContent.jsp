@@ -69,7 +69,7 @@
 
         <div id="farmMemberWrap">
               <div id="noticeTitle">${noticeTitle} </div>
-                    <div id="noticeContent">${noticeTitle} </div>
+                    <div id="noticeContent">${noticeContent} </div>
                    
                      <br>
                     <button type="button" class="btn btn-success btn-sm" id="lastBtn">닫기</button>

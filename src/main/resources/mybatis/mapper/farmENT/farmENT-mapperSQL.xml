@@ -19,7 +19,7 @@
 				<if test="type!=null and type.equals('auctionNo')">
 					AND A.auction_no like '%'||#{keyWord}||'%'
 				</if>
-		ORDER BY 4 DESC
+		ORDER BY 1 DESC
   	
   	</select>
   
@@ -61,7 +61,7 @@
 		<if test="type!=null and type.equals('productName')">
 			AND product_name like '%'||#{keyWord}||'%'
 		</if>
-		ORDER BY 7 DESC
+		ORDER BY 1 DESC
   	   
   	</select>
   
@@ -217,7 +217,7 @@
 			AND M.USER_NAME like '%'||#{keyWord}||'%'
 		</if>   
             
-	ORDER BY 4 DESC
+	ORDER BY 1 DESC
 	
 	
 	</select>
@@ -256,7 +256,7 @@
 	        Q.ORDER_NO AS orderNo
 		FROM REFUND R
 		LEFT JOIN QUESTION_USER Q ON(R.QUESTION_USER_NO=Q.QUESTION_USER_NO)
-		WHERE R.FARM_NO=#{farmNo}
+		WHERE R.FARM_NO=#{farmNo} AND Q.QUESTION_USER_END_YN='N' AND R.DEL_YN='N'
 		<if test="type!=null and type.equals('orderNo')">
 			AND Q.ORDER_NO like '%'||#{keyWord}||'%'
 		</if>    
@@ -270,14 +270,14 @@
 	
 	<select id="selectRefundListTotalCount" parameterType="hashmap" resultType="int">
 		SELECT COUNT(*)
-		FROM QUESTION_USER Q
-		LEFT JOIN PURCHASELIST P ON (Q.ORDER_NO=P.ORDER_NO)
-		WHERE Q.QUESTION_USER_CODE='Q-1' AND Q.QUESTION_USER_END_YN='N' AND Q.FARM_NO=#{farmNo}
+		FROM REFUND R
+		LEFT JOIN QUESTION_USER Q ON(R.QUESTION_USER_NO=Q.QUESTION_USER_NO)
+		WHERE R.FARM_NO=#{farmNo} AND Q.QUESTION_USER_END_YN='N' AND R.DEL_YN='N'
 		<if test="type!=null and type.equals('orderNo')">
-			AND P.ORDER_NO like '%'||#{keyWord}||'%'
+			AND Q.ORDER_NO like '%'||#{keyWord}||'%'
 		</if>    
 		<if test="type!=null and type.equals('userNo')">
-			AND P.USER_NO like '%'||#{keyWord}||'%'
+			AND R.USER_NO like '%'||#{keyWord}||'%'
 		</if>   
 		
 	</select>
@@ -368,9 +368,53 @@
 	        Q.ORDER_NO AS orderNo
 		FROM REFUND R
 		LEFT JOIN QUESTION_USER Q ON(R.QUESTION_USER_NO=Q.QUESTION_USER_NO)
-		WHERE R.FARM_NO=#{_paremeter}
+		WHERE R.FARM_NO=#{_paremeter} AND Q.QUESTION_USER_END_YN='N' AND R.DEL_YN='N'
+		ORDER BY 1 DESC
 	
 	</select>
 
+	<!-- 대시보드 매출 (5개의 상품 ) -->
+	<select id="selectFiveProduct" parameterType="int" resultType="farmENTBidProduct">
+		SELECT 
+		    B.BID_NO AS bidNo,
+		    B.AUCTION_NO AS auctionNo,
+		    B.BID_DATE AS bidDate,
+		    A.FARM_NO AS farmNo,
+		    A.AUCTION_PRODUCT AS auctionProduct
+		from BID B
+		LEFT JOIN AUCTION A on (B.AUCTION_NO = A.AUCTION_NO)
+		WHERE FARM_NO=#{_parameter}
+		ORDER BY BID_DATE DESC
+	
+	</select>
+
+  	<!-- 대시보드 매출 (5개 상품에 대한 판매량) -->
+  	<select id="selectFiveProductCount" parameterType="hashmap" resultType="farmENTBidProductCount">
+  		SELECT 
+  			PRODUCT_NAME AS productName,
+  			SUM(PRODUCT_COUNT) AS prodictCount
+		FROM PURCHASELIST 
+		WHERE FARM_NO=#{farmNo} 
+		<if test='size==1'>
+		AND PRODUCT_NAME IN (#{product1})
+		</if> 
+		<if test='size==2'>
+		AND PRODUCT_NAME IN (#{product1},#{product2})
+		</if> 
+		<if test='size==3'>
+		AND PRODUCT_NAME IN (#{product1},#{product2},#{product3})
+		</if>
+		<if test='size==4'>
+		AND PRODUCT_NAME IN (#{product1},#{product2},#{product3},#{product4})
+		</if>
+		<if test='size==5'>
+		AND PRODUCT_NAME IN (#{product1},#{product2},#{product3},#{product4},#{product5})
+		</if>   
+		
+	   GROUP BY PRODUCT_NAME
+  	
+  	</select>
+  	
+  	
   	
 </mapper>

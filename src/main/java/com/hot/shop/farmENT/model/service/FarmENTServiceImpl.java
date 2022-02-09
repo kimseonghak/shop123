@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hot.shop.farmENT.model.dao.FarmENTDAO;
+import com.hot.shop.farmENT.model.vo.FarmENTBidProduct;
+import com.hot.shop.farmENT.model.vo.FarmENTBidProductCount;
 import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
 import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
@@ -202,12 +204,49 @@ public class FarmENTServiceImpl implements FarmENTService{
 		return list;
 	}
 
+	//대쉬보드-환불목록
 	@Override
 	public ArrayList<FarmENTRefund> selectRefundBoard(int farmNo) {
 		
 		ArrayList<FarmENTRefund> list = fENTdao.selectRefundBoard(farmNo);
 		
 		return list;
+	}
+
+	//대쉬보드 매출목록
+	@Override
+	public ArrayList<FarmENTBidProductCount> selectProductSales(int farmNo) {
+		
+		//경매 일자 기준으로 5개의 상품 가져오기
+		ArrayList<FarmENTBidProduct> productList = fENTdao.selectFiveProduct(farmNo);
+		
+		//productList를 가지고 판매량 가져오기
+		HashMap<String,Object> productDataMap = new HashMap<String, Object>();
+		
+		if(!productList.isEmpty())
+		{
+			for(int i=0; i<productList.size();i++)
+			{
+				productDataMap.put("product"+(i+1)+"",productList.get(i).getAuctionProduct());
+			}
+			
+				switch (productList.size())
+					{
+					  case 1: productDataMap.put("size",1); break;
+					  case 2: productDataMap.put("size",2); break;
+					  case 3: productDataMap.put("size",3); break;
+					  case 4: productDataMap.put("size",4); break;
+					  case 5: productDataMap.put("size",5); break;
+					}
+			
+				productDataMap.put("farmNo",farmNo);
+				ArrayList<FarmENTBidProductCount> bidProductCountList = fENTdao.selectFiveProductCount(productDataMap);
+				
+				return bidProductCountList;
+		}else
+		{
+			return null;
+		}
 	}
 
 
