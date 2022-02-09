@@ -1,193 +1,271 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ 
+<!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 
+<%-- jstl 라이브러리 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
+<%--jQuery 라이브러리 --%>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
-<style type="text/css">
+<%-- 폰트 설정 라이브러리 --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+
+<%-- 부트스트랩 라이브러리 --%>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<%-- css import --%>
+
+<title>Insert title here</title>
+</head>
+
+<style>
 
 *{
 	box-sizing: border-box;
 }
 
-#warpForm{
-	width: 100%;
-	height: 1617px;
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
 }
 
-#headerFrom{
+.wrapForm{
+	width: 100%;
+	min-height: 100%;
+}
+
+.headerForm{
 	width: 100%;
 	height: 175px;
 }
 
-#contentForm{
+.contentForm{
+	padding: 30px;
 	width: 100%;
-	height: 1200px;
+	background-color: #f0f0f0;
+	
 }
 
-#footerFrom{
+.footerForm{
 	width: 100%;
 	height: 242px;
 }
 
-#promotion-background{
-	width: 86%;
-	height: 86%;
-	border: 2px solid #08E200;
-	border-radius: 5px / 5px;	
+.contentwrap{
+	width: 90%;
+	height: 80%;
 	margin: 100px auto;
+	padding: 10px;
+	background-color: white;
+	border-radius: 5px/5px;
 }
 
+.titleform1{
+	width: 95%;
+	height: 50px;
+	border-bottom: 1px solid black;
+	position: relative;
+	padding: 10px;
+	margin-top: 20px;
+	margin-botton: 50px;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+}
 
-#promotion_titleForm{
-	width: 80%;
-	height: 32px;
+.tag-select{
 	text-align: left;
-	margin: 30px auto;
-	background-color: #f0f0f0;
+	float: left;
+	
 }
 
-/*#promotion_titleForm에서 우리가 margin 0 값을 준게 아닌데, 왜 자동으로 가운데 정렬되지?
-   혹시 부모 div가 margin: 0 auto가 있어서 그 자손 div도 그 영향을 받는건가? ★
-*/
-
-#promotion_imgForm{
-	width: 750px;
-	height: 450px;
-	border: 0.5px solid black;
+.title{
+	width: 75%;
+	text-align: left;
+	float: left;
+	margin-left: 10px;
 }
 
-#promotion_contentForm{
-	width: 80%;
-	height: 350px;
-	border: 2px solid #08E200;
+.user{
+	float: right;
+}
+
+.titleform2{
+	width: 95%;
+	height: 40px;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+}
+
+.icon{
+	width:17.5px;
+	height:17.5px;
+}
+
+.time{
+	text-align: left;
+	float: left;
+	margin-left: 20px;
+	margin-top:5px;
+}
+
+.hit{
+	float: left;
+	margin-left: 20px;
+	margin-top:5px;
+}
+
+.img{
+	width: 60%;
+	height: 500px;
+	margin-top: 50px;
+	border-radius: 15px;
+}
+
+.context{
+	width: 85%;
+	min-height: 200px;
+	margin-top: 50px;
+}
+
+.empty{
+	width: 100%;
+	height: 50px;
+}
+
+.btnform{
+	width: 100%;
+	height: 40px;
+	padding: 10px;
+	margin-top: 40px;
+	text-align: center;
+}
+
+.promotionBtn{
+	width: 130px;
+	height: 40px;
+	background-color: #3BBD5A;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+	color: #ffffff;
 	border-radius: 5px / 5px;	
-	overFlow : hidden;
-}
-
-
-/*버튼 디자인 공간*/
-#btnForm{
-	width: 80%;
-	height: 30px;
-}
-
-#submit_btn{
-	width: 100px;
-	height: 30px;
-	float: right;
-}
-#list_btn{
-	width: 100px;
-	height: 30px;
-	float: right;
-}
-#reset_btn{
-	width: 100px;
-	height: 30px;
-	float: right;
-}
-#promotion_btn{
-	width: 100px;
-	height: 30px;
-	float: right;
-}
-
-#listBtn{
-	width: 95px;
-	height: 30px;
-	float: right;
-	background-color: #08E200;
-	font : normal bold 17.5px "고딕체";
-	color: #ffffff;
-	border-radius: 30px / 30px;	
 	border : none;
+	margin-right: 20px;
 	cursor : pointer;
-	margin: 0 auto;
 }
 
-#resetBtn{
-	width: 95px;
-	height: 30px;
-	float: right;
-	background-color: #9B9B9B;
-	font : normal bold 17.5px "고딕체";
+.mainBtn{
+	width: 130px;
+	height: 40px;
+	background-color: gray;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 	color: #ffffff;
-	border-radius: 30px / 30px;	
+	border-radius: 5px / 5px;	
 	border : none;
+	margin-right: 20px;
 	cursor : pointer;
-	margin: 0 auto;
 }
 
-#submitBtn{
-	width: 95px;
-	height: 30px;
-	float: right;
-	background-color: #08E200;
-	font : normal bold 17.5px "고딕체";
+.deleteBtn{
+	width: 130px;
+	height: 40px;
+	background-color: gray;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 	color: #ffffff;
-	border-radius: 30px / 30px;	
+	border-radius: 5px / 5px;	
 	border : none;
+	margin-right: 20px;
 	cursor : pointer;
-	margin: 0 auto;
 }
 
-#promotionBtn{
-	width: 95px;
-	height: 30px;
-	float: right;
-	background-color: #08E200;
-	font : normal bold 17.5px "고딕체";
+.updateBtn{
+	width: 130px;
+	height: 40px;
+	background-color: #3BBD5A;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 	color: #ffffff;
-	border-radius: 30px / 30px;	
+	border-radius: 5px / 5px;	
 	border : none;
+	margin-right: 20px;
 	cursor : pointer;
-	margin: 0 auto;
 }
+
 </style>
 
-
-
-</head>
 <body>
 
-<div id="warpForm" align="center">
-	<div id="headerFrom">
+<div id="wrapForm" align="center">
+	<div class="headerForm">
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
-	
-	
-	<div id="contentForm" align="center">
-		<div id="promotion-background">
-			<div id="promotion_titleForm">
-				<span> 이천 쌀 </span><hr>
-			</div>
+
+	<div class="contentForm">
+		<div class="contentwrap">
 		
-			<div id="promotion_imgForm">
-				<img src="" style="width: 100%; height: 100%;">
-			</div><br>
-			
-			<div id="promotion_contentForm">
-				글 내용 들어가는 곳
-			</div><br>
-			
-			<div id="btnForm">
-				<div id="list_btn"><button id="listBtn">메인으로</button></div>
-				<div id="reset_btn"><button id="resetBtn">다시쓰기</button></div>
-				<div id="submit_btn"><button id="submitBtn">글 쓰기</button></div>
-				<div id="promotion_btn"><button id="promotionBtn">홍보요청</button></div>
+			<%-- 태그, 제목, 작성자 영역 --%>
+			<div class="titleform1">
+				<div class="tag-select">
+					<span>[태그 입력란]</span>
+				</div>
+				<div class="title">
+					<span>제목 입력란제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목</span>
+				</div>
+				<div class="user">
+					<span>작성자</span>
+				</div>
 			</div>
+			
+			<%-- 작성일, 조회수 영역 --%>
+			<div class="titleform2">
+				<div class="time">
+					<img class="icon" src="/resources/icon/clock_icon.png"/>
+					<span>작성일 표시란</span>
+				</div>
+				<div class="hit">
+					<img class="icon" src="/resources/icon/hit_icon.png"/>
+					<span>조회수 표시란</span>
+				</div>
+			</div>
+			
+			<%-- 게시글 영역 --%>
+			<div class="content_zone">
+				<div class="img">
+					<img src=""/>
+				</div>
+				<div class="context">
+					<p>게시글 내용</p>
+				</div>
+			</div>
+			
+			<%-- 빈 공간 --%>
+			<div class="empty"></div>
+			
+			<%-- 버튼 영역 --%>
+			<div class="btnForm">
+				<%-- <c:if test="${farm != null && (farm.rating eq 'admin' or farm.rating eq 'root')}"> --%>
+				<button type="button" class="promotionBtn">홍보요청</button>
+				<button type="button" class="deleteBtn">글 삭제</button>
+				<button type="submit" class="updateBtn">글 수정</button>
+				<%-- </c:if> --%>
+				<button type="button" class="mainBtn">메인으로</button>
+			</div>
+			
+			<%-- 빈 공간 --%>
+			<div class="empty"></div>
+			
 		</div>
 	</div>
-	
-	<div id="footerFrom">
-	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
-	</div>
+
+	<div class="footerForm">
+		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
+	</div>	
 </div>
+
 
 </body>
 </html>
