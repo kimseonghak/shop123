@@ -140,15 +140,13 @@
   			
   			var boardNo=$(this).attr('qnaBoardNo');
   			 
-  			alert(boardNo);
-  			
             // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-            var _width = '800';
+            var _width = '1000';
             var _height = '620';
             var _left = Math.ceil(( window.screen.width - _width )/2);
             var _top = Math.ceil(( window.screen.height - _height )/2);
            
-            //window.open('/farm/farmNoticeContent.do?noticeContent='+noticeContent+'&noticeTitle='+noticeTitle+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+            window.open('/question/questionViewPage.do?questionUserNo='+boardNo+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
   			
   			
   		});
