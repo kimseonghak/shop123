@@ -394,17 +394,21 @@ select option[value=""][disabled] {
 	        }
 	    });
 	});
+<%-- 글쓰기 버튼 --%>
 	$('#submitBtn').click(function(){
 		$("#textWrite").submit();
 	});
-
+<%-- 리스트 돌아가기 버튼 --%>
+	$('#listBtn').click(function(){
+		location.replace("/question/QuestionUserPage.do");
+	});
 <%-- 구매내역 확인 버튼 --%>
 	$('#buyListCheckBtn').click(function(){
 		window.open("/question/buyListCheckPage.do","_blank","width=800px, height=500px");
 	});
 <%-- 농가 번호 검색 버튼 --%>
 	$('#farmCheckBtn').click(function(){
-		window.open("/question/farmCheck.do","_blank","width=400px, height=400px");
+		window.open("/question/farmCheckPage.do","_blank","width=400px, height=400px");
 	});
 </script>
 </body>

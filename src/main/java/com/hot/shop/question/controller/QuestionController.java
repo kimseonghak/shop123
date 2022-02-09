@@ -240,7 +240,7 @@ public class QuestionController {
 			return mav;
 		}
 		// 구매목록리스트 불러오기
-		@RequestMapping(value = "/question/buyListCheck.do",method = RequestMethod.GET)
+		@RequestMapping(value = "/question/buyListCheckPage.do",method = RequestMethod.GET)
 		public ModelAndView buyListCheck(ModelAndView mav,
 				@RequestParam(required = false,defaultValue = "1") int currentPage,
 				@SessionAttribute Member member) {
@@ -294,7 +294,6 @@ public class QuestionController {
 		@ResponseBody
 		public ArrayList<Farm> farmCheck(@RequestParam(required = false, defaultValue = "") String farmName) {
 			ArrayList<Farm> farm = qService.farmCheck(farmName);
-			
 			return farm;
 		}
 		//-----------------------------------------농가 문의-----------------------------------------
