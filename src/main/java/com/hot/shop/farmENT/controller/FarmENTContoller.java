@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.farmENT.model.service.FarmENTService;
+import com.hot.shop.farmENT.model.vo.FarmENTBidProductCount;
 import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
 import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
@@ -50,13 +51,93 @@ public class FarmENTContoller {
 		
 		ArrayList<FarmENTRefund> refundList	= fENTservice.selectRefundBoard(farmNo);
 		
-		mv.addObject("noticeList",noticeList);
-		mv.addObject("qnaList",qnaList);
-		mv.addObject("refundList",refundList);
-		
-		mv.setViewName("farm/farmDashBoard");
-		
-		return mv;
+		//상품 매출 가져오기
+		ArrayList<FarmENTBidProductCount> bidProductCountList = fENTservice.selectProductSales(farmNo);
+				
+				if(bidProductCountList!=null)
+				{
+					switch (bidProductCountList.size()) 
+					{
+					
+					case 1: mv.addObject("productName1",bidProductCountList.get(0).getProductName());
+							mv.addObject("productCount1",bidProductCountList.get(0).getProdictCount());
+							mv.addObject("productName2",null);
+							mv.addObject("productCount2",null);
+							mv.addObject("productName3",null);
+							mv.addObject("productCount3",null);
+							mv.addObject("productName4",null);
+							mv.addObject("productCount4",null);
+							mv.addObject("productName5",null);
+							mv.addObject("productCount5",null);
+							break;
+
+					case 2: mv.addObject("productName1",bidProductCountList.get(0).getProductName());
+							mv.addObject("productCount1",bidProductCountList.get(0).getProdictCount());
+							mv.addObject("productName2",bidProductCountList.get(1).getProductName());
+							mv.addObject("productCount2",bidProductCountList.get(1).getProdictCount());
+							mv.addObject("productName3",null);
+							mv.addObject("productCount3",null);
+							mv.addObject("productName4",null);
+							mv.addObject("productCount4",null);
+							mv.addObject("productName5",null);
+							mv.addObject("productCount5",null);
+							break;
+					case 3: mv.addObject("productName1",bidProductCountList.get(0).getProductName());
+							mv.addObject("productCount1",bidProductCountList.get(0).getProdictCount());
+							mv.addObject("productName2",bidProductCountList.get(1).getProductName());
+							mv.addObject("productCount2",bidProductCountList.get(1).getProdictCount());
+							mv.addObject("productName3",bidProductCountList.get(2).getProductName());
+							mv.addObject("productCount3",bidProductCountList.get(2).getProdictCount());
+							mv.addObject("productName4",null);
+							mv.addObject("productCount4",null);
+							mv.addObject("productName5",null);
+							mv.addObject("productCount5",null);
+							break;
+					case 4: mv.addObject("productName1",bidProductCountList.get(0).getProductName());
+							mv.addObject("productCount1",bidProductCountList.get(0).getProdictCount());
+							mv.addObject("productName2",bidProductCountList.get(1).getProductName());
+							mv.addObject("productCount2",bidProductCountList.get(1).getProdictCount());
+							mv.addObject("productName3",bidProductCountList.get(1).getProductName());
+							mv.addObject("productCount3",bidProductCountList.get(1).getProdictCount());
+							mv.addObject("productName4",bidProductCountList.get(1).getProductName());
+							mv.addObject("productCount4",bidProductCountList.get(1).getProdictCount());
+							mv.addObject("productName5",null);
+							mv.addObject("productCount5",null);
+							break;
+					case 5: mv.addObject("productName1",bidProductCountList.get(0).getProductName());
+							mv.addObject("productCount1",bidProductCountList.get(0).getProdictCount());
+							mv.addObject("productName2",bidProductCountList.get(1).getProductName());
+							mv.addObject("productCount2",bidProductCountList.get(1).getProdictCount());
+							mv.addObject("productName3",bidProductCountList.get(1).getProductName());
+							mv.addObject("productCount3",bidProductCountList.get(1).getProdictCount());
+							mv.addObject("productName4",bidProductCountList.get(1).getProductName());
+							mv.addObject("productCount4",bidProductCountList.get(1).getProdictCount());
+							mv.addObject("productName5",bidProductCountList.get(1).getProductName());
+							mv.addObject("productCount5",bidProductCountList.get(1).getProdictCount());			
+							break;	
+					}
+				}else
+				{
+							mv.addObject("productName1",null);
+							mv.addObject("productCount1",null);
+							mv.addObject("productName2",null);
+							mv.addObject("productCount2",null);
+							mv.addObject("productName3",null);
+							mv.addObject("productCount3",null);
+							mv.addObject("productName4",null);
+							mv.addObject("productCount4",null);
+							mv.addObject("productName5",null);
+							mv.addObject("productCount5",null);
+				}
+
+				
+				
+				mv.addObject("noticeList",noticeList);
+				mv.addObject("qnaList",qnaList);
+				mv.addObject("refundList",refundList);
+				mv.setViewName("farm/farmDashBoard");
+				
+				return mv;
 	}
 	
 	

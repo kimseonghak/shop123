@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.hot.shop.farmENT.model.vo.FarmENTBidProduct;
+import com.hot.shop.farmENT.model.vo.FarmENTBidProductCount;
 import com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus;
 import com.hot.shop.farmENT.model.vo.FarmENTOrder;
 import com.hot.shop.farmENT.model.vo.FarmENTProduct;
@@ -641,6 +643,20 @@ public class FarmENTDAO {
 		RowBounds rb = new RowBounds(0,5);
 			
 		return new ArrayList<FarmENTRefund>(sql.selectList("farmENT.selectRefundBoard",farmNo,rb));
+		
+	}
+	//경매 일자 기준으로 5개의 상품 가져오기
+	public ArrayList<FarmENTBidProduct> selectFiveProduct(int farmNo) {
+		
+		RowBounds rb = new RowBounds(0,5);
+		
+		return new ArrayList<FarmENTBidProduct>(sql.selectList("farmENT.selectFiveProduct",farmNo,rb));
+		
+	}
+	//productList를 가지고 판매량 가져오기
+	public ArrayList<FarmENTBidProductCount> selectFiveProductCount(HashMap<String, Object> productDataMap) {
+		
+		return new ArrayList<FarmENTBidProductCount>(sql.selectList("farmENT.selectFiveProductCount", productDataMap));
 		
 	}
 

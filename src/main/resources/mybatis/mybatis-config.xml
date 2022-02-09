@@ -30,6 +30,8 @@
 		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTDeliveryStatus" alias="farmENTDeliveryStatus"/>
 		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTQna" alias="farmENTQna"/>
 		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTRefund" alias="farmENTRefund"/>
+		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTBidProduct" alias="farmENTBidProduct"/>
+		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTBidProductCount" alias="farmENTBidProductCount"/>
 		
 	</typeAliases>
 </configuration>
