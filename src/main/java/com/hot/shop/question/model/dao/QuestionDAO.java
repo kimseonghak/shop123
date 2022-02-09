@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.hot.shop.admin.model.vo.BID;
+import com.hot.shop.admin.model.vo.Refund;
 import com.hot.shop.auction.model.vo.Purchaselist;
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.question.model.vo.QuestionAnswer;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -21,11 +23,6 @@ public class QuestionDAO {
 	@Autowired
 	@Qualifier(value="sqlSessionTemplate")
 	private SqlSessionTemplate sqlSession;
-
-	//1:1문의 리스트(유저)
-	public ArrayList<QuestionUser> selectUserQuestionList() {
-		return new ArrayList<QuestionUser>(sqlSession.selectList("qUser.selectUserQuestionList"));
-	}
 
 	//1:1문의 글쓰기(유저 실질적인 백단)
 	public int insertUserWrite(QuestionUser qUser) {
@@ -51,9 +48,12 @@ public class QuestionDAO {
 	}
 
 	//1:1문의 조회(사용자)
-	public QuestionUser questionView(int questionUserNo) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("qUser.questionView", questionUserNo);
+	public HashMap<String, Object> questionView(int questionUserNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("qUser", sqlSession.selectOne("qUser.questionView", questionUserNo));
+		map.put("refund", sqlSession.selectOne("qUser.questionViewRefund",questionUserNo));
+		map.put("qAnswer", sqlSession.selectOne("qUser.questionAnswerCheck",questionUserNo));
+		return map;
 	}
 
 	//글 수정
@@ -113,6 +113,74 @@ public class QuestionDAO {
 	public ArrayList<QuestionFarm> QuestionFarmPage() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public ArrayList<QuestionUser> getUserQuestionList(int recordCountPerPage, HashMap<String, Object> map) {
+		int start = (int)map.get("currentPage")*recordCountPerPage-(recordCountPerPage-1);
+		int end = (int)map.get("currentPage")*recordCountPerPage;
+		
+		map.put("start", start);
+		map.put("end",end);
+		return new ArrayList<QuestionUser>(sqlSession.selectList("qUser.questionUserList",map));
+	}
+
+	public String getUserQuestionNavi(int recordCountPerPage, int naviCountPerPage, HashMap<String, Object> map) {
+		int recordTotalCount = qUserTotalCount(map);
+		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
+		int currentPage = (int)map.get("currentPage");
+		
+		int startNavi = ((currentPage-1)/naviCountPerPage) *naviCountPerPage+1;
+		int endNavi = startNavi+naviCountPerPage-1;
+		
+		if(endNavi>pageTotalCount) {
+			endNavi=pageTotalCount;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<a href='/question/QuestionUserPage.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/question/QuestionUserPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
+		for(int i= startNavi; i<=endNavi; i++) {
+			if(i==currentPage) {
+				sb.append("<a href='/question/QuestionUserPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='currentNavi'>"+i+"</a>");
+			}else {
+				sb.append("<a href='/question/QuestionUserPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='otherNavi'>"+i+"</a>");
+			}
+		}
+		if((currentPage+10)>pageTotalCount) {
+			sb.append("<a href='/question/QuestionUserPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+		}else {
+			sb.append("<a href='/question/QuestionUserPage.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+		}
+		sb.append("<a href='/question/QuestionUserPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&gt;&gt;</a>");
+		
+		return sb.toString();
+	}
+
+	private int qUserTotalCount(HashMap<String, Object> map) {
+		return sqlSession.selectOne("qUser.qUserTotalCount",map);
+	}
+
+	public int questionUserDelete(int questionUserNo,String questionUserCode) {
+		if(questionUserCode.equals("Q-1")) {
+			sqlSession.update("qUser.refundDelete",questionUserNo);
+		}
+		return sqlSession.update("qUser.questionUserDelete",questionUserNo);
+	}
+
+	public boolean questionAnswer(QuestionAnswer qAnswer) {
+		if(qAnswer.getQuestionUserAnswerYN() == 'N') {
+			int result =sqlSession.insert("qUser.questionAnswer",qAnswer);
+			int result2 = sqlSession.update("qUser.questionUserAnswerYN",qAnswer);
+			if(result+result2>1) {
+				return true;
+			}
+		}else {
+			int result = sqlSession.update("qUser.questionAnswerUpdate",qAnswer);
+			if(result>0) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	

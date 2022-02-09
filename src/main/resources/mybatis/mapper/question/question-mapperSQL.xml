@@ -70,19 +70,32 @@
 				QUESTION_USER_TITLE as QuestionUserTitle,
 				QUESTION_USER_CONTENT as QuestionUserContent,
 				QUESTION_USER_REGDATE as QuestionUserRegdate,
-				USER_NO as UserNo,
+				QUESTION_USER.USER_NO as UserNo,
+				member.user_nick as userNick,
 				QUESTION_USER_END_YN as QuestionUserEndYN,
 				QUESTION_USER.QUESTIONPHOTO_NO as QuestionPhotoNo,
 				QUESTION_USER_CODE as QuestionUserCode,
 				QUESTION_USER_CLASSIFY as QuestionUserClassify,
 				FARM_NO as FarmNo,
 				ORDER_NO as OrderNo,
-				QUESTION_USER_ANSWER_YN as QuestionUserAnswer,
+				QUESTION_USER_ANSWER_YN as QuestionUserAnswerYN,
 				QUESTIONPHOTO.QUESTIONPHOTO_FILEPATH as questionPhotoFilePath
 			from QUESTION_USER left join QUESTIONPHOTO on (QUESTION_USER.QUESTIONPHOTO_NO = QUESTIONPHOTO.QUESTIONPHOTO_NO)
+			left join member on (QUESTION_USER.user_no = member.user_no)
 			where QUESTION_USER_NO = #{_parameter}
 		</select>
-		
+		<select id="questionViewRefund" parameterType="integer" resultType="refund">
+			select
+				refund_No as refundNo,
+				buy_No as buyNo,
+				user_No as userNo,
+				farm_No as farmNo,
+				farm_YN as farmYN,
+				admin_YN as adminYN,
+				del_YN as delYN,
+				question_User_No as questionUserNo
+			from refund where question_user_no=#{_parameter}
+		</select>
 		
 		<!-- 글 수정단 -->
 		<update id="questionUpdate" parameterType="qUser">
@@ -143,6 +156,93 @@
 		<insert id="refund" parameterType="hashmap">
 			insert into refund values(refund_seq.nextval,#{pur.buyNo},#{pur.userNo},#{pur.farmNo},'X','X','N',#{qUser.questionUserNo})
 		</insert>
+<!-- 유저 문의사항 리스트 불러오기 -->
+		<select id="questionUserList" parameterType="hashmap" resultType="qUser">
+			select
+				QUESTION_USER_NO as QuestionUserNo,
+				QUESTION_USER_TITLE as QuestionUserTitle,
+				QUESTION_USER_CONTENT as QuestionUserContent,
+				QUESTION_USER_REGDATE as QuestionUserRegdate,
+				USER_NO as UserNo,
+				user_nick as userNick,
+				QUESTION_USER_END_YN as QuestionUserEndYN,
+				QUESTIONPHOTO_NO as QuestionPhotoNo,
+				QUESTION_USER_CODE as QuestionUserCode,
+				QUESTION_USER_CLASSIFY as QuestionUserClassify,
+				FARM_NO as FarmNo,
+				ORDER_NO as OrderNo,
+				QUESTION_USER_ANSWER_YN as QuestionUserAnswer
+			from (select row_number() over(order by Question_user_no desc)as num, question_user.* ,user_nick
+				from question_user 
+				left join member on (question_user.user_no=member.user_no) 
+				where QUESTION_USER_END_YN='N' and 
+				<choose>
+					<when test="member!=null">
+						question_user.user_no=#{member.userNo} 
+					</when>
+					<otherwise>
+						question_user.farm_no=#{farm.farmNo} 
+					</otherwise>
+				</choose> 
+				<choose>
+					<when test="type.equals('title')">
+						and QUESTION_USER_TITLE like '%'||#{keyword}||'%'
+					</when>
+					<when test="type.equals('content')">
+						and QUESTION_USER_content like '%'||#{keyword}||'%'
+					</when>
+					<when test="type.equals('all')">
+						and (QUESTION_USER_TITLE like '%'||#{keyword}||'%' or QUESTION_USER_content like '%'||#{keyword}||'%')
+					</when>
+					<otherwise></otherwise>
+				</choose>
+				)
+				where num between #{start} and #{end}
+		</select>
+		<select id="qUserTotalCount" parameterType="hashmap" resultType="integer">
+			select count(*) from question_user where 
+			<choose>
+					<when test="member!=null">
+						question_user.user_no=#{member.userNo} 
+					</when>
+					<otherwise>
+						question_user.farm_no=#{farm.farmNo} 
+					</otherwise>
+				</choose> 
+			<choose>
+				<when test="type.equals('title')">
+					and QUESTION_USER_TITLE like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('content')">
+					and QUESTION_USER_content like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('all')">
+					and (QUESTION_USER_TITLE like '%'||#{keyword}||'%' or QUESTION_USER_content like '%'||#{keyword}||'%')
+				</when>
+				<otherwise></otherwise>
+			</choose>
+		</select>
+<!-- 유저 문의사항 삭제 -->
+		<update id="questionUserDelete" parameterType="integer">
+			update question_user set question_user_end_yn='Y' where question_user_no=#{_parameter}
+		</update>
+		<update id="refundDelete" parameterType="integer">
+			update refund set del_yn='Y' where question_user_no=#{_parameter}
+		</update>
+<!-- 답변 등록 -->
+		<insert id="questionAnswer" parameterType="qAnswer">
+			insert into question_answer values(question_answer_seq.nextval,#{questionAnswerContent},sysdate,#{questionBoardNo},#{questionBoardCode},'N')
+		</insert>
+		<update id="questionUserAnswerYN" parameterType="qAnswer">
+			update question_user set question_user_answer_yn='Y' where question_user_no=#{questionBoardNo}
+		</update>
+		<update id="questionAnswerUpdate" parameterType="qAnswer">
+			update question_answer set question_answer_content = #{questionAnswerContent} where question_board_code=#{questionBoardCode} and question_board_no=#{questionBoardNo}
+		</update>
+		<select id="questionAnswerCheck" parameterType="integer" resultType="qAnswer">
+			select 
+				question_Answer_Content as questionAnswerContent 
+			from question_answer 
+			where question_board_code='U' and question_board_no=#{_parameter}
+		</select>
 	</mapper>
-
-

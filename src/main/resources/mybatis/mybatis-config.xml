@@ -21,6 +21,8 @@
 		<typeAlias type="com.hot.shop.promotion.model.vo.PromotionPhoto" alias="pPhoto"/>
 		<typeAlias type="com.hot.shop.faq.model.vo.FAQ" alias="faq"/>
 		<typeAlias type="com.hot.shop.auction.model.vo.Purchaselist" alias="pur"/>
+		<typeAlias type="com.hot.shop.admin.model.vo.Refund" alias="refund"/>
+		<typeAlias type="com.hot.shop.question.model.vo.QuestionAnswer" alias="qAnswer"/>
 		
 		<!-- farmENT -->
 		<typeAlias type="com.hot.shop.farmENT.model.vo.FarmENTProduct" alias="farmENTProduct"/>
