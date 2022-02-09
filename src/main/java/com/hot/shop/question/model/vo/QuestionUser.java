@@ -17,6 +17,7 @@ public class QuestionUser {
 	private String userNick;//조인해서 쓸 것
 	private char questionUserAnswerYN;//o
 	private String questionPhotoFilePath;//경로를 위한 컬럼
+	private int originalQuestionphotoNo;
 	
 	
 
@@ -28,7 +29,7 @@ public class QuestionUser {
 	public QuestionUser(int questionUserNo, String questionUserTitle, String questionUserContent,
 			Date questionUserRegdate, int userNo, char questionUserEndYN, int questionphotoNo, String questionUserCode,
 			char questionUserClassify, int farmNo, String orderNo, String userNick, char questionUserAnswerYN,
-			String questionPhotoFilePath) {
+			String questionPhotoFilePath, int originalQuestionphotoNo) {
 		super();
 		this.questionUserNo = questionUserNo;
 		this.questionUserTitle = questionUserTitle;
@@ -44,27 +45,10 @@ public class QuestionUser {
 		this.userNick = userNick;
 		this.questionUserAnswerYN = questionUserAnswerYN;
 		this.questionPhotoFilePath = questionPhotoFilePath;
+		this.originalQuestionphotoNo = originalQuestionphotoNo;
 	}
 
 
-	public QuestionUser(int questionUserNo, String questionUserTitle, String questionUserContent,
-			Date questionUserRegdate, int userNo, char questionUserEndYN, int questionphotoNo, String questionUserCode,
-			char questionUserClassify, int farmNo, String orderNo, String userNick, char questionUserAnswerYN) {
-		super();
-		this.questionUserNo = questionUserNo;
-		this.questionUserTitle = questionUserTitle;
-		this.questionUserContent = questionUserContent;
-		this.questionUserRegdate = questionUserRegdate;
-		this.userNo = userNo;
-		this.questionUserEndYN = questionUserEndYN;
-		this.questionphotoNo = questionphotoNo;
-		this.questionUserCode = questionUserCode;
-		this.questionUserClassify = questionUserClassify;
-		this.farmNo = farmNo;
-		this.orderNo = orderNo;
-		this.userNick = userNick;
-		this.questionUserAnswerYN = questionUserAnswerYN;
-	}
 
 	public String getQuestionPhotoFilePath() {
 		return questionPhotoFilePath;
@@ -156,6 +140,15 @@ public class QuestionUser {
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
+	
+	public int getOriginalQuestionphotoNo() {
+		return originalQuestionphotoNo;
+	}
+
+	public void setOriginalQuestionphotoNo(int originalQuestionphotoNo) {
+		this.originalQuestionphotoNo = originalQuestionphotoNo;
+	}
+
 	@Override
 	public String toString() {
 		return "QuestionUser [questionUserNo=" + questionUserNo + ", questionUserTitle=" + questionUserTitle
@@ -164,6 +157,8 @@ public class QuestionUser {
 				+ questionphotoNo + ", questionUserCode=" + questionUserCode + ", questionUserClassify="
 				+ questionUserClassify + ", farmNo=" + farmNo + ", orderNo=" + orderNo + ", userNick=" + userNick
 				+ ", questionUserAnswerYN=" + questionUserAnswerYN + ", questionPhotoFilePath=" + questionPhotoFilePath
-				+ "]";
+				+ ", originalQuestionphotoNo=" + originalQuestionphotoNo + "]";
 	}
+
+	
 }

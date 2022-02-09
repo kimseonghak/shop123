@@ -39,12 +39,6 @@ public class QuestionServiceImpl implements QuestionService{
 		return qDAO.questionView(questionUserNo);
 	}
 
-	//글 수정
-	@Override
-	public int questionUpdate(QuestionUser quser) {
-		return qDAO.questionUpdate(quser);
-	}
-
 	@Override
 	public HashMap<String, Object> buyListCheck(int currentPage, Member member) {
 		int recordCountPerPage=5;
@@ -85,6 +79,16 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public boolean questionAnswer(QuestionAnswer qAnswer) {
 		return qDAO.questionAnswer(qAnswer);
+	}
+
+	@Override
+	public QuestionPhoto deleteFileCheck(int originalQuestionphotoNo) {
+		return qDAO.deleteFileCheck(originalQuestionphotoNo);
+	}
+
+	@Override
+	public int questionUserUpdate(QuestionUser qUser) {
+		return qDAO.questiouUserUpdate(qUser);
 	}
 
 	

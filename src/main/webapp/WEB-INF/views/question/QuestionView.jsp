@@ -87,7 +87,7 @@
 	#imgWrap>img{
 		width:100%;
 		height:100%;
-		object-fit:cover;
+		object-fit:contain;
 	}
 	#textWrap{
 		width:49.5%;
@@ -273,7 +273,6 @@
 					<button class="btn answerBtn">답변</button>
 				</c:otherwise>
 			</c:choose>
-			
 		</div>
 	</div>
 	<div id="footerFrom">
@@ -300,6 +299,11 @@
 	});
 	$('.answerBtn').click(function(){
 		$('#answerForm').submit();
+	});
+<%-- 수정 버튼 로직 --%>
+	$('.updateBtn').click(function(){
+		var questionUserNo=${map.qUser.questionUserNo};
+		location.replace('/question/questionUserUpdatePage.do?questionUserNo='+questionUserNo);
 	});
 </script>
 <c:if test="${member!=null }">
