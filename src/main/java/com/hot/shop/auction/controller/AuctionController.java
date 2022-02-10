@@ -72,8 +72,6 @@ public class AuctionController {
 				response.getWriter().print(false);
 			}
 			
-		}else {
-			mav.addObject("msg","잘못된 접근입니다. 다시 확인해주세요.");
 		}
 		
 	}
@@ -122,12 +120,16 @@ public class AuctionController {
 	}
 	
 	//결제하기 누를 경우 Purchaselist 테이블에 데이터 삽입, 수량 빼기
-	@RequestMapping(value="auction/orderPay.do", method = RequestMethod.POST)
-	public void orderPay(Purchaselist p, HttpServletResponse response)throws IOException {
+	@RequestMapping(value="/auction/orderPay.do", method = RequestMethod.POST)
+	public void orderPay(Purchaselist p, HttpServletResponse response,
+						 @RequestParam int auctionNo)throws IOException {
 		
-		int result = aucService.insertOrder(p);
+		int auctionCount  = p.getProductCount();
+		int insertResult = aucService.insertOrder(p);
+		int farmNo = p.getFarmNo();
+		int updateResult = aucService.minusAuctionCount1(auctionCount, auctionNo);
 		
-		if(result>0) {
+		if(insertResult>0 && updateResult>0) {
 			
 			response.getWriter().print(true);
 			
@@ -138,9 +140,39 @@ public class AuctionController {
 	
 	}
 	
+	//결제가 되면 주문 완료 페이지로이동
 	@RequestMapping(value="/auction/orderComplete.do",method = RequestMethod.GET)
-	public String test() {
+	public String orderComplete() {
 		
 		return "auction/orderComplete";
 	}
+	
+	
+	//해당 유저의 주문 목록 페이지
+	@RequestMapping(value="/auction/orderListPage.do",method = RequestMethod.GET)
+	public ModelAndView orderListPage(@RequestParam(required = false, defaultValue = "1") int currentPage,
+								@RequestParam int userNo,ModelAndView mav) {
+		
+		HashMap<String, Object> map = aucService.orderListInfo(currentPage,userNo);
+		
+		mav.addObject("map",map);
+		mav.addObject("userNo",userNo);
+		mav.addObject("currentPage",currentPage);
+		
+		mav.setViewName("auction/orderList");
+		
+		return mav;
+	}
+	
+	//주문 목록에서 주문번호를 누를 경우 상세 페이지로 이동
+	@RequestMapping(value="/auction/orderDetailPage.do")
+	public String orderDetailPage() {
+		
+		return "auction/orderDetailPage";
+	}
+	
+	
+	
+	
+	
 }

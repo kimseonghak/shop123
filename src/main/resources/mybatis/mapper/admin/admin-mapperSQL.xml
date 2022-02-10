@@ -353,4 +353,61 @@
 				<otherwise></otherwise>
 			</choose>
 	</select>
+	<select id="fileCheck" resultType="qPhoto">
+		select 
+			questionphoto_no as questionPhotoNo,
+			questionPhoto_FilePath as questionPhotoFilePath 
+		from questionPhoto where questionphoto_use_yn='N' and questionphoto_del_yn='N'
+	</select>
+	<update id="fileDelYNUpdate" parameterType="integer">
+		update questionphoto set questionphoto_del_yn='Y' and questionphoto_use_yn='Y' where questionphoto_no = #{_parameter}
+	</update>
+	<select id="refundList" parameterType="hashmap" resultType="refund">
+		select
+			refund_No as refundNo,
+			buy_No as buyNo,
+			user_No as userNo,
+			farm_No as farmNo,
+			farm_YN as farmYN,
+			admin_YN as adminYN,
+			del_YN as delYN,
+			question_User_No as questionUserNo,
+			order_no as orderNo
+		from (select row_number() over (order by refund_no desc) as num,refund.*,purchaselist.order_no from refund left join purchaselist on (refund.buy_no = purchaselist.buy_no)
+		where refund.farm_yn='Y'
+		<choose>
+			<when test="type.equals('userNo')">
+				and refund.user_no like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('farmNo')">
+				and refund.farm_no like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('buyNo')">
+				and refund.buy_no like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('orderNo')">
+				and purchaselist.order_no like '%'||#{keyword}||'%'
+			</when>
+			<otherwise></otherwise>
+		</choose>
+		) where num between #{start} and #{end}
+	</select>
+	<select id="refundTotalCount" parameterType="hashmap" resultType="integer">
+		select count(*) from refund left join purchaselist on (refund.buy_no = purchaselist.buy_no) where farm_yn='Y'
+		<choose>
+			<when test="type.equals('userNo')">
+				and refund.user_no like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('farmNo')">
+				and refund.farm_no like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('buyNo')">
+				and refund.buy_no like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('orderNo')">
+				and purchaselist.order_no like '%'||#{keyword}||'%'
+			</when>
+			<otherwise></otherwise>
+		</choose>
+	</select>
 </mapper>

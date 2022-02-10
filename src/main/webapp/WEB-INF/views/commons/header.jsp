@@ -23,7 +23,7 @@
 		<c:when test="${sessionScope.member != null }">
 			<div class="link-user">
 				<div class="box-user">
-					<a href="/mypage/memberMypageListPage.do">회원 ${sessionScope.member.userName }님</a> 
+					<a href="/mypage/memberMypageListPage.do">회원 ${sessionScope.member.userNick }님</a> 
 					<a href="/member/memberlogout.do">로그아웃</a>
 				</div>
 			</div>

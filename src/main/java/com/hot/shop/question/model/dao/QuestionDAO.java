@@ -166,16 +166,11 @@ public class QuestionDAO {
 		if(qAnswer.getQuestionUserAnswerYN() == 'N') {
 			int result =sqlSession.insert("qUser.questionAnswer",qAnswer);
 			int result2 = sqlSession.update("qUser.questionUserAnswerYN",qAnswer);
-			if(result+result2>1) {
-				return true;
-			}
+			return result+result2 > 1;
 		}else {
 			int result = sqlSession.update("qUser.questionAnswerUpdate",qAnswer);
-			if(result>0) {
-				return true;
-			}
+			return result > 0;
 		}
-		return false;
 	}
 
 	public QuestionPhoto deleteFileCheck(int originalQuestionphotoNo) {

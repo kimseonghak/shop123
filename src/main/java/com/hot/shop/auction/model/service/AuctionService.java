@@ -23,6 +23,10 @@ public interface AuctionService {
 
 	int insertOrder(Purchaselist p);
 
+	int minusAuctionCount1(int auctionCount, int auctionNo);
+
+	HashMap<String, Object> orderListInfo(int currentPage, int userNo);
+
 	
 	
 }

@@ -9,15 +9,18 @@ public class Refund {
 	private char adminYN;
 	private char delYN;
 	private int questionUserNo;
+	private String orderNo;
+	
 	
 	@Override
 	public String toString() {
 		return "Refund [refundNo=" + refundNo + ", buyNo=" + buyNo + ", userNo=" + userNo + ", farmNo=" + farmNo
 				+ ", farmYN=" + farmYN + ", adminYN=" + adminYN + ", delYN=" + delYN + ", questionUserNo="
-				+ questionUserNo + "]";
+				+ questionUserNo + ", orderNo=" + orderNo + "]";
 	}
+
 	public Refund(int refundNo, int buyNo, int userNo, int farmNo, char farmYN, char adminYN, char delYN,
-			int questionUserNo) {
+			int questionUserNo, String orderNo) {
 		super();
 		this.refundNo = refundNo;
 		this.buyNo = buyNo;
@@ -27,10 +30,19 @@ public class Refund {
 		this.adminYN = adminYN;
 		this.delYN = delYN;
 		this.questionUserNo = questionUserNo;
+		this.orderNo = orderNo;
 	}
+
 	public Refund() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 	public int getRefundNo() {
 		return refundNo;

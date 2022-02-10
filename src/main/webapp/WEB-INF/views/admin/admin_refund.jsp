@@ -192,7 +192,7 @@
 			<div id="searchWrap">
 				<form action="/admin/adminFarmQNASearch.do" method="get" style="widht:100%; height:100%;" id="searchForm">
 					<button type="submit" id="searchBtn"><img alt="" src="/resources/admin/img/searchLeaf.png"></button>
-					<input type="text" name="keyword" id="searchText" />
+					<input type="text" name="keyword" id="searchText"/>
 					<select name="type" id="searchSelect">
 						<option value="refundNo">환불 번호</option>
 						<option value="userNo">회원 번호</option>

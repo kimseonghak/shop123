@@ -2,6 +2,7 @@ package com.hot.shop.mypage.controller;
 
 import java.util.HashMap;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -30,20 +31,10 @@ public class MemberMypageController {
 		
 	}
 	
-	/*
-	//마이페이지 리스트에서 주문목록 페이지로 이동
-	@RequestMapping(value="/mypage/memberMypageOrderListPage.do")
-	public String memberMypageOrderListPage() {
-		
-		return "mypage/memberMypageList";
-		
-	}
-	*/
-	
 	//마이페이지 리스트에서 회원정보수정 페이지로 접근
 	@RequestMapping(value="/mypage/memberMypageModifyPage.do", method=RequestMethod.GET)
-	public String memberMypageModifyPage() {
-		
+	public String memberMypageModifyPage(@SessionAttribute Member member) {
+	
 		return "mypage/memberMypageModify";
 		
 	}
@@ -71,54 +62,77 @@ public class MemberMypageController {
 			@SessionAttribute Member member,
 			HttpSession session) {
 		
-		String userPwd = request.getParameter("userPwd");
-		
-		if(userPwd == null) {
-			mav.addObject("msg", "비밀번호를 입력해주세요.");
-			mav.addObject("location", "/mypage/memberMypageWithdrawPage.do");
-		}
-		
-		if(request.getParameter("agree")==null) {
-			mav.addObject("msg", "약관에 동의해주세요.");
-			mav.addObject("location", "/mypage/memberMypageWithdrawPage.do");
+		if(member==null) {
+			mav.addObject("location", "/");
 		} else {
-			String userId = member.getUserId();
+			String userPwd = request.getParameter("userPwd");
 			
-			HashMap<String, Object> map = new HashMap<String, Object>();
-	        map.put("userId", userId);
-	        map.put("userPwd", userPwd);
-			
-			int result = mmService.updateWithdraw(map);
-			
-			
-			if(result>0) {
-				session.invalidate();
-				mav.addObject("msg", "탈퇴에 성공하였습니다.");
-				mav.addObject("location", "/");
-				
-			} else {
-				mav.addObject("msg", "탈퇴에 실패하였습니다.");
+			if(userPwd == null) {
+				mav.addObject("msg", "비밀번호를 입력해주세요.");
 				mav.addObject("location", "/mypage/memberMypageWithdrawPage.do");
+			}
+			
+			if(request.getParameter("agree")==null) {
+				mav.addObject("msg", "약관에 동의해주세요.");
+				mav.addObject("location", "/mypage/memberMypageWithdrawPage.do");
+			} else {
+				String userId = member.getUserId();
 				
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("userId", userId);
+				map.put("userPwd", userPwd);
+				
+				int result = mmService.updateWithdraw(map);
+				
+				
+				if(result>0) {
+					session.invalidate();
+					mav.addObject("msg", "탈퇴에 성공하였습니다.");
+					mav.addObject("location", "/");
+					
+				} else {
+					mav.addObject("msg", "탈퇴에 실패하였습니다.");
+					mav.addObject("location", "/mypage/memberMypageListPage.do");
+					
+				}
 			}
 		}
+		
 		mav.setViewName("commons/msg");
 		return mav;
 	}
 	
 	//비밀번호 변경
-	/*
-	@RequestMapping(value="/mypage/memberMypageWithdraw.do")
-	public void memberMypageWithdraw(@SessionAttribute Member member,
-			HttpSession session,
+	@RequestMapping(value="/mypage/memberMypageChangePwd.do", method=RequestMethod.POST)
+	public ModelAndView memberMypageWithdraw(@SessionAttribute Member member,
 			ModelAndView mav,
-			HttpServletRequest request) {
-		String userPwd = request.getParameter("userPwd");
-		String userId = member.getUserId();
+			HttpServletRequest request,
+			@RequestParam String userPwd,
+			@RequestParam String userNewPwd) {
 		
+		if(member==null) {
+			mav.addObject("location", "/");
+		} else {
 		
+			String userId = member.getUserId();
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("userId", userId);
+			map.put("userPwd",userPwd);
+			map.put("userNewPwd", userNewPwd);
+			
+			int result = mmService.updatePassword(map);
+			if(result>0) {
+				mav.addObject("msg", "비밀번호 변경에 성공하였습니다.");
+				mav.addObject("location", "/mypage/memberMypageListPage.do");
+			} else {
+				mav.addObject("msg", "비밀번호 변경에 실패하였습니다.");
+				mav.addObject("location", "/mypage/memberMypageListPage.do");
+			}
+		}
+		mav.setViewName("commons/msg");
+		return mav;
 	}
-	*/
 	
 	//회원정보 변경
 	@RequestMapping(value = "/mypage/memberMypageModify.do", method = RequestMethod.POST)
@@ -129,6 +143,8 @@ public class MemberMypageController {
 			@RequestParam String userAddressMain,
 			@RequestParam String userAddressSub,
 			@SessionAttribute Member member,
+			HttpSession session,
+			HttpServletRequest request,
 			ModelAndView mav) {
 		
 		if(member==null) {
@@ -151,7 +167,10 @@ public class MemberMypageController {
 			if (result > 0) {
 				
 				mav.addObject("msg", "회원정보 변경에 성공하였습니다.");
-				mav.addObject("location", "/");
+				mav.addObject("location", "/mypage/memberMypageListPage.do");
+				
+				session = request.getSession();
+				session.setAttribute("member", m);
 				
 			} else {
 				

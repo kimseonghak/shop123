@@ -10,4 +10,8 @@ public interface MemberMypageService {
 
 	int updateMember(Member m);
 
+	int updatePassword(HashMap<String, Object> map);
+
+	Member selectUserInfoCheck(int userNo);
+
 }
