@@ -363,13 +363,13 @@
                             <div class="name"><span class="star" style="color: darksalmon">*</span>
                             <span class="name-span">받는분</span></div>
                             <div class="name-box">
-                                <input type="text" name="userName" class="name-input" value="${requestScope.m.userName }" />
+                                <input type="text" name="userName" class="name-input"/>
                             </div>
 
                             <div class="name"><span class="star" style="color: darksalmon">*</span>
                             <span class="name-span">전화번호</span></div>
                             <div class="name-box">
-                                <input type="text" name="userPhone" class="name-input" id="phone" value="${requestScope.m.userPhone }" />
+                                <input type="text" name="userPhone" class="name-input" id="phone"/>
                             </div>
 
                             <div class="name"><span class="star" style="color: darksalmon">*</span>
@@ -381,12 +381,12 @@
 
                             <div class="name"></div>
                             <div class="name-box">
-                                <input type="text" name="addressMain" class="name-input address1" id="sample4_roadAddress" value="${requestScope.m.userAddressMain }" />
+                                <input type="text" name="addressMain" class="name-input address1" id="sample4_roadAddress"/>
                             </div>
 
                             <div class="name"></div>
                             <div class="name-box">
-                                <input type="text" name="addressDetail" class="name-input" id="address2" value="${requestScope.m.userAddressSub }" />
+                                <input type="text" name="addressDetail" class="name-input" id="address2"/>
                             </div>
                         </div>
                    </div>
@@ -435,7 +435,7 @@
 	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 </div>
 
-	<!-- 다음 주소 API -->
+<!-- 다음 주소 API -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 		function sample4_execDaumPostcode() {
@@ -462,41 +462,43 @@
 		    }).open();
 		}
 
-		var auctionPrice = ${requestScope.sf.auctionPrice };     
-		var productCount = ${requestScope.sf.auctionCount1 };	 //수량
-		var productName = $('#product').html();					 //상품명
-		var userNo = ${requestScope.m.userNo };					 //회원번호
-		var farmNo = ${requestScope.f.farmNo };					 //농가번호
-		var phone = $('#phone').val();							 //폰번호
-		var address1 = $('.address1').val();					 //메인 주소
-		var address2 = $('#address2').val();					 //메인 주소
-		var orderNo = new Date().getTime();						 //주문번호
-		
-		var payMethod = '';
-		
+
+		//var auctionPrice = ${requestScope.sf.auctionPrice };     
+		//var productCount = ${requestScope.sf.auctionCount1 };	 //수량
 		//var payAmount = auctionPrice * productCount;			 //총 금액
 		var payAmount = 100;
-		
-		//총 금액 구해서 값 넣어주기
+//총 금액 구해서 값 넣어주기
 		$(function(){
-			
+				
 			var totalMoney = $('.totalMoney').html(payAmount+" 원");
-			alert(userName);
+
 		});
 		
-		//취소 버튼 누를 경우 구매 페이지로 이동
+//취소 버튼 누를 경우 구매 페이지로 이동
 		$('#cancleBtn').click(function(){
 			
 		 	location.replace('/auction/auctionSalePage.do');
 		})
 
 	
-  
-        var IMP = window.IMP; // 생략 가능
-        IMP.init("imp95571012"); // 예: imp00000000
-
-        
+//아임포트 API
         function requestPay() {
+	
+			var productCount = ${requestScope.sf.auctionCount1 };	 //수량    -> 총 금액 원래대로 바꿀 떄 삭제하기
+			var productName = $('#product').html();					 //상품명
+			var userNo = ${requestScope.m.userNo };					 //회원번호
+			var farmNo = ${requestScope.f.farmNo };					 //농가번호
+			var phone; 							 					 //폰번호
+			var address1;					 						 //메인 주소
+			var address2;					 						 //서브 주소
+			var orderNo = new Date().getTime();						 //주문번호
+			var auctionNo = ${requestScope.sf.auctionNo}             //경매번호
+			
+			var payMethod = '';
+		
+			var IMP = window.IMP; // 생략 가능
+	        IMP.init("imp95571012"); // 예: imp00000000
+	
             // IMP.request_pay(param, callback) 결제창 호출
             IMP.request_pay({ // param 자바스크립트 객체 key:value
                 pg: "html5_inicis",
@@ -516,13 +518,13 @@
            	               		"productName": productName,
            	               		"userNo" : userNo,
            	               		"farmNo" : farmNo,
-           	               		"phone" : phone,
-           	               		"address1" : address1,
-           	               		"address2" : address2,
+           	               		"phone" : $('#phone').val(),
+           	               		"address1" : $('.address1').val(),
+           	               		"address2" : $('#address2').val(),
            	               		"payAmount" : payAmount,
            	               		"orderNo" : orderNo,
-           	               		"payMethod" : rsp.pay_method
-           	               		 
+           	               		"payMethod" : rsp.pay_method,
+           	               		"auctionNo" : auctionNo
            	            },
            	            
            	     		success : function(result){

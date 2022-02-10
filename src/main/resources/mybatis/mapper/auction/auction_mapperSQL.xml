@@ -71,4 +71,45 @@
   	insert into purchaselist values
   	(buy_no_SEQ.nextval,#{userNo},#{farmNo},#{productName},#{productCount},#{payAmount},sysdate,#{phone},#{address1},#{address2},default,#{payMethod},default,#{orderNo})
   </insert>
+  
+  <update id="minusAuctionCount1" parameterType="hashmap">
+  	update auction set auction_count1= auction_count1-#{auctionCount} where auction_no=#{auctionNo}
+  </update>
+  
+  <select id="orderListInfo" parameterType="hashmap" resultType="pur">
+  	select 
+		 BUY_NO as buyNo,
+		USER_NO as userNo,
+		FARM_NO as farmNo,
+		PRODUCT_NAME as productName,
+		PRODUCT_COUNT as productCount,
+		PAY_AMOUNT as payAmount,
+		PURCHASE_DATE as purchaseDate,
+		PHONE as phone,
+		ADDRESS1 as address1,
+		ADDRESS2 as address2,
+		D_CODE as dCode,
+		PAY_METHOD as payMethod,
+		REFUND_YN as refundYN,
+		ORDER_NO as orderNo,
+		farm_name as farmName,
+		DELIVERY_COMPANY as deliveryCompany,
+		DELIVERY_NO as deliveryNo,
+		d_name as dName
+	from (select row_number() over (order by purchaselist.buy_no desc) as num, 
+	purchaselist.*, farm.farm_name,DELIVERY_COMPANY,DELIVERY_NO,d_name from purchaselist
+	left join farm on(farm.farm_no=purchaselist.farm_no)
+	left join delivery_management on(delivery_management.buy_no=purchaselist.buy_no)
+	left join delivery on(purchaselist.d_code=delivery.d_code)
+	where user_no=#{userNo})
+	where num between #{start} and #{end}
+  </select>
+  
+  <select id="orderListTotalCount" parameterType="integer" resultType="int">
+  	select count(*) from purchaselist where user_No=#{userNo}
+  </select>
+  
+  
+  
+  
 </mapper>

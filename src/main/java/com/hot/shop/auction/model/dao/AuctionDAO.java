@@ -1,5 +1,6 @@
 package com.hot.shop.auction.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hot.shop.admin.model.vo.Auction;
+import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.admin.model.vo.SellForm;
 import com.hot.shop.auction.model.vo.Purchaselist;
 import com.hot.shop.farm.model.vo.Farm;
@@ -75,6 +77,66 @@ public class AuctionDAO {
 	public int insertOrder(Purchaselist p) {
 
 		return sql.insert("auction.insertOrder",p);
+	}
+
+	//주문 결제가 완료되면 판매 수량에서 유저가 구매한 수량 빼주기
+	public int minusAuctionCount1(int auctionCount, int auctionNo) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("auctionCount", auctionCount);
+		map.put("auctionNo", auctionNo);
+		
+		return sql.update("auction.minusAuctionCount1",map);
+	}
+
+	public ArrayList<Purchaselist> orderListInfo(int recordCountPerPage, int currentPage, int userNo) {
+		
+		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
+		int end = currentPage*recordCountPerPage;
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("start", start);
+		map.put("end",end);
+		map.put("userNo", userNo);
+		
+		return new ArrayList<Purchaselist>(sql.selectList("auction.orderListInfo",map));
+	}
+
+	public String getPageNavi(int recordCountPerPage, int currentPage, int naviCountPerPage, int userNo) {
+		
+		int recordTotalCount = totalCount(userNo);
+		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
+		
+		int startNavi = ((currentPage-1)/naviCountPerPage) *naviCountPerPage+1;
+		int endNavi = startNavi+naviCountPerPage-1;
+		
+		if(endNavi>pageTotalCount) {
+			endNavi=pageTotalCount;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage=1&userNo="+userNo+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+(currentPage-10)+"&userNo="+userNo+"' class='naviArrow' id='prev'>&lt;</a>");
+		for(int i= startNavi; i<=endNavi; i++) {
+			if(i==currentPage) {
+				sb.append("<a href='/auction/orderListPage.do?currentPage="+i+"&userNo="+userNo+"' id='currentNavi'>"+i+"</a>");
+			}else {
+				sb.append("<a href='/auction/orderListPage.do?currentPage="+i+"&userNo="+userNo+"' class='otherNavi'>"+i+"</a>");
+			}
+		}
+		if((currentPage+10)>pageTotalCount) {
+			sb.append("<a href='/auction/orderListPage.do?currentPage="+pageTotalCount+"&userNo="+userNo+"' class='naviArrow' id='next'>&gt;</a>");
+		}else {
+			sb.append("<a href='/auction/orderListPage.do?currentPage="+(currentPage+10)+"&userNo="+userNo+"' class='naviArrow' id='next'>&gt;</a>");
+		}
+		
+		sb.append("<a href='/auction/orderListPage.do?currentPage="+pageTotalCount+"&userNo="+userNo+"' class='naviArrow'>&gt;&gt;</a>");
+		return sb.toString();
+	}
+	
+	public int totalCount(int userNo) {
+		return sql.selectOne("auction.orderListTotalCount",userNo);
 	}
 
 }

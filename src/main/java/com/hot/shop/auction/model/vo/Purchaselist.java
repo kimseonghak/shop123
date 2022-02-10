@@ -18,7 +18,11 @@ public class Purchaselist {
 	private String payMethod;
 	private char refundYN;
 	private String orderNo;
-
+	private String farmName;   			//조인할때 사용
+	private String deliveryCompany; 	//조인할때 사용
+	private String deliveryNo;			//조인할때 사용
+	private String dName;				//조인할때 사용
+	
 	public Purchaselist() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -26,7 +30,7 @@ public class Purchaselist {
 
 	public Purchaselist(int buyNo, int userNo, int farmNo, String productName, int productCount, int payAmount,
 			Date purchaseDate, String phone, String address1, String address2, String dCode, String payMethod,
-			char refundYN, String orderNo) {
+			char refundYN, String orderNo, String farmName, String deliveryCompany, String deliveryNo, String dName) {
 		super();
 		this.buyNo = buyNo;
 		this.userNo = userNo;
@@ -42,6 +46,10 @@ public class Purchaselist {
 		this.payMethod = payMethod;
 		this.refundYN = refundYN;
 		this.orderNo = orderNo;
+		this.farmName = farmName;
+		this.deliveryCompany = deliveryCompany;
+		this.deliveryNo = deliveryNo;
+		this.dName = dName;
 	}
 
 	public int getBuyNo() {
@@ -156,13 +164,48 @@ public class Purchaselist {
 		this.orderNo = orderNo;
 	}
 
+	public String getFarmName() {
+		return farmName;
+	}
+
+	public void setFarmName(String farmName) {
+		this.farmName = farmName;
+	}
+
+	public String getDeliveryCompany() {
+		return deliveryCompany;
+	}
+
+	public void setDeliveryCompany(String deliveryCompany) {
+		this.deliveryCompany = deliveryCompany;
+	}
+
+	public String getDeliveryNo() {
+		return deliveryNo;
+	}
+
+	public void setDeliveryNo(String deliveryNo) {
+		this.deliveryNo = deliveryNo;
+	}
+
+	public String getdName() {
+		return dName;
+	}
+
+	public void setdName(String dName) {
+		this.dName = dName;
+	}
+
 	@Override
 	public String toString() {
 		return "Purchaselist [buyNo=" + buyNo + ", userNo=" + userNo + ", farmNo=" + farmNo + ", productName="
 				+ productName + ", productCount=" + productCount + ", payAmount=" + payAmount + ", purchaseDate="
 				+ purchaseDate + ", phone=" + phone + ", address1=" + address1 + ", address2=" + address2 + ", dCode="
-				+ dCode + ", payMethod=" + payMethod + ", refundYN=" + refundYN + ", orderNo=" + orderNo + "]";
+				+ dCode + ", payMethod=" + payMethod + ", refundYN=" + refundYN + ", orderNo=" + orderNo + ", farmName="
+				+ farmName + ", deliveryCompany=" + deliveryCompany + ", deliveryNo=" + deliveryNo + ", dName=" + dName
+				+ "]";
 	}
+
 	
 	
 	

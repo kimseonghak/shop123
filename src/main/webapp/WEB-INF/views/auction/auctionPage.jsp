@@ -406,7 +406,7 @@
                      <span class="spanRight fontWeight remainTime2" style="color: #FE0011"></span>
                      <span class="spanLeft">판매수량 :</span>
                      <span class="spanRight-test">
-                     	<input type="number" min="0" name="auctionCount" class="auctionCount-input margin" value="${map.au2.auctionCount1 }"/>
+                     	<input type="number" min="0" name="auctionCount" class="auctionCount-input margin" value="0"/>
                      </span> 
                      <span class="font-style text-span">상자</span>
                      <span class="spanLeft">현재 최저가 :</span>
@@ -518,7 +518,7 @@
    //입찰하기 버튼 누를 시, 최저가/수량 비교해 로직 처리
    $('.btn').click(function(){
       
-      var auctionCount1 = $(this).parent().find('input[name=auctionCount]').val();     			  //수량
+      var auctionCount1 = $(this).parent().find('input[name=auctionCount1]').val();     			  //수량
       var auctionFormNo = $(this).parent().find('input[name=auctionFormNo]').val();    			  //경매 폼 번호
       var auctionStart = $(this).parent().find('input[name=auctionStart]').val();    			  //시작일
       var auctionPrice = $(this).parent().children().find('input[name=auctionPrice]').val();      //입력한 가격
@@ -527,6 +527,7 @@
       var farmNo = $(this).parent().find('input[name=farmNo]').val();               			  //농가번호
       var currentPrice = $(this).parent().find('input[name=currentPrice]').val();      			  //현재 최저가
       var userNo = $(this).parent().find('input[name=userNo]').val();
+      var auctionCount; // = $(this).parent().find('input[name=auctionCount]').val();
       
       //회원인지 유효성 검사
       if(userNo!=''){
@@ -538,8 +539,8 @@
          return false;
       }
       //수량, 최저가 유효성 검사
-      if(auctionCount1<0 || auctionCount1==0){
-         alert('최소 판매 수량 1개 이상 입력해주세요.');
+      if($(this).parent().find('input[name=auctionCount]').val()<50 || $(this).parent().find('input[name=auctionCount]').val()==0 || $(this).parent().find('input[name=auctionCount]').val()==''){
+         alert('최소 판매 수량 50개 이상 입력해주세요.');
          return false;
       }
       if(auctionPrice>currentPrice || auctionPrice==currentPrice){
@@ -563,7 +564,7 @@
                if(result=="true"){
                   alert('최저가로 입찰되었습니다.');
                   currentPrice.html(auctionPrice);
-                  auctionCount1.html('0');
+                  auctionCount.val('0');
                }else{
                   alert('잘못된 접근입니다');
                }
