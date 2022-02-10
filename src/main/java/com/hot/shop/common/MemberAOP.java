@@ -86,4 +86,24 @@ public class MemberAOP {
 		map.put("userPwd", data);
 	}
 	
+	//user 비밀번호 변경시 입력 비밀번호 암호화 처리
+	@Pointcut("execution(* com.hot.shop.mypage.model.service.MemberMypageServiceImpl.updatePassword(..))")
+	public void updateChangePwdPointCut() {}
+	
+	@Before("updateChangePwdPointCut()")
+	public void updateChangePwdEncrypt(JoinPoint jp) throws Exception {
+		
+		HashMap<String, Object> map = (HashMap<String, Object>)jp.getArgs()[0];
+		
+		String userId = map.get("userId").toString();
+		String userPwd = map.get("userPwd").toString();
+		String userNewPwd = map.get("userNewPwd").toString();
+		
+		String data = enc.encryptionData(userNewPwd, userId);
+		map.put("userNewPwd", data);
+		
+		data = enc.encryptionData(userPwd, userId);
+		map.put("userPwd", data);
+	}
+	
 }

@@ -71,7 +71,7 @@ public class MemberController {
 			mav.addObject("location", "/");
 		} else {
 			mav.addObject("msg", "로그인 실패. 아이디와 비밀번호를 확인해주세요.");
-			mav.addObject("location", "/");
+			mav.addObject("location", "/member/memberLoginPage.do");
 		}
 		mav.setViewName("commons/msg");
 		return mav;
@@ -129,7 +129,7 @@ public class MemberController {
 			mav.addObject("location", "/");
 		} else {
 			mav.addObject("msg", "회원가입에 실패했습니다. 입력하신 정보를 다시 확인해주세요.");
-			mav.addObject("location", "/member/memberJoin.do");
+			mav.addObject("location", "/member/memberJoinPage.do");
 		}
 		mav.setViewName("commons/msg");
 		return mav;
@@ -186,7 +186,7 @@ public class MemberController {
 			
 		} else {
 			mav.addObject("msg", "입력하신 이메일과 일치하는 아이디가 존재하지 않습니다.");
-			mav.addObject("location", "/member/memberFindId.do");
+			mav.addObject("location", "/member/memberFindIdPage.do");
 			mav.setViewName("commons/msg");
 		}
 		return mav;
@@ -266,13 +266,13 @@ public class MemberController {
 				mav.setViewName("member/findPwdSuccess");
 			} else {
 				mav.addObject("msg", "비밀번호 변경을 실패했습니다.\n지속적인 문제 발생시 관리자에게 문의해주세요.");
-				mav.addObject("location", "/member/memberFindPwd.do");
+				mav.addObject("location", "/member/memberFindPwdPage.do");
 				mav.setViewName("commons/msg");
 			}
 			
 		} else {
 			mav.addObject("msg", "입력하신 정보와 일치하는 아이디가 존재하지 않습니다.");
-			mav.addObject("location", "/member/memberFindPwd.do");
+			mav.addObject("location", "/member/memberFindPwdPage.do");
 			mav.setViewName("commons/msg");
 		}
 		return mav;

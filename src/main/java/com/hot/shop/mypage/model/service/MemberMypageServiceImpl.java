@@ -23,5 +23,15 @@ public class MemberMypageServiceImpl implements MemberMypageService {
 	public int updateMember(Member m) {
 		return mmDAO.updateMember(m);
 	}
+
+	@Override
+	public int updatePassword(HashMap<String, Object> map) {
+		return mmDAO.updatePassword(map);
+	}
+
+	@Override
+	public Member selectUserInfoCheck(int userNo) {
+		return mmDAO.selectUserInfoCheck(userNo);
+	}
 	
 }

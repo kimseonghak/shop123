@@ -18,4 +18,30 @@
 	
 	</update>
 
+	<update id="updatePassword" parameterType="hashmap">
+	
+		UPDATE MEMBER SET user_pwd=#{userNewPwd}
+		WHERE user_id=#{userId} AND user_pwd=#{userPwd}
+	
+	</update>
+	
+	<select id="selectUserInfoCheck" parameterType="member" resultType="member">
+		SELECT
+			user_no as userNo,
+			user_id as userId,
+			user_pwd as userPwd,
+			user_name as userName,
+			user_nick as userNick,
+			user_email as userEmail,
+			user_phone as userPhone,
+			user_address_main as userAddressMain,
+			user_address_sub as userAddressSub,
+			user_enrolldate as userEnrollDate,
+			user_end_yn as userEndYN,
+			rating as rating
+		FROM
+			member
+		WHERE user_no=#{userNo} and user_end_yn='N'
+	</select>
+
 </mapper>
