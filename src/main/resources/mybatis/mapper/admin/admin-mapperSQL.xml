@@ -410,4 +410,23 @@
 			<otherwise></otherwise>
 		</choose>
 	</select>
+	<update id="refundUpdate" parameterType="hashmap">
+		update refund set admin_yn=#{adminYN} where refund_no = #{refundNo}
+	</update>
+	<select id="farmInfo" parameterType="integer" resultType="farm">
+		select 
+			farm_No as farmNo,
+			farm_Id as farmId,
+			farm_Pwd as farmPwd,
+			farm_Name as farmName,
+			farm_Busi_Num as farmBusiNum,
+			farm_Email as farmEmail,
+			farm_Phone as farmPhone,
+			farm_Address_Main as farmAddressMain,
+			farm_Address_Sub as farmAddressSub,
+			farm_EnrollDate as farmEnrollDate,
+			farm_End_YN as farmEndYN,
+			rating as rating
+		from farm where farm_no=#{_parameter}
+	</select>
 </mapper>

@@ -37,6 +37,7 @@
 		padding-right:20px;
 		background-color: rgba(72,187,120,0.1);
 	}
+/* 페이지 Navi CSS */
 	.naviArrow{
 		text-decoration: none;
 		display : inline-block;
@@ -46,7 +47,7 @@
 		height: 3.5vmin;
 		font-weight: bolder;
 		opacity: 0.3;
-		line-height: 150%;
+		line-height: 200%;
 	}
 	#currentNavi{
 		text-decoration: none;
@@ -58,7 +59,7 @@
 		height: 3.5vmin;
 		margin : 1px;
 		font-weight: bolder;
-		line-height: 150%;
+		line-height: 200%;
 	}
 	.otherNavi{
 		text-decoration: none;
@@ -69,13 +70,14 @@
 		height: 3.5vmin;
 		margin : 1px;
 		font-weight: bolder;
-		line-height: 150%;
+		line-height: 200%;
 	}
 	.otherNavi:hover{
 		color: white;
 		background-color:#48bb78;
 		opacity: 0.3;
 	}
+/* table CSS */
 	table td,th{
 		overflow:hidden;
 		text-overflow: ellipsis;
@@ -96,6 +98,7 @@
 		width:100%;
 		height:0.5vmin
 	}
+/* title CSS */
 	#titleSpace{
 		border:1px solid #198754;
 		width:10%;
@@ -117,6 +120,7 @@
 	.tdTr:hover>td{
 		background-color: rgb(240, 240, 240);
 	}
+/* 검색바 CSS */
 	#searchWrap{
 		width:100%;
 		height:4vh;
@@ -164,8 +168,15 @@
 	#searchBtn>img{
 		height:100%;
 	}
+/* 유저 정보 커서 효과 */
 	.userInfo{
 		cursor: pointer;
+	}
+/* 탈퇴 복구 버튼 CSS */
+	.endYNbtn{
+		font-size:1.7vmin;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	.endYNN{
 		width:80%;
@@ -176,13 +187,21 @@
 		cursor: pointer;
 		color: #198754;
 	}
+	.endYNN:hover{
+		background-color: #198754;
+		color: white;
+	}
 	.endYNY{
 		width:80%;
 		height:100%;
-		border:1px solid #198754;
+		border:1px solid #87281A;
 		border-radius:3px;
-		background-color: #198754;
+		background-color: white;
 		cursor: pointer;
+		color: #87281A;
+	}
+	.endYNY:hover{
+		background-color: #87281A;
 		color: white;
 	}
 </style>
@@ -271,6 +290,7 @@
 		$('#searchIcon').click(function(){
 			$(this).parents('form').submit();
 		});
+<%-- 아이디 클릭시 해당 회원 정보 창 출력 --%>
 		$('.userInfo').click(function(){
 			var userNo = $(this).prev().html();
 			window.open("/admin/adminMemberInfoPage.do?userNo="+userNo,"_blank","width=500px, height=430px");

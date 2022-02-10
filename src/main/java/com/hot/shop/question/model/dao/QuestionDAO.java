@@ -80,22 +80,22 @@ public class QuestionDAO {
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("<a href='/question/buyListCheck.do?currentPage=1' class='naviArrow'>&lt;&lt;</a>");
-		sb.append("<a href='/question/buyListCheck.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
+		sb.append("<a href='/question/buyListCheckPage.do?currentPage=1' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/question/buyListCheckPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
 		for(int i= startNavi; i<=endNavi; i++) {
 			if(i==currentPage) {
-				sb.append("<a href='/question/buyListCheck.do?currentPage="+i+"' id='currentNavi'>"+i+"</a>");
+				sb.append("<a href='/question/buyListCheckPage.do?currentPage="+i+"' id='currentNavi'>"+i+"</a>");
 			}else {
-				sb.append("<a href='/question/buyListCheck.do?currentPage="+i+"' class='otherNavi'>"+i+"</a>");
+				sb.append("<a href='/question/buyListCheckPage.do?currentPage="+i+"' class='otherNavi'>"+i+"</a>");
 			}
 		}
-		if((currentPage+10)<pageTotalCount) {
-			sb.append("<a href='/question/buyListCheck.do?currentPage="+pageTotalCount+"' class='naviArrow' id='next'>&gt;</a>");
+		if((currentPage+10)>pageTotalCount) {
+			sb.append("<a href='/question/buyListCheckPage.do?currentPage="+pageTotalCount+"' class='naviArrow' id='next'>&gt;</a>");
 		}else {
-			sb.append("<a href='/question/buyListCheck.do?currentPage="+(currentPage+10)+"' class='naviArrow' id='next'>&gt;</a>");
+			sb.append("<a href='/question/buyListCheckPage.do?currentPage="+(currentPage+10)+"' class='naviArrow' id='next'>&gt;</a>");
 		}
 		
-		sb.append("<a href='/question/buyListCheck.do?currentPage="+pageTotalCount+"' class='naviArrow'>&gt;&gt;</a>");
+		sb.append("<a href='/question/buyListCheckPage.do?currentPage="+pageTotalCount+"' class='naviArrow'>&gt;&gt;</a>");
 		return sb.toString();
 	}
 

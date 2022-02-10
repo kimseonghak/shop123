@@ -11,6 +11,7 @@ import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.admin.model.vo.Refund;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -164,5 +165,15 @@ public class AdminServiceImpl implements AdminService{
 		map.put("pageNavi", pageNavi);
 		
 		return map;
+	}
+
+	@Override
+	public boolean refundUpdate(HashMap<String, Object> map) {
+		return aDAO.refundUpdate(map);
+	}
+
+	@Override
+	public Farm farmInfo(int farmNo) {
+		return aDAO.farmInfo(farmNo);
 	}
 }

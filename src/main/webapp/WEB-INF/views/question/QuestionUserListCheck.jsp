@@ -84,7 +84,7 @@
 				<td>${p.productCount }</td>
 				<td>${p.payAmount }</td>
 				<td>${p.purchaseDate }</td>
-				<td><button id="outputBtn" data="${p.orderNo }" data2="${p.farmNo }">입력하기</button></td>
+				<td><button class="outputBtn" data="${p.orderNo }" data2="${p.farmNo }">입력하기</button></td>
 			</tr>
 		</c:forEach>
 		<tr>
@@ -104,7 +104,7 @@
 			$('#prev').unbind('mouseenter mouseleave');
 		}
 	});
-	$('#outputBtn').click(function(){
+	$('.outputBtn').click(function(){
 		var orderNo=$(this).attr('data');
 		var farmNo=$(this).attr('data2');
 		window.opener.document.getElementById('GoodsNo').value=orderNo;

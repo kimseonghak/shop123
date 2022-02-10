@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -52,4 +53,8 @@ public interface AdminService {
 	HashMap<String, Object> memberSearchList(HashMap<String, Object> map, int currentPage);
 
 	HashMap<String, Object> refundList(int currentPage, HashMap<String, Object> map);
+
+	boolean refundUpdate(HashMap<String, Object> map);
+
+	Farm farmInfo(int farmNo);
 }
