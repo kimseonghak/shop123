@@ -34,7 +34,7 @@
 							<p class="title">회원탈퇴</p>
 	                    </div>
 	                    <div class="join-Form">
-		                    <form action="/mypage/memberMypageWithdraw.do" method="post" onsubmit="return validationCheck();">
+		                    <form action="/memberMypage/memberMypageWithdraw.do" method="post" onsubmit="return validationCheck();">
 		                    	<p class="user-value-text">비밀번호</p>
 		                    	<input type="password" class="input-style" name="userPwd" placeholder="비밀번호"><br>
 								<p class="user-value-text">비밀번호 재확인</p>

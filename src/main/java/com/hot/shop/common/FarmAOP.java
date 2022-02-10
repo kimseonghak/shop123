@@ -71,4 +71,26 @@ public class FarmAOP {
 		String data = enc.encryptionData(farmNewPwd, farmId);
 		map.put("farmNewPwd", data);
 	}
+	
+	//farm 비밀번호 변경시 입력 비밀번호 암호화 처리
+	@Pointcut("execution(* com.hot.shop.farmMypage.model.service.FarmMypageServiceImpl.updatePassword(..))")
+	public void updateChangePwdPointCut() {}
+	
+	@Before("updateChangePwdPointCut()")
+	public void updateChangePwdEncrypt(JoinPoint jp) throws Exception {
+		
+		HashMap<String, Object> map = (HashMap<String, Object>)jp.getArgs()[0];
+		
+		String farmId = map.get("farmId").toString();
+		String farmPwd = map.get("farmPwd").toString();
+		String farmNewPwd = map.get("farmNewPwd").toString();
+		
+		String data = enc.encryptionData(farmNewPwd, farmId);
+		map.put("farmNewPwd", data);
+		
+		data = enc.encryptionData(farmPwd, farmId);
+		map.put("farmPwd", data);
+	}
+	
+	
 }

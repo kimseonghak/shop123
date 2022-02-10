@@ -34,7 +34,7 @@
 							<p class="title">비밀번호변경</p>
 	                    </div>
 	                    <div class="join-Form">
-		                    <form action="/mypage/memberMypageChangePwd.do" method="post" onsubmit="return validationCheck();">
+		                    <form action="/memberMypage/memberMypageChangePwd.do" method="post" onsubmit="return validationCheck();">
 		                    	<p class="user-value-text">현재 비밀번호</p>
 		                    	<input type="password" class="input-style" name="userPwd" placeholder="비밀번호"><br>
 								<p class="user-value-text">신규 비밀번호</p>

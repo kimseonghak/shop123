@@ -1,4 +1,4 @@
-package com.hot.shop.mypage.controller;
+package com.hot.shop.memberMypage.controller;
 
 import java.util.HashMap;
 
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hot.shop.member.model.vo.Member;
-import com.hot.shop.mypage.model.service.MemberMypageService;
+import com.hot.shop.memberMypage.model.service.MemberMypageService;
 
 @Controller
 public class MemberMypageController {
@@ -24,39 +24,39 @@ public class MemberMypageController {
 	private MemberMypageService mmService;
 
 	//회원 ** 님 클릭 시 마이페이지 리스트로 접근
-	@RequestMapping(value="/mypage/memberMypageListPage.do", method=RequestMethod.GET)
+	@RequestMapping(value="/memberMypage/memberMypageListPage.do", method=RequestMethod.GET)
 	public String memberMypageListPage() {
 		
-		return "mypage/memberMypageList";
+		return "memberMypage/memberMypageList";
 		
 	}
 	
 	//마이페이지 리스트에서 회원정보수정 페이지로 접근
-	@RequestMapping(value="/mypage/memberMypageModifyPage.do", method=RequestMethod.GET)
+	@RequestMapping(value="/memberMypage/memberMypageModifyPage.do", method=RequestMethod.GET)
 	public String memberMypageModifyPage(@SessionAttribute Member member) {
 	
-		return "mypage/memberMypageModify";
+		return "memberMypage/memberMypageModify";
 		
 	}
 	
 	//마이페이지 리스트에서 비밀번호변경 페이지로 접근
-	@RequestMapping(value="/mypage/memberMypageChangePwdPage.do", method=RequestMethod.GET)
+	@RequestMapping(value="/memberMypage/memberMypageChangePwdPage.do", method=RequestMethod.GET)
 	public String memberMypageChangePwdPage() {
 		
-		return "mypage/memberMypageChangePwd";
+		return "memberMypage/memberMypageChangePwd";
 		
 	}
 	
 	//마이페이지 리스트에서 회원탈퇴 페이지로 접근
-	@RequestMapping(value="/mypage/memberMypageWithdrawPage.do", method=RequestMethod.GET)
+	@RequestMapping(value="/memberMypage/memberMypageWithdrawPage.do", method=RequestMethod.GET)
 	public String memberMypageWithdrawPage() {
 		
-		return "mypage/memberMypageWithdraw";
+		return "memberMypage/memberMypageWithdraw";
 		
 	}
 	
 	//회원탈퇴
-	@RequestMapping(value="/mypage/memberMypageWithdraw.do", method=RequestMethod.POST)
+	@RequestMapping(value="/memberMypage/memberMypageWithdraw.do", method=RequestMethod.POST)
 	public ModelAndView memberMypageWithdraw(HttpServletRequest request,
 			ModelAndView mav,
 			@SessionAttribute Member member,
@@ -69,12 +69,12 @@ public class MemberMypageController {
 			
 			if(userPwd == null) {
 				mav.addObject("msg", "비밀번호를 입력해주세요.");
-				mav.addObject("location", "/mypage/memberMypageWithdrawPage.do");
+				mav.addObject("location", "/memberMypage/memberMypageWithdrawPage.do");
 			}
 			
 			if(request.getParameter("agree")==null) {
 				mav.addObject("msg", "약관에 동의해주세요.");
-				mav.addObject("location", "/mypage/memberMypageWithdrawPage.do");
+				mav.addObject("location", "/memberMypage/memberMypageWithdrawPage.do");
 			} else {
 				String userId = member.getUserId();
 				
@@ -92,7 +92,7 @@ public class MemberMypageController {
 					
 				} else {
 					mav.addObject("msg", "탈퇴에 실패하였습니다.");
-					mav.addObject("location", "/mypage/memberMypageListPage.do");
+					mav.addObject("location", "/memberMypage/memberMypageListPage.do");
 					
 				}
 			}
@@ -103,7 +103,7 @@ public class MemberMypageController {
 	}
 	
 	//비밀번호 변경
-	@RequestMapping(value="/mypage/memberMypageChangePwd.do", method=RequestMethod.POST)
+	@RequestMapping(value="/memberMypage/memberMypageChangePwd.do", method=RequestMethod.POST)
 	public ModelAndView memberMypageWithdraw(@SessionAttribute Member member,
 			ModelAndView mav,
 			HttpServletRequest request,
@@ -124,10 +124,10 @@ public class MemberMypageController {
 			int result = mmService.updatePassword(map);
 			if(result>0) {
 				mav.addObject("msg", "비밀번호 변경에 성공하였습니다.");
-				mav.addObject("location", "/mypage/memberMypageListPage.do");
+				mav.addObject("location", "/memberMypage/memberMypageListPage.do");
 			} else {
 				mav.addObject("msg", "비밀번호 변경에 실패하였습니다.");
-				mav.addObject("location", "/mypage/memberMypageListPage.do");
+				mav.addObject("location", "/memberMypage/memberMypageListPage.do");
 			}
 		}
 		mav.setViewName("commons/msg");
@@ -135,7 +135,7 @@ public class MemberMypageController {
 	}
 	
 	//회원정보 변경
-	@RequestMapping(value = "/mypage/memberMypageModify.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/memberMypage/memberMypageModify.do", method = RequestMethod.POST)
 	public ModelAndView memberUpdate(@RequestParam String userName,
 			@RequestParam String userNick,
 			@RequestParam String userEmail,
@@ -167,7 +167,7 @@ public class MemberMypageController {
 			if (result > 0) {
 				
 				mav.addObject("msg", "회원정보 변경에 성공하였습니다.");
-				mav.addObject("location", "/mypage/memberMypageListPage.do");
+				mav.addObject("location", "/memberMypage/memberMypageListPage.do");
 				
 				session = request.getSession();
 				session.setAttribute("member", m);
@@ -175,7 +175,7 @@ public class MemberMypageController {
 			} else {
 				
 				mav.addObject("msg", "회원정보 변경에 실패했습니다.");
-				mav.addObject("location", "/mypage/memberMypageListPage.do");
+				mav.addObject("location", "/memberMypage/memberMypageListPage.do");
 				
 			}
 			

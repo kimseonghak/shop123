@@ -44,19 +44,19 @@
 							<div class="mypage-sub-list">
 								<p class="main-text">회원정보수정</p>
 								<p class="sub-text">회원님의 정보를 수정해주세요.</p>
-								<button class="btn-submit"><a href="/mypage/memberMypageModifyPage.do">이동하기</a></button>
+								<button class="btn-submit"><a href="/memberMypage/memberMypageModifyPage.do">이동하기</a></button>
 							</div>
 							
 							<div class="mypage-sub-list">
 								<p class="main-text">비밀번호변경</p>
 								<p class="sub-text">계정의 보호를 위해 정기적으로 비밀번호를 변경해주세요.</p>
-								<button class="btn-submit"><a href="/mypage/memberMypageChangePwdPage.do">이동하기</a></button>
+								<button class="btn-submit"><a href="/memberMypage/memberMypageChangePwdPage.do">이동하기</a></button>
 							</div>
 							
 							<div class="mypage-sub-list">
 								<p class="main-text">회원탈퇴</p>
 								<p class="sub-text">123상회의 이용을 원치 않으신가요?</p>
-								<button class="btn-submit"><a href="/mypage/memberMypageWithdrawPage.do">이동하기</a></button>
+								<button class="btn-submit"><a href="/memberMypage/memberMypageWithdrawPage.do">이동하기</a></button>
 							</div>
 						</div>
 					</div>

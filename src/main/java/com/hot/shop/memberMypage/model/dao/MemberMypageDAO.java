@@ -1,4 +1,4 @@
-package com.hot.shop.mypage.model.dao;
+package com.hot.shop.memberMypage.model.dao;
 
 import java.util.HashMap;
 
@@ -15,19 +15,19 @@ public class MemberMypageDAO {
 	private SqlSessionTemplate sql;
 
 	public int updateWithdraw(HashMap<String, Object> map) {
-		return sql.update("mypage.updateWithdraw", map);
+		return sql.update("memberMypage.updateWithdraw", map);
 	}
 
 	public int updateMember(Member m) {
-		return sql.update("mypage.updateMember", m);
+		return sql.update("memberMypage.updateMember", m);
 	}
 
 	public int updatePassword(HashMap<String, Object> map) {
-		return sql.update("mypage.updatePassword", map);
+		return sql.update("memberMypage.updatePassword", map);
 	}
 
 	public Member selectUserInfoCheck(int userNo) {
-		return sql.selectOne("mypage.selectUserInfoCheck", userNo);
+		return sql.selectOne("memberMypage.selectUserInfoCheck", userNo);
 	}
 	
 }
