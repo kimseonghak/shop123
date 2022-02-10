@@ -1,7 +1,10 @@
 package com.hot.shop.admin.model.dao;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.servlet.ServletContext;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,9 +14,11 @@ import org.springframework.stereotype.Repository;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.admin.model.vo.Count;
+import com.hot.shop.admin.model.vo.Refund;
 import com.hot.shop.admin.model.vo.SellForm;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionFarm;
+import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 
 @Repository
@@ -21,6 +26,9 @@ public class AdminDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sql;
+	
+	@Autowired
+	private ServletContext context;
 	
 	public int auctionInput(Auction au) {
 		// 경매 폼 데이터 토대로 경매 정보 저장
@@ -58,6 +66,16 @@ public class AdminDAO {
 		System.out.println("경매 날짜 지난 경매 종료");
 		sql.update("admin.sellFormEndYN");
 		System.out.println("판매 날짜 지난 판매 종료");
+		ArrayList<QuestionPhoto> list = new ArrayList<QuestionPhoto>(sql.selectList("admin.fileCheck"));
+		for(QuestionPhoto qPhoto : list ) {
+			sql.update("admin.fileDelYNUpdate",qPhoto.getQuestionPhotoNo());
+			String path = context.getRealPath("/resources/questionphoto/img/");
+			String filePath = path+qPhoto.getQuestionPhotoFilePath().substring(29);
+			
+			File file = new File(filePath);
+			file.delete();
+		}
+		System.out.println("찌꺼기 파일 제거");
 		System.out.println("예약 작업 종료");
 	}
 	// BID 목록과 정보 가져오는 로직
@@ -320,11 +338,48 @@ public class AdminDAO {
 		return sql.selectOne("admin.memberSearchTotalCount",map);
 	}
 
-	public ArrayList<Member> refundList(int currentPage, int recordCountPerPage, HashMap<String, Object> map) {
+	public ArrayList<Refund> refundList(int currentPage, int recordCountPerPage, HashMap<String, Object> map) {
 		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
 		int end = currentPage*recordCountPerPage;
 		map.put("start", start);
 		map.put("end", end);
-		return new ArrayList<Member>(sql.selectList("admin.refundList",map));
+		return new ArrayList<Refund>(sql.selectList("admin.refundList",map));
+	}
+
+	public String getRefundPageNavi(int recordCountPerPage, int currentPage, HashMap<String, Object> map,
+			int naviCountPerPage) {
+		
+		int recordTotalCount = refundTotalCount(map); 
+		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
+		
+		int startNavi = ((currentPage-1)/naviCountPerPage) *naviCountPerPage+1;
+		int endNavi = startNavi+naviCountPerPage-1;
+		
+		if(endNavi>pageTotalCount) {
+			endNavi=pageTotalCount;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<a href='/admin/adminMemberPage.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/admin/adminMemberPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
+		for(int i= startNavi; i<=endNavi; i++) {
+			if(i==currentPage) {
+				sb.append("<a href='/admin/adminMemberPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='currentNavi'>"+i+"</a>");
+			}else {
+				sb.append("<a href='/admin/adminMemberPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='otherNavi'>"+i+"</a>");
+			}
+		}
+		if((currentPage+10)>pageTotalCount) {
+			sb.append("<a href='/admin/adminMemberPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+		}else {
+			sb.append("<a href='/admin/adminMemberPage.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+		}
+		sb.append("<a href='/admin/adminMemberPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&gt;&gt;</a>");
+		
+		return sb.toString();
+	}
+
+	private int refundTotalCount(HashMap<String, Object> map) {
+		return sql.selectOne("admin.refundTotalCount",map);
 	}
 }

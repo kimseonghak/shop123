@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hot.shop.admin.model.dao.AdminDAO;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.BID;
+import com.hot.shop.admin.model.vo.Refund;
 import com.hot.shop.admin.model.vo.SellForm;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionFarm;
@@ -155,9 +156,9 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public HashMap<String, Object> refundList(int currentPage, HashMap<String, Object> map) {
 		int recordCountPerPage=10;
-		ArrayList<Member> list = aDAO.refundList(currentPage,recordCountPerPage,map);
+		ArrayList<Refund> list = aDAO.refundList(currentPage,recordCountPerPage,map);
 		int naviCountPerPage=10;
-		String pageNavi = aDAO.getMemberSearchPageNavi(recordCountPerPage,currentPage,map,naviCountPerPage);
+		String pageNavi = aDAO.getRefundPageNavi(recordCountPerPage,currentPage,map,naviCountPerPage);
 		
 		map.put("list", list);
 		map.put("pageNavi", pageNavi);
