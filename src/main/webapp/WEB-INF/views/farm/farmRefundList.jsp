@@ -112,7 +112,7 @@
                     </table>
                     </c:when>
                     <c:otherwise>
-                    	<H2 style="text-align:center; position:relative; bottom:-100px">접수된 환불이 없습니다.</H2>
+                    	<H4 style="text-align:center; position:relative; bottom:-100px">접수된 환불이 없습니다.</H4>
                     </c:otherwise>
                   </c:choose>  
                 </div>

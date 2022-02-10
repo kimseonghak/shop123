@@ -1,14 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-	 <div id="farmMainSideBar">
-            	<div id="sideWrap1">
-                  <div id="logoTitle">
-                       <hr>
-                         <p id="logoTitlePtag"><a href="/farm/farmDashBoardPage.do">123 상회</a></p>
-                       <hr>
-                   </div>
-            	</div>
+      <div id="farmMainSideBar">
+            	<div id="sideWrap1"></div>
 	            <div id="sideWrap2">
 	            	<ul id="mainUl">
                         <li>
@@ -33,7 +27,90 @@
                         </li>
 		            </ul>
 	            </div>
-	        <div id="sideWrap3"></div>
-            
-            
+	        <div id="sideWrap3">
+	            <div id="sideFooterNaviWrap">
+                    <ul id="sideFooterNavi">
+                        <li><span id="farmUpdate">회원정보수정</span></li>
+                        <li><span id="farmPwUpdate">비밀번호수정</span></li>
+                        <li><span id="farmWithDraw">회원탈퇴</span></li>
+                        <li><span id="farmLogout">로그아웃</span></li>
+                    </ul>
+                </div>    
+	        </div>
+            <div id="sideWrap4">
+              <span id="farmImg" >
+	                  <img src="/resources/farm/image/농부.png"  width="35px" height="30px"/>
+	           </span>
+	           <span id="farmId">딸기농장 님</span>
+                
+            </div>
         </div>
+
+<!-- 클릭했을 때 네비바 나타내긴 -->
+    <script>
+        $('#sideWrap4').click(function(){ 
+        
+            var sideFooterNaviWrap = $('#sideFooterNaviWrap')
+            
+            if($('#sideFooterNaviWrap').css('display') == 'block') 
+            {
+                $('#sideFooterNaviWrap').css('display', 'none');
+                
+            } else 
+            {
+                $('#sideFooterNaviWrap').css('display', 'block');
+            }
+        });
+
+    </script>  
+    
+<!--회원정보수정 팝업창-->
+    <script>
+        
+        $('#farmUpdate').click(function(){
+                             
+            // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+            var _width = '1000';
+            var _height = '650';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+           
+            //window.open('/', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+           
+        });
+    
+    </script>     
+   
+<!--비밀번호수정 팝업창-->
+    <script>
+        
+        $('#farmPwUpdate').click(function(){
+                             
+            // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+            var _width = '1000';
+            var _height = '650';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+           
+            //window.open('/', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+           
+        });
+    
+    </script>   
+
+<!--회원탈퇴 팝업창-->
+    <script>
+        
+        $('#farmWithDraw').click(function(){
+                             
+            // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+            var _width = '1000';
+            var _height = '650';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+           
+            //window.open('/', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+           
+        });
+    
+    </script>    

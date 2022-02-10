@@ -115,7 +115,7 @@
                     </table>
                     </c:when>
                     <c:otherwise>
-                    	<H2 style="text-align:center; position:relative; bottom:-100px">현재 주문 목록이 없습니다.</H2>
+                    	<H4 style="text-align:center; position:relative; bottom:-100px">현재 주문 목록이 없습니다.</H4>
                     </c:otherwise>
                </c:choose>    
                 </div>

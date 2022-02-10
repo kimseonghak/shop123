@@ -38,17 +38,22 @@
     /*header 아이콘 영역*/
     #headerDiv1
     {
-        width: 87%;
+        width: 10%;
         height: 100%;
         float: left;
         
     }
     #headerDiv2
     {
+        width: 76%;
+        height: 100%;
+        float: left;
+    }
+    #headerDiv3
+    {
         width: 13%;
         height: 100%;
         float: left;
-        
     }
     /*홈 & 로그아웃 아이콘 위치*/
     #homeIcon
@@ -112,7 +117,7 @@
     /* 사이드바 메뉴 랩 */
     #sideWrap2 {
         width: 100%;
-        height: 60%;
+        height: 50%;
         font-family: NanumSquare;
 
        
@@ -120,9 +125,14 @@
     /* 사이드바 하단 랩 */
     #sideWrap3 {
         width: 100%;
-        height: 20%;
+        height: 32%;
+    }
+    #sideWrap4 {
+        width: 100%;
+        height: 4%;
        
     }
+    
 
     /* 사이드바 메인 UL */
     #mainUl {
@@ -141,7 +151,7 @@
         line-height: 35px;
         border-bottom-left-radius: 10px;
         border-top-left-radius: 10px;
-        margin: 10px 0px;
+        margin: 30px 0px;
     }
     #mainUl>li:hover {
         background-color: #34734e;
@@ -176,14 +186,12 @@
     {
         width: 10%;
         height: 100%;
-      
         float: left;
     }
     #farmContent2
     {
         width: 80%;
         height: 100%;
-       
         float: left;
     }
 
@@ -191,7 +199,6 @@
     {
         width: 10%;
         height: 100%;
-       
         float: left;
     }
     
@@ -199,22 +206,101 @@
     
     #farmContentHeader
     {
-        
         width: 100%;
         height: 10vh; 
     }
     
     #farmContentContent
     {
-       
         width: 100%;
         height: 68vh;
     }
     
     #farmContentFooter
     {
-     
         width: 100%;
         height: 14vh;
+    }
+    
+    /* 사이드바 농부 아이콘*/
+    
+    #farmImg
+    {
+        position: relative;
+        top: 3vh;
+        left: 2vh;
+    }
+    
+    #farmId
+    {
+        position: relative;
+        top: 3vh;
+        left: 2vh;
+        color: white;
+        
+    }
+    
+    #sideFooterNaviWrap
+    {
+        width: 100%;
+        height:100%;
+        background-color: #53D187; /*#48BB78*/
+        border: 1px solid white;
+        display: none;
+    }
+    
+    
+    #sideFooterNaviWrap>ul>li
+    {
+        width: 100%;
+        height: 2.5vh;
+        line-height: 1.2vh;
+        margin: 25px 0px;
+        list-style: none;
+        text-align: left;
+        color: white;
+        position: relative;
+        right: 1.2vw;
+        top: 1vh;
+        border-bottom: 1px solid white;
+    }
+    
+    #farmUpdate
+    {
+        cursor: pointer
+    }
+    #farmUpdate:hover
+    {
+        font-weight: bolder;
+    }
+    
+    #farmPwUpdate
+    {
+        cursor: pointer
+    }
+    #farmPwUpdate:hover
+    {
+        font-weight: bolder;
+    }
+    #farmWithDraw
+    {
+        cursor: pointer
+    }
+    #farmWithDraw:hover
+    {
+        font-weight: bolder;
+    }
+    #farmLogout
+    {
+        cursor: pointer
+    }
+    #farmLogout:hover
+    {
+        font-weight: bolder;
+    }
+    
+    #sideWrap4
+    {
+        cursor: pointer
     }
     
