@@ -307,7 +307,7 @@
 				<div class="auctionSale-box">
 					<div class="auctionSaleStatus-box">
 						<div class="auctionSaleStatus">
-							<span>구매 가능</span>
+							<span class="status1">구매 가능</span>
 						</div>
 						<div class="auctionSaleProduct">
 							<span>${map.au1.auctionProduct }</span>
@@ -319,13 +319,15 @@
 							<form action="/auction/orderPage.do" method="post">
 							
 							<input type="hidden" name="endYN1" value="${map.au1.sellEndYN }"/>
-							<input type="hidden" name="currentCount" value="${map.au1.auctionCount1 }"/>
+							<input type="hidden" name="currentCount" id="count1" value="${map.au1.auctionCount1 }"/>
 							<input type="hidden" name="userId" value="${sessionScope.member.userId }"/>
 							<input type="hidden" name="userPwd" value="${sessionScope.member.userPwd }"/>
 							<input type="hidden" name="auctionProduct" value="${map.au1.auctionProduct }"/>
 							<input type="hidden" name="auctionPrice" value="${map.au1.auctionPrice }"/>
 							<input type="hidden" name="farmNo" value="${map.au1.farmNo }"/>
 							<input type="hidden" name="no" value="${sessionScope.farm.farmNo }"/>
+							<input type="hidden" name="auctionNo" value="${map.au1.auctionNo }"/>
+							<input type="hidden" name="boardNo" value="${map.au1.boardNo }"/>
 							
 							<span class="spanLeft">시작일 :</span>
                      		<span class="spanRight">${map.au1.sellStart}</span>
@@ -335,7 +337,7 @@
                      		<span class="spanLeft">남은시간 :</span>
                      		<span class="spanRight fontWeight remainTime1" style="color: #FE0011"></span>
 							<span class="spanLeft">현재 상품 수량 :</span>
-							<span class="spanRight font-style">${map.au1.auctionCount1}&nbsp;상자</span>
+							<span class="spanRight font-style auctionCount1">${map.au1.auctionCount1}&nbsp;상자</span>
 							<span class="spanLeft">낙찰된 가격 :</span>
 							<span class="spanRight font-style">${map.au1.auctionPrice}&nbsp;원</span>
 							<span class="spanLeft">구매 수량 :</span>
@@ -346,7 +348,7 @@
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 							</form>
 					</div>
-					<div class="block" style="display:none"></div>
+					<div class="block" id="block1" style="display:none"></div>
 				</div>
 			</c:otherwise>
 			</c:choose>
@@ -392,7 +394,7 @@
 				<div class="auctionSale-box">
 					<div class="auctionSaleStatus-box">
 						<div class="auctionSaleStatus">
-							<span>구매 가능</span>
+							<span class="status2">구매 가능</span>
 						</div>
 						<div class="auctionSaleProduct">
 							<span>${map.au2.auctionProduct }</span>
@@ -403,13 +405,15 @@
 							<!-- 구매 폼 로직-->
 							<form action="/auction/orderPage.do" method="post">
 							<input type="hidden" name="endYN2" value="${map.au2.sellEndYN }"/>
-							<input type="hidden" name="currentCount" value="${map.au2.auctionCount1 }"/>
+							<input type="hidden" name="currentCount" id="count2" value="${map.au2.auctionCount1 }"/>
 							<input type="hidden" name="userId" value="${sessionScope.member.userId }"/>
 							<input type="hidden" name="userPwd" value="${sessionScope.member.userPwd }"/>
 							<input type="hidden" name="auctionProduct" value="${map.au2.auctionProduct }"/>
 							<input type="hidden" name="auctionPrice" value="${map.au2.auctionPrice }"/>
 							<input type="hidden" name="farmNo" value="${map.au2.farmNo }"/>
 							<input type="hidden" name="no" value="${sessionScope.farm.farmNo }"/>
+							<input type="hidden" name="auctionNo" value="${map.au2.auctionNo }"/>
+							<input type="hidden" name="boardNo" value="${map.au2.boardNo }"/>
 							
 							<span class="spanLeft">시작일 :</span>
                      		<span class="spanRight">${map.au2.sellStart}</span>
@@ -419,7 +423,7 @@
                      		<span class="spanLeft">남은시간 :</span>
                      		<span class="spanRight fontWeight remainTime2" style="color: #FE0011"></span>
 							<span class="spanLeft">현재 상품 수량 :</span>
-							<span class="spanRight font-style">${map.au2.auctionCount1}&nbsp;상자</span>
+							<span class="spanRight font-style auctionCount2">${map.au2.auctionCount1}&nbsp;상자</span>
 							<span class="spanLeft">낙찰된 가격 :</span>
 							<span class="spanRight font-style">${map.au2.auctionPrice}&nbsp;원</span>
 							<span class="spanLeft">구매 수량 :</span>
@@ -430,13 +434,13 @@
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 							</form>
 					</div>
-					<div class="block" style="display:none"></div>
+					<div class="block" id="block2" style="display:none"></div>
 				</div>
 			</c:otherwise>
 			</c:choose>
 				
 			<c:choose>
-        	<c:when test="${map.au3.sellStart>today || map.au3.sellStart==null}">
+        	<c:when test="${map.au3.sellStart>today}">
         	<%--3번 폼 판매 예정인 경우 --%>
 				<div class="auctionSale-box">
 					<div class="auctionSaleStatus-box">
@@ -465,18 +469,53 @@
 							<span class="spanRight-test margin-bottom">
 		                    	<input type="number" name="auctionSaleCount" class="auctionSaleCount-input margin"/>
 		                    </span> 
-		                    <input type="button" class="btn" value="구매하기"/> 
+		                    <input type="button" class="btn" id="aucBtn2" value="구매하기"/>
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 					</div>
 					<div class="block"></div>
 				</div>
+			</c:when>
+			<c:when test="${map.au3.sellStart==null}">
+			<div class="auctionSale-box">
+					<div class="auctionSaleStatus-box">
+						<div class="auctionSaleStatus">
+							<span>판매 예정</span>
+						</div>
+						<div class="auctionSaleProduct">
+							<span>${map.au3.auctionProduct }</span>
+						</div>
+					</div>
+						<div class="auctionSale-info">
+							<div class="auctionSaleBox-leftSpace"></div>
+							<!-- 구매 폼 로직-->
+							<span class="spanLeft">시작일 :</span>
+                     		<span class="spanRight">${map.au3.sellStart}</span>
+                    		<span class="spanLeft">종료일 :</span>
+                     		<span class="spanmiddel endDate2">${map.au3.sellEnd}</span>
+                     		<span class="spanLast"></span>
+                     		<span class="spanLeft">남은시간 :</span>
+                     		<span class="spanRight fontWeight" style="color: #FE0011"></span>
+							<span class="spanLeft">현재 상품 수량 :</span>
+							<span class="spanRight font-style">${map.au3.auctionCount1}&nbsp;</span>
+							<span class="spanLeft">낙찰된 가격 :</span>
+							<span class="spanRight font-style">${map.au3.auctionPrice}&nbsp;</span>
+							<span class="spanLeft">구매 수량 :</span>
+							<span class="spanRight-test margin-bottom">
+		                    	<input type="number" name="auctionSaleCount" class="auctionSaleCount-input margin"/>
+		                    </span> 
+		                    <input type="button" class="btn" id="aucBtn2" value="구매하기"/>
+		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
+					</div>
+					<div class="block"></div>
+				</div>
+			
 			</c:when>
 			<c:otherwise>
 			<%--3번 폼 구매 가능--%>
 				<div class="auctionSale-box">
 					<div class="auctionSaleStatus-box">
 						<div class="auctionSaleStatus">
-							<span>구매 가능</span>
+							<span class="status3">구매 가능</span>
 						</div>
 						<div class="auctionSaleProduct">
 							<span>${map.au3.auctionProduct }</span>
@@ -487,13 +526,15 @@
 							<!-- 구매 폼 로직-->
 							<form action="/auction/orderPage.do" method="post">
 							<input type="hidden" name="endYN3" value="${map.au3.sellEndYN }"/>
-							<input type="hidden" name="currentCount" value="${map.au3.auctionCount1 }"/>
+							<input type="hidden" name="currentCount" id="count3" value="${map.au3.auctionCount1 }"/>
 							<input type="hidden" name="userId" value="${sessionScope.member.userId }"/>
 							<input type="hidden" name="userPwd" value="${sessionScope.member.userPwd }"/>
 							<input type="hidden" name="auctionProduct" value="${map.au3.auctionProduct }"/>
 							<input type="hidden" name="auctionPrice" value="${map.au3.auctionPrice }"/>
 							<input type="hidden" name="farmNo" value="${map.au3.farmNo }"/>
 							<input type="hidden" name="no" value="${sessionScope.farm.farmNo }"/>
+							<input type="hidden" name="auctionNo" value="${map.au3.auctionNo }"/>
+							<input type="hidden" name="boardNo" value="${map.au3.boardNo }"/>
 							
 							<span class="spanLeft">시작일 :</span>
                      		<span class="spanRight">${map.au3.sellStart}</span>
@@ -503,18 +544,18 @@
                      		<span class="spanLeft">남은시간 :</span>
                      		<span class="spanRight fontWeight remainTime3" style="color: #FE0011">-</span>
 							<span class="spanLeft">현재 상품 수량 :</span>
-							<span class="spanRight font-style">${map.au3.auctionCount1}&nbsp;상자</span>
+							<span class="spanRight font-style auctionCount3">${map.au3.auctionCount1}&nbsp;상자</span>
 							<span class="spanLeft">낙찰된 가격 :</span>
 							<span class="spanRight font-style">${map.au3.auctionPrice} &nbsp;원</span>
 							<span class="spanLeft">구매 수량 :</span>
 							<span class="spanRight-test margin-bottom">
 		                    	<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
 		                    </span> 
-		                    <input type="button" class="btn" value="구매하기"/> 
+		                    <input type="button" class="btn" id="aucBtn3" value="구매하기"/> 
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 							</form>
 					</div>
-					<div class="block" style="display:none"></div>
+					<div class="block" id="block3" style="display:none"></div>
 				</div>
 			</c:otherwise>
 			</c:choose>
@@ -526,7 +567,10 @@
 
 	<script>
 	
-	//구매하기 버튼 눌렀을 경우 호출
+	
+	
+	
+//구매하기 버튼 눌렀을 경우 호출
 	$('.btn').click(function(){
 		
 			var currentCount = parseInt($(this).parent().find('input[name=currentCount]').val());
@@ -534,7 +578,7 @@
 			var userNo = $(this).parent().find('input[name=userNo]').val();
 			var auctionProduct = $(this).parent().find('input[name=auctionProduct]').val();
 			var farmNum = $(this).parent().find('input[name=no]').val();
-			
+			var auctionNo = $(this).parent().find('input[name=auctionNo]').val();
 			
 			//회원인지 ,수량 제대로 입력했는지 유효성 검사
 			if(farmNum!=''){	
@@ -558,12 +602,23 @@
 			}
 	});
 	
+//홍보 게시판 버튼 눌렀을 경우
+	$('.promotionBtn').click(function(){
+		
+		var boardNo = $(this).parent().find('input[name=boardNo]').val();
+		
+		if(boardNo==0){
+			alert('현재 홍보 게시글이 존재해지 않습니다.');
+			return false;
+		}
+	});
 	
 	
-	//1 남은 시간 카운트 다운
+//1 남은 시간 카운트 다운
 	   $(function(){
 		   
 		   var endYN = $('input[name=endYN1]').val();
+		   var count = $('#count1').val();
 		   
 	      const offset = new Date().getTimezoneOffset() * 60000;
 	      var date = new Date();
@@ -574,7 +629,7 @@
 	         date3.setHours(date3.getHours()-9);
 	         var currentTime = date.getTime();
 	         var endTime = date3.getTime();
-	         if(endTime-currentTime>0 &&endYN=='N'){
+	         if(endTime-currentTime>0 &&endYN=='N' && count>0){
 	            var interval = endTime-currentTime;
 	            
 	            setInterval(function(){
@@ -588,19 +643,19 @@
 	            
 	         }else{
 	            $('.remainTime1').html('마감되었습니다.');
-	            $('.status1').html('경매종료');
-	            $('.time1').html('');
+	            $('.status1').html('판매종료');
+	            $('.auctionCount1').html('품절되었습니다.');
 	            $('#block1').css('display','block');
-	            $('#productName1').html('준비중');
-	            $('#aucBtn1').val('입찰종료');
 	         }
 	      });
 	   });
 	   
-	   //2 남은 시간 카운트 다운
+//2 남은 시간 카운트 다운
 	   $(function(){
 		   
 		   var endYN = $('input[name=endYN2]').val();
+		   var count = $('#count2').val();
+		   
 		   
 	      const offset = new Date().getTimezoneOffset() * 60000;
 	      var date = new Date();
@@ -611,7 +666,7 @@
 	         date3.setHours(date3.getHours()-9);
 	         var currentTime = date.getTime();
 	         var endTime = date3.getTime();
-	         if(endTime-currentTime>0 && endYN=='N'){
+	         if(endTime-currentTime>0 && endYN=='N' && count>0){
 	            var interval = endTime-currentTime;
 	            
 	            setInterval(function(){
@@ -625,19 +680,18 @@
 	            
 	         }else{
 	            $('.remainTime2').html('마감되었습니다.');
-	            $('.status2').html('경매종료');
-	            $('.time2').html('');
+	            $('.status2').html('판매종료');
+	            $('.auctionCount2').html('품절되었습니다.');
 	            $('#block2').css('display','block');
-	            $('#productName2').html('준비중');
-	            $('#aucBtn2').val('입찰종료');
 	         }
 	      });
 	   });
 	   
-	   //3 남은 시간 카운트 다운
+//3 남은 시간 카운트 다운
 	   $(function(){
 		   
 		   var endYN = $('input[name=endYN3]').val();
+		   var count = $('#count3').val();
 		   
 	      const offset = new Date().getTimezoneOffset() * 60000;
 	      var date = new Date();
@@ -648,7 +702,7 @@
 	         date3.setHours(date3.getHours()-9);
 	         var currentTime = date.getTime();
 	         var endTime = date3.getTime();
-	         if(endTime-currentTime>0 && endYN=='N'){
+	         if(endTime-currentTime>0 && endYN=='N' && count>0){
 	            var interval = endTime-currentTime;
 	            
 	            setInterval(function(){
@@ -662,11 +716,10 @@
 	            
 	         }else{
 	            $('.remainTime3').html('마감되었습니다.');
-	            $('.status3').html('경매종료');
-	            $('.time3').html('');
+	            $('.status3').html('판매종료');
+	            $('.auctionCount3').html('품절되었습니다.');
 	            $('#block3').css('display','block');
-	            $('#productName3').html('준비중');
-	            $('#aucBtn3').val('입찰종료');
+	            $('.auctionCount3').html('');
 	         }
 	      });
 	   });
