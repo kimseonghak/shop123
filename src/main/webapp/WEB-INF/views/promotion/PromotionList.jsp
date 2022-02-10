@@ -117,7 +117,7 @@ body {
 	width: 80%;
 	min-height: 1000px;
 	padding: 2px;
-	border: 0.3px solid #f0f0f0;
+	border: 1px solid #f0f0f0;
 	border-radius: 15px;
 }
 
@@ -125,12 +125,16 @@ body {
 	width: 100%;
 	height: 22%;
 	margin: 5px auto;
+	border: 1px solid gray;
+	border-radius: 10px;
+	cursor: pointer;
 }
 
 .list_img{
 	width:20%;
 	height: 100%;
 	float: left;
+	border-radius: 10px;
 }
 
 .titleform1{
@@ -139,7 +143,8 @@ body {
 	float: left;
 	text-align: left;
 	margin-left: 30px;
-	font : normal 17.5px "Nanum Gothic",sans-serif;
+	margin-top: 30px;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 }
 
 .titleform2{
@@ -232,9 +237,9 @@ body {
 			<%-- 리스트 공간 --%>
 			<div class="list_zone">
 				<c:forEach items="${map.list}" var="promotion">
-				<div class="list" onclick="">
+				<div class="list" onclick="location.href='/promotion/promotionViewPage.do?promotionNo=${promotion.promotionNo}&currentPage=${currentPage}&type=${map.type}&keyword=${keyword}'">
 					<div class="list_img">
-						<img src="" width="100%" height="100%"/>
+						<img src="${promotion.promotionFilePath }" width="100%" height="100%" style="border-radius: 10px;" />
 					</div>
 					
 					<div class="titleform1">
@@ -261,7 +266,7 @@ body {
 			
 			<div class="buttonform">
 				<c:if test="${farm != null && (farm.rating ne 'admin' and farm.rating ne 'root')}">					
-					<input type="submit" value="글 쓰기" class="writeBtn" onclick="location.href='/promotion/PromotionWritePage.do'">
+					<input type="submit" value="글 쓰기" class="writeBtn" onclick="location.href='/promotion/promotionWritePage.do'">
 				</c:if>
 					<input type="button" value="메인으로" class="mainBtin" onclick="location.href='/'">
 			</div>

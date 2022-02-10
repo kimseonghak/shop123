@@ -14,10 +14,12 @@
 				PROMOTION_COUNT as PromotionCount,
 				PROMOTION_END_YN as PromotionEnd,
 				PROMOTIONPHOTO_NO as PromotionPhotoNo,
-				ADVERTISE_YN as Advertise
-			from (select row_number() over(order by PROMOTION_NO desc)as num, PROMOTION.* ,FARM_NAME
+				ADVERTISE_YN as Advertise,
+				PROMOTIONPHOTO_FILEPATH as PromotionFilePath
+			from (select row_number() over(order by PROMOTION_NO desc)as num, PROMOTION.* ,FARM_NAME, PROMOTIONPHOTO_FILEPATH
 				from PROMOTION 
-				left join FARM on (PROMOTION.FARM_NO=FARM.FARM_NO) 
+				left join FARM on (PROMOTION.FARM_NO=FARM.FARM_NO)
+				left Join PROMOTIONPHOTO on (PROMOTION.PROMOTIONPHOTO_NO=PROMOTIONPHOTO.PROMOTIONPHOTO_NO) 
 				where PROMOTION_END_YN='N'
 				<choose>
 					<when test="type.equals('title')">
@@ -53,5 +55,68 @@
 		
 		<!-- 여기 사실 뭔가 이상함, promotion where 했을때는 오류나는데, where을 choose 문 아래 같다붙이니 에러가 안남, 사실 쟤가 
 			where 인슥을 못한다면 검색로직 작살난거, 여기 다시 봐줘야함 -->
+		
+		<!-- 파일 업로드 -->
+		<insert id="insertWriteFile" parameterType="pPhoto">
+			<selectKey keyProperty="promotionPhotoNo" resultType="integer" order="AFTER">
+                SELECT PROMOTIONPHOTO_NO FROM PROMOTIONPHOTO WHERE PROMOTIONPHOTO_UPDATETIME=#{promotionPhotoUpdateTime}
+            </selectKey>
+            	insert into	PROMOTIONPHOTO
+            	values		(PROMOTIONPHOTO_SEQ.nextval,
+            				#{promotionPhotoOriginal},
+            				#{promotionPhotoChange},
+            				#{promotionPhotoFilePath},
+            				#{promotionPhotoFileSize},
+            				#{promotionPhotoUpdateTime},
+            				'N',
+            				'N')
+		</insert>
+		
+		<!-- 파일을 가지고 글 쓰기 -->
+		<insert id="insertWrite" parameterType="promotion">
+			<selectKey keyProperty="promotionNo" resultType="integer" order="AFTER">
+				select max(PROMOTION_NO) as PromotionNo from promotion
+			</selectKey>
+				insert into	PROMOTION
+            	values		(PROMOTION_SEQ.nextval,
+            				#{promotionTitle},
+            				#{promotionContent},
+            				sysdate,
+            				#{farmNo},
+            				0,
+            				'N',
+            				#{promotionPhotoNo},
+            				'N')
+		</insert>
+		
+		<!-- 사진이 기본 이미지가 아닐 시 작동하는 로직 -->
+		<update id="updatePPhoto" parameterType="integer">
+			update PromotionPhoto set PromotionPhoto_Use_YN='Y' where PROMOTIONPHOTO_NO=#{_parameter}
+		</update>
+		
+		<!-- 홍보게시판 조회 parameterType 원래 integer-->
+		<select id="promotionView" parameterType="integer" resultType="promotion"> 
+			select 
+	                PROMOTION_NO as PromotionNo,
+					PROMOTION_TITLE as PromotionTitle,
+					PROMOTION_CONTENT as PromotionContent,
+					PROMOTION_REGDATE as PromotionRegdate,
+					PROMOTION.FARM_NO as FarmNo,
+					PROMOTION_COUNT as PromotionCount,
+					PROMOTION_END_YN as PromotionEnd,
+					PROMOTION.PROMOTIONPHOTO_NO as PromotionPhotoNo,
+					ADVERTISE_YN as Advertise,
+	                FARM.FARM_NAME as FarmName,
+	                PROMOTIONPHOTO_FILEPATH as PromotionFilePath
+			from PROMOTION 
+			left join FARM on (PROMOTION.FARM_NO=FARM.FARM_NO)
+			left join PROMOTIONPHOTO on (PROMOTION.PROMOTIONPHOTO_NO = PROMOTIONPHOTO.PROMOTIONPHOTO_NO)
+			where PROMOTION_NO = #{_parameter}
+		</select>
+		
+		<!-- 홍보게시판 조회수 -->
+		<update id="promotionViewCount" parameterType="promotion">
+			update promotion set PROMOTION_COUNT = PROMOTION_COUNT+1 where PROMOTION_NO = #{_parameter}
+		</update>
 		
 	</mapper>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.hot.shop.promotion.model.vo.Promotion;
+import com.hot.shop.promotion.model.vo.PromotionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 
 @Repository
@@ -66,6 +67,34 @@ public class PromotionDAO {
 	//총 페이지 네비 갯수
 	private int promotionTotalCount(HashMap<String, Object> map) {
 		return sqlSession.selectOne("promotion.promotionTotalCount",map);
+	}
+
+	//파일 업로드 선행
+	public int insertWriteFile(PromotionPhoto pp) {		
+		return sqlSession.insert("promotion.insertWriteFile", pp);
+	}
+
+	//미리 업로드한 사진을 가지고 글 작성
+	public int insertWriteFile(Promotion promotion) {
+		
+		int result1 = sqlSession.insert("promotion.insertWrite", promotion);
+		int result2 = 0;
+		
+		if(promotion.getPromotionPhotoNo()!=1) {
+			result2 = sqlSession.update("promotion.updatePPhoto",promotion.getPromotionPhotoNo());
+		}
+		
+		System.out.println(promotion.getPromotionPhotoNo());
+		
+		return result1+result2;
+	}
+
+	public HashMap<String, Object> promotionView(int promotionNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("promotion", sqlSession.selectOne("promotion.promotionView",promotionNo));
+		map.put("promotion", sqlSession.update("promotion.promotionViewCount",promotionNo));
+		System.out.println(promotionNo);
+		return map;
 	}
 
 }

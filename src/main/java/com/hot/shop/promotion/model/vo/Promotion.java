@@ -13,7 +13,8 @@ public class Promotion {
 	private char promotionEndYN;
 	private int promotionPhotoNo;
 	private char advertiseYN;
-	private String farmName;
+	private String farmName; //농가 이름 표시를 위해
+	private String promotionFilePath; //리스트에서 뿌려주기 위해
 	
 	//farmName 추가해야 함
 	
@@ -23,7 +24,8 @@ public class Promotion {
 	}
 
 	public Promotion(int promotionNo, String promotionTitle, String promotionContent, Date promotionRegdate, int farmNo,
-			String promotionCount, char promotionEndYN, int promotionPhotoNo, char advertiseYN, String farmName) {
+			String promotionCount, char promotionEndYN, int promotionPhotoNo, char advertiseYN, String farmName,
+			String promotionFilePath) {
 		super();
 		this.promotionNo = promotionNo;
 		this.promotionTitle = promotionTitle;
@@ -35,6 +37,7 @@ public class Promotion {
 		this.promotionPhotoNo = promotionPhotoNo;
 		this.advertiseYN = advertiseYN;
 		this.farmName = farmName;
+		this.promotionFilePath = promotionFilePath;
 	}
 
 	public int getPromotionNo() {
@@ -117,12 +120,21 @@ public class Promotion {
 		this.farmName = farmName;
 	}
 
+	public String getPromotionFilePath() {
+		return promotionFilePath;
+	}
+
+	public void setPromotionFilePath(String promotionFilePath) {
+		this.promotionFilePath = promotionFilePath;
+	}
+
 	@Override
 	public String toString() {
 		return "Promotion [promotionNo=" + promotionNo + ", promotionTitle=" + promotionTitle + ", promotionContent="
 				+ promotionContent + ", promotionRegdate=" + promotionRegdate + ", farmNo=" + farmNo
 				+ ", promotionCount=" + promotionCount + ", promotionEndYN=" + promotionEndYN + ", promotionPhotoNo="
-				+ promotionPhotoNo + ", advertiseYN=" + advertiseYN + ", farmName=" + farmName + "]";
+				+ promotionPhotoNo + ", advertiseYN=" + advertiseYN + ", farmName=" + farmName + ", promotionFilePath="
+				+ promotionFilePath + "]";
 	}
-	
+
 }

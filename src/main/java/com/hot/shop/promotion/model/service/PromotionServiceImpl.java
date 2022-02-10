@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.hot.shop.promotion.model.dao.PromotionDAO;
 import com.hot.shop.promotion.model.vo.Promotion;
+import com.hot.shop.promotion.model.vo.PromotionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
 
 @Service
@@ -26,6 +27,23 @@ public class PromotionServiceImpl implements PromotionService{
 		returnMap.put("list", list);
 		returnMap.put("pageNavi",pageNavi);
 		return returnMap;
+	}
+
+	@Override
+	public int insertWriteFile(PromotionPhoto pp) {
+		
+		return pDAO.insertWriteFile(pp);
+	}
+
+	@Override
+	public int insertWrite(Promotion promotion) {
+		return pDAO.insertWriteFile(promotion);
+	}
+
+	@Override
+	public HashMap<String, Object> promotionView(int promotionNo) {
+		
+		return pDAO.promotionView(promotionNo);
 	}
 
 	

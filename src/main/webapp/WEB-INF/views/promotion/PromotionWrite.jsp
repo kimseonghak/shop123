@@ -70,7 +70,7 @@ body {
 }
 
 .page_name{
-	width: 25%;
+	width: 40%;
 	height: 60px;
 	text-align: center;
 	padding: 50px 20px 0px;
@@ -81,37 +81,12 @@ body {
 
 .insert_zone{
 	width: 80%;
-	min-height: 900px;
+	min-height: 700px;
 }
 
 .empty{
 	width: 100%;
 	height: 30px;
-}
-
-.optiontitle{
-	min-width: 100px;
-	height: 30px;
-	color: #3BBD5A;
-	font : normal bold 20px "Nanum Gothic",sans-serif;
-	margin: 10px;
-	text-align: left;
-}
-
-.option_form{
-	width: 100%;
-	height: 50px;
-}
-
-.option{
-	min-width: 100px;
-	height: 30px;
-	border: none;
-	text-align: left;
-	font : normal bold 20px "Nanum Gothic",sans-serif;
-	float: left;
-	margin-left: 30px;
-	outline: none;
 }
 
 .title{
@@ -146,6 +121,18 @@ body {
 	width: 100%;
 	height: 30px;
 	text-align: left;
+}
+
+#img_Submit{
+	float: right;
+	width: 100px;
+	height: 30px;
+	background-color: #3BBD5A;
+	font : normal bold 17.5px "고딕체";
+	color: #ffffff;
+	border-radius: 15px;
+	border : none;
+	cursor : pointer;
 }
 
 .btnform{
@@ -205,9 +192,10 @@ body {
 	<div class="contentForm">
 		<div class="contentwrap">
 			
+			
 			<%-- 제목 공간 --%>
 			<div class="page_name">
-				<span>제목 입력</span>
+				<span>자신의 상품을 홍보해 보세요!</span>
 			</div>
 			
 			<%-- 빈 공간 --%>		
@@ -215,49 +203,35 @@ body {
 			
 			<%-- 입력 폼 --%>
 			<div class="insert_zone">
-			<form action="">
+			<form action="/promotion/promotionWrite.do" method="post" id="textWrite">
 				
-				<%-- 옵션 1 --%>
-				<div class="optiontitle">옵션 내용 입력</div>
-					<div class="option_form">
-						<select class="option">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-						</select>
-					</div>
-					
-				<%-- 옵션 2 --%>
-				<div class="optiontitle">옵션 내용 입력</div>
-					<div class="option_form">
-						<select class="option">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-						</select>
-					</div>
+				<input type="hidden" name="promotionPhotoNo" value="1">
 				
 				<%-- 빈 공간 --%>		
 				<div class="empty"></div>	
 						
 				<%-- 글 제목 입력 --%>
-				<input type="text" class="title" placeholder="제목을 입력하시오"/>
+				<input type="text" class="title" name="promotionTitle" placeholder="제목을 입력하시오"/>
 				
 				<%-- 글 제목 입력 --%>
 				<div class="contextForm">
-					<textarea class="content" placeholder="내용을 입력하시오"></textarea>
+					<textarea class="content" name="promotionContent" placeholder="내용을 입력하시오"></textarea>
 				</div>
+				
+			</form>
+			<%-- 입력 폼 끝 --%>
 				
 				<%-- 빈 공간 --%>		
 				<div class="empty"></div>
 				
 				<%-- 첨부파일 --%>
 				<div class="imgForm">
-					<input type="file" id="file_submit"/>
+					<input type="file" name="file"/>
+					<button id="img_Submit">업로드하기</button>
 				</div>
 				
 				<%-- 빈 공간 --%>		
-				<div class="empty"></div>
+				<div class="empty"></div>	
 				
 				<%-- 버튼 폼 --%>
 				<div class="Btnform">
@@ -265,9 +239,7 @@ body {
 					<button type="reset" class="resetbtn">다시 쓰기</button>
 					<button type="submit" class="submitbtn">글 작성하기</button>
 				</div>
-				
-			</form>
-			
+	
 			</div>
 		</div>
 	</div>
@@ -277,6 +249,49 @@ body {
 	</div>	
 
 </div>
+
+<script>
+<%-- 파일 ajax 처리 업로드 --%>
+$('#img_Submit').click(function(){
+    var formData = new FormData();
+
+    var inputFile = $("input[name='file']");
+
+    var files = inputFile[0].files;
+
+    formData.append("file", files[0]);
+
+    
+    $.ajax({
+        url : "/promotion/promotionWriteFileUpload.do",
+        processData : false,
+        contentType : false,
+        data : formData,
+        type : "POST",
+        success:function(result){
+            if(result != null && result != 0){
+                alert("파일이 업로드되었습니다.");
+                $("input[name='promotionPhotoNo']").val(result);
+                console.log($("input[name='promotionPhotoNo']").val());
+            }else{
+                alert("파일 업로드에 실패하였습니다.");
+            }
+
+        }
+    });
+});
+
+<%-- 글쓰기 버튼 --%>
+$('.submitbtn').click(function(){
+	$("#textWrite").submit();
+});
+
+<%-- 리스트 돌아가기 버튼 --%>
+$('.listBtn').click(function(){
+	location.replace("/promotion/promotionListPage.do.do");
+});
+
+</script>
 
 </body>
 </html>
