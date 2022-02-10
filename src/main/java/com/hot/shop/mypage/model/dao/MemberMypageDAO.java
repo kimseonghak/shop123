@@ -21,5 +21,13 @@ public class MemberMypageDAO {
 	public int updateMember(Member m) {
 		return sql.update("mypage.updateMember", m);
 	}
+
+	public int updatePassword(HashMap<String, Object> map) {
+		return sql.update("mypage.updatePassword", map);
+	}
+
+	public Member selectUserInfoCheck(int userNo) {
+		return sql.selectOne("mypage.selectUserInfoCheck", userNo);
+	}
 	
 }

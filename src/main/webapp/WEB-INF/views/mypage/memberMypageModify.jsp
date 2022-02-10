@@ -10,131 +10,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
-<style>
-
-#content {
-	width: 100%;
-	height: 1500px;
-}
-.bg-color {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-}
-.box-white {
-	margin: 200px auto;
-	background-color: white;
-	border-radius: 20px;
-	padding: 40px;
-	margin-top: 300px;
-	box-shadow: 3px 3px 10px #aeaeae;
-	width: 58vw;
-}
-.input-style {
-	height: 52px;
-	width: 40%;
-	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 16px;
-	color: #2A2A2A;
-	padding: 18px;
-	margin-top: 30px;
-	margin-bottom: 10px;
-	border: 0.5px solid #E5E5E5;
-	display: inline-block;
-}
-.input-style-plusbtn {
-	height: 52px;
-	width: 40%;
-	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 16px;
-	color: #2A2A2A;
-	padding: 18px;
-	margin-top: 30px;
-	margin-bottom: 10px;
-	border: 0.5px solid #E5E5E5;
-	display: inline-block;
-}
-.btn {
-	display: inline-block;
-	font-family: 'Nanum Gothic', sans-serif;
-	height: 52px;
-	width: 10%;
-	cursor: pointer;
-	border-radius: 20px;
-	border: 2px solid #198754;
-	margin-left: 30px;
-	font-weight: bold;
-	color: #198754;
-	background-color: white;
-}
-.title {
-	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 28px;
-	font-weight: bold;
-	text-align: center;
-	color: #3BBD5A;
-}
-.btn-submit {
-	width: 10%;
-    height: 3.5vh;
-    background-color: #3BBD5A;
-    font-family: 'Nanum Gothic', sans-serif;
-    font-size: 1.2vmin;
-    color: white;
-    border: none;
-    border-radius: 18px;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.btn-cancle {
-	width: 10%;
-    height: 3.5vh;
-    background-color: #3BBD5A;
-    font-family: 'Nanum Gothic', sans-serif;
-    font-size: 1.2vmin;
-    color: white;
-    border: none;
-    border-radius: 18px;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.join-Select {
-	width: 100%;
-	height: 100px;
-	border-bottom: 0.5px solid #ABABAB;
-}
-.login-Form {
-	width: 100%;
-	height: 50%;
-}
-.check-msg {
-	font-size: 12px;
-	display: block;
-	padding-left: 15%;
-}
-.check-time-msg {
-	font-size: 14px;
-	display: block;
-	padding-left: 48%;
-}
-.user-value-text {
-	font-size: 18px;
-	font-family: 'Nanum Gothic', sans-serif;
-	display: inline-block;
-	width: 14%;
-	font-weight: bold;
-}
-.submit-box {
-	text-align: right;
-	border-top: 0.5px solid #ABABAB;
-}
-#address_sub_msg {
-	padding-bottom: 30px;
-}
-</style>
+	
+<link rel="stylesheet" type="text/css" href="/resources/main/mypage/css/memberMypageModify.css">
 
 </head>
 <body>
@@ -157,7 +34,6 @@
 	                    </div>
 	                    <div class="join-Form">
 		                    <form action="/mypage/memberMypageModify.do" method="post" onsubmit="return validationCheck();">
-		                    	<input type="hidden"name="userNo" value="${sessionScope.member.userNo}">
 		                    	<p class="user-value-text">아이디</p>
 		                    	<input type="text" class="input-style" name="userId" value="${sessionScope.member.userId}" disabled="disabled"><br>
 		                    	<p class="user-value-text">이름</p>
@@ -345,24 +221,37 @@
 							}
 					                
 					    });
+						
+						
+						
 					}
 					
 				});
-			
 				
-				//인증번호 비교
-				$('input[name=userEmailCheck]').blur(function() {
-					var inputCode = $('input[name=userEmailCheck]').val();
-				    var checkResult = $("#email_check_msg");  
-				    
-				    if(inputCode == code){
-				    	checkResult.html("인증번호가 일치합니다.").css("color","green");
-				    	inval_Arr[3] = true;
-				    } else {
-				        checkResult.html("인증번호를 확인해주세요.").css("color","red");
-				        inval_Arr[3] = false;
-				    }  
-				});
+				//
+				userEmailCheck = function() {
+					if(!$('input[name=userEmailCheck]').prop("disabled")) {
+						//인증번호 비교
+						$('input[name=userEmailCheck]').blur(function() {
+							var inputCode = $('input[name=userEmailCheck]').val();
+						    var checkResult = $("#email_check_msg");  
+						    
+						    if(inputCode == code){
+						    	checkResult.html("인증번호가 일치합니다.").css("color","green");
+						    	inval_Arr[3] = true;
+						    } else {
+						        checkResult.html("인증번호를 확인해주세요.").css("color","red");
+						        inval_Arr[3] = false;
+						        return;
+						    }  
+						});
+					} else {
+						console.log('예?')
+						inval_Arr[3] = true;
+					}
+				}
+				
+				
 				
 				//인증하기 클릭 시 작동하는 인증번호 타이머
 				function timer() {
@@ -383,7 +272,7 @@
 					        if (this.comSecond < 0) {
 					            clearInterval(this.timer);
 					            alert("인증 가능 시간이 초과되었습니다.\n초기화면으로 이동합니다.");
-			                    location.replace("/member/memberJoinPage.do");
+			                    location.replace("/mypage/memberMypageModifyPage.do");
 					        }
 					    }
 					    ,fnStop : function(){
@@ -442,9 +331,13 @@
 					}
 				});
 				
+				
+				
 				//submit 버튼 클릭시 입력값 유효성 검사
 				validationCheck = function() {
 					var validAll = true;
+					userEmailCheck();
+					console.log('inval_Arr : ', inval_Arr)
 					for(var i = 0; i < inval_Arr.length; i++){
 						
 						if(inval_Arr[i] == false){
