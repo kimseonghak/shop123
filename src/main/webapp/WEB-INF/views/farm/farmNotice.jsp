@@ -93,7 +93,7 @@
                     </table>
                     </c:when>
                     <c:otherwise>
-                    	<H2 style="text-align:center; position:relative; bottom:-100px">공지사항이 없습니다.</H2>
+                    	<H4 style="text-align:center; position:relative; bottom:-100px">공지사항이 없습니다.</H4>
                     </c:otherwise>
               </c:choose>    
                 </div>
