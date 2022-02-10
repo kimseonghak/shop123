@@ -446,6 +446,12 @@ public class FarmENTContoller {
 			}
 	}
 	
+	//사업자 비밀번호 수정 페이지 이동
+	@RequestMapping(value="/farm/farmPwdChangePage.do",method = RequestMethod.GET)
+	public String farmPwdChangePage()
+	{
+		return "farm/farmPwdChangePage";
+	}
 
 	
 }
