@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="farmMypage">
+
+	<update id="updatePassword" parameterType="hashmap">
+	
+		UPDATE FARM SET farm_pwd=#{farmNewPwd}
+		WHERE farm_id=#{farmId} AND farm_pwd=#{farmPwd}
+	
+	</update>
+
+</mapper>

@@ -1,4 +1,4 @@
-package com.hot.shop.mypage.model.service;
+package com.hot.shop.memberMypage.model.service;
 
 import java.util.HashMap;
 

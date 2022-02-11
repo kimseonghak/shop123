@@ -71,7 +71,7 @@ public class MemberAOP {
 	}
 	
 	//user 회원탈퇴시 입력 비밀번호 암호화 처리
-	@Pointcut("execution(* com.hot.shop.mypage.model.service.MemberMypageServiceImpl.updateWithdraw(..))")
+	@Pointcut("execution(* com.hot.shop.memberMypage.model.service.MemberMypageServiceImpl.updateWithdraw(..))")
 	public void updateWithdrawPointCut() {}
 	
 	@Before("updateWithdrawPointCut()")
@@ -87,7 +87,7 @@ public class MemberAOP {
 	}
 	
 	//user 비밀번호 변경시 입력 비밀번호 암호화 처리
-	@Pointcut("execution(* com.hot.shop.mypage.model.service.MemberMypageServiceImpl.updatePassword(..))")
+	@Pointcut("execution(* com.hot.shop.memberMypage.model.service.MemberMypageServiceImpl.updatePassword(..))")
 	public void updateChangePwdPointCut() {}
 	
 	@Before("updateChangePwdPointCut()")

@@ -33,7 +33,7 @@
 							<p class="title">회원정보수정</p>
 	                    </div>
 	                    <div class="join-Form">
-		                    <form action="/mypage/memberMypageModify.do" method="post" onsubmit="return validationCheck();">
+		                    <form action="/memberMypage/memberMypageModify.do" method="post" onsubmit="return validationCheck();">
 		                    	<p class="user-value-text">아이디</p>
 		                    	<input type="text" class="input-style" name="userId" value="${sessionScope.member.userId}" disabled="disabled"><br>
 		                    	<p class="user-value-text">이름</p>

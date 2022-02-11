@@ -107,16 +107,16 @@ public class MemberController {
 		return result;
 	}
 	
-	//회원가입시 닉네임 중복체크 (@ResponseBody 사용)
-		@RequestMapping(value="/member/memberEmailCheck.do", method = RequestMethod.GET)
-		@ResponseBody
-		public int memberEmailCheck(@RequestParam String userEmail,
-				HttpServletResponse response) throws IOException {
-				
-			int result = mService.selectEmailCheck(userEmail);
-			return result;
-		}
-	
+	//회원가입시 이메일 중복체크 (@ResponseBody 사용)
+	@RequestMapping(value="/member/memberEmailCheck.do", method = RequestMethod.GET)
+	@ResponseBody
+	public int memberEmailCheck(@RequestParam String userEmail,
+			HttpServletResponse response) throws IOException {
+			
+		int result = mService.selectEmailCheck(userEmail);
+		return result;
+	}
+
 	//회원가입
 	@RequestMapping(value="/member/memberJoin.do", method = RequestMethod.POST)
 	public ModelAndView memberJoinus(Member member,
