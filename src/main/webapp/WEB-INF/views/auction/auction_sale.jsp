@@ -20,7 +20,7 @@
 }
 #leftSpace-top {
 	width: 100%;
-	height: 310px;
+	height: 42%;
 }
 #content {
 	width: 100%;
@@ -29,23 +29,15 @@
 	position: relative;
 }
 
-#leftSpace-left {
-	width: 12.5%;
-	height: 875px;
-	float: left;
-}
-
 #subject-box {
-	width: 84%;
-	height: 59px;
-	float: left;
+	width: 100%;
+	height: 8%;
 }
 
 #subject {
-	width: 100%;
-	height: 37px;
-	margin-top: 13px;
-	margin-left: 37.5%;
+	width: 12.8%;
+	height: 100%;
+	margin: 0 auto;
 }
 
 #subject>span {
@@ -56,20 +48,19 @@
 }
 
 #leftSpace-footer {
-	width: 84%;
-	height: 70px;
-	float: left;
+	width: 100%;
+	height: 8%;
 }
 
 #auctionSale-wrapBox {
 	width: 84%;
-	height: 400px;
-	float: left;
+	height: 70%;
+	margin-left: 12.5%;
 }
 
 .auctionSale-box {
 	width: 27%;
-	height: 385px;
+	height: 85%;
 	float: left;
 	margin-right: 50px;
 }
@@ -113,7 +104,7 @@
 
 .auctionSale-info {
 	width: 100%;
-	height: 370px;
+	height: 86.1%;
 	border-radius: 0 0 10px 10px;
 	background-color: #E4FFF8;
 }
@@ -237,9 +228,9 @@
 }
 .block {
 	width: 100%;
-	height: 370px;
+	height: 86.1%;
 	background-color: black;
-	margin-top: -370px;
+	margin-top: -107.3%;
 	border-radius: 0 0 10px 10px;
 	opacity: 0.65;
 	font-size: 25px;
@@ -255,7 +246,6 @@
 		<c:import url="/WEB-INF/views/commons/header.jsp" />
 		<div id="leftSpace-top"></div>
 		<div id="content">
-			<div id="leftSpace-left"></div>
 			<div id="subject-box">
 				<div id="subject">
 					<span>이달의 판매 현황</span>
@@ -267,7 +257,7 @@
          	<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" var="today" />
       		
          	<c:choose>
-        	<c:when test="${map.au1.sellStart>today || map.au1.sellStart==null}">
+        	<c:when test="${map.au1.sellStart>today }">
 				<div class="auctionSale-box">
 			<%--1번 폼 판매 예정인 경우 --%>
 					<div class="auctionSaleStatus-box">
@@ -301,6 +291,42 @@
 					</div>
 					<div class="block"></div>
 				</div>
+			</c:when>
+			<%--1번 폼 데이터가 null 일 경우 --%>
+			<c:when test="${map.au1.sellStart==null}">
+			<div class="auctionSale-box">
+					<div class="auctionSaleStatus-box">
+						<div class="auctionSaleStatus">
+							<span>판매 예정</span>
+						</div>
+						<div class="auctionSaleProduct">
+							<span>${map.au1.auctionProduct }</span>
+						</div>
+					</div>
+						<div class="auctionSale-info">
+							<div class="auctionSaleBox-leftSpace"></div>
+							<!-- 구매 폼 로직-->
+							<span class="spanLeft">시작일 :</span>
+                     		<span class="spanRight">${map.au1.sellStart}</span>
+                    		<span class="spanLeft">종료일 :</span>
+                     		<span class="spanmiddel endDate2">${map.au1.sellEnd}</span>
+                     		<span class="spanLast"></span>
+                     		<span class="spanLeft">남은시간 :</span>
+                     		<span class="spanRight fontWeight" style="color: #FE0011"></span>
+							<span class="spanLeft">현재 상품 수량 :</span>
+							<span class="spanRight font-style">${map.au1.auctionCount1}&nbsp;</span>
+							<span class="spanLeft">낙찰된 가격 :</span>
+							<span class="spanRight font-style">${map.au1.auctionPrice}&nbsp;</span>
+							<span class="spanLeft">구매 수량 :</span>
+							<span class="spanRight-test margin-bottom">
+		                    	<input type="number" name="auctionSaleCount" class="auctionSaleCount-input margin"/>
+		                    </span> 
+		                    <input type="button" class="btn" id="aucBtn1" value="구매하기"/>
+		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
+					</div>
+					<div class="block"></div>
+				</div>
+			
 			</c:when>
 			<c:otherwise>
 			<%--1번 폼 구매 가능--%>
@@ -354,7 +380,7 @@
 			</c:choose>
 			
 			<c:choose>
-        	<c:when test="${map.au2.sellStart>today || map.au2.sellStart==null}">
+        	<c:when test="${map.au2.sellStart>today }">
         	<%--2번 폼 판매 예정인 경우 --%>
 				<div class="auctionSale-box">
 					<div class="auctionSaleStatus-box">
@@ -388,6 +414,42 @@
 					</div>
 					<div class="block"></div>
 				</div>
+			</c:when>
+			<%--2번 폼 데이터가 null 일 경우 --%>
+			<c:when test="${map.au2.sellStart==null}">
+			<div class="auctionSale-box">
+					<div class="auctionSaleStatus-box">
+						<div class="auctionSaleStatus">
+							<span>판매 예정</span>
+						</div>
+						<div class="auctionSaleProduct">
+							<span>${map.au2.auctionProduct }</span>
+						</div>
+					</div>
+						<div class="auctionSale-info">
+							<div class="auctionSaleBox-leftSpace"></div>
+							<!-- 구매 폼 로직-->
+							<span class="spanLeft">시작일 :</span>
+                     		<span class="spanRight">${map.au2.sellStart}</span>
+                    		<span class="spanLeft">종료일 :</span>
+                     		<span class="spanmiddel endDate2">${map.au2.sellEnd}</span>
+                     		<span class="spanLast"></span>
+                     		<span class="spanLeft">남은시간 :</span>
+                     		<span class="spanRight fontWeight" style="color: #FE0011"></span>
+							<span class="spanLeft">현재 상품 수량 :</span>
+							<span class="spanRight font-style">${map.au2.auctionCount1}&nbsp;</span>
+							<span class="spanLeft">낙찰된 가격 :</span>
+							<span class="spanRight font-style">${map.au2.auctionPrice}&nbsp;</span>
+							<span class="spanLeft">구매 수량 :</span>
+							<span class="spanRight-test margin-bottom">
+		                    	<input type="number" name="auctionSaleCount" class="auctionSaleCount-input margin"/>
+		                    </span> 
+		                    <input type="button" class="btn" id="aucBtn2" value="구매하기"/>
+		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
+					</div>
+					<div class="block"></div>
+				</div>
+			
 			</c:when>
 			<c:otherwise>
 			<%--2번 폼 구매 가능--%>
@@ -469,12 +531,13 @@
 							<span class="spanRight-test margin-bottom">
 		                    	<input type="number" name="auctionSaleCount" class="auctionSaleCount-input margin"/>
 		                    </span> 
-		                    <input type="button" class="btn" id="aucBtn2" value="구매하기"/>
+		                    <input type="button" class="btn" id="aucBtn3" value="구매하기"/>
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 					</div>
 					<div class="block"></div>
 				</div>
 			</c:when>
+			<%--3번 폼 데이터가 null 일 경우 --%>
 			<c:when test="${map.au3.sellStart==null}">
 			<div class="auctionSale-box">
 					<div class="auctionSaleStatus-box">
@@ -503,12 +566,11 @@
 							<span class="spanRight-test margin-bottom">
 		                    	<input type="number" name="auctionSaleCount" class="auctionSaleCount-input margin"/>
 		                    </span> 
-		                    <input type="button" class="btn" id="aucBtn2" value="구매하기"/>
+		                    <input type="button" class="btn" id="aucBtn3" value="구매하기"/>
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 					</div>
 					<div class="block"></div>
 				</div>
-			
 			</c:when>
 			<c:otherwise>
 			<%--3번 폼 구매 가능--%>
