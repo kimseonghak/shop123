@@ -12,15 +12,17 @@ public class LocalProductBoard {
 	private String LocalProductClassify;
 	private String LocalProductPhotoFilePath;//사진 경로
 	private int originalLocalphotoNo;
+	private int farmNo;
 	
 	public LocalProductBoard() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+
 	public LocalProductBoard(int localProductNo, String localProductTitle, String localProductContent,
 			Timestamp localProductRegDate, int localProductPhotoNo, char localProductDelYN, String localProductClassify,
-			String localProductPhotoFilePath, int originalLocalphotoNo) {
+			String localProductPhotoFilePath, int originalLocalphotoNo, int farmNo) {
 		super();
 		LocalProductNo = localProductNo;
 		LocalProductTitle = localProductTitle;
@@ -31,9 +33,16 @@ public class LocalProductBoard {
 		LocalProductClassify = localProductClassify;
 		LocalProductPhotoFilePath = localProductPhotoFilePath;
 		this.originalLocalphotoNo = originalLocalphotoNo;
+		this.farmNo = farmNo;
+	}
+	public int getFarmNo() {
+		return farmNo;
+	}
+	
+	public void setFarmNo(int farmNo) {
+		this.farmNo = farmNo;
 	}
 
-	
 	public int getLocalProductNo() {
 		return LocalProductNo;
 	}
@@ -96,7 +105,8 @@ public class LocalProductBoard {
 				+ ", LocalProductContent=" + LocalProductContent + ", LocalProductRegDate=" + LocalProductRegDate
 				+ ", LocalProductPhotoNo=" + LocalProductPhotoNo + ", LocalProductDelYN=" + LocalProductDelYN
 				+ ", LocalProductClassify=" + LocalProductClassify + ", LocalProductPhotoFilePath="
-				+ LocalProductPhotoFilePath + ", originalLocalphotoNo=" + originalLocalphotoNo + "]";
+				+ LocalProductPhotoFilePath + ", originalLocalphotoNo=" + originalLocalphotoNo + ", farmNo=" + farmNo
+				+ "]";
 	}
 
 

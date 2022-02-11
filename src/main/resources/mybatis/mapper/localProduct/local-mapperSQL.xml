@@ -120,7 +120,7 @@
 				<select id="localdeleteFileCheck" parameterType="integer" resultType="lpFile">
 				select		LOCALPRODUCTPHOTO_FILEPATH as localProductPhotoFilePath
 				from 		LOCALPRODUCTPHOTO
-				where		LOCALPRODUCTPHOTO = #{_parameter}
+				where		LOCALPRODUCTPHOTO_no = #{_parameter}
 				</select>
 	
 				<update id="deleteLocalFileUpdate" parameterType="integer">
