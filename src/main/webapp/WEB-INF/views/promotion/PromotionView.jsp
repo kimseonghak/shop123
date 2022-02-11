@@ -159,7 +159,7 @@ body {
 	cursor : pointer;
 }
 
-.mainBtn{
+.listBtn{
 	width: 130px;
 	height: 40px;
 	background-color: gray;
@@ -206,17 +206,18 @@ body {
 
 	<div class="contentForm">
 		<div class="contentwrap">
-		
+			
+			<
 			<%-- 태그, 제목, 작성자 영역 --%>
 			<div class="titleform1">
 				<div class="tag-select">
-					<span>[태그 입력란]</span>
+					<span>[홍보]</span>
 				</div>
 				<div class="title">
-					<span>제목 입력란제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목</span>
+					<span>${map.promotion.promotionTitle }</span>
 				</div>
 				<div class="user">
-					<span>작성자</span>
+					<span>${map.promotion.farmName }</span>
 				</div>
 			</div>
 			
@@ -224,21 +225,21 @@ body {
 			<div class="titleform2">
 				<div class="time">
 					<img class="icon" src="/resources/icon/clock_icon.png"/>
-					<span>작성일 표시란</span>
+					<span>${map.promotion.promotionRegdate }</span>
 				</div>
 				<div class="hit">
 					<img class="icon" src="/resources/icon/hit_icon.png"/>
-					<span>조회수 표시란</span>
+					<span>${map.promotion.promotionCount }</span>
 				</div>
 			</div>
 			
 			<%-- 게시글 영역 --%>
 			<div class="content_zone">
 				<div class="img">
-					<img src=""/>
+					<img src="${map.promotion.promotionFilePath}"/>
 				</div>
 				<div class="context">
-					<p>게시글 내용</p>
+					<p>${map.promotion.promotionContent }</p>
 				</div>
 			</div>
 			
@@ -247,12 +248,12 @@ body {
 			
 			<%-- 버튼 영역 --%>
 			<div class="btnForm">
-				<%-- <c:if test="${farm != null && (farm.rating eq 'admin' or farm.rating eq 'root')}"> --%>
-				<button type="button" class="promotionBtn">홍보요청</button>
-				<button type="button" class="deleteBtn">글 삭제</button>
-				<button type="submit" class="updateBtn">글 수정</button>
-				<%-- </c:if> --%>
-				<button type="button" class="mainBtn">메인으로</button>
+				<c:if test="${farm != null && (sessionScope.farm.farmNo eq map.promotion.farmNo)}">
+					<button type="button" class="promotionBtn">홍보요청</button>
+					<button type="button" class="deleteBtn">글 삭제</button>
+					<button type="submit" class="updateBtn">글 수정</button>
+				</c:if>
+				<button type="button" class="listBtn">리스트로</button>
 			</div>
 			
 			<%-- 빈 공간 --%>
@@ -266,6 +267,26 @@ body {
 	</div>	
 </div>
 
+<script>
+
+	<%-- 글 목록으로 돌아가는 버튼 --%>
+	$('.listBtn').click(function(){
+		var currentPage = ${currentPage};
+		var type = "${type}";
+		var keyword = "${keyword}";
+		location.replace('/promotion/promotionViewPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
+	});
+	
+	<%-- 글 수정 버튼 --%>
+	$('.updateBtn').click(function(){
+		var promotionNo=${map.promotion.promotionNo};
+		location.replace('/promotion/promotionUpdatePage.do?promotionNo='+promotionNo);
+	});
+	
+	
+	console.log('${farm}')
+	console.log('${farm.farmId }')
+</script>
 
 </body>
 </html>

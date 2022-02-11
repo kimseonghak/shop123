@@ -117,19 +117,24 @@ body {
 	width: 80%;
 	min-height: 1000px;
 	padding: 2px;
-	border: 1px solid black;
+	border: 1px solid #f0f0f0;
+	border-radius: 15px;
 }
 
 .list{
 	width: 100%;
 	height: 22%;
 	margin: 5px auto;
+	border: 1px solid gray;
+	border-radius: 10px;
+	cursor: pointer;
 }
 
 .list_img{
 	width:20%;
 	height: 100%;
 	float: left;
+	border-radius: 10px;
 }
 
 .titleform1{
@@ -138,7 +143,8 @@ body {
 	float: left;
 	text-align: left;
 	margin-left: 30px;
-	font : normal 17.5px "Nanum Gothic",sans-serif;
+	margin-top: 30px;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 }
 
 .titleform2{
@@ -209,20 +215,20 @@ body {
 			
 			<%-- 제목 공간 --%>
 			<div class="page_name">
-				<span>제목 입력</span>
+				<span>홍보 게시판</span>
 			</div>
 			
 			<%-- 검색 공간 --%>
-			<form action="" method="get">
+			<form action="/promotion/promotionListPage.do" method="get">
 				<div class="page_search_zone">
 				
 					<select name="type" class="search_select">
-						<option value="subject">제목</option>
+						<option value="title">제목</option>
 						<option value="content">내용</option>
 						<option value="all">제목+내용</option>
 					</select>
 					
-					<input type="text" name="" class="searchkeyword" placeholder=""/>
+					<input type="text" name="keyword" class="searchkeyword" placeholder=""/>
 
 					<button class="searchBtn">글 검색</button>
 				</div>
@@ -230,39 +236,39 @@ body {
 			
 			<%-- 리스트 공간 --%>
 			<div class="list_zone">
-				<%-- for문 --%>
-				<div class="list">
+				<c:forEach items="${map.list}" var="promotion">
+				<div class="list" onclick="location.href='/promotion/promotionViewPage.do?promotionNo=${promotion.promotionNo}&currentPage=${currentPage}&type=${map.type}&keyword=${keyword}'">
 					<div class="list_img">
-						<img src="" width="100%" height="100%"/>
+						<img src="${promotion.promotionFilePath }" width="100%" height="100%" style="border-radius: 10px;" />
 					</div>
 					
 					<div class="titleform1">
-						<span>제목</span>
+						<span>${promotion.promotionTitle}</span>
 					</div>
 					
 					<div class="titleform2">
-						<P>[ 작성일 : 2022-01-27 ]</P>
-						<p>[ 조회수 : 22 ]</p>
+						<P>[ 작성일 : ${promotion.promotionRegdate} ]</P>
+						<p>[ 조회수 : ${promotion.promotionCount} ]</p>
 					</div>
 					
 				</div>
-				<%-- for문 --%>
+				</c:forEach>
 				<%-- 5개만 처리 --%>
 			
 			</div>
 			
 			<%-- 네비 공간 --%>
 			<div class="pageNavi" align="center">
-				페이지 네비 공간
+				${map.pageNavi }
 			</div>
 			
 			<%-- 버튼 공간 --%>
 			
 			<div class="buttonform">
-				<%-- <c:if test="${farm != null && (farm.rating eq 'admin' or farm.rating eq 'root')}"> --%>					
-				<input type="submit" value="글 쓰기" class="writeBtn" onclick="">
-				<%-- </c:if> --%>
-				<input type="button" value="메인으로" class="mainBtin" onclick="location.href='/'">
+				<c:if test="${farm != null && (farm.rating ne 'admin' and farm.rating ne 'root')}">					
+					<input type="submit" value="글 쓰기" class="writeBtn" onclick="location.href='/promotion/promotionWritePage.do'">
+				</c:if>
+					<input type="button" value="메인으로" class="mainBtin" onclick="location.href='/'">
 			</div>
 			
 			<div class="empty"></div>
@@ -275,6 +281,22 @@ body {
 	</div>
 </div>
 
+<script>
+	<%-- 네비화살표 hover시 투명도 조절 --%>
+	$('.naviArrow').hover(function() {
+		$(this).css('opacity', '1');
+	}, function() {
+		$(this).css('opacity', '0.3');
+	});
+	<%-- 현재페이지가 10페이지 이하일 경우 이전 페이지목록 비활성화 --%>
+	$(function() {
+		var currentPage = ${currentPage};
+		if (currentPage < 11) {
+			$('#prev').removeAttr('href');
+			$('#prev').unbind('mouseenter mouseleave');
+		}
+	});
+</script>
 
 </body>
 </html>
