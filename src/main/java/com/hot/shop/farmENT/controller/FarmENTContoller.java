@@ -459,4 +459,10 @@ public class FarmENTContoller {
 	{
 		return "farm/farmWithdrawPage";
 	}
+	
+	@RequestMapping(value="farm/farmMypageModifyPage.do",method = RequestMethod.GET)
+	public String farmMypageModifyPage()
+	{
+		return "farm/farmMypageModify";
+	}
 }
