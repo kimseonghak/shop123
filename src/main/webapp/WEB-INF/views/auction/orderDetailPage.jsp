@@ -16,7 +16,7 @@ wrap {
 
 #content {
 	width: 100%;
-	height: 150vh;
+	height: 160vh;
 }
 .background-box {
 	width: 100%;
@@ -24,13 +24,13 @@ wrap {
 	overflow: hidden;
 }
 .box-color {
-	margin: 200px auto;
+	margin: 0 auto;
 	width: 58vw;
-	height: 80vh;
+	height: 90vh;
 	background-color: white;
 	border-radius: 20px;
 	padding: 40px;
-	margin-top: 300px;
+	margin-top: 19.77%;
 	box-shadow: 3px 3px 10px #aeaeae;
 }
 .title {
@@ -54,7 +54,7 @@ wrap {
 }
 .mypage-main {
 	width: 100%;
-	height: 11.8%;
+	height: 11.6%;
 	border-bottom: 0.5px solid #ABABAB; 
 }
 .font {
@@ -62,18 +62,18 @@ wrap {
 }
 #orderList-main{
 	width : 100%;
-	height: 500px;
+	height: 80%;
 	margin-top: 50px;
 }
 .form{
-	margin-bottom: 30px;
+	margin-bottom: 5.5%;
 }
 #table {
     font-size: 16px;
     font-family: 'NanumSquare';
     margin: 0 auto;
     line-height: 36px;
-	width:600px;
+	width:60%;
 }
 .background {
     background-color: #D5D0D0;
@@ -106,7 +106,6 @@ wrap {
 .text-align{
 	text-align: center;
 }
-
 .width{
 	width: 35%;
 }
@@ -114,10 +113,43 @@ wrap {
 	width : 35%;
 }
 #memberInfo-box{
-	width: 100%;
-	height: 200px;
-	border: 1px solid black;
+	width:60%;
+	height: 60%;
+	margin : 0 auto;
+	border-top: 2px solid #3BBD5A;
 }
+#delivery-box{
+	width: 100%;
+	height: 20%;
+	padding-top: 35px;
+}
+#deliveryInfo{
+	width: 100%;
+	height: 95%;
+	padding-top : 5px;
+}
+.span-box{
+	display : block;
+	float : left;
+	width: 13%;
+	height: 10%;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bold;
+	margin-bottom: 3%;
+	padding-left: 8%;
+	margin-top: 1.8%;
+}
+.input-box{
+	width: 68%;
+	height: 10%;
+	color: #2A2A2A;
+	padding: 18px;
+	border: 0.5px solid #E5E5E5;
+	font-family: 'Nanum Gothic', sans-serif;
+	margin-bottom: 4.8%;
+	margin-left: 5%;
+}
+
 </style>
 </head>
 <body>
@@ -162,8 +194,24 @@ wrap {
                           
 							</table>
 						</form>
-						<div id="memberInfo-box"></div>
-						
+						<div id="memberInfo-box">
+							<div id="delivery-box">
+								<p class="title">배송지 정보</p>
+							</div>
+							<div id="deliveryInfo">
+                            	<span class="span-box">이름</span>
+                            	<input type="text" class="input-box" value="이현아"/>
+                                
+                                <span class="span-box">연락처</span>
+                                <input type="text" class="input-box" value="01011113333"/>
+                                
+                                <span class="span-box">주소</span>
+                                <input type="text" class="input-box" value="경기도 고양시 일산서구 인현로 120"/>
+                               
+                                <span class="span-box">상세 주소</span>
+                                <input type="text" class="input-box" value="303동 602호"/> 
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

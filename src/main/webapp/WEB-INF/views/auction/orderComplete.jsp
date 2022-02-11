@@ -88,10 +88,12 @@
                     </div>
                     <div class="login-Form">
 	                   	<p class="order-Info">구매하신 목록은 아래의 주문 목록 버튼을 <br> 누르시면 확인하실 수 있습니다.</p>
-						
                     </div>
-                    <button class="btn-submit"><a href="/auction/orderListPage.do?userNo=${sessionScope.member.userNo }" style="color: white">주문목록</a></button>
-                    <button class="mainBtn"><a href="/" style="color: white">홈으로 이동</a></button>
+                    <form action="/auction/orderListPage.do" method="get">
+	                    <input type="hidden" name="userNo" value="${sessionScope.member.userNo }"/>
+	                    <input type="submit" class="btn-submit" style="color: white" value="주문 목록"/>
+	                    <input type="button" class="mainBtn" style="color: white" value="홈으로 이동" onclick="mainBtn()"/>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -99,7 +101,11 @@
 		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
 	
-	
+<script>
+	function mainBtn(){
+		location.replace("/");
+	}
+</script>	
 
 	
 </body>

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hot.shop.admin.model.vo.Auction;
-import com.hot.shop.admin.model.vo.BID;
 import com.hot.shop.admin.model.vo.SellForm;
 import com.hot.shop.auction.model.vo.Purchaselist;
 import com.hot.shop.farm.model.vo.Farm;
@@ -136,7 +135,10 @@ public class AuctionDAO {
 	}
 	
 	public int totalCount(int userNo) {
+		
 		return sql.selectOne("auction.orderListTotalCount",userNo);
 	}
+
+	
 
 }

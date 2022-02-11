@@ -151,22 +151,39 @@ public class AuctionController {
 	//해당 유저의 주문 목록 페이지
 	@RequestMapping(value="/auction/orderListPage.do",method = RequestMethod.GET)
 	public ModelAndView orderListPage(@RequestParam(required = false, defaultValue = "1") int currentPage,
-								@RequestParam int userNo,ModelAndView mav) {
+								@RequestParam int userNo,ModelAndView mav, @SessionAttribute(required = false) Member member) {
 		
-		HashMap<String, Object> map = aucService.orderListInfo(currentPage,userNo);
 		
-		mav.addObject("map",map);
-		mav.addObject("userNo",userNo);
-		mav.addObject("currentPage",currentPage);
+		if(member==null) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
 		
-		mav.setViewName("auction/orderList");
+		if(userNo!=member.getUserNo()) {
+			
+			mav.setViewName("commons/error");
+			return mav;
+
+		}else {
+			
+			HashMap<String, Object> map = aucService.orderListInfo(currentPage,userNo);
+			
+			mav.addObject("map",map);
+			mav.addObject("userNo",userNo);
+			mav.addObject("currentPage",currentPage);
+			
+			mav.setViewName("auction/orderList");
 		
+		}
 		return mav;
 	}
 	
 	//주문 목록에서 주문번호를 누를 경우 상세 페이지로 이동
 	@RequestMapping(value="/auction/orderDetailPage.do")
-	public String orderDetailPage() {
+	public String orderDetailPage(@RequestParam String orderNo) {
+		
+		
+		
 		
 		return "auction/orderDetailPage";
 	}

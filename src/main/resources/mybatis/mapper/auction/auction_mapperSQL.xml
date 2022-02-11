@@ -78,7 +78,7 @@
   
   <select id="orderListInfo" parameterType="hashmap" resultType="pur">
   	select 
-		 BUY_NO as buyNo,
+		BUY_NO as buyNo,
 		USER_NO as userNo,
 		FARM_NO as farmNo,
 		PRODUCT_NAME as productName,
@@ -94,10 +94,10 @@
 		ORDER_NO as orderNo,
 		farm_name as farmName,
 		DELIVERY_COMPANY as deliveryCompany,
-		DELIVERY_NO as deliveryNo,
+		DELIVERY_NUM as deliveryNo,
 		d_name as dName
 	from (select row_number() over (order by purchaselist.buy_no desc) as num, 
-	purchaselist.*, farm.farm_name,DELIVERY_COMPANY,DELIVERY_NO,d_name from purchaselist
+	purchaselist.*, farm.farm_name,DELIVERY_COMPANY,DELIVERY_NUM,d_name from purchaselist
 	left join farm on(farm.farm_no=purchaselist.farm_no)
 	left join delivery_management on(delivery_management.buy_no=purchaselist.buy_no)
 	left join delivery on(purchaselist.d_code=delivery.d_code)
@@ -108,6 +108,7 @@
   <select id="orderListTotalCount" parameterType="integer" resultType="int">
   	select count(*) from purchaselist where user_No=#{userNo}
   </select>
+  
   
   
   

@@ -27,6 +27,7 @@ public interface AuctionService {
 
 	HashMap<String, Object> orderListInfo(int currentPage, int userNo);
 
+
 	
 	
 }
