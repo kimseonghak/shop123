@@ -20,7 +20,7 @@
 }
 #leftSpace-top {
    width: 100%;
-   height: 310px;
+   height: 42%;
 }
 #content {
    width: 100%;
@@ -29,23 +29,15 @@
    position: relative;
 }
 
-#leftSpace-left {
-   width: 12.5%;
-   height: 875px;
-   float: left;
-}
-
 #subject-box {
-   width: 84%;
-   height: 59px;
-   float: left;
+   width: 100%;
+   height: 8%;
 }
 
 #subject {
-   width: 100%;
-   height: 37px;
-   margin-top: 13px;
-   margin-left: 37.5%;
+   width: 12.8%;
+   height: 100%;
+   margin: 0 auto;
 }
 
 #subject>span {
@@ -56,20 +48,19 @@
 }
 
 #leftSpace-footer {
-   width: 84%;
-   height: 70px;
-   float: left;
+   width: 100%;
+   height: 8%;
 }
 
 #auction-wrapBox {
    width: 84%;
-   height: 400px;
-   float: left;
+   height: 59%;
+   margin-left: 12.5%;
 }
 
 .auction-box {
    width: 27%;
-   height: 385px;
+   height: 85%;
    float: left;
    margin-right: 50px;
 }
@@ -113,7 +104,7 @@
 
 .auction-info {
    width: 100%;
-   height: 305px;
+   height: 86.1%;
    border-radius: 0 0 10px 10px;
    background-color: #E4FFF8;
 }
@@ -138,7 +129,7 @@
 }
 .auctionBox-leftSpace{
    width : 100%;
-   height: 7%;
+   height: 7.5%;
 }
 .fontWeight{
    font-weight: bold;
@@ -220,9 +211,9 @@
 
 .block {
    width: 100%;
-   height: 305px;
+   height: 86.1%;
    background-color: black;
-   margin-top: -305px;
+   margin-top: -90.4%;
    border-radius: 0 0 10px 10px;
    opacity: 0.65;
    font-size: 25px;
@@ -238,7 +229,6 @@
       <c:import url="/WEB-INF/views/commons/header.jsp" />
       <div id="leftSpace-top"></div>
       <div id="content">
-         <div id="leftSpace-left"></div>
          <div id="subject-box">
             <div id="subject">
                <span>이달의 경매 현황</span>

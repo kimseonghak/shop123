@@ -25,13 +25,13 @@
 	overflow: hidden;
 }
 .box-color {
-	margin: 200px auto;
+	margin: 0 auto;
 	width: 58vw;
 	height: 135vh;
 	background-color: white;
 	border-radius: 20px;
 	padding: 40px;
-	margin-top: 300px;
+	margin-top: 19.77%;
 	box-shadow: 3px 3px 10px #aeaeae;
 }
 .title {
@@ -55,7 +55,7 @@
 }
 .mypage-main {
 	width: 100%;
-	height: 7%;
+	height: 6.9%;
 	border-bottom: 0.5px solid #ABABAB; 
 }
 #dateSelect-btn{
@@ -65,8 +65,8 @@
 #recent {
     display: inline-block;
     position: relative;
-    width: 90px;
-    height: 30px;
+    width: 10.5%;
+    height: 38%;
     background-color: #3BBD5A;
     color: white;
     border: none;
@@ -77,30 +77,28 @@
 }
 
 #option {
-    width: 90px;
-    height: 30px;
+    width: 10.5%;
+    height: 38.5%;
     background-color: white;
     border: 2px solid #3BBD5A;
     border-radius: 5px;
     text-align: center;
     cursor:pointer;
 }
-.font {
-    font-size: 13px;
-}
+
 #orderList-main{
 	width : 100%;
-	height: 700px;
+	height: 78%;
 }
 .form{
 	margin-bottom: 30px;
 }
 #table {
-    font-size: 16px;
+    font-size: 13px;
     font-family: 'NanumSquare';
     margin: 0 auto;
     line-height: 36px;
-	width:600px;
+	width: 60%;
 }
 .background {
     background-color: #D5D0D0;
@@ -114,7 +112,7 @@
 }
 .vertical-align {
     vertical-align: middle;
-    width: 15%;
+    width: 20%;
 }
 .background-1 {
     background-color: white;
@@ -136,20 +134,22 @@
 }
 #orderNo-td{
 	text-align: right;
-	padding-right: 25px;
+	padding-right: 27px;
 }
 #orderNo{
-	width : 50px;
+	width : 105px;
     color: black;
 	height: 100%;
-	
+	border: none;
+	background-color: #D5D0D0;
+	cursor: pointer;
 }
 .text-align{
 	text-align: center;
 }
 
 .width{
-	width: 35%;
+	width: 25%;
 }
 .delivery{
 	width : 35%;
@@ -205,6 +205,14 @@
 	border-top: 1px solid #3BBD5A;
 	border-bottom: 1px solid #3BBD5A;
 }
+#infoEmptyBox{
+	width: 100%;
+	height: 100px;
+	margin-top : 150px;
+	text-align: center;
+	font-size: 25px;
+	font-family: 'NanumSquare';
+}
 
 </style>
 </head>
@@ -219,7 +227,7 @@
 						<p class="title">주문 목록</p>
                     </div>
 					<div id="dateSelect-btn">
-						<input type="button" id="recent" class="font" onclick="" value="최근 6개월" />
+						<input type="button" id="recent" class="font" onclick="sixMonthInquery()" value="최근 6개월" />
 						<select name='year' id="option">
                            <option value='2022' selected>2022</option>
                            <option value='2021'>2021</option>
@@ -229,47 +237,68 @@
                         </select>
 					</div>
 					<div id="orderList-main">
+					<c:choose>
+					<c:when test="${!map.list.isEmpty() }">
 					<c:forEach items="${map.list }" var="pur">
-						<form class="form">
+						<form class="form" action="/auction/orderDetailPage.do" method="post">
 							<table id="table">
-							<tr>
-                                <td colspan="4" class="data background font">
-                                	<input type="button" disabled="true" class="background" style="border: none;" />
-                                	<input type="button" disabled="true" style="border: none; " class="background" />${pur.purchaseDate }</td>
-                                <td colspan="2" class="center background font" id="orderNo-td">
-                                	 <a href="/auction/orderDetailPage.do" id="orderNo" class="text-align">${pur.orderNo } </a>
-                                </td>
-                            </tr>
-                            <tr class="white">
-                                <td colspan="1" class="data border font width">
-                                	<input type="button" disabled="true" class="white" style="border: none;" />
-                                	<input type="button" disabled="true" style="border: none; " class="background-1" />
-                                	${pur.productName }
-                                </td>
-                                <td rowspan="2" class="center border vertical-align font text-align">${pur.payAmount }원</td>
-                                <td rowspan="2" class="center border vertical-align font text-align">${pur.farmName }</td>
-                                <td colspan="2" class="center border font text-align delivery">${pur.deliveryCompany }  &nbsp;&nbsp;&nbsp;&nbsp;${pur.deliveryNo }</td>
-                            </tr>
-                            <tr class="white">
-                                <td colspan="1" class="data border font width">
-                                	<input type="button" disabled="true" class="white" style="border: none;" />
-                                	<input type="button" disabled="true" style="border: none; " class="background-1" />
-                                	${pur.productCount }&nbsp; 상자
-                                </td>
-                                <td colspan="2" class="center border font text-align delivery">${pur.dName }</td>
-                            </tr>
-                          
+								<tr>
+	                                <td colspan="4" class="data background">
+	                                	<input type="button" disabled="true" class="background" style="border: none;" />
+	                                	<input type="button" disabled="true" style="border: none; " class="background" />${pur.purchaseDate }</td>
+	                                <td colspan="2" class="center background font" id="orderNo-td">
+	                                	<input type="submit" id="orderNo" name="orderNo" class="text-align" value="${pur.orderNo }">
+	                                </td>
+	                            </tr>
+	                            <tr class="white">
+	                                <td colspan="1" class="data border width">
+	                                	<input type="button" disabled="true" class="white" style="border: none;" />
+	                                	<input type="button" disabled="true" style="border: none; " class="background-1" />
+	                                	${pur.productName }
+	                                </td>
+	                                <td rowspan="2" class="center border vertical-align font text-align">${pur.payAmount }원</td>
+	                                <td rowspan="2" class="center border vertical-align font text-align">${pur.farmName }</td>
+	                                <td colspan="2" class="center border font text-align delivery">${pur.deliveryCompany }  &nbsp;&nbsp;&nbsp;&nbsp;${pur.deliveryNo }</td>
+	                            </tr>
+	                            <tr class="white">
+	                            
+	                                <td colspan="1" class="data border width">
+	                                	<input type="button" disabled="true" class="white" style="border: none;" />
+	                                	<input type="button" disabled="true" style="border: none; " class="background-1" />
+	                                	${pur.productCount }&nbsp; 상자
+	                                </td>
+	                                <c:choose>
+	                                <c:when test="${String.valueOf(pur.refundYN) eq 'N'}">
+	                                <td colspan="2" class="center border font text-align delivery">
+		                                <span class="dName">${pur.dName }</span>
+	                                </td>
+		                            </c:when>
+		                            <c:otherwise>
+		                            <td colspan="2" class="center border font text-align delivery">
+		                               <span class="dName">환불완료</span>
+	                                </td>
+		                            </c:otherwise>
+		                            </c:choose>
+	                            </tr>
 							</table>
 						</form>
 					</c:forEach>
-					<div id="navi">${map.pageNavi }</div>
+					</c:when>
+					<c:otherwise>
+					<div id="infoEmptyBox">
+						주문 내역이 존재하지 않습니다.
 					</div>
+					</c:otherwise>
+					</c:choose>
+					</div>
+					<div id="navi">${map.pageNavi }</div>
 				</div>
 			</div>
 		</div>
 	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 </div>
 <script>
+//navi css
 	$('.naviArrow').hover(function(){
 		$(this).css('opacity','1');
 		},function(){
@@ -282,6 +311,15 @@
 			$('#prev').unbind('mouseenter mouseleave');
 		}
 	});
+	
+//최근 6개월 버튼 누를 시 	
+	function sixMonthInquery(){
+		
+		
+	}
+	
+	
+	
 </script>
 </body>
 </html>

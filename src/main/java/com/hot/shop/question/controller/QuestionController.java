@@ -185,7 +185,7 @@ public class QuestionController {
 				return mav;
 			}
 		}else if(farm != null) {
-			if(farm.getFarmNo()!=((QuestionUser)map.get("qUser")).getFarmNo()) {
+			if(farm.getFarmNo()!=((QuestionUser)map.get("qUser")).getFarmNo() && !(farm.getRating().equals("root")||farm.getRating().equals("admin"))) {
 				mav.setViewName("commons/error");
 				return mav;
 			}

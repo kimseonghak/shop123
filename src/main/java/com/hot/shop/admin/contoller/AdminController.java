@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.hot.shop.admin.model.service.AdminService;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.SellForm;
+import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -252,7 +253,30 @@ public class AdminController {
 		map.put("type", type);
 		map.put("keyword", keyword);
 		map = aService.refundList(currentPage,map);
+		mav.addObject("currentPage",currentPage);
+		mav.addObject("map",map);
 		mav.setViewName("admin/admin_refund");
+		return mav;
+	}
+	// refundYN Update 로직
+	@RequestMapping(value = "/admin/adminRefundUpdate.do", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean adminRefundUpdate(
+			@RequestParam int refundNo,
+			@RequestParam char adminYN) {
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		map.put("refundNo", refundNo);
+		map.put("adminYN", adminYN);
+		boolean result = aService.refundUpdate(map);
+		
+		return result;
+	}
+	@RequestMapping(value = "/admin/adminFarmInfoPage.do", method = RequestMethod.GET)
+	public ModelAndView farmInfoPage(ModelAndView mav,
+			@RequestParam int farmNo) {
+		Farm f = aService.farmInfo(farmNo);
+		mav.addObject("f",f);
+		mav.setViewName("/admin/admin_farm_info");
 		return mav;
 	}
 }

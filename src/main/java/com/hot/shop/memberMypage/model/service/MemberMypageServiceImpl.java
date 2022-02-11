@@ -1,4 +1,4 @@
-package com.hot.shop.mypage.model.service;
+package com.hot.shop.memberMypage.model.service;
 
 import java.util.HashMap;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hot.shop.member.model.vo.Member;
-import com.hot.shop.mypage.model.dao.MemberMypageDAO;
+import com.hot.shop.memberMypage.model.dao.MemberMypageDAO;
 
 @Service
 public class MemberMypageServiceImpl implements MemberMypageService {
