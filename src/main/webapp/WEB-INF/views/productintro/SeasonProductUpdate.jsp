@@ -186,44 +186,51 @@ select{
 			<div id="season_name">
 				제철 특산물 게시판 작성
 			</div>
+			<form action="/productintro/SeasonProductUpdate.do" method="post" id="textSubmit">
+			<input type="hidden" name="originalSeasonphotoNo" value="1">
+			<input type="hidden" name="SeasonProductPhotoNo" value="${seasonBoard.seasonProductPhotoNo }">
+			<input type="hidden" name="seasonProductNo" value="${seasonBoard.seasonProductNo }">
 			
 			<div id="season_Form">
 			
 				<div id="optionForm_01">카테고리 : </div>
 	
 					<div id="optionForm_1">
-						<select required>
-							<option value="" disabled selected>월 선택</option>
-							<option>1월</option>
-							<option>2월</option>
-							<option>3월</option>
-							<option>4월</option>
-							<option>5월</option>
-							<option>6월</option>
-							<option>7월</option>
-							<option>8월</option>
-							<option>9월</option>
-							<option>10월</option>
-							<option>11월</option>
-						</select>
+						<select required name="SeasonProductClassify">
+								<option value="" disabled selected>월 선택</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="3">3월</option>
+								<option value="4">4월</option>
+								<option value="5">5월</option>
+								<option value="6">6월</option>
+								<option value="7">7월</option>
+								<option value="8">8월</option>
+								<option value="9">9월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+							</select>
 						
 					</div>
 
 			</div><br>
 		
 		<div id="season_titleForm">
-			<input type="text" id="season_title" placeholder="제목을 입력하시오"/>
+			<input type="text" id="season_title" name="SeasonProductTitle"   value="${seasonBoard.seasonProductTitle }" placeholder="제목을 입력하시오"/>
 		</div><br>
 		<div id="season_contentForm">
-			<textarea id="season_content" placeholder="내용을 입력하시오"></textarea>
+			<textarea id="season_content" name="SeasonProductContent" placeholder="내용을 입력하시오">${seasonBoard.seasonProductContent }</textarea>
 		</div><br>
+		</form>
 		
 		<div id="img_Form">
-			<input type="file" id="file_submit"/>
+			<input type="file" id="file_submit" name="file"/>
+			<button id="img_Submit">업로드하기</button>
 		</div><br>
 		
 		<div id="write_Btn_form">
-				<button id="submit_btn">글 수정하기</button>
+				<input type="submit" value="글 수정" id="submit_btn">
 				<button id="list_btn">리스트</button>
 				<button id="reset_btn">다시 쓰기</button>
 		</div>
@@ -236,5 +243,40 @@ select{
 	</div>
 </div>
 
+
 </body>
+<!-- 이미지 처리 -->
+<!-- jQuery 라이브러리 -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	$('#img_Submit').click(function(){
+		var formData = new FormData();
+		var inputFile = $("input[name='file']");
+		var files = inputFile[0].files;
+		formData.append("file", files[0]);
+		
+		$.ajax({
+			url : "/local/SeasonPhotoAjax.do",
+			processData : false,
+		    contentType : false,
+		    data : formData,
+		    type : "POST",
+		    success:function(result){
+		    	if(result != null && result != 0){
+	                alert("파일이 업로드되었습니다.");
+	                $("input[name='SeasonProductPhotoNo']").val(result);
+	                console.log($("input[name='SeasonProductPhotoNo']").val());
+	            }else{
+	                alert("파일 업로드에 실패하였습니다.");
+	            }
+		    }
+		});
+	});
+	
+	
+	$("#submit_btn").click(function(){
+		$("#textSubmit").submit();
+	});
+</script>
 </html>

@@ -202,7 +202,7 @@ select{
 			<div id="local_Form">
 			
 			<form action="/local/localWrite.do" id="textWrite" method="post">
-			<input type="hidden" name="LocalProductPhotoNo" value="1">
+			<input type="hidden" name="LocalProductPhotoNo" value="27">
 						<div id="optionForm_01">카테고리 : </div>
 			
 							<div id="optionForm_1">

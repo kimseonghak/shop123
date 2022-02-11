@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
+<!-- 제이쿼리 -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
@@ -122,6 +125,19 @@
 	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 }
 
+
+#navi{
+	width: 64%;
+	height: 30px;
+	border: 1px solid red;
+	margin: 0 auto;
+}
+
+
+.imageFile{
+	border-radius: 15px / 15px;
+}
+
 </style>
 
 
@@ -131,7 +147,7 @@
 
 <div id="warpForm" align="center">
 	<div id="headerForm">
-	<c:import url="/WEB-INF/views/commons/header.jsp"/>
+	<!--<c:import url="/WEB-INF/views/commons/header.jsp"/>-->
 	</div>
 	
 	<div id="contentForm" align="left">
@@ -156,37 +172,79 @@
 		</div>
 		
 		<div id="listForm" align="center">
-
-			<div class="list_contentForm">
-				
-				<div class="list_imgForm">
-					<img>
-				</div>
-				
-				<div class="list_loaction_Form">
-					<span>[월]</span>
-				</div><br>
-				
-				<div class="list_titleForm">
-					<span>[ 글 제목 ]</span>
-				</div>
-					
-			</div>
-			
-			
-
-		</div><br>
-		
-		<div id="write_Btn_form">
-			<button id="submit_btn">글 쓰기</button>
+				<!-- for문 -->
+					<c:forEach items="${requestScope.list }" var="vo">
+					<div class="list_contentForm" onclick="location='/productintro/SeasonProductView.do?seasonProductNo=${vo.seasonProductNo}'" style="cursor: pointer;">
+						<div class="list_imgForm">
+							<img class="imageFile" alt="" src="${vo.seasonProductPhotoFilePath }" style="width: 100%" height="100%">
+						</div>
+						
+						<div class="list_loaction_Form">
+							<span>[	${vo.seasonProductClassify}  ]</span>
+						</div><br>
+						
+						<div class="list_titleForm">
+							<span>[ ${vo.seasonProductTitle} ]</span>
+						</div>
+					</div>
+					</c:forEach>
 		</div>
+
+					
+			
+				<!-- for문 -->
+			
+		<div id="navi" style="text-align: center;">
+			${requestScope.pageNavi }
+		</div><br>
+
+		<c:if test="${farm != null && (farm.rating eq 'root')}">
+			<form action="/productintro/SeasonProductWritePage.do" method="get">
+				<div id="write_Btn_form">
+					<input type="submit" value="글쓰기" id="submit_btn"/>
+				</div>
+			</form>
+		</c:if>
 		
 	</div><br>
 	
 	<div id="footerForm">
-	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
+		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
-</div>
 
 </body>
+
+<script type="text/javascript">
+$(".select_season").click(function () {
+	 var formTag = document.createElement("form");
+     formTag.setAttribute("action",'/productintro/SeasonProductSearchListPage.do');
+     formTag.setAttribute("method",'get');
+     
+     var inputTag = document.createElement("input");
+     inputTag.setAttribute("type","hidden");
+     inputTag.setAttribute("name","seasonProductClassify");
+     
+     var text = $(this).text();
+     
+     switch(text){
+     	case "1월" :  inputTag.setAttribute("value","1");break;
+     	case "2월" :  inputTag.setAttribute("value","2");break;
+     	case "3월" :  inputTag.setAttribute("value","3");break;
+     	case "4월" :  inputTag.setAttribute("value","4");break;
+     	case "5월" :  inputTag.setAttribute("value","5");break;
+     	case "6월" :  inputTag.setAttribute("value","6");break;
+     	case "7월" :  inputTag.setAttribute("value","7");break;
+     	case "8월" :  inputTag.setAttribute("value","8");break;
+     	case "9월" :  inputTag.setAttribute("value","9");break;
+     	case "10월" :  inputTag.setAttribute("value","10");break;
+     	case "11월" :  inputTag.setAttribute("value","11");break;
+     	case "12월" :  inputTag.setAttribute("value","12");break;
+     }
+     
+     formTag.appendChild(inputTag);//폼 테그안에 인풋 태그 넣고
+     document.body.appendChild(formTag);//폼 테그를 연결시켜준다
+     formTag.submit();
+});
+</script>
+
 </html>

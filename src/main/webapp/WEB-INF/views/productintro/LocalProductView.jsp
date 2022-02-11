@@ -78,7 +78,7 @@
 	height: 50px;
 }
 
-#reset_btn{
+#deleteBtn{
 	width: 100px;
 	height: 30px;
 	float: right;
@@ -130,6 +130,10 @@
 	<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
 	
+	<form action="/productintro/localProductUpdatePage.do" method="get">
+	
+	<input type="hidden" name="localProductNo" value="${localBoard.localProductNo }">
+	<input type="hidden" name="localProductPhotoFilePath" value="${localBoard.localProductPhotoFilePath }">
 	
 	<div id="contentForm" align="center"><br><br><br>
 		<div id="location-background">
@@ -146,17 +150,40 @@
 			</div><br>
 			
 			<div id="btnForm">			
-				<button id="list_btn">리스트</button>
-				<button id="reset_btn">다시 쓰기</button>
-				<button id="submit_btn">글 수정하기</button>
+				<input type="button" id="list_btn" value="리스트" onclick="location='/productintro/LocalProductListPage.do'">
+				<button type="button" id="deleteBtn">글 삭제</button>
+				<button id="submit_btn">글 수정</button>
 			</div>
 		</div>
 	</div><br>
+	</form>
 	
 	<div id="footerForm">
 	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
 </div>
+<!-- jQuery 라이브러리 -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+	$('#deleteBtn').click(function(){
+	    if(window.confirm('삭제할건가요?')){
+	        var formTag = document.createElement("form");
+	        formTag.setAttribute("action",'/productintro/localDelete.do');
+	        formTag.setAttribute("method",'post');
+	
+	        var inputTag = document.createElement("input");
+	        inputTag.setAttribute("type","hidden");
+	        inputTag.setAttribute("name","localProductNo");
+	        inputTag.setAttribute("value","${localBoard.localProductNo}");
+	
+	        formTag.appendChild(inputTag);//폼 테그안에 인풋 태그 넣고
+	        document.body.appendChild(formTag);//폼 테그를 연결시켜준다
+	        formTag.submit();
+	    }else{
+	        alert('삭제를 취소하셨습니다.');
+	    }
+	});
 
+</script>
 </body>
 </html>
