@@ -1,7 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 	<mapper namespace="spBoard">
+		<!-- 리스트 공간 -->
+			<!-- 리스트 -->
+			<select id="SeasonProductListPage" resultType="spBoard"  parameterType="spBoard">
+				select  SeasonProduct_NO as SeasonProductNo,
+				        SeasonProduct_TITLE as SeasonProductTitle,
+				        SeasonProduct_CONTENT as SeasonProductContent,
+				        SeasonProduct_REGDATE as SeasonProductRegDate,
+				        SeasonProduct.SeasonProductPHOTO_NO as SeasonProductPhotoNo,
+				        SeasonProduct.SeasonProduct_DEL_YN asSeasonProductDelYN,
+				        SeasonProduct.SeasonProduct_CLASSIFY as SeasonProductClassify,
+				        SeasonProductPHOTO.SeasonProductPHOTO_FILEPATH as SeasonProductPhotoFilePath
+				from    SeasonProduct left join SeasonProductPHOTO on (SeasonProduct.SeasonProductPhoto_no=SeasonProductPHOTO.SeasonProductPhoto_no)
+				where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+			</select>
+			
+			<!-- 총 글 수 -->
+			<select id="SeasonProductTotalCount" resultType="integer">
+				SELECT COUNT(*)
+				FROM SeasonProduct
+				where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+			</select>
+		<!-- 리스트 공간 끝-->
 		
+		
+		<!-- 글 쓰기 공간 -->
+			<!-- 글 쓰기 -->
+			<insert id="SeasonWrite" parameterType="spBoard">
+			insert into		SEASONPRODUCT
+			values			(SEASONPRODUCT_SEQ.nextval,
+							#{seasonProductTitle},
+							#{seasonProductContent},
+							sysdate,
+							#{seasonProductPhotoNo},
+							'N',
+							#{seasonProductClassify})
+			</insert>
+		
+			<!-- 이미지 처리 -->
+			<insert id="SeasonPhotoAjax" parameterType="spBoard">
+				<selectKey keyProperty="SeasonProductPhotoNo" resultType="integer" order="AFTER">
+						select		SeasonproductPhoto_no
+						from		SeasonPRODUCTPHOTO
+						where		SeasonProductPhoto_UpdateTime=#{SeasonProductPhotoUpdateTime}
+				</selectKey>
+				insert into		SeasonPRODUCTPHOTO
+				values			(SeasonPRODUCTPHOTO_SEQ.nextval,
+								#{SeasonProductPhotoOriginal},
+								#{SeasonProductPhotoChange},
+								#{SeasonProductPhotoFilePath},
+								#{SeasonProductPhotoFileSize},
+								#{SeasonProductPhotoUpdateTime},
+								'N')
+			</insert>
+		<!-- 글 쓰기 공간 끝 -->
+		
+		<!-- 글 조회 -->
+		<select id="SeasonProductView" parameterType="integer" resultType="spBoard">
+				select  SeasonProduct_NO as SeasonProductNo,
+				        SeasonProduct_TITLE as SeasonProductTitle,
+				        SeasonProduct_CONTENT as SeasonProductContent,
+				        SeasonProduct_REGDATE as SeasonProductRegDate,
+				        SeasonProduct.SeasonProductPHOTO_NO as SeasonProductPhotoNo,
+				        SeasonProduct.SeasonProduct_DEL_YN asSeasonProductDelYN,
+				        SeasonProduct.SeasonProduct_CLASSIFY as SeasonProductClassify,
+				        SeasonProductPHOTO.SeasonProductPHOTO_FILEPATH as SeasonProductPhotoFilePath
+				from    SeasonProduct left join SeasonProductPHOTO on (SeasonProduct.SeasonProductPhoto_no=SeasonProductPHOTO.SeasonProductPhoto_no)
+				where 	SeasonProduct_NO=#{_parameter}
+		</select>
+		<!-- 글 조회 끝 -->
+		
+		<!-- 글 수정단 공간-->
+
+			<!-- 사진 수정시 기존 사진 삭제 로직 -->
+				<select id="deleteFileCheck" parameterType="integer" resultType="spPhoto">
+				select		SEASONPRODUCTPHOTO_FILEPATH as seasonProductPhotoFilePath
+				from 		SeasonPRODUCTPHOTO
+				where		SEASONPRODUCTPHOTO_NO = #{_parameter}
+				</select>
+	
+				<update id="deleteFileUpdate" parameterType="integer">
+				update SeasonPRODUCTPHOTO set SEASONPRODUCT_DEL_YN='Y' where SEASONPRODUCTPHOTO_NO = #{_parameter}
+				</update>
+			
+			<!-- 글 수정 -->
+				<update id="updatePhoto" parameterType="integer">
+					update SeasonPRODUCTPHOTO set SEASONPRODUCT_DEL_YN='Y' where SEASONPRODUCTPHOTO_NO = #{_parameter}
+				</update>
+				
+				<update id="SeasonProductUpdate" parameterType="spBoard">
+					update		SEASONPRODUCT
+					set			SEASONPRODUCT_TITLE = #{SeasonProductTitle},
+								SEASONPRODUCT_CONTENT = #{SeasonProductContent},
+								SEASONPRODUCT_CLASSIFY = #{SeasonProductClassify},
+								SEASONPRODUCT.SeasonProductPHOTO_NO =#{SeasonProductPhotoNo}
+					where		SeasonProduct_NO=#{seasonProductNo}
+				</update>
+		<!-- 글 수정단 공간 끝-->
+		
+		
+		 <!-- 버튼 클릭시 나오는 제철특산물 리스트 -->
+		 <select id="SeasonProductListSearchPage" parameterType="string" resultType="spBoard">
+		 		select  SeasonProduct_NO as SeasonProductNo,
+				        SeasonProduct_TITLE as SeasonProductTitle,
+				        SeasonProduct_CONTENT as SeasonProductContent,
+				        SeasonProduct_REGDATE as SeasonProductRegDate,
+				        SeasonProduct.SeasonProductPHOTO_NO as SeasonProductPhotoNo,
+				        SeasonProduct.SeasonProduct_DEL_YN asSeasonProductDelYN,
+				        SeasonProduct.SeasonProduct_CLASSIFY as SeasonProductClassify,
+				        SeasonProductPHOTO.SeasonProductPHOTO_FILEPATH as SeasonProductPhotoFilePath
+				from    SeasonProduct left join SeasonProductPHOTO on (SeasonProduct.SeasonProductPhoto_no=SeasonProductPHOTO.SeasonProductPhoto_no)
+				where 	SeasonProduct.SeasonProduct_DEL_YN = 'N' and SeasonPRODUCTPHOTO.SeasonProduct_DEL_YN = 'N'
+				<if test="!_parameter.length() ==  0">
+					and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'
+				</if>
+		 </select>
+		 
+		  <select id="SeasonProductListToTalSearchCount" parameterType="string" resultType="integer">
+		 	SELECT 		COUNT(*)
+			FROM 		SEASONPRODUCT
+			where 		SeasonProduct.SeasonProduct_DEL_YN = 'N' and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'
+		 </select>
+		 <!-- 버튼 클릭시 나오는 제철특산물 리스트  끝-->
+		 
+		 
+		 <update id="seasonDelete" parameterType="integer">
+		 update		SEASONPRODUCT
+		 set		SeasonProduct_DEL_YN = 'Y'
+		 where		SeasonProduct_NO = #{seasonProductNo}
+		 </update>
 	</mapper>
 
 

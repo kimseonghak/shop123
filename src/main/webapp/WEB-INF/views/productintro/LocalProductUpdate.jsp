@@ -189,54 +189,93 @@ select{
 				<span>지역 특산물 작성</span>
 			</div>
 			
-			<div id="local_Form">
-			
-				<div id="optionForm_01">카테고리 : </div>
-	
-					<div id="optionForm_1">
-						<select required>
-							<option value="" disabled selected>지역 선택</option>
-							<option>전체</option>
-							<option>서울</option>
-							<option>경기도</option>
-							<option>강원도</option>
-							<option>충청북도</option>
-							<option>충청남도</option>
-							<option>경상북도</option>
-							<option>경상남도</option>
-							<option>전라북도</option>
-							<option>전라남도</option>
-							<option>제주도</option>
-						</select>
-						
-					</div>
-
-			</div><br>
+			<form action="/productintro/localProductUpdate.do" method="get" id="textUpdate">
+				<div id="local_Form">
+				
+				<input type="hidden" name="originalLocalphotoNo" value="27">
+				<input type="hidden" name="LocalProductPhotoNo" value="${localBoard.localProductPhotoNo }">
+				<input type="hidden" name="localProductNo" value="${localBoard.localProductNo }">
+				
+					<div id="optionForm_01">카테고리 : </div>
 		
-		<div id="local_titleForm">
-			<input type="text" id="local_title" placeholder="제목을 입력하시오"/>
-		</div><br>
-		<div id="local_contentForm">
-			<textarea id="local_content" placeholder="내용을 입력하시오"></textarea>
-		</div><br>
+						<div id="optionForm_1">
+							<select required name="LocalProductClassify">
+								<option value="" disabled selected>지역 선택</option>
+								<option value="SEOUL">서울</option>
+								<option value="GYEONGGI">경기도</option>
+								<option value="GANGWWON">강원도</option>
+								<option value="CHUNGBUK">충청북도</option>
+								<option value="CHUNGNAM">충청남도</option>
+								<option value="GYEONGBUK">경상북도</option>
+								<option value="GYEONGNAM">경상남도</option>
+								<option value="JEONBUK">전라북도</option>
+								<option value="JEONNAM">전라남도</option>
+								<option value="JEJU">제주도</option>
+							</select>
+							
+						</div>
+	
+				</div><br>
+			
+				<div id="local_titleForm">
+					<input type="text" id="local_title" name="LocalProductTitle" value="${localBoard.localProductTitle }" placeholder="제목을 입력하시오"/>
+				</div><br>
+				<div id="local_contentForm">
+					<textarea id="local_content" name="LocalProductContent" placeholder="내용을 입력하시오">${localBoard.localProductContent }</textarea>
+				</div><br>
+			</form>
 		
 		<div id="img_Form">
-			<input type="file" id="file_submit"/>
+			<input type="file" id="file_submit" name="file"/>
+			<button id="img_Submit">업로드하기</button>
 		</div><br>
 		
 		<div id="write_Btn_form">
 				<button id="list_btn">리스트</button>
 				<button id="reset_btn">다시 쓰기</button>
-				<button id="submit_btn">글 수정</button>
+				<input type="submit" value="글 수정" id="submit_btn">
 		</div>
 	</div><br>
 	
 	</div>
 	
 	<div id="footerForm">
-	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
+		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
 </div>
 
 </body>
+
+<!-- jQuery 라이브러리 -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$('#img_Submit').click(function(){
+		var formData = new FormData();
+		var inputFile = $("input[name='file']");
+		var files = inputFile[0].files;
+		formData.append("file", files[0]);
+		
+		$.ajax({
+			url : "/local/localPhotoAjax.do",
+			processData : false,
+		    contentType : false,
+		    data : formData,
+		    type : "POST",
+		    success:function(result){
+		    	if(result != null && result != 0){
+	                alert("파일이 업로드되었습니다.");
+	                $("input[name='LocalProductPhotoNo']").val(result);
+	                console.log($("input[name='LocalProductPhotoNo']").val());
+	            }else{
+	                alert("파일 업로드에 실패하였습니다.");
+	            }
+		    }
+		});
+	});
+	
+	
+	$("#submit_btn").click(function(){
+		$("#textUpdate").submit();
+	});
+</script>
 </html>
