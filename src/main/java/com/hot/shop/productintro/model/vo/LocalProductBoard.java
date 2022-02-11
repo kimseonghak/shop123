@@ -11,15 +11,16 @@ public class LocalProductBoard {
 	private char LocalProductDelYN;
 	private String LocalProductClassify;
 	private String LocalProductPhotoFilePath;//사진 경로
+	private int originalLocalphotoNo;
 	
 	public LocalProductBoard() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public LocalProductBoard(int localProductNo, String localProductTitle, String localProductContent,
 			Timestamp localProductRegDate, int localProductPhotoNo, char localProductDelYN, String localProductClassify,
-			String localProductPhotoFilePath) {
+			String localProductPhotoFilePath, int originalLocalphotoNo) {
 		super();
 		LocalProductNo = localProductNo;
 		LocalProductTitle = localProductTitle;
@@ -29,7 +30,9 @@ public class LocalProductBoard {
 		LocalProductDelYN = localProductDelYN;
 		LocalProductClassify = localProductClassify;
 		LocalProductPhotoFilePath = localProductPhotoFilePath;
+		this.originalLocalphotoNo = originalLocalphotoNo;
 	}
+
 	
 	public int getLocalProductNo() {
 		return LocalProductNo;
@@ -80,14 +83,22 @@ public class LocalProductBoard {
 		LocalProductPhotoFilePath = localProductPhotoFilePath;
 	}
 
+	public int getOriginalLocalphotoNo() {
+		return originalLocalphotoNo;
+	}
+	
+	public void setOriginalLocalphotoNo(int originalLocalphotoNo) {
+		this.originalLocalphotoNo = originalLocalphotoNo;
+	}
 	@Override
 	public String toString() {
 		return "LocalProductBoard [LocalProductNo=" + LocalProductNo + ", LocalProductTitle=" + LocalProductTitle
 				+ ", LocalProductContent=" + LocalProductContent + ", LocalProductRegDate=" + LocalProductRegDate
 				+ ", LocalProductPhotoNo=" + LocalProductPhotoNo + ", LocalProductDelYN=" + LocalProductDelYN
 				+ ", LocalProductClassify=" + LocalProductClassify + ", LocalProductPhotoFilePath="
-				+ LocalProductPhotoFilePath + "]";
+				+ LocalProductPhotoFilePath + ", originalLocalphotoNo=" + originalLocalphotoNo + "]";
 	}
+
 
 	
 	

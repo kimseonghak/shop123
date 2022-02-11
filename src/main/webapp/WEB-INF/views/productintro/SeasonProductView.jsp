@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -79,7 +82,7 @@
 	height: 50px;
 }
 
-#reset_btn{
+#deleteBtn{
 	width: 100px;
 	height: 30px;
 	float: right;
@@ -131,51 +134,62 @@
 	<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
 	
-	<div id="contentForm" align="center"><br><br><br>
-		<div id="location-background">
-			<div id="location_titleForm">
-				<span>글 제목</span>
-			</div>
-		
-			<div id="location_imgForm">
-			</div><br>
+	<form action="/productintro/SeasonProductUpdatePage.do" method="get">
+	<input type="hidden" name="seasonProductNo" value="${seasonBoard.seasonProductNo }">
+	<input type="hidden" name="seasonProductPhotoFilePath" value="${seasonBoard.seasonProductPhotoFilePath }">
+	
+		<div id="contentForm" align="center"><br><br><br>
+			<div id="location-background">
+				<div id="location_titleForm">
+					<span>${seasonBoard.seasonProductTitle }</span>
+				</div>
 			
-			<div id="location_contentForm">
-			재료:돈까스용 돼지고기(등심),밀가루,빵가루,계란,식용유,허브솔트
-			저는 돼지고기를 2근을 사서 만들었어요.
-			미리 만들어 두었다가 소분해서 냉동실에 보관하시면 좀더 오래 두고 드실수 있어요.<br>
-			재료:돈까스용 돼지고기(등심),밀가루,빵가루,계란,식용유,허브솔트
-			저는 돼지고기를 2근을 사서 만들었어요.
-			미리 만들어 두었다가 소분해서 냉동실에 보관하시면 좀더 오래 두고 드실수 있어요.<br>
-			재료:돈까스용 돼지고기(등심),밀가루,빵가루,계란,식용유,허브솔트
-			저는 돼지고기를 2근을 사서 만들었어요.
-			미리 만들어 두었다가 소분해서 냉동실에 보관하시면 좀더 오래 두고 드실수 있어요.<br>
-			재료:돈까스용 돼지고기(등심),밀가루,빵가루,계란,식용유,허브솔트
-			저는 돼지고기를 2근을 사서 만들었어요.
-			미리 만들어 두었다가 소분해서 냉동실에 보관하시면 좀더 오래 두고 드실수 있어요.<br>
-			재료:돈까스용 돼지고기(등심),밀가루,빵가루,계란,식용유,허브솔트
-			저는 돼지고기를 2근을 사서 만들었어요.
-			미리 만들어 두었다가 소분해서 냉동실에 보관하시면 좀더 오래 두고 드실수 있어요.<br>
-			재료:돈까스용 돼지고기(등심),밀가루,빵가루,계란,식용유,허브솔트
-			저는 돼지고기를 2근을 사서 만들었어요.
-			미리 만들어 두었다가 소분해서 냉동실에 보관하시면 좀더 오래 두고 드실수 있어요.<br>
-			재료:돈까스용 돼지고기(등심),밀가루,빵가루,계란,식용유,허브솔트
-			저는 돼지고기를 2근을 사서 만들었어요.
-			미리 만들어 두었다가 소분해서 냉동실에 보관하시면 좀더 오래 두고 드실수 있어요.<br>
-			</div><br>
-			
-			<div id="btnForm">			
-				<button id="list_btn">리스트</button>
-				<button id="reset_btn">다시 쓰기</button>
-				<button id="submit_btn">글 수정하기</button>
+				<div id="location_imgForm">
+					<img alt="" src="${seasonBoard.seasonProductPhotoFilePath }" style="width: 100%; height: 100%;">
+				</div><br>
+				
+				<div id="location_contentForm">
+					${seasonBoard.seasonProductContent }
+				</div><br>
+				
+				<div id="btnForm">
+							
+	
+					<button type="button" id="deleteBtn">글 삭제</button>
+					<button id="submit_btn">글 수정</button>
+					<button id="list_btn" onclick="location='/productintro/SeasonProductListPage.do'">리스트</button>
+				</div>
 			</div>
-		</div>
-	</div><br>
+		</div><br>
+	</form>
 	
 	<div id="footerForm">
 	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
 </div>
 
+<!-- jQuery 라이브러리 -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+	$('#deleteBtn').click(function(){
+	    if(window.confirm('삭제할건가요?')){
+	        var formTag = document.createElement("form");
+	        formTag.setAttribute("action",'/productintro/seasonDelete.do');
+	        formTag.setAttribute("method",'post');
+	
+	        var inputTag = document.createElement("input");
+	        inputTag.setAttribute("type","hidden");
+	        inputTag.setAttribute("name","seasonProductNo");
+	        inputTag.setAttribute("value","${seasonBoard.seasonProductNo}");
+	
+	        formTag.appendChild(inputTag);//폼 테그안에 인풋 태그 넣고
+	        document.body.appendChild(formTag);//폼 테그를 연결시켜준다
+	        formTag.submit();
+	    }else{
+	        alert('삭제를 취소하셨습니다.');
+	    }
+	});
+
+</script>
 </body>
 </html>
