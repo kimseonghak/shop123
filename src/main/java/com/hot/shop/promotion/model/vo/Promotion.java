@@ -15,9 +15,8 @@ public class Promotion {
 	private char advertiseYN;
 	private String farmName; //농가 이름 표시를 위해
 	private String promotionFilePath; //리스트에서 뿌려주기 위해
-	
-	//farmName 추가해야 함
-	
+	private String promotionPhotoOriginal; //수정시 파일명을 보여주기 위해
+
 	public Promotion() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -25,7 +24,7 @@ public class Promotion {
 
 	public Promotion(int promotionNo, String promotionTitle, String promotionContent, Date promotionRegdate, int farmNo,
 			String promotionCount, char promotionEndYN, int promotionPhotoNo, char advertiseYN, String farmName,
-			String promotionFilePath) {
+			String promotionFilePath, String promotionPhotoOriginal) {
 		super();
 		this.promotionNo = promotionNo;
 		this.promotionTitle = promotionTitle;
@@ -38,6 +37,7 @@ public class Promotion {
 		this.advertiseYN = advertiseYN;
 		this.farmName = farmName;
 		this.promotionFilePath = promotionFilePath;
+		this.promotionPhotoOriginal = promotionPhotoOriginal;
 	}
 
 	public int getPromotionNo() {
@@ -128,13 +128,21 @@ public class Promotion {
 		this.promotionFilePath = promotionFilePath;
 	}
 
+	public String getPromotionPhotoOriginal() {
+		return promotionPhotoOriginal;
+	}
+
+	public void setPromotionPhotoOriginal(String promotionPhotoOriginal) {
+		this.promotionPhotoOriginal = promotionPhotoOriginal;
+	}
+
 	@Override
 	public String toString() {
 		return "Promotion [promotionNo=" + promotionNo + ", promotionTitle=" + promotionTitle + ", promotionContent="
 				+ promotionContent + ", promotionRegdate=" + promotionRegdate + ", farmNo=" + farmNo
 				+ ", promotionCount=" + promotionCount + ", promotionEndYN=" + promotionEndYN + ", promotionPhotoNo="
 				+ promotionPhotoNo + ", advertiseYN=" + advertiseYN + ", farmName=" + farmName + ", promotionFilePath="
-				+ promotionFilePath + "]";
+				+ promotionFilePath + ", promotionPhotoOriginal=" + promotionPhotoOriginal + "]";
 	}
 
 }

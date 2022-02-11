@@ -70,7 +70,7 @@ body {
 }
 
 .page_name{
-	width: 25%;
+	width: 40%;
 	height: 60px;
 	text-align: center;
 	padding: 50px 20px 0px;
@@ -81,7 +81,7 @@ body {
 
 .insert_zone{
 	width: 80%;
-	min-height: 900px;
+	min-height: 700px;
 }
 
 .empty{
@@ -89,30 +89,7 @@ body {
 	height: 30px;
 }
 
-.optiontitle{
-	min-width: 100px;
-	height: 30px;
-	color: #3BBD5A;
-	font : normal bold 20px "Nanum Gothic",sans-serif;
-	margin: 10px;
-	text-align: left;
-}
 
-.option_form{
-	width: 100%;
-	height: 50px;
-}
-
-.option{
-	min-width: 100px;
-	height: 30px;
-	border: none;
-	text-align: left;
-	font : normal bold 20px "Nanum Gothic",sans-serif;
-	float: left;
-	margin-left: 30px;
-	outline: none;
-}
 
 .title{
 	width: 100%;
@@ -142,10 +119,17 @@ body {
 	outline: none;
 }
 
+.imgCheck{
+	width: 100%;
+	height: 30px;
+	text-align: left;
+}
+
 .imgForm{
 	width: 100%;
 	height: 30px;
 	text-align: left;
+	font : normal 20px "Nanum Gothic",sans-serif;
 }
 
 .btnform{
@@ -154,6 +138,18 @@ body {
 	padding: 10px;
 	margin-top: 40px;
 	text-align: center;
+}
+
+#img_Submit{
+	float: right;
+	width: 100px;
+	height: 30px;
+	background-color: #3BBD5A;
+	font : normal bold 17.5px "고딕체";
+	color: #ffffff;
+	border-radius: 15px;
+	border : none;
+	cursor : pointer;
 }
 
 .listbtn{
@@ -207,7 +203,7 @@ body {
 			
 			<%-- 제목 공간 --%>
 			<div class="page_name">
-				<span>제목 입력</span>
+				<span>홍보게시판 수정하기</span>
 			</div>
 			
 			<%-- 빈 공간 --%>		
@@ -215,45 +211,37 @@ body {
 			
 			<%-- 입력 폼 --%>
 			<div class="insert_zone">
-			<form action="">
+			<form action="/promotion/promotionUpdate.do" method="post" id="textWrite">
 				
-				<%-- 옵션 1 --%>
-				<div class="optiontitle">옵션 내용 입력</div>
-					<div class="option_form">
-						<select class="option">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-						</select>
-					</div>
-					
-				<%-- 옵션 2 --%>
-				<div class="optiontitle">옵션 내용 입력</div>
-					<div class="option_form">
-						<select class="option">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-						</select>
-					</div>
-				
-				<%-- 빈 공간 --%>		
-				<div class="empty"></div>	
+				<%-- 데이터를 보내주기 위한 Hidden --%>
 						
 				<%-- 글 제목 입력 --%>
-				<input type="text" class="title" placeholder="제목을 입력하시오"/>
+				<input type="text" class="title" placeholder="제목을 입력하시오" value="${map.promotion.promotionTitle }"/>
 				
-				<%-- 글 제목 입력 --%>
+				<%-- 글 내용 입력 --%>
 				<div class="contextForm">
-					<textarea class="content" placeholder="내용을 입력하시오"></textarea>
+					<textarea class="content" placeholder="내용을 입력하시오">${map.promotion.promotionContent }</textarea>
 				</div>
-				
+			
+			</form>
+			
 				<%-- 빈 공간 --%>		
 				<div class="empty"></div>
+				
+				<%-- 첨부파일 유무 확인 영역 --%>		
+				<div class="imgCheck">
+				<c:if test="${map.promotion.promotionPhotoNo==1 }">
+					<p> 현재 첨부파일이 없습니다 </p>
+				</c:if>
+				<c:if test="${map.promotion.promotionPhotoNo!=1 }">
+					<p> 현재 첨부파일 : ${map.promotion.promotionPhotoOriginal }</p>
+				</c:if>
+				</div>
 				
 				<%-- 첨부파일 --%>
 				<div class="imgForm">
 					<input type="file" id="file_submit"/>
+					<button id="img_Submit">업로드하기</button>
 				</div>
 				
 				<%-- 빈 공간 --%>		
@@ -265,8 +253,6 @@ body {
 					<button type="reset" class="resetbtn">다시 쓰기</button>
 					<button type="submit" class="submitbtn">글 작성하기</button>
 				</div>
-				
-			</form>
 			
 			</div>
 		</div>
@@ -277,6 +263,18 @@ body {
 	</div>	
 
 </div>
+
+<script>
+<%-- 글쓰기 버튼 --%>
+	$('.submitbtn').click(function(){
+		$("#textWrite").submit();
+	});
+
+<%-- 리스트 돌아가기 버튼 --%>
+	$('.listBtn').click(function(){
+		location.replace("/promotion/promotionListPage.do.do");
+	});
+</script>
 
 </body>
 </html>

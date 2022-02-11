@@ -62,6 +62,7 @@ public class PromotionController {
 			mav.addObject("map",returnMap);
 			mav.addObject("currentPage",currentPage);
 			mav.setViewName("promotion/PromotionList");
+			
 			return mav;
 		}
 		
@@ -161,9 +162,7 @@ public class PromotionController {
 					ModelAndView mav)
 	{
 		HashMap<String, Object> map = pService.promotionView(promotionNo);
-		
-		System.out.println(map);
-		
+
 		mav.addObject("currentPage",currentPage);
 		mav.addObject("type",type);
 		mav.addObject("keyword",keyword);
@@ -171,4 +170,15 @@ public class PromotionController {
 		mav.setViewName("promotion/PromotionView");
 		return mav;
 	}
+	
+	//홍보 게시판 수정 페이지로 이동
+	@RequestMapping(value="/promotion/promotionUpdatePage.do", method = RequestMethod.GET)
+	public ModelAndView PromotionUpdatePage(ModelAndView mav, @RequestParam int promotionNo) {
+		
+		HashMap<String, Object> map = pService.promotionView(promotionNo);
+		mav.addObject("map",map);
+		mav.setViewName("promotion/PromotionUpdate");
+		return mav;
+	}
+	
 }

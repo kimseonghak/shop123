@@ -15,8 +15,9 @@
 				PROMOTION_END_YN as PromotionEnd,
 				PROMOTIONPHOTO_NO as PromotionPhotoNo,
 				ADVERTISE_YN as Advertise,
-				PROMOTIONPHOTO_FILEPATH as PromotionFilePath
-			from (select row_number() over(order by PROMOTION_NO desc)as num, PROMOTION.* ,FARM_NAME, PROMOTIONPHOTO_FILEPATH
+				PROMOTIONPHOTO_FILEPATH as PromotionFilePath,
+				PROMOTIONPHOTO_ORIGINAL as promotionPhotoOriginal
+			from (select row_number() over(order by PROMOTION_NO desc)as num, PROMOTION.* ,FARM_NAME, PROMOTIONPHOTO_FILEPATH, PROMOTIONPHOTO_ORIGINAL 
 				from PROMOTION 
 				left join FARM on (PROMOTION.FARM_NO=FARM.FARM_NO)
 				left Join PROMOTIONPHOTO on (PROMOTION.PROMOTIONPHOTO_NO=PROMOTIONPHOTO.PROMOTIONPHOTO_NO) 
@@ -107,7 +108,8 @@
 					PROMOTION.PROMOTIONPHOTO_NO as PromotionPhotoNo,
 					ADVERTISE_YN as Advertise,
 	                FARM.FARM_NAME as FarmName,
-	                PROMOTIONPHOTO_FILEPATH as PromotionFilePath
+	                PROMOTIONPHOTO_FILEPATH as PromotionFilePath,
+	                PROMOTIONPHOTO.PROMOTIONPHOTO_ORIGINAL as promotionPhotoOriginal
 			from PROMOTION 
 			left join FARM on (PROMOTION.FARM_NO=FARM.FARM_NO)
 			left join PROMOTIONPHOTO on (PROMOTION.PROMOTIONPHOTO_NO = PROMOTIONPHOTO.PROMOTIONPHOTO_NO)

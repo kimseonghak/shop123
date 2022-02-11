@@ -89,11 +89,11 @@ public class PromotionDAO {
 		return result1+result2;
 	}
 
+	//글 조회
 	public HashMap<String, Object> promotionView(int promotionNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("promotion", sqlSession.selectOne("promotion.promotionView",promotionNo));
-		map.put("promotion", sqlSession.update("promotion.promotionViewCount",promotionNo));
-		System.out.println(promotionNo);
+		map.put("promotionViewCountResult", sqlSession.update("promotion.promotionViewCount",promotionNo));
 		return map;
 	}
 
