@@ -460,6 +460,7 @@ public class FarmENTContoller {
 		return "farm/farmWithdrawPage";
 	}
 	
+	//사업자 정보수정 페이지 이동
 	@RequestMapping(value="farm/farmMypageModifyPage.do",method = RequestMethod.GET)
 	public String farmMypageModifyPage()
 	{

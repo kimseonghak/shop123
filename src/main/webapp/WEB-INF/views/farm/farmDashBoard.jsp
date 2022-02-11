@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>사업자 페이지</title>
 
 <!--부트스트랩-->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -50,29 +50,26 @@
                       <table>
                           <c:choose>
                          	<c:when test="${!noticeList.isEmpty()}">
-                           <tr>
-                                <th><img src="/resources/farm/image/고정핀.png" class="pinImage"/></th>
+                           <tr class="trTag">
                                 <th><span class="boardTitle">공지사항</span></th>
                                 <th><span class="plusBoard"><a href="/farm/farmNoticePage.do" >+ 더보기</a></span></th>
                            </tr>
                          <tbody>
                          		<c:forEach items="${requestScope.noticeList}" var="n" varStatus="i">
 		                           <tr>
-		                                <td class="boardSubject" colspan="2"><span class="noticeTitle" noticeContent="${n.getNoticeContent()}">${n.getNoticeTitle()}</span></td>
-		                                <td></td>
+		                                <td class="boardSubject"><span class="noticeTitle" noticeContent="${n.getNoticeContent()}">${n.getNoticeTitle()}</span></td>
 		                                <td class="writeDate">${n.getNoticeRegdate()}</td>
 		                           </tr>
 		                         </c:forEach>  
 	                          </c:when>
 	                          <c:otherwise>
-	                          		<tr>
-	                                	<th><img src="/resources/farm/image/고정핀.png" class="pinImageEmpty"/></th>
+	                          		<tr class="trTag">
 	                                	<th><span class="boardTitleEmpty">공지사항</span></th>
 	                                	<th><span class="plusBoardEmpty"><a href="/farm/farmNoticePage.do">+ 더보기</a></span></th>
                           		 	</tr>
                           		 <tbody>
 	                         	        <tr>
-		                            	    <td class="boardSubject" colspan="3" rowspan="1"><span class="writeEmpty">등록된 공지가 없습니다.</span></td>
+		                            	    <td class="boardSubject" colspan="2" rowspan="1"><span class="writeEmpty">등록된 공지가 없습니다.</span></td>
 		                         	   </tr>
 	                          </c:otherwise>
                            </c:choose>
@@ -85,29 +82,26 @@
                   <table>
                   <c:choose>
                     <c:when test="${!qnaList.isEmpty()}">
-                           <tr>
-                                <th><img src="/resources/farm/image/고정핀.png" class="pinImage"/></th>
+                           <tr class="trTag">
                                 <th><span class="boardTitle">문의사항</span></th>
                                 <th><span class="plusBoard"><a href="/farm/farmQnaPage.do">+ 더보기</a></span></th>
                            </tr>
                          <tbody>
                          		<c:forEach items="${requestScope.qnaList}" var="q" varStatus="i">
 		                        	   <tr>
-		                            	    <td class="boardSubject" colspan="2"><span class="qnaTitle" qnaBoardNo=${q.getQuestionNo()}>${q.getQuestionTitle()}</span></td>
-		                                	<td></td>
+		                            	    <td class="boardSubject"><span class="qnaTitle" qnaBoardNo=${q.getQuestionNo()}>${q.getQuestionTitle()}</span></td>
 		                                	<td class="writeDate">${q.getQuestionRegdate()}</td>
 		                         	   </tr>
 		                         </c:forEach> 
 	                      </c:when>
 	                      <c:otherwise>
-	                         	<tr>
-	                                <th><img src="/resources/farm/image/고정핀.png" class="pinImageEmpty"/></th>
-	                                <th><span class="boardTitleEmpty">문의사항</span></th>
+	                         	<tr class="trTag">
+	                                <th ><span class="boardTitleEmpty">문의사항</span></th>
 	                                <th><span class="plusBoardEmpty"><a href="/farm/farmQnaPage.do">+ 더보기</a></span></th>
                           		 </tr>
                           		 <tbody>
 	                         	        <tr>
-		                            	    <td class="boardSubject" colspan="3" rowspan="1"><span class="writeEmpty">등록된 문의가 없습니다.</span></td>
+		                            	    <td class="boardSubject" colspan="2" rowspan="1"><span class="writeEmpty">등록된 문의가 없습니다.</span></td>
 		                         	   </tr>
 	                       </c:otherwise>  
 						</c:choose>
@@ -120,29 +114,26 @@
                  <table>
                   <c:choose>
                     <c:when test="${!refundList.isEmpty()}">
-                           <tr>
-                                <th><img src="/resources/farm/image/고정핀.png" class="pinImage"/></th>
+                           <tr class="trTag">
                                 <th><span class="boardTitle">환불접수</span></th>
                                 <th><span class="plusBoard"><a href="/farm/farmQnaPage.do">+ 더보기</a></span></th>
                            </tr>
                          <tbody>
                          		<c:forEach items="${requestScope.refundList}" var="r" varStatus="i">
 		                        	   <tr>
-		                            	    <td class="boardSubject" colspan="2"><span class="refundTitle" refundBoardNo=${r.getQuestionUserNo()}>${r.getQuestionUserTitle()}</span></td>
-		                                	<td></td>
+		                            	    <td class="boardSubject"><span class="refundTitle" refundBoardNo=${r.getQuestionUserNo()}>${r.getQuestionUserTitle()}</span></td>
 		                                	<td class="writeDate">${r.getQuestionUserRegdate()}</td>
 		                         	   </tr>
 		                         </c:forEach> 
 	                      </c:when>
 	                      <c:otherwise>
-	                         	<tr>
-	                                <th><img src="/resources/farm/image/고정핀.png" class="pinImageEmpty"/></th>
+	                         	<tr class="trTag">
 	                                <th><span class="boardTitleEmpty">환불접수</span></th>
 	                                <th><span class="plusBoardEmpty"><a href="/farm/farmRefundList.do">+ 더보기</a></span></th>
                           		 </tr>
                           		 <tbody>
 	                         	        <tr>
-		                            	    <td class="boardSubject" colspan="3" rowspan="1"><span class="writeEmpty">접수된 환불이 없습니다.</span></td>
+		                            	    <td class="boardSubject" colspan="2" rowspan="1"><span class="writeEmpty">접수된 환불이 없습니다.</span></td>
 		                         	   </tr>
 	                       </c:otherwise>  
 						</c:choose>
@@ -150,9 +141,9 @@
                     </table>
                 </div>
             </div>
-            <div id="empty3"></div>
+           
         </div>
-        <div id="farmContent3"></div>
+        
     </div>
 
 
