@@ -92,5 +92,20 @@ public class FarmAOP {
 		map.put("farmPwd", data);
 	}
 	
+	//farm 회원탈퇴시 입력 비밀번호 암호화 처리
+	@Pointcut("execution(* com.hot.shop.farmMypage.model.service.FarmMypageServiceImpl.updateWithdraw(..))")
+	public void updateWithdrawPointCut() {}
+	
+	@Before("updateWithdrawPointCut()")
+	public void updateWithdrawEncrypt(JoinPoint jp) throws Exception {
+		
+		HashMap<String, Object> map = (HashMap<String, Object>)jp.getArgs()[0];
+		
+		String farmId = map.get("farmId").toString();
+		String farmPwd = map.get("farmPwd").toString();
+		
+		String data = enc.encryptionData(farmPwd, farmId);
+		map.put("farmPwd", data);
+	}
 	
 }

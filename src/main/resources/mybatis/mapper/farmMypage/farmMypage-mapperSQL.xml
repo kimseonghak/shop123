@@ -9,4 +9,20 @@
 	
 	</update>
 
+	<update id="updateWithdraw" parameterType="hashmap">
+	
+		UPDATE FARM SET farm_end_yn='Y'
+		WHERE farm_id=#{farmId} AND farm_pwd=#{farmPwd}
+	
+	</update>
+
+	<update id="updateFarm" parameterType="farm">
+	
+		UPDATE FARM SET
+			farm_name=#{farmName}, farm_busi_num=#{farmBusiNum}, farm_email=#{farmEmail},
+			farm_phone=#{farmPhone}, farm_address_main=#{farmAddressMain}, farm_address_sub=#{farmAddressSub}
+		WHERE farm_id=#{farmId}
+	
+	</update>
+
 </mapper>

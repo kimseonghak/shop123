@@ -41,7 +41,7 @@
               <span id="farmImg" >
 	                  <img src="/resources/farm/image/농부.png"  width="35px" height="30px"/>
 	           </span>
-	           <span id="farmId">딸기농장 님</span>
+	           <span id="farmId">${sessionScope.farm.farmName } </span>
                 
             </div>
         </div>
@@ -71,7 +71,7 @@
                              
             // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
             var _width = '830';
-            var _height = '650';
+            var _height = '890';
             var _left = Math.ceil(( window.screen.width - _width )/2);
             var _top = Math.ceil(( window.screen.height - _height )/2);
            

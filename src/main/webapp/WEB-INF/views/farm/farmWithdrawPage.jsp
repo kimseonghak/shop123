@@ -133,11 +133,11 @@
             <div id="farmPwdArea1">회원탈퇴</div>
             <div id="farmPwdArea2">
                 <div id="formArea">
-                    <form action=" " method="post">
+                    <form action="/farmMypage/farmMypageWithdraw.do" method="post" onsubmit="return validationCheck();">
                          <p class="titleText">비밀번호</p>
-                                <input type="password" class="input-style" name="userPwd" placeholder="비밀번호"><br>
+                                <input type="password" class="input-style" name="farmPwd" placeholder="비밀번호"><br>
                                 <p class="titleText">비밀번호 재확인</p>
-                                <input type="password" class="input-style" name="userPwd_re" placeholder="비밀번호 재확인"><br>
+                                <input type="password" class="input-style" name="farmPwd_re" placeholder="비밀번호 재확인"><br>
                                 
                                 <div class="withdraw">
                                     <p class="withdraw-main-text">탈퇴 유의사항</p>
@@ -151,7 +151,7 @@
                                     <input type="checkbox" name="agree" id="checkbox"><span class="withdraw-check-text">유의사항을 모두 확인하였으며, 이에 동의합니다.</span>
 	                    	    </div>
 
-                                <button type="submit" class="btn btn-success">회원탈퇴</button>    
+                                <input type="submit" class="btn btn-success" value="회원탈퇴">   
                                 <button type="button" class="btn btn-success" id="closeBtn">닫기</button>
                         </form>
                     </div>
@@ -163,6 +163,50 @@
 	        
 	       window.close();
 	    });
+	    
+	    var inval_Arr = new Array(3).fill(false);
+		
+		//유효성검사
+		$('input[type=submit]').click(function() {
+			
+			var farmPwd = $('input[name=farmPwd]').val();
+			var farmPwd_re = $('input[name=farmPwd_re]').val();
+			var checkbox = $('input[name=agree]').prop('checked');
+			
+			if(farmPwd==null || farmPwd=="") {
+				return;
+				inval_Arr[0] = false;
+			}
+			if(farmPwd_re==null || farmPwd_re=="") {
+				return;
+				inval_Arr[1] = false;
+			}
+			if(!(farmPwd_re==farmPwd)) {
+				return;
+				inval_Arr[1] = false;
+			}
+			if(checkbox==false) {
+				return;
+				inval_Arr[2] = false;
+			}
+			inval_Arr[0] = true;
+			inval_Arr[1] = true;
+			inval_Arr[2] = true;
+		});
+		
+		validationCheck = function() {
+			var validAll = true;
+			for(var i = 0; i < inval_Arr.length; i++){
+				
+				if(inval_Arr[i] == false){
+					validAll = false;
+				}
+			}
+			if(!validAll){
+				alert('회원탈퇴에 실패했습니다. 입력하신 정보를 다시한번 확인해주세요.');
+				return false;
+			}					
+		}
 	</script>   
 
 

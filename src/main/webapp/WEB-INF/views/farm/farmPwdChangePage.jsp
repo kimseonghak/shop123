@@ -126,16 +126,16 @@
             </div>
             <div id="farmPwdArea3">
                 <div id="formArea">
-                    <form action=" " method="post">
+                    <form action="/farmMypage/farmMypageChangePwd.do" method="post" onsubmit="return validationCheck();">
                          <p class="titleText">현재 비밀번호</p>
-                                <input type="password" class="input-style" name="userPwd" placeholder="비밀번호"><br>
+                                <input type="password" class="input-style" name="farmPwd" placeholder="비밀번호"><br>
                                 <p class="titleText">신규 비밀번호</p>
-                                <input type="password" class="input-style" name="userPwd_new" placeholder="신규 비밀번호"><br>
+                                <input type="password" class="input-style" name="farmNewPwd" placeholder="신규 비밀번호"><br>
                                 <p class="titleText">신규 비밀번호 재확인</p>
-                                <input type="password" class="input-style" name="userPwd_new_re" placeholder="신규 비밀번호 재확인"><br>
+                                <input type="password" class="input-style" name="farmNewPwd_re" placeholder="신규 비밀번호 재확인"><br>
 
                                
-                                <button type="submit" class="btn btn-success">변경완료</button>    
+                                <input type="submit" class="btn btn-success" value="변경완료">    
                                 <button type="button" class="btn btn-success" id="changeCancel">변경취소</button>
                         </form>
                     </div>
@@ -148,7 +148,62 @@
        window.close();
     });
     
-    
+    var inval_Arr = new Array(3).fill(false);
+	
+	//유효성검사
+	$('input[type=submit]').click(function() {
+		
+		var farmPwd = $('input[name=farmPwd]').val();
+		var farmNewPwd = $('input[name=farmNewPwd]').val();
+		var farmNewPwd_re = $('input[name=farmNewPwd_re]').val();
+		var pwdCheck = RegExp(/^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,15}$/);
+
+		
+		if(farmPwd==null || farmPwd=="") {
+			return;
+			inval_Arr[0] = false;
+		}
+		if(farmNewPwd==null || farmNewPwd=="") {
+			return;
+			inval_Arr[1] = false;
+		}
+		if (!pwdCheck.test($('input[name=farmNewPwd]').val())) {
+			return;
+			inval_Arr[1] = false;
+		}
+		if(farmNewPwd_re==null || farmNewPwd_re=="") {
+			return;
+			inval_Arr[2] = false;
+		}
+		if (!pwdCheck.test($('input[name=farmNewPwd_re]').val())) {
+			return;
+			inval_Arr[2] = false;
+		}
+		if(!(farmNewPwd==farmNewPwd_re)) {
+			return;
+			inval_Arr[2] = false;
+		}
+		inval_Arr[0] = true;
+		inval_Arr[1] = true;
+		inval_Arr[2] = true;
+	});
+	
+	//submit 버튼 클릭시 입력값 최종 유효성 검사
+	validationCheck = function() {
+		var validAll = true;
+		for(var i = 0; i < inval_Arr.length; i++){
+			
+			if(inval_Arr[i] == false){
+				validAll = false;
+			}
+		}
+		if(!validAll){
+			alert('비밀번호 변경에 실패했습니다. 입력하신 정보를 다시한번 확인해주세요.');
+			return false;
+		}					
+	}
+	
+	
 </script>  
 
 
