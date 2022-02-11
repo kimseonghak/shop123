@@ -104,11 +104,7 @@ public class QuestionDAO {
 	}
 
 
-	//-----------------------------------------농가 문의-----------------------------------------
-	public ArrayList<QuestionFarm> QuestionFarmPage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	public ArrayList<QuestionUser> getUserQuestionList(int recordCountPerPage, HashMap<String, Object> map) {
 		int start = (int)map.get("currentPage")*recordCountPerPage-(recordCountPerPage-1);
@@ -187,5 +183,11 @@ public class QuestionDAO {
 	}
 	
 	
+	
+	//-----------------------------------------농가 문의-----------------------------------------
+		public ArrayList<QuestionFarm> QuestionFarmPage() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 }

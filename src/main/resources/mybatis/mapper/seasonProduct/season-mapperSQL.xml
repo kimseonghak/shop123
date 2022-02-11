@@ -72,7 +72,6 @@
 		<!-- 글 조회 끝 -->
 		
 		<!-- 글 수정단 공간-->
-
 			<!-- 사진 수정시 기존 사진 삭제 로직 -->
 				<select id="deleteFileCheck" parameterType="integer" resultType="spPhoto">
 				select		SEASONPRODUCTPHOTO_FILEPATH as seasonProductPhotoFilePath
@@ -86,7 +85,7 @@
 			
 			<!-- 글 수정 -->
 				<update id="updatePhoto" parameterType="integer">
-					update SeasonPRODUCTPHOTO set SEASONPRODUCT_DEL_YN='Y' where SEASONPRODUCTPHOTO_NO = #{_parameter}
+				update SeasonPRODUCTPHOTO set SEASONPRODUCT_DEL_YN='Y' where SEASONPRODUCTPHOTO_NO = #{_parameter}
 				</update>
 				
 				<update id="SeasonProductUpdate" parameterType="spBoard">
