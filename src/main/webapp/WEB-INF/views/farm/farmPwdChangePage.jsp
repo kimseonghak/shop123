@@ -42,7 +42,7 @@
     {
         width: 100%;
         height: 14vh;
-        border-bottom: 1px solid gray;
+        border-bottom: 1px solid #767977;
         font-size: 3.5vmin;
         font-weight: bold;
         text-align: center;

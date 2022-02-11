@@ -453,5 +453,10 @@ public class FarmENTContoller {
 		return "farm/farmPwdChangePage";
 	}
 
-	
+	//사업자 회원탈퇴 페이지 이동
+	@RequestMapping(value="/farm/farmWithdrawPage.do",method = RequestMethod.GET)
+	public String farmWithdrawPage()
+	{
+		return "farm/farmWithdrawPage";
+	}
 }

@@ -264,6 +264,15 @@
         top: 1vh;
         border-bottom: 1px solid white;
     }
+   #sideFooterNavi>li>a
+    {
+		text-decoration: none;
+		color: white;
+    }
+   #sideFooterNavi>li>a:hover
+    {
+  		font-weight: bolder;
+    }
     
     #farmUpdate
     {
