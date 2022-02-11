@@ -33,7 +33,7 @@
                         <li><span id="farmUpdate">회원정보수정</span></li>
                         <li><span id="farmPwUpdate">비밀번호수정</span></li>
                         <li><span id="farmWithDraw">회원탈퇴</span></li>
-                        <li><span id="farmLogout">로그아웃</span></li>
+                        <li><a href="/farm/farmENTlogout.do">로그아웃</a></li>
                     </ul>
                 </div>    
 	        </div>
@@ -102,15 +102,16 @@
     <script>
         
         $('#farmWithDraw').click(function(){
-                             
+            
             // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-            var _width = '1000';
-            var _height = '650';
+            var _width = '750';
+            var _height = '600';
             var _left = Math.ceil(( window.screen.width - _width )/2);
             var _top = Math.ceil(( window.screen.height - _height )/2);
            
-            //window.open('/', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+            window.open('/farm/farmWithdrawPage.do', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
            
         });
     
     </script>    
+    
