@@ -433,7 +433,7 @@
 				<form action="/admin/sellUpdate.do" method="post">
 					<fieldset class="auctionFieldset">
 						<legend>판매 2번</legend>
-						<input type="hidden" name="sellFormNo" value="1">
+						<input type="hidden" name="sellFormNo" value="2">
 						<div class="auctionHalfWrap">
 							<span class="auctionText">판매 상품</span>
 							<input type="text" class="auctionInput sellProduct" readonly="readonly" value="${map2.au2.auctionProduct }">

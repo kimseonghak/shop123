@@ -245,6 +245,7 @@
 			</div>
 			<div id="inputAnswer">
 				<form action="/qustionUser/questionAnswer.do" method="post" id="answerForm">
+					<input type="hidden" value="MU" name="questionWriter">
 					<input type="hidden" value="${map.qUser.questionUserNo}" name="questionBoardNo">
 					<input type="hidden" value="U" name="questionBoardCode">
 					<input type="hidden" value="${map.qUser.questionUserAnswerYN}" name="questionUserAnswerYN">

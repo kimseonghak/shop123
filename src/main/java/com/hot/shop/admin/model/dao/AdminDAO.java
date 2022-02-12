@@ -453,4 +453,8 @@ public class AdminDAO {
 	public QuestionAnswer questionUserAnswer(int questionUserNo) {
 		return sql.selectOne("admin.questionUserAnswer",questionUserNo);
 	}
+
+	public QuestionAnswer questionFarmAnswer(int questionFarmNo) {
+		return sql.selectOne("admin.questionFarmAnswer",questionFarmNo);
+	}
 }

@@ -210,4 +210,9 @@ public class AdminServiceImpl implements AdminService{
 	public QuestionAnswer questionUserAnswer(int questionUserNo) {
 		return aDAO.questionUserAnswer(questionUserNo);
 	}
+
+	@Override
+	public QuestionAnswer questionFarmAnswer(int questionFarmNo) {
+		return aDAO.questionFarmAnswer(questionFarmNo);
+	}
 }

@@ -215,7 +215,10 @@
 			</div>
 			<div id="inputAnswer">
 				<form action="/qustionUser/questionAnswer.do" method="post" id="answerForm">
-					<input type="hidden" value="${map.qFarm.questionFarmNo}" name="questionFarmNo">
+					<input type="hidden" value="MF" name="questionWriter">
+					<input type="hidden" value="${map.qFarm.questionFarmNo}" name="questionBoardNo">
+					<input type="hidden" value="F" name="questionBoardCode">
+					<input type="hidden" value="${map.qFarm.questionFarmAnswerYN}" name="questionFarmAnswerYN">
 					<input type="hidden" value="${currentPage}" name="currentPage">
 					<input type="hidden" value="${type}" name="type">
 					<input type="hidden" value="${keyword}" name="keyword">

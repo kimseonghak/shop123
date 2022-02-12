@@ -212,14 +212,14 @@
 					</div>
 					<div id="inputAnswer">
 						<form action="/qustionUser/questionAnswer.do" method="post" id="answerForm">
-							<input type="hidden" value="A" name="answerWriter">
-							<input type="hidden" value="${map.qFarm.questionFarmNo}" name="questionBoardNo">
+							<input type="hidden" value="AF" name="questionWriter">
+							<input type="hidden" value="${qFarm.questionFarmNo}" name="questionBoardNo">
 							<input type="hidden" value="F" name="questionBoardCode">
-							<input type="hidden" value="${map.qFarm.questionFarmAnswerYN}" name="questionUserAnswerYN">
+							<input type="hidden" value="${qFarm.questionFarmAnswerYN}" name="questionUserAnswerYN">
 							<input type="hidden" value="${currentPage}" name="currentPage">
 							<input type="hidden" value="${type}" name="type">
 							<input type="hidden" value="${keyword}" name="keyword">
-							<textarea name="questionAnswerContent" id="answerArea">${map.qAnswer.questionAnswerContent }</textarea>
+							<textarea name="questionAnswerContent" id="answerArea">${qAnswer.questionAnswerContent }</textarea>
 						</form>
 					</div>
 				</div>
@@ -254,6 +254,10 @@
 			var currentPage = ${currentPage};
 			location.replace('/admin/adminFarmQNAPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
 		})
+	<%-- 답변 등록 버튼 실행 --%>
+		$('#answerBtn').click(function(){
+			$('#answerForm').submit();
+		});
 	</script>
 </body>
 </html>

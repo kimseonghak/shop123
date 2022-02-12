@@ -140,6 +140,7 @@ public class AdminController {
 	// 판매중인 상품의 판매기간/홍보주소/종료여부 변경하는 로직
 	@RequestMapping(value = "/admin/sellUpdate.do", method = RequestMethod.POST)
 	public ModelAndView sellUpdate(SellForm sf,ModelAndView mav) {
+		System.out.println(sf);
 		int result = aService.sellUpdate(sf);
 		if(result>0) {
 			mav.addObject("msg",sf.getSellFormNo()+"번 판매 정보가 변경되었습니다.");
@@ -181,10 +182,12 @@ public class AdminController {
 			@RequestParam int questionFarmNo,ModelAndView mav) {
 		
 		QuestionFarm qFarm = aService.questionFarmContent(questionFarmNo);
+		QuestionAnswer qAnswer = aService.questionFarmAnswer(questionFarmNo);
 		
 		mav.addObject("type",type);
 		mav.addObject("keyword",keyword);
 		mav.addObject("qFarm",qFarm);
+		mav.addObject("qAnswer",qAnswer);
 		mav.addObject("currentPage",currentPage);
 		mav.setViewName("admin/admin_farmQNAContent");
 		

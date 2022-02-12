@@ -529,4 +529,15 @@
 		from question_Answer
 		where question_Board_code='U' and question_board_no=#{_parameter}
 	</select>
+	<select id="questionFarmAnswer" parameterType="integer" resultType="qAnswer">
+		select
+			question_Answer_No as questionAnswerNo,
+			question_Answer_Content as questionAnswerContent,
+			question_Answer_Regdate as questionAnswerRegdate,
+			question_Board_No as questionBoardNo,
+			question_Board_Code as questionBoardCode,
+			question_Answer_End_YN as questionAnswerEndYN
+		from question_Answer
+		where question_Board_code='F' and question_board_no=#{_parameter}
+	</select>
 </mapper>

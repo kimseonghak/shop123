@@ -12,7 +12,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -271,16 +270,51 @@ public class QuestionController {
 		public ModelAndView questionAnswer(ModelAndView mav,QuestionAnswer qAnswer,
 				@RequestParam(required = false,defaultValue = "1") int currentPage,
 				@RequestParam(required = false, defaultValue = "") String keyword,
-				@RequestParam(required = false, defaultValue = "default") String type) {
+				@RequestParam(required = false, defaultValue = "default") String type,
+				@RequestParam String questionWriter) {
+			
 			boolean result = qService.questionAnswer(qAnswer);
-			int questionUserNo = qAnswer.getQuestionBoardNo();
-			if(result) {
-				mav.addObject("msg", "답변이 등록되었습니다." );
-				mav.addObject("location", "/question/questionViewPage.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword);
-			}else {
-				mav.addObject("msg", "오류가 발생하였습니다.." );
-				mav.addObject("location", "/question/questionViewPage.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword+"&questionUserNo="+questionUserNo);
+			
+			int questionBoadNo = qAnswer.getQuestionBoardNo();
+			switch(questionWriter) {
+			case "MU":
+				if(result) {
+					mav.addObject("msg", "답변이 등록되었습니다." );
+					mav.addObject("location", "/question/questionViewPage.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword+"&questionUserNo="+questionBoadNo);
+				}else {
+					mav.addObject("msg", "오류가 발생하였습니다.." );
+					mav.addObject("location", "/question/questionViewPage.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword+"&questionUserNo="+questionBoadNo);
+				}
+				break;
+			case "MF":
+				if(result) {
+					mav.addObject("msg", "답변이 등록되었습니다." );
+					mav.addObject("location", "/question/questionFarmViewPage.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword+"&questionFarmNo="+questionBoadNo);
+				}else {
+					mav.addObject("msg", "오류가 발생하였습니다.." );
+					mav.addObject("location", "/question/questionFarmViewPage.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword+"&questionFarmNo="+questionBoadNo);
+				}
+				break;
+			case "AU":
+				if(result) {
+					mav.addObject("msg", "답변이 등록되었습니다." );
+					mav.addObject("location", "/admin/adminUserQNAContent.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword+"&questionUserNo="+questionBoadNo);
+				}else {
+					mav.addObject("msg", "오류가 발생하였습니다.." );
+					mav.addObject("location", "/admin/adminUserQNAContent.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword+"&questionUserNo="+questionBoadNo);
+				}
+				break;
+			case "AF":
+				if(result) {
+					mav.addObject("msg", "답변이 등록되었습니다." );
+					mav.addObject("location", "/admin/adminFarmQNAContent.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword+"&questionFarmNo="+questionBoadNo);
+				}else {
+					mav.addObject("msg", "오류가 발생하였습니다.." );
+					mav.addObject("location", "/admin/adminFarmQNAContent.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword+"&questionFarmNo="+questionBoadNo);
+				}
+				break;
 			}
+		
 			mav.setViewName("commons/msg");
 			return mav;
 		}

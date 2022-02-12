@@ -159,9 +159,9 @@ public class QuestionDAO {
 	}
 
 	public boolean questionAnswer(QuestionAnswer qAnswer) {
-		if(qAnswer.getQuestionUserAnswerYN() == 'N') {
+		if(qAnswer.getQuestionUserAnswerYN() == 'N' || qAnswer.getQuestionFarmAnswerYN()== 'N') {
 			int result =sqlSession.insert("qUser.questionAnswer",qAnswer);
-			int result2 = sqlSession.update("qUser.questionUserAnswerYN",qAnswer);
+			int result2 = sqlSession.update("qUser.questionAnswerYN",qAnswer);
 			return result+result2 > 1;
 		}else {
 			int result = sqlSession.update("qUser.questionAnswerUpdate",qAnswer);

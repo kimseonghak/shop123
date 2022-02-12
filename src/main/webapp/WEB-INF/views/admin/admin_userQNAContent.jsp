@@ -212,10 +212,10 @@
 					</div>
 					<div id="inputAnswer">
 						<form action="/qustionUser/questionAnswer.do" method="post" id="answerForm">
-							<input type="hidden" value="AU" name="answerWriter">
-							<input type="hidden" value="${map.qUser.questionUserNo}" name="questionBoardNo">
-							<input type="hidden" value="F" name="questionBoardCode">
-							<input type="hidden" value="${map.qUser.questionUserAnswerYN}" name="questionUserAnswerYN">
+							<input type="hidden" value="AU" name="questionWriter">
+							<input type="hidden" value="${qUser.questionUserNo}" name="questionBoardNo">
+							<input type="hidden" value="U" name="questionBoardCode">
+							<input type="hidden" value="${qUser.questionUserAnswerYN}" name="questionUserAnswerYN">
 							<input type="hidden" value="${currentPage}" name="currentPage">
 							<input type="hidden" value="${type}" name="type">
 							<input type="hidden" value="${keyword}" name="keyword">
@@ -251,6 +251,10 @@
 			var currentPage = ${currentPage};
 			location.replace('/admin/adminUserQNAPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
 		})
+	<%-- 답변 등록 버튼 실행 --%>
+		$('#answerBtn').click(function(){
+			$('#answerForm').submit();
+		});
 </script>
 </body>
 </html>

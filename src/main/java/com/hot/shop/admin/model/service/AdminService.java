@@ -69,4 +69,6 @@ public interface AdminService {
 	QuestionUser questionUserContent(int questionUserNo);
 
 	QuestionAnswer questionUserAnswer(int questionUserNo);
+
+	QuestionAnswer questionFarmAnswer(int questionFarmNo);
 }
