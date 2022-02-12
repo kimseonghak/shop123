@@ -18,6 +18,7 @@ import com.hot.shop.admin.model.vo.Refund;
 import com.hot.shop.admin.model.vo.SellForm;
 import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.question.model.vo.QuestionAnswer;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -439,5 +440,17 @@ public class AdminDAO {
 
 	public int farmEndYNUpdate(HashMap<String, Object> map) {
 		return sql.update("admin.farmEndYNUpdate",map);
+	}
+
+	public ArrayList<Refund> refund() {
+		return new ArrayList<Refund>(sql.selectList("admin.refund"));
+	}
+
+	public QuestionUser questionUserContent(int questionUserNo) {
+		return sql.selectOne("admin.questionUserContent",questionUserNo);
+	}
+
+	public QuestionAnswer questionUserAnswer(int questionUserNo) {
+		return sql.selectOne("admin.questionUserAnswer",questionUserNo);
 	}
 }

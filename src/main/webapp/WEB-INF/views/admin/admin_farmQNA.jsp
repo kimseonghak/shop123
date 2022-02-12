@@ -16,15 +16,7 @@
 	*{
 		box-sizing: border-box;
 	}
-	table{
-		width:100%;
-		border-collapse: collapse;
-		text-align: center;
-		margin:0 auto;
-		white-space: nowrap;
-		border-spacing: 0px;
-		table-layout: fixed;
-	}
+/* wrap CSS */
 	#mainContents{
 		padding: 0px;
 	}
@@ -37,6 +29,7 @@
 		padding-right:20px;
 		background-color: rgba(72,187,120,0.1);
 	}
+/* navi CSS */
 	.naviArrow{
 		text-decoration: none;
 		display : inline-block;
@@ -76,11 +69,22 @@
 		background-color:#48bb78;
 		opacity: 0.3;
 	}
+/* table CSS */
+	table{
+		width:100%;
+		border-collapse: collapse;
+		text-align: center;
+		margin:0 auto;
+		white-space: nowrap;
+		border-spacing: 0px;
+		table-layout: fixed;
+	}
 	table td,th{
 		overflow:hidden;
 		text-overflow: ellipsis;
 		font-size:1.7vmin;
 		font-family: 'Nanum Gothic', 'sans-serif';
+		transition:background-color ease 0.3s;
 	}
 	table tr:not(:last-child)>td{
 		background-color: white;
@@ -96,6 +100,13 @@
 		width:100%;
 		height:0.5vmin
 	}
+	.tdTr:hover{
+		cursor: pointer;
+	}
+	.tdTr:hover>td{
+		background-color: rgb(240, 240, 240);
+	}
+/* title CSS */
 	#titleSpace{
 		border:1px solid #198754;
 		width:10%;
@@ -114,12 +125,7 @@
 		overflow: hidden;
 		cursor: pointer;
 	}
-	.tdTr:hover{
-		cursor: pointer;
-	}
-	.tdTr:hover>td{
-		background-color: rgb(240, 240, 240);
-	}
+/* search CSS */
 	#searchWrap{
 		width:100%;
 		height:4vh;
@@ -167,6 +173,7 @@
 	#searchBtn>img{
 		height:100%;
 	}
+/* answerImg CSS */
 	.answerImgTd{
 		padding:0.5vmin;
 		line-height: 100%;
@@ -211,11 +218,11 @@
 						<th width="10%">진행 상황</th>
 					</tr>
 					<c:forEach items="${map.list }" var="q">
-					<tr class="tdTr" qFarmNo=${q.questionFarmNo }>
+					<tr class="tdTr">
 						<td>${q.questionFarmNo }</td>
-						<td style="font-weight:bolder;">${q.questionFarmTitle }</td>
+						<td class="title" style="font-weight:bolder;">${q.questionFarmTitle }</td>
 						<td>${q.farmNo }</td>
-						<td style="font-weight:bolder;">${q.farmName }</td>
+						<td id="farm" style="font-weight:bolder;">${q.farmName }</td>
 						<td>${q.questionFarmRegdate }</td>
 						<c:if test="${String.valueOf(q.questionFarmAnswerYN) eq 'N'}">
 							<td class="answerImgTd"><img class="answerImg" alt="" src="/resources/admin/img/답변 대기.png"></td>
@@ -258,10 +265,12 @@
 			}
 		});
 <%-- 글 tr 클릭시 해당 글 내용으로 이동하는 스크립트 --%>
-		$('.tdTr').click(function(){
-			var qFarmNo = $(this).attr('qFarmNo');
+		$('.title').click(function(){
+			var qFarmNo = $(this).prev().html();
 			var currentPage = ${currentPage};
-			location.replace('/admin/adminFarmQNAContent.do?currentPage='+currentPage+'&questionFarmNo='+qFarmNo);
+			var type = "${map.type}";
+			var keyword = "${map.keyword}";
+			location.replace('/admin/adminFarmQNAContent.do?currentPage='+currentPage+'&questionFarmNo='+qFarmNo+'&type='+type+'&keyword='+keyword);
 		});
 <%-- 검색아이콘 클릭시 서브밋 --%>
 		$('#searchIcon').click(function(){
@@ -270,6 +279,11 @@
 <%-- 해당 페이지 최초 페이지 이동 --%>
 		$('#title').click(function(){
 			location.replace('/admin/adminFarmQNAPage.do');
+		});
+<%-- 농가 번호 클릭시 해당 농가 정보 창 띄우기 --%>
+		$('#farm').click(function(){
+			var farmNo = $(this).prev().html();
+			window.open("/admin/adminFarmInfoPage.do?farmNo="+farmNo,"_blank","width=500px, height=430px");
 		});
 	</script>
 </body>

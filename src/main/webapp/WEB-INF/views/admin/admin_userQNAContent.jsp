@@ -180,7 +180,7 @@
 		<div id="mainContents">
 			<div id="backgroundColor">
 				<div id="titleSpace">
-					<span id="title">Farm QNA</span>
+					<span id="title">User QNA</span>
 				</div>
 				<div id="qnaWrap">
 					<div class="form-group" style="border-top:1px solid black;">
@@ -188,22 +188,22 @@
 							문의 제목
 						</div>
 						<div class="output-group contentCSS">
-							${qFarm.questionFarmTitle }
+							${qUser.questionUserTitle }
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="infor-group contentCSS">
-							농가 이름 (번호)
+							유저 닉네임 (번호)
 						</div>
 						<div class="output-group contentCSS">
-							${qFarm.farmName }(${qFarm.farmNo })
+							${qUser.userNick }(${qUser.userNo })
 						</div>
 					</div>
 					<div id="infor-content" class="contentCSS">
 						문의 내용
 					</div>
 					<div id="output-content">
-						<textarea id="contentText" disabled="disabled">${qFarm.questionFarmContent }</textarea>
+						<textarea id="contentText" disabled="disabled">${qUser.questionUserContent }</textarea>
 					</div>
 				</div>
 				<div id="qnaAnswerWrap" style="border-bottom:1px solid black; border-top:1px solid black;">
@@ -212,14 +212,14 @@
 					</div>
 					<div id="inputAnswer">
 						<form action="/qustionUser/questionAnswer.do" method="post" id="answerForm">
-							<input type="hidden" value="A" name="answerWriter">
-							<input type="hidden" value="${map.qFarm.questionFarmNo}" name="questionBoardNo">
+							<input type="hidden" value="AU" name="answerWriter">
+							<input type="hidden" value="${map.qUser.questionUserNo}" name="questionBoardNo">
 							<input type="hidden" value="F" name="questionBoardCode">
-							<input type="hidden" value="${map.qFarm.questionFarmAnswerYN}" name="questionUserAnswerYN">
+							<input type="hidden" value="${map.qUser.questionUserAnswerYN}" name="questionUserAnswerYN">
 							<input type="hidden" value="${currentPage}" name="currentPage">
 							<input type="hidden" value="${type}" name="type">
 							<input type="hidden" value="${keyword}" name="keyword">
-							<textarea name="questionAnswerContent" id="answerArea">${map.qAnswer.questionAnswerContent }</textarea>
+							<textarea name="questionAnswerContent" id="answerArea">${qAnswer.questionAnswerContent }</textarea>
 						</form>
 					</div>
 				</div>
@@ -234,26 +234,23 @@
 		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 		crossorigin="anonymous"></script>
 	<script>
-	<%-- 사이드바 선택 표시 --%>
+<%-- 사이드바 선택 표시 --%>
 	$(function() {
-		$('#mainUl>li').eq(2).css('background-color', '#34734e');
-		$('#mainUl>li>a').eq(2).css('color', 'white');
-		$('#mainUl>li>a').eq(2).css('font-weight','bolder');
+		$('#mainUl>li').eq(3).css('background-color', '#34734e');
+		$('#mainUl>li>a').eq(3).css('color', 'white');
+		$('#mainUl>li>a').eq(3).css('font-weight','bolder');
 	});
 	<%-- 해당 페이지 최초 페이지 이동 --%>
 		$('#title').click(function(){
-			var type = "${type}";
-			var keyword = "${keyword}";
-			var currentPage = ${currentPage};
-			location.replace('/admin/adminFarmQNAPage.do');
+			location.replace('/admin/adminUserQNAPage.do');
 		});
 	<%-- 리스트 버튼 돌아가기 --%>
 		$('#listBtn').click(function(){
 			var type = "${type}";
 			var keyword = "${keyword}";
 			var currentPage = ${currentPage};
-			location.replace('/admin/adminFarmQNAPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
+			location.replace('/admin/adminUserQNAPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
 		})
-	</script>
+</script>
 </body>
 </html>

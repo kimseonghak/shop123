@@ -94,6 +94,22 @@
 						<span class="boardTitle boardSpan">유저 환불목록</span> 
 						<span class="boardPlus boardSpan"><a href="">+ 더보기</a></span>
 					</div>
+					<div class="boardBody">
+						<table class="boardTBL" style="word-break: break-all;">
+							<tr>
+								<th style="width: 15%;">번호</th>
+								<th style="width: 15%;">문의 번호</th>
+								<th style="width: 70%;">주문 번호</th>
+							</tr>
+							<c:forEach items="${requestScope.refund }" var="r">
+								<tr class="qUserList userQNA">
+									<td>${r.refundNo }</td>
+									<td>${r.questionUserNo }</td>
+									<td>${r.orderNo }</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

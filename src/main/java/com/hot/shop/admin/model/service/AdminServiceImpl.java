@@ -13,6 +13,7 @@ import com.hot.shop.admin.model.vo.Refund;
 import com.hot.shop.admin.model.vo.SellForm;
 import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.question.model.vo.QuestionAnswer;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
 
@@ -193,5 +194,20 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int farmEndYNUpdate(HashMap<String, Object> map) {
 		return aDAO.farmEndYNUpdate(map);
+	}
+
+	@Override
+	public ArrayList<Refund> refund() {
+		return aDAO.refund();
+	}
+
+	@Override
+	public QuestionUser questionUserContent(int questionUserNo) {
+		return aDAO.questionUserContent(questionUserNo);
+	}
+
+	@Override
+	public QuestionAnswer questionUserAnswer(int questionUserNo) {
+		return aDAO.questionUserAnswer(questionUserNo);
 	}
 }

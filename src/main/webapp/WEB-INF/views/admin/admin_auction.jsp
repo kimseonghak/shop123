@@ -25,13 +25,13 @@
 		border:1px solid black;
 	}
 	legend{
-		border:1px solid black;
+		border:2px solid rgba(0,0,0,0.6);
 		border-radius: 5px;
 		font-size: 2.2vmin;
 		font-weight:bolder;
 		width:30%;
 		height:15%;
-		text-align: center;
+		text-align: left;
 		overflow: hidden;
 	}
 	fieldset{
@@ -52,11 +52,14 @@
 	}
 	.auctionText{
 		border-radius: 10px;
-		background:linear-gradient(to top,#3cfc91,#09dbdb);
+		background-color:white;
+		border:1px solid #48bb78;
+		color:black;
 		display:block;
+		line-height:110%;
 		height:10%;
 		width:30%;
-		font-size: 1.8vmin;
+		font-size: 1.7vmin;
 		overflow: hidden;
 		text-align: center;
 	}
@@ -363,13 +366,13 @@
 						<div class="auctionHalfWrap">
 							<span class="auctionText">판매 상품</span>
 							<input type="text" class="auctionInput sellProduct" readonly="readonly" value="${map2.au1.auctionProduct }">
-							<span class="auctionText">시작 날짜</span>
+							<span class="auctionText changeSpan">시작 날짜</span>
 							<input type="date" class="auctionInput sellStartDate readChange" name="sellStart" readonly="readonly" value="${map2.sf1.sellStart }">
-							<span class="auctionText">종료 날짜</span>
+							<span class="auctionText changeSpan">종료 날짜</span>
 							<input type="date" class="auctionInput sellEndDate readChange" name="sellEnd" readonly="readonly" value="${map2.sf1.sellEnd }">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput sellPrice" readonly="readonly" value="${map2.au1.auctionPrice }">
-							<span class="auctionText auctionYN">종료 여부</span>
+							<span class="auctionText auctionYN changeSpan">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span>
 							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
 							<label><span class="auctionRadioText">종료</span>
@@ -378,7 +381,7 @@
 						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 번호</span>
 							<input type="text" class="auctionInput sellAuctionNo" name="auctionNo" readonly="readonly" value="${map2.au1.auctionNo}">
-							<span class="auctionText">홍보 주소</span>
+							<span class="auctionText changeSpan">홍보 주소</span>
 							<input type="text" class="auctionInput sellBoardNo readChange" name="boardNo" readonly="readonly" value="${map2.sf1.boardNo }">
 							<div style="width:100%; height:44%"></div>
 							<button type="button" class="changeButton">정보 변경</button>
@@ -434,13 +437,13 @@
 						<div class="auctionHalfWrap">
 							<span class="auctionText">판매 상품</span>
 							<input type="text" class="auctionInput sellProduct" readonly="readonly" value="${map2.au2.auctionProduct }">
-							<span class="auctionText">시작 날짜</span>
+							<span class="auctionText changeSpan">시작 날짜</span>
 							<input type="date" class="auctionInput sellStartDate readChange" name="sellStart" readonly="readonly" value="${map2.sf2.sellStart }">
-							<span class="auctionText">종료 날짜</span>
+							<span class="auctionText changeSpan">종료 날짜</span>
 							<input type="date" class="auctionInput sellEndDate readChange" name="sellEnd" readonly="readonly" value="${map2.sf2.sellEnd }">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput sellPrice" readonly="readonly" value="${map2.au2.auctionPrice }">
-							<span class="auctionText auctionYN">종료 여부</span>
+							<span class="auctionText auctionYN changeSpan">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span>
 							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
 							<label><span class="auctionRadioText">종료</span>
@@ -449,7 +452,7 @@
 						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 번호</span>
 							<input type="text" class="auctionInput sellAuctionNo" name="auctionNo" readonly="readonly" value="${map2.au2.auctionNo}">
-							<span class="auctionText">홍보 주소</span>
+							<span class="auctionText changeSpan">홍보 주소</span>
 							<input type="text" class="auctionInput sellBoardNo readChange" name="boardNo" readonly="readonly" value="${map2.sf2.boardNo }">
 							<div style="width:100%; height:44%"></div>
 							<button type="button" class="changeButton">정보 변경</button>
@@ -505,13 +508,13 @@
 						<div class="auctionHalfWrap">
 							<span class="auctionText">판매 상품</span>
 							<input type="text" class="auctionInput sellProduct" readonly="readonly" value="${map2.au3.auctionProduct }">
-							<span class="auctionText">시작 날짜</span>
+							<span class="auctionText changeSpan">시작 날짜</span>
 							<input type="date" class="auctionInput sellStartDate readChange" name="sellStart" readonly="readonly" value="${map2.sf3.sellStart }">
-							<span class="auctionText">종료 날짜</span>
+							<span class="auctionText changeSpan">종료 날짜</span>
 							<input type="date" class="auctionInput sellEndDate readChange" name="sellEnd" readonly="readonly" value="${map2.sf3.sellEnd }">
 							<span class="auctionText">판매 가격</span>
 							<input type="text" class="auctionInput sellPrice" readonly="readonly" value="${map2.au3.auctionPrice }">
-							<span class="auctionText auctionYN">종료 여부</span>
+							<span class="auctionText auctionYN changeSpan">종료 여부</span>
 							<label><span class="auctionRadioText">시작</span>
 							<input type="radio" value="N" name="sellEndYN" style="width:1.5vmin; height:1.5vmin;" checked="checked"></label>
 							<label><span class="auctionRadioText">종료</span>
@@ -520,7 +523,7 @@
 						<div class="auctionHalfWrap">
 							<span class="auctionText">경매 번호</span>
 							<input type="text" class="auctionInput sellAuctionNo" name="auctionNo" readonly="readonly" value="${map2.au3.auctionNo}">
-							<span class="auctionText">홍보 주소</span>
+							<span class="auctionText changeSpan">홍보 주소</span>
 							<input type="text" class="auctionInput sellBoardNo readChange" name="boardNo" readonly="readonly" value="${map2.sf3.boardNo }">
 							<div style="width:100%; height:44%"></div>
 							<button type="button" class="changeButton">정보 변경</button>
@@ -566,6 +569,10 @@
 			if($(this).html()=='입력'){
 				$(this).html('입력완료');
 				$(this).parents('form').find('.auctionInput').attr('readonly',false);
+				$(this).css("background-color","#48bb78");
+				$(this).css("color",'white');
+				$(this).parents('form').find('span').not('.auctionRadioText').css("background-color","#48bb78");
+				$(this).parents('form').find('span').not('.auctionRadioText').css("color","white");
 			}else{
 				$(this).parents('form').submit();
 			}
@@ -575,6 +582,10 @@
 			if($(this).html()=='정보 변경'){
 				$(this).html('변경 완료');
 				$(this).parents('form').find('.readChange').attr('readonly',false);
+				$(this).css("background-color","#48bb78");
+				$(this).css("color",'white');
+				$(this).parents('form').find('.changeSpan').css("background-color","#48bb78");
+				$(this).parents('form').find('.changeSpan').css("color","white");
 			}else{
 				$(this).parents('form').submit();
 			}

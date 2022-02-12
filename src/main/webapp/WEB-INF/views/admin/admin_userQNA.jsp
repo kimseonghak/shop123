@@ -83,6 +83,7 @@
 		text-overflow: ellipsis;
 		font-size:1.7vmin;
 		font-family: 'Nanum Gothic', 'sans-serif';
+		transition:background-color ease 0.3s;
 	}
 	table tr:not(:last-child)>td{
 		background-color: white;
