@@ -96,5 +96,26 @@ public class PromotionDAO {
 		map.put("promotionViewCountResult", sqlSession.update("promotion.promotionViewCount",promotionNo));
 		return map;
 	}
+	
+	//글 수정시 이미지 번호 변경 로직
+	public PromotionPhoto deleteFileCheck(int originalPromotionphotoNo) {
+			
+		sqlSession.update("promotion.deleteFileUpdate",originalPromotionphotoNo);
+		return sqlSession.selectOne("promotion.deleteFileCheck",originalPromotionphotoNo);
+	}
+
+	//수정된 이미지와 함께 글 수정
+	public int promotionUpdate(Promotion promotion) {
+		
+		return sqlSession.update("promotion.promotionUpdate",promotion) + sqlSession.update("promotion.updatePPhoto",promotion.getPromotionPhotoNo());
+	}
+
+	//글 삭제
+	public int promotionDelete(int promotionNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("promotion.promotionDelete",promotionNo);
+	}
+	
+	
 
 }

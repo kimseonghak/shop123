@@ -132,6 +132,8 @@ public class PromotionController {
 		boolean check = false;
 		int result = pService.insertWrite(promotion);
 		
+		System.out.println(promotion);
+		
 		if(promotion.getPromotionPhotoNo()==1&&result>0) {
 			check=true;
 		}else if(promotion.getPromotionPhotoNo()!=1&&result>1) {
@@ -174,11 +176,63 @@ public class PromotionController {
 	//홍보 게시판 수정 페이지로 이동
 	@RequestMapping(value="/promotion/promotionUpdatePage.do", method = RequestMethod.GET)
 	public ModelAndView PromotionUpdatePage(ModelAndView mav, @RequestParam int promotionNo) {
-		
 		HashMap<String, Object> map = pService.promotionView(promotionNo);
 		mav.addObject("map",map);
 		mav.setViewName("promotion/PromotionUpdate");
 		return mav;
 	}
 	
+	//홍보 게시판 수정
+	@RequestMapping(value= "/promotion/promotionUpdate.do",method = RequestMethod.GET)
+	public ModelAndView promotionUpdate(Promotion promotion, ModelAndView mav) {
+		
+		
+		//글 수정했을때 새로운 이미지 파일이 들어오지 않았을 경우
+		if(promotion.getPromotionPhotoNo()==1) {
+			promotion.setOriginalPromotionphotoNo(promotion.getOriginalPromotionphotoNo());
+			
+		//글 수정했을때 새로운 이미지 파일이 들어왔을 경우 혹은 기존 이미지도 기본 이미지가 아닌 경우
+		//기존 이미지 삭제 로직
+		}else if(promotion.getPromotionPhotoNo()!=1 && promotion.getOriginalPromotionphotoNo()!=1) {
+			PromotionPhoto pPhoto = pService.deleteFileCheck(promotion.getOriginalPromotionphotoNo());
+			String path = context.getRealPath("/resources/promotionphoto/img/");
+			String filePath = path+pPhoto.getPromotionPhotoFilePath().toString().substring(29);
+			
+			File file = new File(filePath);
+			file.delete();
+		}
+		
+		int result = pService.promotionUpdate(promotion);
+		
+		if(result>1) {
+			mav.addObject("msg", "게시글이 수정되었습니다" );
+			mav.addObject("location", "/promotion/promotionViewPage.do?promotionNo="+promotion.getPromotionNo());
+		}else {
+			mav.addObject("msg", "게시글 수정에 실패했습니다." );
+			mav.addObject("location", "/promotion/promotionListPage.do");
+		}
+		mav.setViewName("commons/msg");
+	
+		return mav;
+	}
+	
+	//홍보 게시판 삭제
+	@RequestMapping(value = "/promotion/promotionDelete.do",method = RequestMethod.POST)
+	public ModelAndView promotionDelete(HttpServletRequest request, ModelAndView mav) {
+		
+		int promotionNo = Integer.parseInt(request.getParameter("promotionNo"));
+		
+		int result = pService.promotionDelete(promotionNo);
+		
+		if(result > 0) {
+			mav.addObject("msg", "글 삭제에 성공했습니다." );
+			mav.addObject("location", "/promotion/promotionListPage.do");
+		}else {
+			mav.addObject("msg", "글 삭제에 실패했습니다." );
+			mav.addObject("location", "/promotion/promotionViewPage.do");
+		}
+		mav.setViewName("commons/msg");
+		
+		return mav;
+	}
 }

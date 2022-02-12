@@ -90,12 +90,7 @@
             				'N')
 		</insert>
 		
-		<!-- 사진이 기본 이미지가 아닐 시 작동하는 로직 -->
-		<update id="updatePPhoto" parameterType="integer">
-			update PromotionPhoto set PromotionPhoto_Use_YN='Y' where PROMOTIONPHOTO_NO=#{_parameter}
-		</update>
-		
-		<!-- 홍보게시판 조회 parameterType 원래 integer-->
+		<!-- 홍보게시판 조회 -->
 		<select id="promotionView" parameterType="integer" resultType="promotion"> 
 			select 
 	                PROMOTION_NO as PromotionNo,
@@ -121,4 +116,39 @@
 			update promotion set PROMOTION_COUNT = PROMOTION_COUNT+1 where PROMOTION_NO = #{_parameter}
 		</update>
 		
+		<!-- 홍보게시판 수정 -->
+
+		<!-- 사진 수정시 기존 사진 삭제 로직 -->
+		<select id="deleteFileCheck" parameterType="integer" resultType="pPhoto">
+			select
+				PROMOTIONPHOTO_FILEPATH as promotionPhotoFilePath
+			from PROMOTIONPHOTO
+			where PROMOTIONPHOTO_NO = #{_parameter}
+		</select>
+		
+		<update id="deleteFileUpdate" parameterType="integer">
+			update promotionphoto set PROMOTIONPHOTO_DEL_YN='Y' where PROMOTIONPHOTO_NO = #{_parameter}
+		</update>
+		
+		<!-- 최종적으로 1:1 유저문의 수정 로직 -->
+		
+		<!-- 사진이 기본 이미지가 아닐 시 작동하는 로직 -->
+		<update id="updatePPhoto" parameterType="integer">
+			update PromotionPhoto set PromotionPhoto_Use_YN='Y' where PROMOTIONPHOTO_NO=#{_parameter}
+		</update>
+		
+		<update id="promotionUpdate" parameterType="promotion">
+			update PROMOTION set
+				PROMOTION_TITLE = #{promotionTitle},
+				PROMOTION_CONTENT = #{promotionContent},
+				PROMOTIONPHOTO_NO = #{promotionPhotoNo}
+			where PROMOTION_NO = #{promotionNo}
+		</update>
+
+		<!-- 홍보 게시판 삭제 -->
+		<update id="promotionDelete" parameterType="integer">
+		 	update	PROMOTION set
+				PROMOTION_END_YN = 'Y'
+		 	where PROMOTION_NO = #{promotionNo}
+		 </update>
 	</mapper>

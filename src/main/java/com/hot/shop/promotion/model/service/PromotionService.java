@@ -15,4 +15,10 @@ public interface PromotionService {
 
 	HashMap<String, Object> promotionView(int promotionNo);
 
+	PromotionPhoto deleteFileCheck(int originalPromotionphotoNo);
+
+	int promotionUpdate(Promotion promotion);
+
+	int promotionDelete(int promotionNo);
+		
 }
