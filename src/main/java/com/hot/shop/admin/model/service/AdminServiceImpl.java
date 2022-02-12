@@ -176,4 +176,22 @@ public class AdminServiceImpl implements AdminService{
 	public Farm farmInfo(int farmNo) {
 		return aDAO.farmInfo(farmNo);
 	}
+
+	@Override
+	public HashMap<String, Object> farmSearchList(HashMap<String, Object> map, int currentPage) {
+		int recordCountPerPage=10;
+		ArrayList<Farm> list = aDAO.farmSearchList(currentPage,recordCountPerPage,map);
+		int naviCountPerPage=10;
+		String pageNavi = aDAO.getFarmSearchPageNavi(recordCountPerPage,currentPage,map,naviCountPerPage);
+		
+		map.put("list", list);
+		map.put("pageNavi", pageNavi);
+		
+		return map;
+	}
+
+	@Override
+	public int farmEndYNUpdate(HashMap<String, Object> map) {
+		return aDAO.farmEndYNUpdate(map);
+	}
 }

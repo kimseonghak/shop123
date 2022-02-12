@@ -429,4 +429,60 @@
 			rating as rating
 		from farm where farm_no=#{_parameter}
 	</select>
+	<select id="farmSearchList" parameterType="hashmap" resultType="farm">
+		select 
+			farm_No as farmNo,
+			farm_Id as farmId,
+			farm_Pwd as farmPwd,
+			farm_Name as farmName,
+			farm_Busi_Num as farmBusiNum,
+			farm_Email as farmEmail,
+			farm_Phone as farmPhone,
+			farm_Address_Main as farmAddressMain,
+			farm_Address_Sub as farmAddressSub,
+			farm_EnrollDate as farmEnrollDate,
+			farm_End_YN as farmEndYN,
+			rating as rating
+		FROM (select row_number() over (order by farm_no desc) as num,farm.* from farm
+		where farm_no not in(1,2,3)
+			<choose>
+				<when test="type.equals('farmNo')">
+					and farm_no = #{keyword}
+				</when>
+				<when test="type.equals('farmName')">
+					and farm_name like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('farmBusiNum')">
+					and farm_busi_num like '%'||#{keyword}||'%'
+				</when>
+				<otherwise></otherwise>
+			</choose>
+		)
+		where num between #{start} and #{end}
+	</select>
+	<select id="farmSearchTotalCount" parameterType="hashmap" resultType="integer">
+		select count(*) from farm where farm_no not in(1,2,3)
+			<choose>
+				<when test="type.equals('farmNo')">
+					and farm_no = #{keyword}
+				</when>
+				<when test="type.equals('farmName')">
+					and farm_name like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('farmBusiNum')">
+					and farm_busi_num like '%'||#{keyword}||'%'
+				</when>
+				<otherwise></otherwise>
+			</choose>
+	</select>
+	<update id="farmEndYNUpdate" parameterType="hashmap">
+		update farm set 
+		<if test='endYN.equals("N")'>
+			farm_end_yn='Y'
+		</if>
+		<if test='endYN.equals("Y")'>
+			farm_end_yn='N'
+		</if>
+		where farm_no = #{farmNo}
+	</update>
 </mapper>

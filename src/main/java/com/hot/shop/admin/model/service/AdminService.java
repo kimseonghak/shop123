@@ -57,4 +57,8 @@ public interface AdminService {
 	boolean refundUpdate(HashMap<String, Object> map);
 
 	Farm farmInfo(int farmNo);
+
+	HashMap<String, Object> farmSearchList(HashMap<String, Object> map, int currentPage);
+
+	int farmEndYNUpdate(HashMap<String, Object> map);
 }

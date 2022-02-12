@@ -10,11 +10,20 @@
 	href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap"
 	rel="stylesheet">
 <meta charset="UTF-8">
-<title>123상회 userQNA관리</title>
+<title>123상회 Farm관리</title>
 <link rel="stylesheet" href="/resources/admin/css/common.css">
 <style>
 	*{
 		box-sizing: border-box;
+	}
+	table{
+		width:100%;
+		border-collapse: collapse;
+		text-align: center;
+		margin:0 auto;
+		white-space: nowrap;
+		border-spacing: 0px;
+		table-layout: fixed;
 	}
 	#mainContents{
 		padding: 0px;
@@ -28,7 +37,7 @@
 		padding-right:20px;
 		background-color: rgba(72,187,120,0.1);
 	}
-/* Navi CSS */
+/* 페이지 Navi CSS */
 	.naviArrow{
 		text-decoration: none;
 		display : inline-block;
@@ -38,7 +47,7 @@
 		height: 3.5vmin;
 		font-weight: bolder;
 		opacity: 0.3;
-		line-height: 150%;
+		line-height: 200%;
 	}
 	#currentNavi{
 		text-decoration: none;
@@ -69,15 +78,6 @@
 		opacity: 0.3;
 	}
 /* table CSS */
-	table{
-		width:100%;
-		border-collapse: collapse;
-		text-align: center;
-		margin:0 auto;
-		white-space: nowrap;
-		border-spacing: 0px;
-		table-layout: fixed;
-	}
 	table td,th{
 		overflow:hidden;
 		text-overflow: ellipsis;
@@ -98,9 +98,6 @@
 		width:100%;
 		height:0.5vmin
 	}
-	.tdTr:hover>td{
-		background-color: rgb(240, 240, 240);
-	}
 /* title CSS */
 	#titleSpace{
 		border:1px solid #198754;
@@ -119,6 +116,9 @@
 		text-overflow: ellipsis;
 		overflow: hidden;
 		cursor: pointer;
+	}
+	.tdTr:hover>td{
+		background-color: rgb(240, 240, 240);
 	}
 /* 검색바 CSS */
 	#searchWrap{
@@ -168,14 +168,41 @@
 	#searchBtn>img{
 		height:100%;
 	}
-/* 답변 CSS */
-	.answerImgTd{
-		padding:0.5vmin;
-		line-height: 100%;
+/* 유저 정보 커서 효과 */
+	.userInfo{
+		cursor: pointer;
 	}
-	.answerImg{
-		width:60%;
-		height:60%;
+/* 탈퇴 복구 버튼 CSS */
+	.endYNbtn{
+		font-size:1.7vmin;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.endYNN{
+		width:80%;
+		height:100%;
+		border:1px solid #198754;
+		border-radius:3px;
+		background-color: white;
+		cursor: pointer;
+		color: #198754;
+	}
+	.endYNN:hover{
+		background-color: #198754;
+		color: white;
+	}
+	.endYNY{
+		width:80%;
+		height:100%;
+		border:1px solid #87281A;
+		border-radius:3px;
+		background-color: white;
+		cursor: pointer;
+		color: #87281A;
+	}
+	.endYNY:hover{
+		background-color: #87281A;
+		color: white;
 	}
 </style>
 </head>
@@ -189,41 +216,40 @@
 		<div id="mainContents">
 			<div id="backgroundColor">
 			<div id="titleSpace">
-				<span id="title">User QNA</span>
+				<span id="title">Farm</span>
 			</div>
 			<div id="searchWrap">
-					<form action="/admin/adminUserQNAPage.do" method="get" style="widht:100%; height:100%;" id="searchForm">
+					<form action="/admin/adminFarmPage.do" method="get" style="widht:100%; height:100%;" id="searchForm">
 						<button type="submit" id="searchBtn"><img alt="" src="/resources/admin/img/searchLeaf.png"></button>
 						<input type="text" name="keyword" id="searchText" />
 						<select name="type" id="searchSelect">
-							<option value="title">제목</option>
-							<option value="name">유저 이름</option>
-							<option value="content">내용</option>
-							<option value="all">제목+내용</option>
+							<option value="farmNo">농가 번호</option>
+							<option value="farmName">농가 이름</option>
+							<option value="farmBusiNum">농가 사업자 번호</option>
 						</select>
 					</form>
 			</div>
 				<table>
 					<tr id="thTr">
-						<th width="10%">문의 번호</th>
-						<th width="40%">문의 제목</th>
-						<th width="10%">유저 번호</th>
-						<th width="15%">유저 이름</th>
-						<th width="15%">문의 날짜</th>
-						<th width="10%">진행 상황</th>
+						<th width="10%">농가 번호</th>
+						<th width="20%">농가 ID</th>
+						<th width="10%">농가 이름</th>
+						<th width="20%">농가 사업자번호</th>
+						<th width="30%">농가 이메일</th>
+						<th width="10%">탈퇴 여부</th>
 					</tr>
-					<c:forEach items="${map.list }" var="q">
+					<c:forEach items="${map.list }" var="f">
 					<tr class="tdTr">
-						<td>${q.questionUserNo }</td>
-						<td class="questionUser" style="font-weight:bold; cursor:pointer;">${q.questionUserTitle }</td>
-						<td>${q.userNo }</td>
-						<td class="user" style="font-weight:bold; cursor:pointer;">${q.userNick }</td>
-						<td>${q.questionUserRegdate }</td>
-						<c:if test="${String.valueOf(q.questionUserAnswerYN) eq 'N'}">
-							<td class="answerImgTd"><img class="answerImg" alt="" src="/resources/admin/img/답변 대기.png"></td>
+						<td>${f.farmNo }</td>
+						<td class="farmInfo" style="font-weight:bold; cursor:pointer;">${f.farmId }</td>
+						<td>${f.farmName }</td>
+						<td>${f.farmBusiNum }</td>
+						<td>${f.farmEmail }</td>
+						<c:if test="${String.valueOf(f.farmEndYN) eq 'N'}">
+							<td class="endYNtd"><button class="endYNbtn endYNN" data="${f.farmEndYN }">탈퇴</button></td>
 						</c:if>
-						<c:if test="${String.valueOf(q.questionUserAnswerYN) eq 'Y'}">
-							<td class="answerImgTd"><img class="answerImg" alt="" src="/resources/admin/img/문의 종료.png"></td>
+						<c:if test="${String.valueOf(f.farmEndYN) eq 'Y'}">
+							<td class="endYNtd"><button class="endYNbtn endYNY" data="${f.farmEndYN }">복구</button></td>
 						</c:if>
 					</tr>
 					<tr class="listSpace"></tr>
@@ -241,9 +267,9 @@
 	<script>
 <%-- 사이드바 선택 표시 --%>
 		$(function() {
-			$('#mainUl>li').eq(3).css('background-color', '#34734e');
-			$('#mainUl>li>a').eq(3).css('color', 'white');
-			$('#mainUl>li>a').eq(3).css('font-weight','bolder');
+			$('#mainUl>li').eq(5).css('background-color', '#34734e');
+			$('#mainUl>li>a').eq(5).css('color', 'white');
+			$('#mainUl>li>a').eq(5).css('font-weight','bolder');
 		});
 <%-- 네비화살표 hover시 투명도 조절 --%>
 		$('.naviArrow').hover(function() {
@@ -259,24 +285,26 @@
 				$('#prev').unbind('mouseenter mouseleave');
 			}
 		});
-<%-- 글 제목 클릭시 해당 글 내용으로 이동하는 스크립트 --%>
-		$('.questionUser').click(function(){
-			var qUserNo = $(this).prev().html();
-			var currentPage = ${currentPage};
-			location.replace('/admin/adminUserQNAContent.do?currentPage='+currentPage+'&questionUserNo='+qUserNo);
-		});
-<%-- 유저 이름 클릭시 유저 정보창 출력 --%>
-		$('.user').click(function(){
-			var userNo = $(this).prev().html();
-			window.open("/admin/adminMemberInfoPage.do?userNo="+userNo,"_blank","width=500px, height=430px");
-		});
 <%-- 검색아이콘 클릭시 서브밋 --%>
 		$('#searchIcon').click(function(){
 			$(this).parents('form').submit();
 		});
+<%-- 아이디 클릭시 해당 회원 정보 창 출력 --%>
+		$('.farmInfo').click(function(){
+			var farmNo = $(this).prev().html();
+			window.open("/admin/adminFarmInfoPage.do?farmNo="+farmNo,"_blank","width=500px, height=430px");
+		});
+<%-- 회원 탈퇴/복구 버튼 로직 --%>
+		$('.endYNbtn').click(function(){
+			var endYN = $(this).attr('data');
+			var farmNo = $(this).parent().siblings().eq(0).html();
+			var currentPage = ${currentPage };
+			
+			location.replace("/admin/adminFarmEndYNUpdate.do?endYN="+endYN+"&farmNo="+farmNo+"&currentPage="+currentPage);
+		});
 <%-- 해당 페이지 최초 페이지 이동 --%>
 		$('#title').click(function(){
-			location.replace('/admin/adminUserQNAPage.do');
+			location.replace('/admin/adminFarmPage.do');
 		});
 	</script>
 </body>

@@ -20,6 +20,56 @@ body {
 	background-color:#48bb78;
 }
 
+/*header 아이콘 영역*/
+#headerDiv1 {
+	width: 10%;
+	height: 100%;
+	float: left;
+	padding-top: 1vh;
+	padding-bottom: 1vh;
+    }
+#headerDiv2 {
+	width: 80%;
+	height: 100%;
+	float: left;
+    }
+#headerDiv3 {
+	width: 10%;
+	height: 100%;
+	float: left;
+	padding:2vmin;
+    }
+/*홈  아이콘 위치*/
+#homeIcon {
+	width:5vmin;
+	height:5vmin;
+	transition: all ease 0.5s;
+}
+#homeIcon:hover {
+	transform:scale(1.2,1.2);
+}
+    
+/* logTitle CSS */
+#logoTitlePtag {
+	letter-spacing: 3px;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	font-size: 2vmin;
+	line-height:280%;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	height:100%;
+	width:80%;
+	margin:0 auto;
+	transition:all ease 0.5s;
+	cursor:pointer;
+}
+#logoTitlePtag:hover{
+	transform:scale(1.1,1.1);
+}
+
+
 /* sideBar CSS */
 #sideBar {
 	width: 10%;
@@ -65,15 +115,19 @@ body {
 	border-bottom-left-radius: 10px;
 	border-top-left-radius: 10px;
 	margin: 10px 0px;
+	color:white;
+	transition:all ease 0.5s;
 }
 #mainUl>li:hover {
 	background-color: #34734e;
 	font-weight: bolder;
+	transform:scale(1.1,1.1);
 }
+
 #mainUl>li>a{
 	display:block;
 	text-decoration: none;
-	color:white;
+	color:inherit;
 }
 
 #mainContents {

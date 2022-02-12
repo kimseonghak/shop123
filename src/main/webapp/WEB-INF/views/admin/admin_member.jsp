@@ -242,7 +242,7 @@
 					<c:forEach items="${map.list }" var="m">
 					<tr class="tdTr">
 						<td>${m.userNo }</td>
-						<td class="userInfo">${m.userId }</td>
+						<td class="userInfo" style="font-weight:bold;">${m.userId }</td>
 						<td>${m.userName }</td>
 						<td>${m.userNick }</td>
 						<td>${m.userEmail }</td>

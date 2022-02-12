@@ -391,4 +391,53 @@ public class AdminDAO {
 	public Farm farmInfo(int farmNo) {
 		return sql.selectOne("admin.farmInfo",farmNo);
 	}
+
+	public ArrayList<Farm> farmSearchList(int currentPage, int recordCountPerPage, HashMap<String, Object> map) {
+		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
+		int end = currentPage*recordCountPerPage;
+		map.put("start", start);
+		map.put("end", end);
+		return new ArrayList<Farm>(sql.selectList("admin.farmSearchList",map));
+	}
+
+	public String getFarmSearchPageNavi(int recordCountPerPage, int currentPage, HashMap<String, Object> map,
+			int naviCountPerPage) {
+		
+		int recordTotalCount = farmSeqarchTotalCount(map); 
+		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
+		
+		int startNavi = ((currentPage-1)/naviCountPerPage) *naviCountPerPage+1;
+		int endNavi = startNavi+naviCountPerPage-1;
+		
+		if(endNavi>pageTotalCount) {
+			endNavi=pageTotalCount;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<a href='/admin/adminFarmPage.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/admin/adminFarmPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
+		for(int i= startNavi; i<=endNavi; i++) {
+			if(i==currentPage) {
+				sb.append("<a href='/admin/adminFarmPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='currentNavi'>"+i+"</a>");
+			}else {
+				sb.append("<a href='/admin/adminFarmPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='otherNavi'>"+i+"</a>");
+			}
+		}
+		if((currentPage+10)>pageTotalCount) {
+			sb.append("<a href='/admin/adminFarmPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+		}else {
+			sb.append("<a href='/admin/adminFarmPage.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+		}
+		sb.append("<a href='/admin/adminFarmPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&gt;&gt;</a>");
+		
+		return sb.toString();
+	}
+
+	private int farmSeqarchTotalCount(HashMap<String, Object> map) {
+		return sql.selectOne("admin.farmSearchTotalCount",map);
+	}
+
+	public int farmEndYNUpdate(HashMap<String, Object> map) {
+		return sql.update("admin.farmEndYNUpdate",map);
+	}
 }

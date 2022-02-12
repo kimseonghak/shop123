@@ -1,15 +1,15 @@
 package com.hot.shop.admin.contoller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.hot.shop.admin.model.service.AdminService;
 import com.hot.shop.admin.model.vo.Auction;
 import com.hot.shop.admin.model.vo.SellForm;
@@ -25,12 +24,24 @@ import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.CancelData;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 
 @Controller
 public class AdminController {
 	
 	@Autowired
 	private AdminService aService;
+	
+	private IamportClient client;
+	
+	@Value("#{db['imp_key']}")
+	private String key;
+	@Value("#{db['imp_secret']}")
+	private String secret;
 	
 	// 최초 대시보드 접속
 	@RequestMapping(value="/admin/adminDashboardPage.do",method = RequestMethod.GET)
@@ -202,17 +213,22 @@ public class AdminController {
 	}
 	// member 탈퇴 관리 (EndYN 변경)
 	@RequestMapping(value = "/admin/adminMemberEndYNUpdate.do", method = RequestMethod.GET)
-	public ModelAndView memberEndYNUpdate(ModelAndView mav,@RequestParam int userNo,@RequestParam int currentPage,@RequestParam String endYN) {
+	public ModelAndView memberEndYNUpdate(ModelAndView mav,
+			@RequestParam int userNo,
+			@RequestParam int currentPage,
+			@RequestParam(required = false, defaultValue = "default") String type, 
+			@RequestParam(required = false, defaultValue = "") String keyword,
+			@RequestParam String endYN) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
 		map.put("endYN", endYN);
 		int result = aService.memberEndYNUpdate(map);
 		if(result>0 && endYN.equals("N")) {
 			mav.addObject("msg","탈퇴 처리 되었습니다.");
-			mav.addObject("location","/admin/adminMemberPage.do?curretnPage="+currentPage);
+			mav.addObject("location","/admin/adminMemberPage.do?curretnPage="+currentPage+"&type="+type+"&keyword="+keyword);
 		}else {
 			mav.addObject("msg","복구 처리 되었습니다.");
-			mav.addObject("location","/admin/adminMemberPage.do?curretnPage="+currentPage);
+			mav.addObject("location","/admin/adminMemberPage.do?curretnPage="+currentPage+"&type="+type+"&keyword="+keyword);
 		}
 		mav.setViewName("commons/msg");
 		return mav;
@@ -258,19 +274,54 @@ public class AdminController {
 		mav.setViewName("admin/admin_refund");
 		return mav;
 	}
-	// refundYN Update 로직
-	@RequestMapping(value = "/admin/adminRefundUpdate.do", method = RequestMethod.GET)
+
+	public void setup() {
+		String test_api_key = key;
+		String test_api_secret = secret;
+		client = new IamportClient(test_api_key, test_api_secret);
+	}
+	
+	//결제 환불 로직
+	@RequestMapping(value = "/admin/adminRefundUpdate.do", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean adminRefundUpdate(
+	public Boolean adminRefundUpdate(
 			@RequestParam int refundNo,
-			@RequestParam char adminYN) {
+			@RequestParam char adminYN,
+			@RequestParam String orderNo) {
+		
+		setup();
+		
+		String test_already_cancelled_merchant_uid = orderNo;
+		CancelData cancel_data = new CancelData(test_already_cancelled_merchant_uid, false); //merchant_uid를 통한 전액취소
+		cancel_data.setEscrowConfirmed(true); //에스크로 구매확정 후 취소인 경우 true설정
+		
+		try {
+			IamportResponse<Payment> payment_response = client.cancelPaymentByImpUid(cancel_data);
+			
+		} catch (IamportResponseException e) {
+			
+			switch(e.getHttpStatusCode()) {
+			case 401 :
+				//TODO
+				break;
+			case 500 :
+				//TODO
+				break;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		map.put("refundNo", refundNo);
 		map.put("adminYN", adminYN);
 		boolean result = aService.refundUpdate(map);
 		
+		
 		return result;
 	}
+
+	// 농장 정보 팝업 로직
 	@RequestMapping(value = "/admin/adminFarmInfoPage.do", method = RequestMethod.GET)
 	public ModelAndView farmInfoPage(ModelAndView mav,
 			@RequestParam int farmNo) {
@@ -279,4 +330,52 @@ public class AdminController {
 		mav.setViewName("/admin/admin_farm_info");
 		return mav;
 	}
+	
+	// 농가 검색 페이지
+		@RequestMapping(value = "/admin/adminFarmPage.do", method = RequestMethod.GET)
+		public ModelAndView farmSearchList(ModelAndView mav,
+				@RequestParam(required = false,defaultValue = "1") int currentPage,
+				@RequestParam(required = false,defaultValue = "default") String type, 
+				@RequestParam(required = false,defaultValue = "") String keyword) {
+			
+			if(type.equals("farmNo")) {
+				boolean isNumber = Pattern.matches("^[0-9]*$", keyword);
+				if(isNumber==false) {
+					type="default";
+					keyword="";
+				}
+			}
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("type", type);
+			map.put("keyword", keyword);
+			map = aService.farmSearchList(map,currentPage);
+			
+			mav.addObject("map",map);
+			mav.addObject("currentPage",currentPage);
+			mav.setViewName("admin/admin_farm");
+			
+			return mav;
+		}
+		//농가 탈퇴 복구 로직
+		@RequestMapping(value = "/admin/adminFarmEndYNUpdate.do", method = RequestMethod.GET)
+		public ModelAndView farmEndYNUpdate(ModelAndView mav,
+				@RequestParam int farmNo,
+				@RequestParam int currentPage,
+				@RequestParam(required = false, defaultValue = "default") String type, 
+				@RequestParam(required = false, defaultValue = "") String keyword,
+				@RequestParam String endYN) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("farmNo", farmNo);
+			map.put("endYN", endYN);
+			int result = aService.farmEndYNUpdate(map);
+			if(result>0 && endYN.equals("N")) {
+				mav.addObject("msg","탈퇴 처리 되었습니다.");
+				mav.addObject("location","/admin/adminFarmPage.do?curretnPage="+currentPage+"&type="+type+"&keyword="+keyword);
+			}else {
+				mav.addObject("msg","복구 처리 되었습니다.");
+				mav.addObject("location","/admin/adminFarmPage.do?curretnPage="+currentPage+"&type="+type+"&keyword="+keyword);
+			}
+			mav.setViewName("commons/msg");
+			return mav;
+		}
 }

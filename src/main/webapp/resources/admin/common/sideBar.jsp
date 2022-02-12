@@ -4,14 +4,30 @@
 	<div id="sideWrap1"></div>
 	<div id="sideWrap2">
 		<ul id="mainUl">
-			<li><a href="/admin/adminDashboardPage.do">Main</a></li>
-			<li><a href="/admin/adminAuctionPage.do">Auction</a></li>
-			<li><a href="/admin/adminFarmQNAPage.do">farmQNA</a></li>
-			<li><a href="/admin/adminUserQNAPage.do">userQNA</a></li>
-			<li><a href="/admin/adminRefundPage.do">Refund</a></li>
-			<li><a>AD</a></li>
-			<li><a href="/admin/adminMemberPage.do">Member</a></li>
-			<li><a>board</a></li>
+			<li>
+				<a href="/admin/adminDashboardPage.do">Main</a>
+			</li>
+			<li>
+				<a href="/admin/adminAuctionPage.do">Auction</a>
+			</li>
+			<li>
+				<a href="/admin/adminFarmQNAPage.do"><img src="/resources/farm/image/문의사항.png" width="18%;" height="100%" style="vertical-align: middle;"/><span>farmQNA</span></a>
+			</li>
+			<li>
+				<a href="/admin/adminUserQNAPage.do">userQNA</a>
+			</li>
+			<li>
+				<a href="/admin/adminRefundPage.do">Refund</a>
+			</li>
+			<li>
+				<a href="/admin/adminFarmPage.do">Farm</a>
+			</li>
+			<li>
+				<a href="/admin/adminMemberPage.do">Member</a>
+			</li>
+			<li>
+				<a>board</a>
+			</li>
 		</ul>
 	</div>
 	<div id="sideWrap3"></div>
