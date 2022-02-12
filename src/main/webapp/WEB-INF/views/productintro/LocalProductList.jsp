@@ -153,6 +153,7 @@
 	margin-top: 40px;
 	margin-right: 40px;
 	text-align: right;
+	
 }
 
 .writeBtn{
