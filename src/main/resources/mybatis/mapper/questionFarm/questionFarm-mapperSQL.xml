@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	<mapper namespace="qFarm">
+	<!-- 글 조회 리스트 공간 -->
+		<!-- 글 리스트 -->
+		<select id="farmQuestionList" parameterType="hashmap" resultType="qFarm">
+		select
+            QUESTION_FARM_NO as questionFarmNo,
+            QUESTION_FARM_TITLE as questionFarmTitle,
+            QUESTION_FARM_CONTENT as questionFarmContent,
+            QUESTION_FARM_REGDATE as questionFarmRegdate,
+            FARM_NO as farmNo,
+            QUESTION_FARM_END_YN as questionFarmEndYN,
+            QUESTION_FARM_ANSWER_YN AS questionFarmAnswerYN
+			from (select row_number() over(order by QUESTION_FARM_NO desc)as num, QUESTION_FARM.*
+				from QUESTION_FARM 
+				left join farm on (QUESTION_FARM.FARM_NO = farm.FARM_NO) 
+				where QUESTION_FARM_END_YN='N'
+			<choose>
+				<when test="type.equals('title')">
+					and QUESTION_FARM_TITLE like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('content')">
+					and QUESTION_FARM_CONTENT like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('all')">
+					and (QUESTION_FARM_TITLE like '%'||#{keyword}||'%' or QUESTION_FARM_CONTENT like '%'||#{keyword}||'%')
+				</when>
+			</choose>
+			) where num between #{start} and #{end}
+		</select>
+		
+		<select id="qFarmTotalCount" parameterType="hashmap" resultType="integer">
+			select 		count(*) 
+			from 		QUESTION_FARM 
+			<choose>
+				<when test="type.equals('title')">
+					where QUESTION_FARM_TITLE like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('content')">
+					where QUESTION_FARM_CONTENT like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('all')">
+					where QUESTION_FARM_TITLE like '%'||#{keyword}||'%' or QUESTION_FARM_CONTENT like '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</select>
+	<!-- 글 조회 리스트 공간 끝 -->
+	
+	
+	<!-- 글 쓰기 -->
+	<insert id="questionFarmWrite" parameterType="qFarm">
+	insert into		QUESTION_FARM 
+	values			(QUESTION_FARM_SEQ.nextval,
+					#{questionFarmTitle},
+					#{questionFarmContent},
+					sysdate,
+					#{farmNo},
+					'N',
+					'N')
+	</insert>
+	
+	
+	<!-- 글 조회 공간 -->
+		<select id="questionFarmView" parameterType="integer" resultType="qFarm">
+		select
+					QUESTION_FARM_NO as questionFarmNo,
+					QUESTION_FARM_TITLE as questionFarmTitle,
+					QUESTION_FARM_CONTENT as questionFarmContent,
+					QUESTION_FARM_REGDATE as questionFarmRegDate,
+					QUESTION_FARM.FARM_NO as farmNo,
+					QUESTION_FARM_END_YN as questionFarmEndYN,
+					QUESTION_FARM_ANSWER_YN as questionFarmAnswerYN,
+					farm_name as farmName
+		from 		QUESTION_FARM LEFT join farm on (QUESTION_FARM.FARM_NO = farm.FARM_NO)
+		where 		QUESTION_FARM.QUESTION_FARM_NO=#{_parameter}
+		</select>
+	<!-- 글 조회 공간 끝-->
+	
+	<!-- 답변 공간 -->
+	<select id="questionFarmAnswerCheck" parameterType="integer" resultType="qAnswer">
+			select 		question_Answer_Content as questionAnswerContent 
+			from 		question_answer 
+			where 		question_board_code='F' and question_board_no=#{_parameter}
+		</select>
+	<!-- 답변 공간 끝 -->
+	
+	<!-- 글 수정 -->
+	<update id="questionFaemUpdate" parameterType="qFarm">
+	update			QUESTION_FARM
+	set				QUESTION_FARM_TITLE = #{questionFarmTitle},
+					QUESTION_FARM_CONTENT = #{questionFarmContent}
+	where			QUESTION_FARM_NO = #{questionFarmNo}
+	</update>
+
+
+	<!-- 글 삭제 -->
+	<update id="questionFarmDelete" parameterType="integer">
+	update			QUESTION_FARM
+	set				QUESTION_FARM_END_YN = 'Y'
+	where			QUESTION_FARM_NO = #{_parameter}
+	</update>
+	</mapper>

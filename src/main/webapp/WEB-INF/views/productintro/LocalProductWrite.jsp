@@ -202,6 +202,33 @@ body {
     border : none;
     cursor : pointer;
 }
+
+.optiontitle{
+    min-width: 5%;
+    height: 30px;
+    color: #3BBD5A;
+    font : normal bold 21px "Nanum Gothic",sans-serif;
+    text-align: left;
+    float: left;
+
+}
+
+.option_form{
+    min-width: 10%;
+    height: 30px;
+}
+
+.option{
+    min-width: 50px;
+    height: 30px;
+    border: none;
+    text-align: left;
+    font : normal bold 18px "Nanum Gothic",sans-serif;
+    margin-left: 15px;
+    margin-top: 7px;
+    float: left;
+    outline: none;
+}
 </style>
 
 <body>
@@ -226,12 +253,11 @@ body {
 			<%-- 입력 폼 --%>
 			<div class="insert_zone">
 			<form action="/local/localWrite.do" id="textWrite" method="post">
-				<input type="hidden" name="LocalProductPhotoNo" value="27">
+				<input type="hidden" name="LocalProductPhotoNo" value="42">
 				<%-- 옵션 1 --%>
 				<div class="optiontitle">지역별로 선택해 주세요.</div>
 					<div class="option_form">
 						<select class="option" name="LocalProductClassify">
-							<option value="" disabled selected>월 선택</option>
 								<option value="" disabled selected>지역 선택</option>
 									<option value="SEOUL">서울</option>
 									<option value="GYEONGGI">경기도</option>

@@ -209,12 +209,51 @@ body {
 		
 		<form action="/productintro/localProductUpdatePage.do" method="get">
 	
+		<input type="hidden" name="originalLocalphotoNo" value="1">
 		<input type="hidden" name="localProductNo" value="${localBoard.localProductNo }">
 		<input type="hidden" name="localProductPhotoFilePath" value="${localBoard.localProductPhotoFilePath }">
 			<%-- 태그, 제목, 작성자 영역 --%>
 			<div class="titleform1">
 				<div class="tag-select">
-					<span>${localBoard.localProductClassify }</span>
+					<c:if test="${localBoard.localProductClassify eq 'JEJU'}">
+						<span>제주도</span>
+					</c:if>
+					
+					<c:if test="${localBoard.localProductClassify eq 'JEONNAM'}">
+						<span>전라남도</span>
+					</c:if>
+
+					<c:if test="${localBoard.localProductClassify eq 'JEONBUK'}">
+						<span>전라북도</span>
+					</c:if>
+
+					<c:if test="${localBoard.localProductClassify eq 'GYEONGNAM'}">
+						<span>경상남도</span>
+					</c:if>
+
+					<c:if test="${localBoard.localProductClassify eq 'GYEONGBUK'}">
+						<span>경상북도</span>
+					</c:if>
+					
+					<c:if test="${localBoard.localProductClassify eq 'CHUNGNAM'}">
+						<span>충청남도</span>
+					</c:if>
+
+					<c:if test="${localBoard.localProductClassify eq 'CHUNGBUK'}">
+						<span>충청북도</span>
+					</c:if>
+
+					<c:if test="${localBoard.localProductClassify eq 'GANGWWON'}">
+						<span>강원도</span>
+					</c:if>
+
+					<c:if test="${localBoard.localProductClassify eq 'GYEONGGI'}">
+						<span>경기도</span>
+					</c:if>
+
+					<c:if test="${localBoard.localProductClassify eq 'SEOUL'}">
+						<span>서울</span>
+					</c:if>
 				</div>
 				<div class="title">
 					<span>${localBoard.localProductTitle }</span>
@@ -247,11 +286,11 @@ body {
 			
 			<%-- 버튼 영역 --%>
 			<div class="btnForm">
-				<c:if test="${farm != null && (farm.farm  '${farm.farmNo}'">
+			
 					<button type="button" class="promotionBtn">홍보요청</button>
 					<button type="button" class="deleteBtn">글 삭제</button>
 					<button class="updateBtn">글 수정</button>
-				</c:if>
+
 				<input type="button" class="mainBtn" value="리스트" onclick="location='/productintro/LocalProductListPage.do'">
 			</div>
 		</form>
@@ -268,7 +307,7 @@ body {
 </div>
 
 <script>
-$('#deleteBtn').click(function(){
+$('.deleteBtn').click(function(){
     if(window.confirm('삭제할건가요?')){
         var formTag = document.createElement("form");
         formTag.setAttribute("action",'/productintro/localDelete.do');

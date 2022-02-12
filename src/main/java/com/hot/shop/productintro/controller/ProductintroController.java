@@ -62,7 +62,7 @@ public class ProductintroController {
 	
 	//제철 특산물 리스트 작성 페이지
 	@RequestMapping(value = "/productintro/SeasonProductWritePage.do",method = RequestMethod.GET)
-	public String SeasonProductWritePage(@SessionAttribute Member member,@SessionAttribute Farm farm) {
+	public String SeasonProductWritePage() {
 		return "productintro/SeasonProductWrite";
 	}
 	//파일 넣기
@@ -113,8 +113,9 @@ public class ProductintroController {
 		}
 		//실질적 글쓰기
 		@RequestMapping(value = "/season/SeasonWrite.do",method = RequestMethod.POST)
-		public ModelAndView localWrite(SeasonProductBoard seasonBoard,ModelAndView mav,@SessionAttribute Farm farm) {
-			int farmNo = farm.getFarmNo();
+		public ModelAndView localWrite(SeasonProductBoard seasonBoard,ModelAndView mav) {
+			
+			
 			int result = piService.SeasonWrite(seasonBoard);
 			
 			if(result > 0) {
@@ -133,7 +134,7 @@ public class ProductintroController {
 	
 	//제철 특산물 리스트 조회
 		@RequestMapping(value = "/productintro/SeasonProductView.do",method = RequestMethod.GET)
-		public ModelAndView SeasonProductView(	@RequestParam int seasonProductNo,ModelAndView mav,@SessionAttribute Member member,@SessionAttribute Farm farm) {
+		public ModelAndView SeasonProductView(	@RequestParam int seasonProductNo,ModelAndView mav) {
 			SeasonProductBoard seasonBoard = piService.SeasonProductView(seasonProductNo);
 			
 			mav.addObject("seasonBoard", seasonBoard);
@@ -145,7 +146,7 @@ public class ProductintroController {
 	//제철 특산물 리스트 수정
 		@RequestMapping(value = "/productintro/SeasonProductUpdatePage.do",method = RequestMethod.GET)
 		public ModelAndView SeasonProductUpdatePage(ModelAndView mav,
-											@RequestParam int seasonProductNo,@SessionAttribute Member member,@SessionAttribute Farm farm) {
+											@RequestParam int seasonProductNo) {
 			
 			//리스트 갖고오기
 			SeasonProductBoard seasonBoard = piService.SeasonProductView(seasonProductNo);
@@ -156,7 +157,7 @@ public class ProductintroController {
 		}
 		
 		@RequestMapping(value = "/productintro/SeasonProductUpdate.do",method = RequestMethod.POST)
-		public ModelAndView SeasonProductUpdate(	ModelAndView mav,SeasonProductBoard seasonBoard,@SessionAttribute Member member) {
+		public ModelAndView SeasonProductUpdate(	ModelAndView mav,SeasonProductBoard seasonBoard) {
 			
 			System.out.println(seasonBoard);
 			//글 수정했을때 새로운 이미지 파일이 들어오지 않았을 경우
@@ -176,7 +177,7 @@ public class ProductintroController {
 			}
 			
 			int result = piService.SeasonProductUpdate(seasonBoard);
-			
+			System.out.println(seasonBoard);
 			if(result > 1) {
 				mav.addObject("msg", "글이 수정되었습니다.." );
 				mav.addObject("location", "/productintro/SeasonProductView.do?seasonProductNo="+seasonBoard.getSeasonProductNo());
@@ -260,14 +261,15 @@ public class ProductintroController {
 	//지역특산물 글쓰기 백단 구현
 	@RequestMapping(value = "/local/localWrite.do",method = RequestMethod.POST)
 	public ModelAndView localWrite(LocalProductBoard localBoard,ModelAndView mav) {
+
 		int result = piService.localWrite(localBoard);
 		
 		if(result > 0) {
 			mav.addObject("msg", "글 작성에 성공했습니다." );
-			mav.addObject("location", "/productintro/LocalProductWritePage.do");
+			mav.addObject("location", "/productintro/LocalProductListPage.do");
 		}else {
 			mav.addObject("msg", "글 작성에 실패했습니다." );
-			mav.addObject("location", "/productintro/LocalProductWritePage.do");
+			mav.addObject("location", "/productintro/LocalProductListPage.do");
 		}
 		mav.setViewName("commons/msg");
 		return mav;
@@ -324,8 +326,9 @@ public class ProductintroController {
 	//지역 특산물 글조회
 	@RequestMapping(value = "/productintro/LocalProductView.do",method = RequestMethod.GET)
 	public ModelAndView LocalProductView(@RequestParam int localProductNo,ModelAndView mav) {
-		LocalProductBoard localBoard = piService.LocalProductView(localProductNo);
 		
+		LocalProductBoard localBoard = piService.LocalProductView(localProductNo);
+		System.out.println("조회="+localBoard);
 		mav.addObject("localBoard", localBoard);
 		mav.setViewName("productintro/LocalProductView");
 		return mav;
@@ -367,7 +370,7 @@ public class ProductintroController {
 		
 		//리스트 갖고오기
 		LocalProductBoard localBoard = piService.LocalProductView(localProductNo);
-		
+		System.out.println(localBoard);
 		mav.addObject("localBoard", localBoard);
 		mav.setViewName("productintro/LocalProductUpdate");
 		return mav;
@@ -375,7 +378,8 @@ public class ProductintroController {
 	
 	@RequestMapping(value = "/productintro/localProductUpdate.do",method = RequestMethod.POST)
 	public ModelAndView localProductUpdate (	ModelAndView mav,LocalProductBoard localBoard) {
-		System.out.println(localBoard);
+		
+		
 		//글 수정했을때 새로운 이미지 파일이 들어오지 않았을 경우
 		if(localBoard.getLocalProductPhotoNo()==1) {
 			localBoard.setLocalProductNo(localBoard.getOriginalLocalphotoNo());

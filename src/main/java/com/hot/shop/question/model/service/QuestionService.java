@@ -23,23 +23,25 @@ public interface QuestionService {
 
 	HashMap<String, Object> buyListCheck(int currentPage, Member member);
 
-
-
-
-	
-	//-----------------------------------------농가 문의-----------------------------------------
-	ArrayList<QuestionFarm> QuestionFarmPage();
-
 	int questionUserDelete(int questionUserNo,String questionUserCode);
-
+	
 	boolean questionAnswer(QuestionAnswer qAnswer);
-
+	
 	QuestionPhoto deleteFileCheck(int originalQuestionphotoNo);
-
+	
 	int questionUserUpdate(QuestionUser qUser);
-
+	
 	ArrayList<Farm> farmCheck(String farmName);
-	
-	
-	
+	//-----------------------------------------농가 문의-----------------------------------------
+
+	HashMap<String, Object> selectFarmQuestionList(HashMap<String, Object> map);
+
+	int questionFarmWrite(QuestionFarm qfarm);
+
+	HashMap<String, Object> questionFarmView(int questionFarmNo);
+
+	int questionFaemUpdate(QuestionFarm qfarm);
+
+	int questionFarmDelete(int questionFarmNo);
+
 }
