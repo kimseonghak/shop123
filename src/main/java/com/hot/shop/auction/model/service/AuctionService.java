@@ -25,7 +25,10 @@ public interface AuctionService {
 
 	int minusAuctionCount1(int auctionCount, int auctionNo);
 
-	HashMap<String, Object> orderListInfo(int currentPage, int userNo);
+	HashMap<String, Object> orderListInfo(int currentPage, HashMap<String, Object> map);
+
+	Purchaselist selectOrderDetail(String orderNo);
+
 
 
 	

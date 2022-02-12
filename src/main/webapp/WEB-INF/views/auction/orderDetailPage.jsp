@@ -149,7 +149,10 @@ wrap {
 	margin-bottom: 4.8%;
 	margin-left: 5%;
 }
-
+#orderNo-td{
+	text-align: right;
+	padding-right: 27px;
+}
 </style>
 </head>
 <body>
@@ -170,7 +173,7 @@ wrap {
                                 	<input type="button" disabled="true" class="background" style="border: none;" />
                                 	<input type="button" disabled="true" style="border: none; " class="background" />${pur.purchaseDate }</td>
                                 <td colspan="2" class="center background font" id="orderNo-td">
-                                	 <a href="/auction/orderDetailPage.do" id="orderNo" class="text-align">${pur.orderNo } </a>
+                                	 <span id="align-right">${pur.orderNo } </span>
                                 </td>
                             </tr>
                             <tr class="white">
@@ -200,16 +203,16 @@ wrap {
 							</div>
 							<div id="deliveryInfo">
                             	<span class="span-box">이름</span>
-                            	<input type="text" class="input-box" value="이현아"/>
+                            	<input type="text" class="input-box" value="${pur.recipient }"/>
                                 
                                 <span class="span-box">연락처</span>
-                                <input type="text" class="input-box" value="01011113333"/>
+                                <input type="text" class="input-box" value="${pur.phone }"/>
                                 
                                 <span class="span-box">주소</span>
-                                <input type="text" class="input-box" value="경기도 고양시 일산서구 인현로 120"/>
+                                <input type="text" class="input-box" value="${pur.address1 }"/>
                                
                                 <span class="span-box">상세 주소</span>
-                                <input type="text" class="input-box" value="303동 602호"/> 
+                                <input type="text" class="input-box" value="${pur.address2 }"/> 
 							</div>
 						</div>
 					</div>

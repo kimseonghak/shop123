@@ -22,6 +22,7 @@ public class Purchaselist {
 	private String deliveryCompany; 	//조인할때 사용
 	private String deliveryNo;			//조인할때 사용
 	private String dName;				//조인할때 사용
+	private String recipient;
 	
 	public Purchaselist() {
 		super();
@@ -30,7 +31,7 @@ public class Purchaselist {
 
 	public Purchaselist(int buyNo, int userNo, int farmNo, String productName, int productCount, int payAmount,
 			Date purchaseDate, String phone, String address1, String address2, String dCode, String payMethod,
-			char refundYN, String orderNo, String farmName, String deliveryCompany, String deliveryNo, String dName) {
+			char refundYN, String orderNo, String farmName, String deliveryCompany, String deliveryNo, String dName,String recipient) {
 		super();
 		this.buyNo = buyNo;
 		this.userNo = userNo;
@@ -50,6 +51,7 @@ public class Purchaselist {
 		this.deliveryCompany = deliveryCompany;
 		this.deliveryNo = deliveryNo;
 		this.dName = dName;
+		this.recipient = recipient;
 	}
 
 	public int getBuyNo() {
@@ -196,6 +198,14 @@ public class Purchaselist {
 		this.dName = dName;
 	}
 
+	public String getRecipient() {
+		return recipient;
+	}
+
+	public void setRecipient(String recipient) {
+		this.recipient = recipient;
+	}
+
 	@Override
 	public String toString() {
 		return "Purchaselist [buyNo=" + buyNo + ", userNo=" + userNo + ", farmNo=" + farmNo + ", productName="
@@ -203,8 +213,10 @@ public class Purchaselist {
 				+ purchaseDate + ", phone=" + phone + ", address1=" + address1 + ", address2=" + address2 + ", dCode="
 				+ dCode + ", payMethod=" + payMethod + ", refundYN=" + refundYN + ", orderNo=" + orderNo + ", farmName="
 				+ farmName + ", deliveryCompany=" + deliveryCompany + ", deliveryNo=" + deliveryNo + ", dName=" + dName
-				+ "]";
+				+ ", recipient=" + recipient + "]";
 	}
+
+	
 
 	
 	

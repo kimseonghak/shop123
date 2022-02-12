@@ -41,7 +41,11 @@
 }
 
 #subject>span {
-	font-size: 28px;
+	display : block;
+  	width : 100%;
+    height : 100%;
+    font-size: 28px;
+    text-align : center;
 	font-family: 'NanumSquare';
 	color: #3BBD5A;
 	font-weight: bold;
@@ -78,7 +82,7 @@
 }
 
 .auctionSaleStatus span {
-	font-size: 16px;
+	font-size: 100%;
 	color: #FFFFFF;
 	font-family: 'NanumSquare';
 	height: 100%;
@@ -93,11 +97,12 @@
 }
 
 .auctionSaleProduct>span {
+	display: block;
+	height : 100%;
 	font-size: 25px;
 	color: #FFFFFF;
 	font-family: 'NanumSquare';
 	font-weight: bold;
-	display: block;
 	text-align: center;
 	margin-top: -5px;
 }

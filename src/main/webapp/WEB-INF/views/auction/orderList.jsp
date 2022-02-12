@@ -60,25 +60,13 @@
 }
 #dateSelect-btn{
 	width: 100%;
-	height: 80px;
+	height: 60px;
+	padding-top : 2.5%;
+	padding-left: 75%;
 }
-#recent {
-    display: inline-block;
-    position: relative;
-    width: 10.5%;
-    height: 38%;
-    background-color: #3BBD5A;
-    color: white;
-    border: none;
-    border-radius: 5px;
-   	margin-left: 75%;
-   	margin-top: 25px;
-   	cursor:pointer;
-}
-
 #option {
     width: 10.5%;
-    height: 38.5%;
+    height: 55%;
     background-color: white;
     border: 2px solid #3BBD5A;
     border-radius: 5px;
@@ -90,15 +78,14 @@
 	width : 100%;
 	height: 78%;
 }
-.form{
-	margin-bottom: 30px;
-}
+
 #table {
     font-size: 13px;
     font-family: 'NanumSquare';
     margin: 0 auto;
     line-height: 36px;
 	width: 60%;
+	margin-bottom: 3.5%;
 }
 .background {
     background-color: #D5D0D0;
@@ -226,21 +213,20 @@
 					<div class="mypage-main">
 						<p class="title">주문 목록</p>
                     </div>
+				 <form class="form" action="/auction/orderDetailPage.do" method="post">
 					<div id="dateSelect-btn">
-						<input type="button" id="recent" class="font" onclick="sixMonthInquery()" value="최근 6개월" />
-						<select name='year' id="option">
-                           <option value='2022' selected>2022</option>
-                           <option value='2021'>2021</option>
-                           <option value='2020'>2020</option>
-                           <option value='2019'>2019</option>
-                           <option value='2018'>2018</option>
+						<select name='type' id="option">
+                           <option value='first' selected name="2022">2022</option>
+                           <option value='second' name="2021">2021</option>
+                           <option value='third' name="2020">2020</option>
+                           <option value='fourth' name="2019">2019</option>
+                           <option value='fifth' name="2018">2018</option>
                         </select>
 					</div>
 					<div id="orderList-main">
 					<c:choose>
 					<c:when test="${!map.list.isEmpty() }">
 					<c:forEach items="${map.list }" var="pur">
-						<form class="form" action="/auction/orderDetailPage.do" method="post">
 							<table id="table">
 								<tr>
 	                                <td colspan="4" class="data background">
@@ -281,7 +267,6 @@
 		                            </c:choose>
 	                            </tr>
 							</table>
-						</form>
 					</c:forEach>
 					</c:when>
 					<c:otherwise>
@@ -291,10 +276,11 @@
 					</c:otherwise>
 					</c:choose>
 					</div>
-					<div id="navi">${map.pageNavi }</div>
+				   </form>
 				</div>
+				<div id="navi">${map.pageNavi }</div>
+			  </div>
 			</div>
-		</div>
 	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 </div>
 <script>
@@ -312,12 +298,23 @@
 		}
 	});
 	
-//최근 6개월 버튼 누를 시 	
-	function sixMonthInquery(){
+
+	$(function(){
 		
+		var year = new Date();
+		var thisYear = year.getFullYear();
+		var first = $('#first').val();
+		var second = $('#second').html();
 		
-	}
-	
+		console.log(first);
+		
+		if(thisYear==first){
+			
+			first-=1;
+			console.log(first);
+		}		
+		
+	});
 	
 	
 </script>

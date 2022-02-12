@@ -69,7 +69,7 @@
 
   <insert id="insertOrder" parameterType="pur">
   	insert into purchaselist values
-  	(buy_no_SEQ.nextval,#{userNo},#{farmNo},#{productName},#{productCount},#{payAmount},sysdate,#{phone},#{address1},#{address2},default,#{payMethod},default,#{orderNo})
+  	(buy_no_SEQ.nextval,#{userNo},#{farmNo},#{productName},#{productCount},#{payAmount},sysdate,#{phone},#{address1},#{address2},default,#{payMethod},default,#{orderNo},#{recipient})
   </insert>
   
   <update id="minusAuctionCount1" parameterType="hashmap">
@@ -101,16 +101,85 @@
 	left join farm on(farm.farm_no=purchaselist.farm_no)
 	left join delivery_management on(delivery_management.buy_no=purchaselist.buy_no)
 	left join delivery on(purchaselist.d_code=delivery.d_code)
-	where user_no=#{userNo})
+	where user_no=#{userNo}
+	<choose>
+			<when test="type.equals('first')">
+				<![CDATA[and to_date('22/01/01')<=to_date(sysdate)
+				and to_date(sysdate)<=to_date('22/12/31')]]>
+			</when>
+			<when test="type.equals('second')">
+				<![CDATA[and to_date('21/01/01')<=to_date(sysdate)
+				and to_date(sysdate)<=to_date('21/12/31')]]>
+			</when>
+			<when test="type.equals('thrid')">
+				<![CDATA[and to_date('20/01/01')<=to_date(sysdate)
+				and to_date(sysdate)<=to_date('20/12/31')]]>
+			</when>
+			<when test="type.equals('fourth')">
+				<![CDATA[and to_date('19/01/01')<=to_date(sysdate)
+				and to_date(sysdate)<=to_date('19/12/31')]]>
+			</when>
+			<otherwise></otherwise>
+	</choose>
+	
+	)
 	where num between #{start} and #{end}
   </select>
   
-  <select id="orderListTotalCount" parameterType="integer" resultType="int">
-  	select count(*) from purchaselist where user_No=#{userNo}
+  <select id="orderListTotalCount" parameterType="hashmap" resultType="int">
+  	select count(*) from purchaselist where
+  	<choose>
+			<when test="type.equals('first')">
+				<![CDATA[and to_date('22/01/01')<=to_date(sysdate)
+				and to_date(sysdate)<=to_date('22/12/31')]]>
+			</when>
+			<when test="type.equals('second')">
+				<![CDATA[and to_date('21/01/01')<=to_date(sysdate)
+				and to_date(sysdate)<=to_date('21/12/31')]]>
+			</when>
+			<when test="type.equals('thrid')">
+				<![CDATA[and to_date('20/01/01')<=to_date(sysdate)
+				and to_date(sysdate)<=to_date('20/12/31')]]>
+			</when>
+			<when test="type.equals('fourth')">
+				<![CDATA[and to_date('19/01/01')<=to_date(sysdate)
+				and to_date(sysdate)<=to_date('19/12/31')]]>
+			</when>
+			<otherwise></otherwise>
+	</choose>
+	 user_No=#{userNo}
+  	
   </select>
   
-  
-  
+  <select id="selectOrderDetail" parameterType="string" resultType="pur">
+ 	select 
+		BUY_NO as buyNo,
+		USER_NO as userNo,
+		FARM_NO as farmNo,
+		PRODUCT_NAME as productName,
+		PRODUCT_COUNT as productCount,
+		PAY_AMOUNT as payAmount,
+		PURCHASE_DATE as purchaseDate,
+		PHONE as phone,
+		ADDRESS1 as address1,
+		ADDRESS2 as address2,
+		D_CODE as dCode,
+		PAY_METHOD as payMethod,
+		REFUND_YN as refundYN,
+		ORDER_NO as orderNo,
+		farm_name as farmName,
+		DELIVERY_COMPANY as deliveryCompany,
+		DELIVERY_NUM as deliveryNo,
+		d_name as dName,
+		recipient as recipient
+	from (select 
+	purchaselist.*, farm.farm_name,DELIVERY_COMPANY,DELIVERY_NUM,d_name from purchaselist
+	left join farm on(farm.farm_no=purchaselist.farm_no)
+	left join delivery_management on(delivery_management.buy_no=purchaselist.buy_no)
+	left join delivery on(purchaselist.d_code=delivery.d_code))
+	where order_no=#{_parameter}
+ </select>
+
   
   
 </mapper>
