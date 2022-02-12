@@ -103,21 +103,21 @@
 	left join delivery on(purchaselist.d_code=delivery.d_code)
 	where user_no=#{userNo}
 	<choose>
-			<when test="type.equals('first')">
-				<![CDATA[and to_date('22/01/01')<=to_date(sysdate)
-				and to_date(sysdate)<=to_date('22/12/31')]]>
+			<when test="type.equals('2022')">
+				and to_date('2022/01/01') &lt;= to_date(PURCHASE_DATE)
+				and to_date(PURCHASE_DATE) &lt;= to_date('2022/12/31')
 			</when>
-			<when test="type.equals('second')">
-				<![CDATA[and to_date('21/01/01')<=to_date(sysdate)
-				and to_date(sysdate)<=to_date('21/12/31')]]>
+			<when test="type.equals('2021')">
+				and to_date('21/01/01') &lt;= to_date(PURCHASE_DATE)
+				and to_date(PURCHASE_DATE) &lt;= to_date('21/12/31')
 			</when>
-			<when test="type.equals('thrid')">
-				<![CDATA[and to_date('20/01/01')<=to_date(sysdate)
-				and to_date(sysdate)<=to_date('20/12/31')]]>
+			<when test="type.equals('2020')">
+				and to_date('20/01/01') &lt;= to_date(PURCHASE_DATE)
+				and to_date(PURCHASE_DATE) &lt;= to_date('20/12/31')
 			</when>
-			<when test="type.equals('fourth')">
-				<![CDATA[and to_date('19/01/01')<=to_date(sysdate)
-				and to_date(sysdate)<=to_date('19/12/31')]]>
+			<when test="type.equals('2019')">
+				and to_date('19/01/01') &lt;= to_date(PURCHASE_DATE)
+				and to_date(PURCHASE_DATE) &lt;= to_date('19/12/31')
 			</when>
 			<otherwise></otherwise>
 	</choose>
@@ -127,27 +127,26 @@
   </select>
   
   <select id="orderListTotalCount" parameterType="hashmap" resultType="int">
-  	select count(*) from purchaselist where
+  	select count(*) from purchaselist where user_No=#{userNo}
   	<choose>
-			<when test="type.equals('first')">
-				<![CDATA[and to_date('22/01/01')<=to_date(sysdate)
-				and to_date(sysdate)<=to_date('22/12/31')]]>
+			<when test="type.equals('2022')">
+				and to_date('2022/01/01') &lt;= to_date(PURCHASE_DATE)
+				and to_date(PURCHASE_DATE) &lt;= to_date('2022/12/31')
 			</when>
-			<when test="type.equals('second')">
-				<![CDATA[and to_date('21/01/01')<=to_date(sysdate)
-				and to_date(sysdate)<=to_date('21/12/31')]]>
+			<when test="type.equals('2021')">
+				and to_date('21/01/01') &lt;= to_date(PURCHASE_DATE)
+				and to_date(PURCHASE_DATE) &lt;= to_date('21/12/31')
 			</when>
-			<when test="type.equals('thrid')">
-				<![CDATA[and to_date('20/01/01')<=to_date(sysdate)
-				and to_date(sysdate)<=to_date('20/12/31')]]>
+			<when test="type.equals('2020')">
+				and to_date('20/01/01') &lt;= to_date(PURCHASE_DATE)
+				and to_date(PURCHASE_DATE) &lt;= to_date('20/12/31')
 			</when>
-			<when test="type.equals('fourth')">
-				<![CDATA[and to_date('19/01/01')<=to_date(sysdate)
-				and to_date(sysdate)<=to_date('19/12/31')]]>
+			<when test="type.equals('2019')">
+				and to_date('19/01/01') &lt;= to_date(PURCHASE_DATE)
+				and to_date(PURCHASE_DATE) &lt;= to_date('19/12/31')
 			</when>
 			<otherwise></otherwise>
 	</choose>
-	 user_No=#{userNo}
   	
   </select>
   

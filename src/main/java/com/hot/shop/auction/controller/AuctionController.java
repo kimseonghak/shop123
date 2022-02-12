@@ -158,8 +158,6 @@ public class AuctionController {
 									  @RequestParam(required = false, defaultValue = "") String type, 
 									  @SessionAttribute(required = false) Member member) {
 		
-		System.out.println(type);
-		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("type", type);
 		map.put("userNo", userNo);

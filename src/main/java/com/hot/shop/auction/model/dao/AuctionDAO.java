@@ -114,22 +114,22 @@ public class AuctionDAO {
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("<a href='/auction/orderListPage.do?currentPage=1&userNo="+map.get("userNo")+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/auction/orderListPage.do?currentPage=1&userNo="+map.get("userNo")+"&type="+map.get("type")+"' class='naviArrow'>&lt;&lt;</a>");
 		sb.append("<a href='/auction/orderListPage.do?currentPage="+(currentPage-10)+"&userNo="+map.get("userNo")+"' class='naviArrow' id='prev'>&lt;</a>");
 		for(int i= startNavi; i<=endNavi; i++) {
 			if(i==currentPage) {
-				sb.append("<a href='/auction/orderListPage.do?currentPage="+i+"&userNo="+map.get("userNo")+"' id='currentNavi'>"+i+"</a>");
+				sb.append("<a href='/auction/orderListPage.do?currentPage="+i+"&userNo="+map.get("userNo")+"&type="+map.get("type")+"' id='currentNavi'>"+i+"</a>");
 			}else {
-				sb.append("<a href='/auction/orderListPage.do?currentPage="+i+"&userNo="+map.get("userNo")+"' class='otherNavi'>"+i+"</a>");
+				sb.append("<a href='/auction/orderListPage.do?currentPage="+i+"&userNo="+map.get("userNo")+"&type="+map.get("type")+"' class='otherNavi'>"+i+"</a>");
 			}
 		}
 		if((currentPage+10)>pageTotalCount) {
-			sb.append("<a href='/auction/orderListPage.do?currentPage="+pageTotalCount+"&userNo="+map.get("userNo")+"' class='naviArrow' id='next'>&gt;</a>");
+			sb.append("<a href='/auction/orderListPage.do?currentPage="+pageTotalCount+"&userNo="+map.get("userNo")+"&type="+map.get("type")+"' class='naviArrow' id='next'>&gt;</a>");
 		}else {
-			sb.append("<a href='/auction/orderListPage.do?currentPage="+(currentPage+10)+"&userNo="+map.get("userNo")+"' class='naviArrow' id='next'>&gt;</a>");
+			sb.append("<a href='/auction/orderListPage.do?currentPage="+(currentPage+10)+"&userNo="+map.get("userNo")+"&type="+map.get("type")+"' class='naviArrow' id='next'>&gt;</a>");
 		}
 		
-		sb.append("<a href='/auction/orderListPage.do?currentPage="+pageTotalCount+"&userNo="+map.get("userNo")+"' class='naviArrow'>&gt;&gt;</a>");
+		sb.append("<a href='/auction/orderListPage.do?currentPage="+pageTotalCount+"&userNo="+map.get("userNo")+"&type="+map.get("type")+"' class='naviArrow'>&gt;&gt;</a>");
 		return sb.toString();
 	}
 	

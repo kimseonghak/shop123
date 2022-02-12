@@ -35,7 +35,7 @@
 }
 
 #subject {
-	width: 12.8%;
+	width: 100%;
 	height: 100%;
 	margin: 0 auto;
 }
@@ -44,7 +44,7 @@
 	display : block;
   	width : 100%;
     height : 100%;
-    font-size: 28px;
+    font-size: 3.9vmin;
     text-align : center;
 	font-family: 'NanumSquare';
 	color: #3BBD5A;
@@ -71,7 +71,7 @@
 
 .auctionSaleStatus-box {
 	width: 100%;
-	height: 18%;
+	height: 16%;
 	border-radius: 10px 10px 0 0;
 	background-color: #3BBD5A;
 }
@@ -99,7 +99,7 @@
 .auctionSaleProduct>span {
 	display: block;
 	height : 100%;
-	font-size: 25px;
+	font-size: 3.5vmin;
 	color: #FFFFFF;
 	font-family: 'NanumSquare';
 	font-weight: bold;
@@ -114,60 +114,49 @@
 	background-color: #E4FFF8;
 }
 
-.auctionSaleCount-input {
-	width: 50%;
-	height: 30px;
-	border: none;
-	text-align: center;
-	border-radius: 5px;
-	font-weight: bold;
-	color: #3BBD5A;
-	font-size: 15px;
-}
 .spanLeft{
 	width: 35%;
-	height: 30px;
+	height: 7.8%;
 	text-align:right;
 	margin-top:10px;
 	float : left;
-	font-size: 16px;
+	font-size: 2.2vmin;
 	font-family: 'NanumSquare';
 	
 }
 .spanRight{
 	width: 63%;
-	height: 30px;
+	height: 7.8%;
 	text-align: center;
 	margin-top:10px;
 	float : left;
-	font-size: 16px;
+	font-size: 2.2vmin;
 	font-family: 'NanumSquare';
 }
 .auctionSaleBox-leftSpace{
 	width : 100%;
-	height: 4%;
+	height: 4.5%;
 }
 .fontWeight{
 	font-weight: bold;
 }
 .auctionSaleCount-input{
-   width : 120px;
-   height: 30px;
+   width : 60%;
+   height: 80%;
    border : none;
    text-align: center;
    border-radius: 5px;
    font-weight: bold;
    color : #3BBD5A;
-   font-size: 15px;
-   padding-left : 16px;
+   font-size: 2.3vmin;
+   padding-left : 5%;
 }
 .spanRight-test {
    width: 63%;
-   height: 37px;
+   height: 10%;
    text-align: center;
    margin-top:6px;
    float : left;
-   font-size: 16px;
    font-family: 'NanumSquare';
 }
 .spanmiddel{
@@ -176,7 +165,7 @@
    text-align: center;
    margin-top:10px;
    float : left;
-   font-size: 16px;
+   font-size: 2.2vmin;
    font-family: 'NanumSquare';
    text-align: right;
 }
@@ -185,20 +174,20 @@
    height: 30px;
    margin-top:10px;
    float : left;
-   font-size: 16px;
+   font-size: 2.2vmin;
    font-family: 'NanumSquare';
    text-align: left;
    padding-left: 10px;
 }
 .btn{
    width : 150px;
-   height: 35px;
+   height: 9.5%;
    border : none;
    text-align: center;
    border-radius: 10px;
    font-weight: bold;
    color : #ffff;
-   font-size: 15px;
+   font-size: 2.1vmin;
    background-color: #3BBD5A;
    display: block;
    margin: 0 auto;
@@ -207,16 +196,16 @@
 
 .promotionBtn{
    width : 150px;
-   height: 35px;
+   height: 9.5%;
    border : 3px solid #3BBD5A;
    text-align: center;
    border-radius: 10px;
    font-weight: bold;
    color : #3BBD5A;
-   font-size: 15px;
+   font-size: 2.1vmin;
    display: block;
    margin: 0 auto;
-   margin-top: 10px;
+   margin-top: 2.5%;
    cursor:pointer;
 }
 
@@ -225,20 +214,19 @@
 	font-weight: bold;
 }
 .margin{
-	margin-right: 14px;
+	margin-right: 5%;
 }
 
 .margin-bottom{
-	margin-bottom: 10px;
+	margin-bottom: 2.7%;
 }
 .block {
 	width: 100%;
-	height: 86.1%;
+	height: 100%;
 	background-color: black;
-	margin-top: -107.3%;
+	margin-top: -99.6%;
 	border-radius: 0 0 10px 10px;
 	opacity: 0.65;
-	font-size: 25px;
 	color: #FFFFFF;
 	font-family: 'NanumSquare';
 	text-align: center;
@@ -293,8 +281,8 @@
 		                    </span> 
 		                    <input type="button" class="btn" value="구매하기"/> 
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
+							<div class="block"></div>
 					</div>
-					<div class="block"></div>
 				</div>
 			</c:when>
 			<%--1번 폼 데이터가 null 일 경우 --%>
@@ -328,8 +316,8 @@
 		                    </span> 
 		                    <input type="button" class="btn" id="aucBtn1" value="구매하기"/>
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
+							<div class="block"></div>
 					</div>
-					<div class="block"></div>
 				</div>
 			
 			</c:when>
@@ -378,8 +366,8 @@
 		                    <input type="button" class="btn" value="구매하기"/> 
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 							</form>
+							<div class="block" id="block1" style="display:none"></div>
 					</div>
-					<div class="block" id="block1" style="display:none"></div>
 				</div>
 			</c:otherwise>
 			</c:choose>
@@ -416,8 +404,8 @@
 		                    </span> 
 		                    <input type="button" class="btn" value="구매하기"/> 
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
+							<div class="block"></div>
 					</div>
-					<div class="block"></div>
 				</div>
 			</c:when>
 			<%--2번 폼 데이터가 null 일 경우 --%>
@@ -451,8 +439,8 @@
 		                    </span> 
 		                    <input type="button" class="btn" id="aucBtn2" value="구매하기"/>
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
+							<div class="block"></div>
 					</div>
-					<div class="block"></div>
 				</div>
 			
 			</c:when>
@@ -500,8 +488,8 @@
 		                    <input type="button" class="btn" value="구매하기"/> 
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 							</form>
+							<div class="block" id="block2" style="display:none"></div>
 					</div>
-					<div class="block" id="block2" style="display:none"></div>
 				</div>
 			</c:otherwise>
 			</c:choose>
@@ -538,8 +526,8 @@
 		                    </span> 
 		                    <input type="button" class="btn" id="aucBtn3" value="구매하기"/>
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
+							<div class="block"></div>
 					</div>
-					<div class="block"></div>
 				</div>
 			</c:when>
 			<%--3번 폼 데이터가 null 일 경우 --%>
@@ -573,8 +561,8 @@
 		                    </span> 
 		                    <input type="button" class="btn" id="aucBtn3" value="구매하기"/>
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
+							<div class="block"></div>
 					</div>
-					<div class="block"></div>
 				</div>
 			</c:when>
 			<c:otherwise>
@@ -621,8 +609,8 @@
 		                    <input type="button" class="btn" id="aucBtn3" value="구매하기"/> 
 		                    <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 							</form>
+							<div class="block" id="block3" style="display:none"></div>
 					</div>
-					<div class="block" id="block3" style="display:none"></div>
 				</div>
 			</c:otherwise>
 			</c:choose>
