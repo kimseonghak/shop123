@@ -239,7 +239,45 @@
 						</div>
 						
 						<div class="list_loaction_Form">
-							<span>	${vo.localProductClassify}</span>
+							<c:if test="${vo.localProductClassify eq 'JEJU'}">
+								<span>제주도</span>
+							</c:if>
+					
+							<c:if test="${vo.localProductClassify eq 'JEONNAM'}">
+								<span>전라남도</span>
+							</c:if>
+		
+							<c:if test="${vo.localProductClassify eq 'JEONBUK'}">
+								<span>전라북도</span>
+							</c:if>
+		
+							<c:if test="${vo.localProductClassify eq 'GYEONGNAM'}">
+								<span>경상남도</span>
+							</c:if>
+		
+							<c:if test="${vo.localProductClassify eq 'GYEONGBUK'}">
+								<span>경상북도</span>
+							</c:if>
+							
+							<c:if test="${vo.localProductClassify eq 'CHUNGNAM'}">
+								<span>충청남도</span>
+							</c:if>
+		
+							<c:if test="${vo.localProductClassify eq 'CHUNGBUK'}">
+								<span>충청북도</span>
+							</c:if>
+		
+							<c:if test="${vo.localProductClassify eq 'GANGWWON'}">
+								<span>강원도</span>
+							</c:if>
+		
+							<c:if test="${vo.localProductClassify eq 'GYEONGGI'}">
+								<span>경기도</span>
+							</c:if>
+		
+							<c:if test="${vo.localProductClassify eq 'SEOUL'}">
+								<span>서울</span>
+							</c:if>
 						</div><br>
 						
 						<div class="list_titleForm">

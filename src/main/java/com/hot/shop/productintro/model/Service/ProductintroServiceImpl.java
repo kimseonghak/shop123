@@ -28,7 +28,7 @@ public class ProductintroServiceImpl implements ProductintroService{
 	public HashMap<String, Object> SeasonProductListPage(int currentPage) {
 		// TODO Auto-generated method stub
 		//페이지당 보여줄 글
-		int recordCountPerPage = 4;
+		int recordCountPerPage = 3;
 				
 		//제철 리스트
 		ArrayList<LocalProductBoard> list = piDAO.SeasonProductListPage(currentPage,recordCountPerPage);
@@ -87,7 +87,7 @@ public class ProductintroServiceImpl implements ProductintroService{
 		@Override
 		public HashMap<String, Object> SeasonProductListPage(int currentPage, String seasonProductClassify) {
 			// TODO Auto-generated method stub
-			int recordCountPerPage = 4;
+			int recordCountPerPage = 3;
 			
 			//지역 특산물 리스트
 			ArrayList<LocalProductBoard> list = piDAO.SeasonProductListSearchPage(currentPage,recordCountPerPage,seasonProductClassify);
@@ -119,7 +119,7 @@ public class ProductintroServiceImpl implements ProductintroService{
 		// TODO Auto-generated method stub
 		
 		//페이지당 보여줄 글
-		int recordCountPerPage = 4;
+		int recordCountPerPage = 3;
 		
 		//지역 리스트
 		ArrayList<LocalProductBoard> list = piDAO.LocalProductListPage(currentPage,recordCountPerPage);
@@ -165,7 +165,7 @@ public class ProductintroServiceImpl implements ProductintroService{
 	public HashMap<String, Object> productintroLocalBtn(int currentPage,
 			String localProductClassify) {
 		// TODO Auto-generated method stub
-		int recordCountPerPage = 4;
+		int recordCountPerPage = 3;
 		
 		//지역 특산물 리스트
 		ArrayList<LocalProductBoard> list = piDAO.productintroLocalBtn(currentPage,recordCountPerPage,localProductClassify);

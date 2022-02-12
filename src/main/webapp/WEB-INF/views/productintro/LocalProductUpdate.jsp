@@ -226,9 +226,10 @@ body {
 			<%-- 입력 폼 --%>
 			<div class="insert_zone">
 			<form action="/productintro/localProductUpdate.do" method="post" id="textUpdate">
-				<input type="hidden" name="originalLocalphotoNo" value="27">
+				<input type="hidden" name="originalLocalphotoNo" value="1">
 				<input type="hidden" name="LocalProductPhotoNo" value="${localBoard.localProductPhotoNo }">
 				<input type="hidden" name="localProductNo" value="${localBoard.localProductNo }">
+				
 				<%-- 옵션 1 --%>
 				<div class="optiontitle">지역별로 선택해 주세요.</div>
 					<div class="option_form">

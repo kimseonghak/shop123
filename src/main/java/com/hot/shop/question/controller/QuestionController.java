@@ -300,10 +300,121 @@ public class QuestionController {
 		
 		//헤더에서 1:1문의 버튼을 누르면 문의 리스트로 이동하는 메소드(유저 문의)	
 		@RequestMapping(value = "/question/QuestionFarmPage.do",method = RequestMethod.GET)
-		public ModelAndView QuestionFarmPage(ModelAndView mav) {
-		       ArrayList<QuestionFarm> list = qService.QuestionFarmPage();
-		       mav.addObject("list", list);
-		       mav.setViewName("question/QuestionFarmList");
-		       return mav;
+		public ModelAndView QuestionFarmPage(	ModelAndView mav,
+												@RequestParam(required = false,defaultValue = "1") int currentPage,
+												@RequestParam(required = false, defaultValue = "") String keyword,
+												@RequestParam(required = false, defaultValue = "default") String type,
+												@SessionAttribute(required = false) Farm farm) {
+		    //농가가 로그인 안되어 있다면?
+			if(farm == null) {
+				mav.setViewName("member/login");
+				return mav;
+			}
+				
+			//농가유저 세션/검색기능/페이지처리 한 거 맵에 넝기
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("farm", farm);
+				map.put("currentPage", currentPage);
+				map.put("keyword", keyword);
+				map.put("type", type);
+				//위에 넣어준 헤쉬맵을 리턴해주는 작업
+				HashMap<String,Object> returnMap = qService.selectFarmQuestionList(map);
+				returnMap.put("keyword", keyword);
+				returnMap.put("type", type);
+				mav.addObject("map",returnMap);
+				mav.addObject("currentPage",currentPage);
+				mav.setViewName("question/QuestionFarmList");
+
+				return mav;
+		}
+		
+		//글 쓰기 공간
+			@RequestMapping(value = "/question/questionFarmWritePage.do",method = RequestMethod.GET)
+			public String questionFarmWritePage() {
+				return "question/QuestionFarmWrite";
+			}
+			
+			//글 쓰기 백단
+			@RequestMapping(value = "/question/questionFarmWrite.do",method = RequestMethod.POST)
+			public ModelAndView questionFarmWrite(	ModelAndView mav,
+													QuestionFarm qfarm) {
+				
+				int result = qService.questionFarmWrite(qfarm);
+				if(result > 0) {
+					mav.addObject("msg", "글이 등록되었습니다." );
+					mav.addObject("location","/question/QuestionFarmPage.do");
+				}else {
+					mav.addObject("msg", "글이 등록되지 않았습니다." );
+					mav.addObject("location","/question/questionFarmWritePage.do");
+				}
+				
+				mav.setViewName("commons/msg");
+				return mav;
+			}
+		//글 쓰기 공간 끝
+			
+			
+		//글 조회
+		@RequestMapping(value = "/question/questionFarmViewPage.do",method = RequestMethod.GET)
+		public ModelAndView questionFarmViewPage(	ModelAndView mav,
+											@RequestParam(required = false,defaultValue = "1") int currentPage,
+											@RequestParam(required = false, defaultValue = "") String keyword,
+											@RequestParam(required = false, defaultValue = "default") String type,
+											@SessionAttribute(required = false) Farm farm,
+											@RequestParam int questionFarmNo) {
+			//정보를 우선 해쉬맵에 넣어준다.
+			HashMap<String, Object>map = qService.questionFarmView(questionFarmNo);
+			
+			mav.addObject("currentPage",currentPage);
+			mav.addObject("type",type);
+			mav.addObject("keyword",keyword);
+			mav.addObject("map", map);
+			
+			mav.setViewName("question/QuestionFarmView");
+			return mav;
+		}
+		
+		//글 수정 공간
+		@RequestMapping(value = "/question/questionFarmUpdatePage.do",method = RequestMethod.GET)
+		public ModelAndView questionFarmUpdatePage(@RequestParam int  questionFarmNo,ModelAndView mav) {
+			HashMap<String, Object>map = qService.questionFarmView(questionFarmNo);
+			mav.addObject("map", map);
+			mav.setViewName("question/QuestionFarmUpdate");
+			return mav;
+		}
+		
+		@RequestMapping(value = "/question/questionFarmUpdate.do",method = RequestMethod.POST)
+		public ModelAndView questionFarmUpdate(QuestionFarm qfarm,ModelAndView mav) {
+			int result = qService.questionFaemUpdate(qfarm);
+			
+			if(result > 0) {
+				mav.addObject("msg", "글이 등록되었습니다." );
+				mav.addObject("location", "/question/QuestionFarmPage.do");
+			}else {
+				mav.addObject("msg", "글이 등록되지 않았습니다." );
+				mav.addObject("location", "/question/questionFarmUpdatePage.do");
+			}
+			
+			mav.setViewName("commons/msg");
+			return mav;
+		}
+		//글 수정 공간 끝
+		
+		//글 삭제
+		@RequestMapping(value = "/question/questionFarmDelete.do",method = RequestMethod.GET)
+		public ModelAndView questionFarmDelete(		ModelAndView mav,
+													@RequestParam int questionFarmNo) {
+			int result = qService.questionFarmDelete(questionFarmNo);
+			
+			if(result > 0) {
+				mav.addObject("msg", "글이 삭제 되었습니다." );
+				mav.addObject("location", "/question/QuestionFarmPage.do");
+			}else {
+				mav.addObject("msg", "글이 삭제 되지 않았습니다." );
+				mav.addObject("location", "/question/QuestionFarmPage.do");
+			}
+			
+			mav.setViewName("commons/msg");
+			return mav;
 		}
 }

@@ -88,18 +88,49 @@ public class QuestionServiceImpl implements QuestionService{
 	public ArrayList<Farm> farmCheck(String farmName) {
 		return qDAO.farmCheck(farmName);
 	}
-
-
 	//-----------------------------------------농가 문의-----------------------------------------
-	
 	@Override
-	public ArrayList<QuestionFarm> QuestionFarmPage() {
+	public HashMap<String, Object> selectFarmQuestionList(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		return qDAO.QuestionFarmPage();
+		//페이지당 보여줄 글 갯수
+		int recordCountPerPage=10;
+		ArrayList<QuestionFarm> list = qDAO.farmQuestionList(recordCountPerPage,map);
+		//페이지 리스트
+		int naviCountPerPage=10;
+		String pageNavi = qDAO.FarmQuestionNavi(recordCountPerPage,naviCountPerPage,map);
+		//위에 정보를 바탕으로 해쉬맵에 넣어준다
+		HashMap<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("list", list);
+		returnMap.put("pageNavi",pageNavi);
+		return returnMap;
 	}
 
+	//글 쓰기 
+	@Override
+	public int questionFarmWrite(QuestionFarm qfarm) {
+		// TODO Auto-generated method stub
+		return qDAO.questionFarmWrite(qfarm);
+	}
 
+	//글 조회
+	@Override
+	public HashMap<String, Object> questionFarmView(int questionFarmNo) {
+		// TODO Auto-generated method stub
+		return qDAO.questionFarmView(questionFarmNo);
+	}
+
+	//글 수정
+	@Override
+	public int questionFaemUpdate(QuestionFarm qfarm) {
+		// TODO Auto-generated method stub
+		return qDAO.questionFaemUpdate(qfarm);
+	}
+
+	@Override
+	public int questionFarmDelete(int questionFarmNo) {
+		// TODO Auto-generated method stub
+		return qDAO.questionFarmDelete(questionFarmNo);
+	}
 	
-
 	
 }

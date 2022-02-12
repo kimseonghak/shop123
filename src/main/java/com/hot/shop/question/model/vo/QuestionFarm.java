@@ -12,6 +12,10 @@ public class QuestionFarm {
 	private String farmName;//조인해서 쓸 것
 	private char questionFarmAnswerYN;//o
 	
+	public QuestionFarm() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public QuestionFarm(int questionFarmNo, String questionFarmTitle, String questionFarmContent,
 			Date questionFarmRegdate, int farmNo, char questionFarmEndYN, String farmName, char questionFarmAnswerYN) {
@@ -27,10 +31,6 @@ public class QuestionFarm {
 	}
 
 
-	public QuestionFarm() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	
 	
 	public char getquestionFarmAnswerYN() {
