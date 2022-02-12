@@ -65,22 +65,30 @@ public class AuctionServiceImpl implements AuctionService{
 	}
 
 	@Override
-	public HashMap<String, Object> orderListInfo(int currentPage, int userNo) {
+	public HashMap<String, Object> orderListInfo(int currentPage, HashMap<String, Object> map) {
 		
 		int recordCountPerPage=5;
 		
-		ArrayList<Purchaselist> list = aucDAO.orderListInfo(recordCountPerPage,currentPage,userNo); 
+		ArrayList<Purchaselist> list = aucDAO.orderListInfo(recordCountPerPage,currentPage,map); 
 		
 		int naviCountPerPage=10;
 		
-		String pageNavi = aucDAO.getPageNavi(recordCountPerPage,currentPage,naviCountPerPage,userNo);
+		String pageNavi = aucDAO.getPageNavi(recordCountPerPage,currentPage,naviCountPerPage,map);
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("pageNavi", pageNavi);
 		
 		return map;
 	}
+
+	@Override
+	public Purchaselist selectOrderDetail(String orderNo) {
+
+		return aucDAO.selectOrderDetail(orderNo);
+	}
+
+	
 
 
 

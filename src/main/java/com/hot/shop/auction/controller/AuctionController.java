@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -124,6 +125,8 @@ public class AuctionController {
 	public void orderPay(Purchaselist p, HttpServletResponse response,
 						 @RequestParam int auctionNo)throws IOException {
 		
+		System.out.println(p.getRecipient());
+		
 		int auctionCount  = p.getProductCount();
 		int insertResult = aucService.insertOrder(p);
 		int farmNo = p.getFarmNo();
@@ -151,8 +154,15 @@ public class AuctionController {
 	//해당 유저의 주문 목록 페이지
 	@RequestMapping(value="/auction/orderListPage.do",method = RequestMethod.GET)
 	public ModelAndView orderListPage(@RequestParam(required = false, defaultValue = "1") int currentPage,
-								@RequestParam int userNo,ModelAndView mav, @SessionAttribute(required = false) Member member) {
+									  @RequestParam int userNo,ModelAndView mav,
+									  @RequestParam(required = false, defaultValue = "") String type, 
+									  @SessionAttribute(required = false) Member member) {
 		
+		System.out.println(type);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("userNo", userNo);
 		
 		if(member==null) {
 			mav.setViewName("commons/error");
@@ -166,7 +176,7 @@ public class AuctionController {
 
 		}else {
 			
-			HashMap<String, Object> map = aucService.orderListInfo(currentPage,userNo);
+			map = aucService.orderListInfo(currentPage,map);
 			
 			mav.addObject("map",map);
 			mav.addObject("userNo",userNo);
@@ -178,14 +188,22 @@ public class AuctionController {
 		return mav;
 	}
 	
+	
+	
+	
+	
+	
 	//주문 목록에서 주문번호를 누를 경우 상세 페이지로 이동
 	@RequestMapping(value="/auction/orderDetailPage.do")
-	public String orderDetailPage(@RequestParam String orderNo) {
+	public ModelAndView orderDetailPage(@RequestParam String orderNo, ModelAndView mav) {
 		
 		
+		Purchaselist pur = aucService.selectOrderDetail(orderNo);
 		
+		mav.addObject("pur",pur);
+		mav.setViewName("auction/orderDetailPage");
 		
-		return "auction/orderDetailPage";
+		return mav;
 	}
 	
 	

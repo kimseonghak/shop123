@@ -12,6 +12,7 @@ import com.hot.shop.admin.model.vo.SellForm;
 import com.hot.shop.auction.model.vo.Purchaselist;
 import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.question.model.vo.QuestionFarm;
 
 @Repository
 public class AuctionDAO {
@@ -89,22 +90,20 @@ public class AuctionDAO {
 		return sql.update("auction.minusAuctionCount1",map);
 	}
 
-	public ArrayList<Purchaselist> orderListInfo(int recordCountPerPage, int currentPage, int userNo) {
+	public ArrayList<Purchaselist> orderListInfo(int recordCountPerPage, int currentPage, HashMap<String, Object> map) {
 		
 		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
 		int end = currentPage*recordCountPerPage;
 		
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("start", start);
 		map.put("end",end);
-		map.put("userNo", userNo);
 		
 		return new ArrayList<Purchaselist>(sql.selectList("auction.orderListInfo",map));
 	}
 
-	public String getPageNavi(int recordCountPerPage, int currentPage, int naviCountPerPage, int userNo) {
+	public String getPageNavi(int recordCountPerPage, int currentPage, int naviCountPerPage, HashMap<String, Object> map) {
 		
-		int recordTotalCount = totalCount(userNo);
+		int recordTotalCount = totalCount(map);
 		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
 		
 		int startNavi = ((currentPage-1)/naviCountPerPage) *naviCountPerPage+1;
@@ -115,30 +114,37 @@ public class AuctionDAO {
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage=1&userNo="+userNo+"' class='naviArrow'>&lt;&lt;</a>");
-		sb.append("<a href='/admin/adminAuctionInfoPage.do?currentPage="+(currentPage-10)+"&userNo="+userNo+"' class='naviArrow' id='prev'>&lt;</a>");
+		sb.append("<a href='/auction/orderListPage.do?currentPage=1&userNo="+map.get("userNo")+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/auction/orderListPage.do?currentPage="+(currentPage-10)+"&userNo="+map.get("userNo")+"' class='naviArrow' id='prev'>&lt;</a>");
 		for(int i= startNavi; i<=endNavi; i++) {
 			if(i==currentPage) {
-				sb.append("<a href='/auction/orderListPage.do?currentPage="+i+"&userNo="+userNo+"' id='currentNavi'>"+i+"</a>");
+				sb.append("<a href='/auction/orderListPage.do?currentPage="+i+"&userNo="+map.get("userNo")+"' id='currentNavi'>"+i+"</a>");
 			}else {
-				sb.append("<a href='/auction/orderListPage.do?currentPage="+i+"&userNo="+userNo+"' class='otherNavi'>"+i+"</a>");
+				sb.append("<a href='/auction/orderListPage.do?currentPage="+i+"&userNo="+map.get("userNo")+"' class='otherNavi'>"+i+"</a>");
 			}
 		}
 		if((currentPage+10)>pageTotalCount) {
-			sb.append("<a href='/auction/orderListPage.do?currentPage="+pageTotalCount+"&userNo="+userNo+"' class='naviArrow' id='next'>&gt;</a>");
+			sb.append("<a href='/auction/orderListPage.do?currentPage="+pageTotalCount+"&userNo="+map.get("userNo")+"' class='naviArrow' id='next'>&gt;</a>");
 		}else {
-			sb.append("<a href='/auction/orderListPage.do?currentPage="+(currentPage+10)+"&userNo="+userNo+"' class='naviArrow' id='next'>&gt;</a>");
+			sb.append("<a href='/auction/orderListPage.do?currentPage="+(currentPage+10)+"&userNo="+map.get("userNo")+"' class='naviArrow' id='next'>&gt;</a>");
 		}
 		
-		sb.append("<a href='/auction/orderListPage.do?currentPage="+pageTotalCount+"&userNo="+userNo+"' class='naviArrow'>&gt;&gt;</a>");
+		sb.append("<a href='/auction/orderListPage.do?currentPage="+pageTotalCount+"&userNo="+map.get("userNo")+"' class='naviArrow'>&gt;&gt;</a>");
 		return sb.toString();
 	}
 	
-	public int totalCount(int userNo) {
+	public int totalCount(HashMap<String, Object> map) {
 		
-		return sql.selectOne("auction.orderListTotalCount",userNo);
+		return sql.selectOne("auction.orderListTotalCount",map);
 	}
 
+	public Purchaselist selectOrderDetail(String orderNo) {
+
+		return sql.selectOne("auction.selectOrderDetail",orderNo);
+		
+	}
+
+	
 	
 
 }

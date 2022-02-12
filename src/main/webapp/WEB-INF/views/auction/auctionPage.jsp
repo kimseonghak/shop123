@@ -41,7 +41,11 @@
 }
 
 #subject>span {
+   display : block;
+   width : 100%;
+   height : 100%;
    font-size: 28px;
+   text-align : center;
    font-family: 'NanumSquare';
    color: #3BBD5A;
    font-weight: bold;
@@ -78,7 +82,7 @@
 }
 
 .auctionStatus span {
-   font-size: 16px;
+   font-size: 100%;
    color: #FFFFFF;
    font-family: 'NanumSquare';
    height: 100%;
@@ -93,11 +97,12 @@
 }
 
 .auctionProduct>span {
+   display: block;
+   height : 100%;
    font-size: 25px;
    color: #FFFFFF;
    font-family: 'NanumSquare';
    font-weight: bold;
-   display: block;
    text-align: center;
    margin-top: -5px;
 }
@@ -111,7 +116,7 @@
 
 .spanLeft{
    width: 33%;
-   height: 30px;
+   height: 9.5%;
    text-align:right;
    margin-top:10px;
    float : left;
@@ -120,7 +125,7 @@
 }
 .spanRight{
    width: 65%;
-   height: 30px;
+   height: 9.5%;
    text-align: center;
    margin-top:10px;
    float : left;
@@ -129,14 +134,14 @@
 }
 .auctionBox-leftSpace{
    width : 100%;
-   height: 7.5%;
+   height: 8.5%;
 }
 .fontWeight{
    font-weight: bold;
 }
 .auctionCount-input{
    width : 120px;
-   height: 30px;
+   height: 85%;
    border : none;
    text-align: center;
    border-radius: 5px;
@@ -147,7 +152,7 @@
 }
 .spanRight-test {
    width: 38%;
-   height: 37px;
+   height: 10%;
    text-align: center;
    margin-top:6px;
    float : left;
@@ -157,7 +162,7 @@
 }
 .text-span{
 	width: 11%;
-	height: 30px;
+	height: 9.5%;
 	float :left;
 	margin-top:12px;
 	font-size: 16px;
@@ -166,7 +171,7 @@
 }
 .spanmiddel{
    width: 35%;
-   height: 30px;
+   height: 9.5%;
    text-align: center;
    margin-top:10px;
    float : left;
@@ -176,7 +181,7 @@
 }
 .spanLast{
    width: 29%;
-   height: 30px;
+   height: 9.5%;
    margin-top:10px;
    float : left;
    font-size: 16px;
@@ -191,7 +196,7 @@
 
 .btn{
    width : 150px;
-   height: 35px;
+   height: 12%;
    border : none;
    text-align: center;
    border-radius: 10px;
