@@ -38,6 +38,7 @@
 				where num between #{start} and #{end}
 		</select>
 	
+		<!-- 페이지 네비 갯수 로직 -->
 		<select id="promotionTotalCount" parameterType="hashmap" resultType="integer">
 			select count(*) from promotion  
 			<choose>

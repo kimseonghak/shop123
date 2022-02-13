@@ -106,7 +106,7 @@ body {
 .icon{
 	width:17px;
 	height:17px;
-	line-height: 3px;
+	margin-bottom: -3px;
 }
 
 .time{

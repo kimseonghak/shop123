@@ -185,8 +185,7 @@ public class PromotionController {
 	//홍보 게시판 수정
 	@RequestMapping(value= "/promotion/promotionUpdate.do",method = RequestMethod.GET)
 	public ModelAndView promotionUpdate(Promotion promotion, ModelAndView mav) {
-		
-		
+	
 		//글 수정했을때 새로운 이미지 파일이 들어오지 않았을 경우
 		if(promotion.getPromotionPhotoNo()==1) {
 			promotion.setOriginalPromotionphotoNo(promotion.getOriginalPromotionphotoNo());
@@ -235,4 +234,7 @@ public class PromotionController {
 		
 		return mav;
 	}
+	
+	
+	
 }

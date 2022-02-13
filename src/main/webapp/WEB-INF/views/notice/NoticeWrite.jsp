@@ -1,250 +1,289 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 
-<meta charset="UTF-8">
-<title>공지 사항 작성하기</title>
+<%-- jstl 라이브러리 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 
-<style type="text/css">
+<%--jQuery 라이브러리 --%>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<%-- 폰트 설정 라이브러리 --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+
+<%-- 부트스트랩 라이브러리 --%>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<%-- css import --%>
+
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<style>
 
 *{
 	box-sizing: border-box;
 }
 
-#warpForm{
-	width: 100%;
-	height: 1217px;
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
 }
 
-#headerForm{
+.wrapForm{
+	width: 100%;
+	min-height: 100%;
+}
+
+.headerForm{
 	width: 100%;
 	height: 175px;
 }
 
-#contentForm{
+.contentForm{
+	padding: 30px;
 	width: 100%;
-	height: 800px;
-	padding: 35px;
-	background-color: #f0f0f0;
+	
 }
 
-#footerForm{
+.footerForm{
 	width: 100%;
 	height: 242px;
 }
 
-
-
-#notice_userCategory_Form{
+.contentwrap{
 	width: 90%;
-	height: 30px;
-	text-align: left;
-	-webkit-appearance:none;
-	margin: 0 auto;
-}
-
-#noticeCategory_Form{
-	width: 90%;
-	height: 30px;
-	text-align: left;
-	margin: 0 auto;
-	border-radius: 5px / 5px;
-}
-
-#notice_title_Form{
-	width: 90%;
-	height: 30px;
-	text-align: left;
-	margin: 0 auto;
-	border-radius: 5px / 5px;
-}
-
-#notice_title{
-	width: 100%;
-	height: 100%;
-	border-radius: 5px / 5px;
-	border: none;
-	background-color: #f0f0f0;
-	outline: none;
-	
-}
-
-#notice_content_Form{
-	width: 90%;
-	height: 400px;
-	text-align: left;
-	margin: 0 auto;
-	
-}
-
-#notice_content{
-	width: 100%;
-	height: 100%;
-	border-radius: 5px / 5px;
-	border: none;
-	background-color: #f0f0f0;
-	outline: none;
-}
-
-#content_background{
-	width: 60%;
-	height: 100%;
-	border-radius: 5px / 5px;
+	height: 60%;
+	margin: 100px auto;
 	background-color: white;
+	border-radius: 15px;
+	border: 2px solid #3BBD5A;
 }
 
-/*버튼 디자인*/
-#write_Btn_form{
-	width: 90%;
-	height: 40px;
-}
-
-#submit_btn{
-	width: 100px;
-	height: 40px;
-	float: right;
-}
-#list_btn{
-	width: 100px;
-	height: 40px;
-	float: right;
-}
-#reset_btn{
-	width: 100px;
-	height: 40px;
-	float: right;
-}
-
-#submitBtn{
-	width: 95px;
-	height: 40px;
-	background-color: #3BBD5A;
-	font : normal bold 17.5px "Nanum Gothic",sans-serif;
-	color: #ffffff;
-	border-radius: 5px / 5px;
-	border : none;
-	cursor : pointer;
-}
-
-#mainBtn{
-	width: 95px;
-	height: 40px;
-	background-color: #3BBD5A;
-	font : normal bold 17.5px "Nanum Gothic",sans-serif;
-	color: #ffffff;
-	border-radius: 5px / 5px;
-	border : none;
-	cursor : pointer;
-}
-
-#resetBtn{
-	width: 95px;
-	height: 40px;
-	background-color: #9B9B9B;
-	font : normal bold 17.5px "Nanum Gothic",sans-serif;
-	color: #ffffff;
-	border-radius: 5px / 5px;
-	border : none;
-	cursor : pointer;
-}
-
-#notice_name{
-	width: 80%;
+.page_name{
+	width: 40%;
 	height: 60px;
-	margin: 10px auto;
+	text-align: center;
+	padding: 50px 20px 0px;
+	margin: 2% 70% 5% 2%;
+	color: #3BBD5A;
+	font : normal bold 30px "Nanum Gothic",sans-serif;
 }
 
-/*옵션 테그*/
-select{
+.insert_zone{
+	width: 80%;
+	min-height: 900px;
+}
+
+.empty{
 	width: 100%;
-	height: 100%;
-	-webkit-appearance:none; /* 크롬 화살표 없애기 */
-    -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
-    appearance:none; /* 화살표 없애기 */
-    font-size: 20px;
-    background-color: #f0f0f0;
+	height: 30px;
 }
 
-select option[value=""][disabled] {
-	display: none;
-}
-
-#notice_content{
+.optiontitle{
+	min-width: 5%;
+	height: 30px;
+	color: #3BBD5A;
+	font : normal bold 21px "Nanum Gothic",sans-serif;
+	text-align: left;
+	float: left;
 	
 }
 
-#font{
-font : normal bold 22.5px "Nanum Gothic",sans-serif;
-color: #3BBD5A;
+.option_form{
+	min-width: 10%;
+	height: 30px;
 }
+
+.option{
+	min-width: 50px;
+	height: 30px;
+	border: none;
+	text-align: left;
+	font : normal bold 21px "Nanum Gothic",sans-serif;
+	margin-left: 15px;
+	margin-top: -3px;
+	float: left;
+	outline: none;
+}
+
+.title{
+	width: 100%;
+	height: 40px;
+	border-radius: 5px / 5px;
+	border: none;
+	background-color: #f0f0f0;
+	font : normal 20px "Nanum Gothic",sans-serif;
+	outline: none;
+}
+
+.contextForm{
+	width: 100%;
+	min-height: 400px;
+	margin-top: 30px;
+	
+}
+
+.content{
+	width: 100%;
+	min-height: 500px;
+	text-align: left;
+	border: none;
+	resize: none;
+	font : normal 20px "Nanum Gothic",sans-serif;
+	background-color: #f0f0f0;
+	outline: none;
+}
+
+.btnform{
+	width: 100%;
+	height: 40px;
+	padding: 10px;
+	margin-top: 40px;
+	text-align: center;
+}
+
+.listbtn{
+	width: 100px;
+	height: 40px;
+	border: none;
+	border-radius: 5px;
+	background-color: gray;
+	color: white;
+	margin: 15px;
+	cursor: pointer;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+}
+
+.resetbtn{
+	width: 100px;
+	height: 40px;
+	border: none;
+	border-radius: 5px;
+	background-color: gray;
+	color: white;
+	margin: 15px;
+	cursor: pointer;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+}
+
+.submitbtn{
+	width: 100px;
+	height: 40px;
+	border: none;
+	border-radius: 5px;
+	background-color:#3BBD5A;
+	color: white;
+	margin: 15px;
+	cursor: pointer;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+}
+
 </style>
 
-</head>
 <body>
 
-<div id="warpForm" align="center">
-	<div id="headerForm">
-	<c:import url="/WEB-INF/views/commons/header.jsp"/>
+<div id="wrapForm" align="center">
+	
+	<div class="headerForm">
+		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
 	
-		<div id="contentForm">
-		<div id="content_background"><br>
-		<form action="/notice/noticeWrite.do" method="post">
-			<div id="notice_name">
-				<span id="font">공지사항을 작성해 주세요</span>
+	<div class="contentForm">
+		<div class="contentwrap">
+			
+			<%-- 제목 공간 --%>
+			<div class="page_name">
+				<span>공지사항을 작성해 주세요</span>
 			</div>
-		
-			<div id="notice_userCategory_Form">
-				<select required name="noticeCode">
-					<option value="" disabled selected>사용자 분류 카테고리</option>
-					<option value="A">전체 회원</option>
-					<option value="F">농가</option>
-					<option value="U">사용자</option>
-				</select>
-			</div><br>
+			
+			<%-- 빈 공간 --%>		
+			<div class="empty"></div>
+			
+			<%-- 입력 폼 --%>
+			<div class="insert_zone">
+			<form action="/notice/noticeWrite.do" method="post" id="textWrite">
+				
+				<%-- 옵션 1 --%>
+				<div class="optiontitle">사용자 분류 카테고리 :</div>
+					<div class="option_form">
+						<select required class="option" name="noticeCode">
+							<option value="" disabled selected>사용자 분류 카테고리</option>
+							<option value="A">전체 회원</option>
+							<option value="F">농가</option>
+							<option value="U">사용자</option>
+						</select>
+					</div>
+				
+				<%-- 빈 공간 --%>		
+				<div class="empty"></div>	
 					
-			<div id="noticeCategory_Form">
+				<%-- 옵션 2 --%>
+				<div class="optiontitle">공지사항 분류 :</div>
+					<div class="option_form">
+						<select class="option" name="noticeCategory">
+							<option value="" disabled selected>공지사항 분류</option>
+							<option value="Category-1">기타</option>
+							<option value="Category-2">회원 가입 및 탈퇴</option>
+							<option value="Category-3">경매 관련</option>
+						</select>
+					</div>
 				
-				<select required name="noticeCategory">
-					<option value="" disabled selected>공지사항 분류</option>
-					<option value="Category-1">기타</option>
-					<option value="Category-2">회원 가입 및 탈퇴</option>
-					<option value="Category-3">경매 관련</option>
-				</select>
-			</div><br>
-			
-			<div id="notice_title_Form">
-				<input type="text" name="noticeTitle" id="notice_title" placeholder="제목을 입력하시오"/>
-			</div><br>
-			
-			<div id="notice_content_Form">
-				<textarea style="resize:none" name="noticeContent" id="notice_content" placeholder="내용을 입력하시오">${notice.noticeContent}</textarea>
-			</div><br>
-			
-			<div id="write_Btn_form">
-				<div id="list_btn">
-					<input type="button" id="mainBtn" value="메인으로" onclick="location='/'">
+				<%-- 빈 공간 --%>		
+				<div class="empty"></div>	
+						
+				<%-- 글 제목 입력 --%>
+				<input type="text" name="noticeTitle" class="title" placeholder="제목을 입력하시오"/>
+				
+				<%-- 글 제목 입력 --%>
+				<div class="contextForm">
+					<textarea class="content" name="noticeContent" placeholder="내용을 입력하시오"></textarea>
 				</div>
 				
-				<div id="reset_btn">
-					<input type="reset" value="다시쓰기" id="resetBtn">
+				<%-- 빈 공간 --%>		
+				<div class="empty"></div>
+				
+				<%-- 버튼 폼 --%>
+				<div class="Btnform">
+					<button type="button" class="listbtn">리스트</button>
+					<button type="submit" class="submitbtn">글 작성하기</button>
 				</div>
 				
-				<div id="submit_btn">
-					<input type="submit" value="글 쓰기" id="submitBtn">
-				</div>
+			</form>
+			
 			</div>
-		</form>
 		</div>
-		</div>
-	
-
-	<div id="footerForm">
-	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
+	
+	<div class="footerForm">
+		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
+	</div>	
+
 </div>
+
+<script>
+<%-- 글쓰기 버튼 --%>
+	$('.submitbtn').click(function(){
+		$("#textWrite").submit();
+	});
+
+<%-- 리스트 돌아가기 버튼 --%>
+	$('.listbtn').click(function(){
+		var currentPage = "${currentPage}";
+		var type = "${type}";
+		var keyword = "${keyword}";
+		location.replace('/notice/noticeListPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
+	});
+
+</script>
 
 </body>
 </html>
