@@ -17,7 +17,7 @@
 
 #content {
 	width: 100%;
-	height: 200vh;
+	height: 1500px;
 }
 .background-box {
 	width: 100%;
@@ -27,7 +27,6 @@
 .box-color {
 	margin: 0 auto;
 	width: 58vw;
-	height: 143vh;
 	background-color: white;
 	border-radius: 20px;
 	padding: 40px;
@@ -88,6 +87,7 @@
     line-height: 100%;
 	width: 65%;
 	margin-bottom: 3.5%;
+	border: 0.5px solid rgba(213,208,208,0.7);
 }
 .background {
     background-color: #D5D0D0;
@@ -97,7 +97,7 @@
     line-height: 6vh;
     margin-left: 20px;
     width: 50%;
-    text-align: left;
+    padding-left: 4%;
 }
 .vertical-align {
     vertical-align: middle;
@@ -123,7 +123,7 @@
 }
 #orderNo-td{
 	text-align: right;
-	padding-left: 7%;
+	padding-left: 4.5%;
 }
 #orderNo{
 	width : 100%;
@@ -139,7 +139,7 @@
 }
 
 .width{
-	width: 25%;
+	width: 30%;
 }
 .delivery{
 	width : 35%;
@@ -237,16 +237,13 @@
 							<table id="table">
 								<tr>
 	                                <td colspan="4" class="data background">
-	                                	<input type="button" disabled="true" class="background" style="border: none;" />
-	                                	<input type="button" disabled="true" style="border: none; " class="background" />${pur.purchaseDate }</td>
+	                                	${pur.purchaseDate }</td>
 	                                <td colspan="2" class="center background font" id="orderNo-td">
 	                                	<input type="submit" id="orderNo" name="orderNo" class="text-align" value="${pur.orderNo }">
 	                                </td>
 	                            </tr>
 	                            <tr class="white">
 	                                <td colspan="1" class="data border width">
-	                                	<input type="button" disabled="true" class="white" style="border: none;" />
-	                                	<input type="button" disabled="true" style="border: none; " class="background-1" />
 	                                	${pur.productName }
 	                                </td>
 	                                <td rowspan="2" class="center border vertical-align font text-align">${pur.payAmount }원</td>
@@ -256,8 +253,6 @@
 	                            <tr class="white">
 	                            
 	                                <td colspan="1" class="data border width">
-	                                	<input type="button" disabled="true" class="white" style="border: none;" />
-	                                	<input type="button" disabled="true" style="border: none; " class="background-1" />
 	                                	${pur.productCount }&nbsp; 상자
 	                                </td>
 	                                <c:choose>
