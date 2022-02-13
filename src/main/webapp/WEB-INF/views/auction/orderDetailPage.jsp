@@ -58,10 +58,10 @@ wrap {
 	margin-bottom: 5.5%;
 }
 #table {
-    font-size: 16px;
     font-family: 'NanumSquare';
     margin: 0 auto;
 	width:65%;
+	border: 0.5px solid rgba(213,208,208,0.7);
 }
 .background {
     background-color: #D5D0D0;
@@ -71,11 +71,11 @@ wrap {
     line-height: 6vh;
     margin-left: 20px;
     width: 50%;
-    text-align: left;
+    padding-left: 4%;
 }
 .vertical-align {
     vertical-align: middle;
-    width: 15%;
+    width: 17%;
 }
 .background-1 {
     background-color: white;
@@ -89,7 +89,7 @@ wrap {
 	text-align: center;
 }
 .width{
-	width: 35%;
+	width: 30%;
 }
 .delivery{
 	width : 35%;
@@ -120,6 +120,7 @@ wrap {
 	margin-bottom: 3%;
 	padding-left: 8%;
 	margin-top: 1.8%;
+	font-size: 2.2vmin;
 }
 .input-box{
 	width: 68%;
@@ -130,6 +131,7 @@ wrap {
 	font-family: 'Nanum Gothic', sans-serif;
 	margin-bottom: 4.8%;
 	margin-left: 5%;
+	font-size: 2vmin;
 }
 #orderNo-td{
 	text-align: right;
@@ -152,16 +154,13 @@ wrap {
 							<table id="table">
 							<tr>
                                 <td colspan="4" class="data background font">
-                                	<input type="button" disabled="true" class="background" style="border: none;" />
-                                	<input type="button" disabled="true" style="border: none; " class="background" />${pur.purchaseDate }</td>
+                                	${pur.purchaseDate }</td>
                                 <td colspan="2" class="center background font" id="orderNo-td">
                                 	 <span id="align-right">${pur.orderNo } </span>
                                 </td>
                             </tr>
                             <tr class="white">
                                 <td colspan="1" class="data border font width">
-                                	<input type="button" disabled="true" class="white" style="border: none;" />
-                                	<input type="button" disabled="true" style="border: none; " class="background-1" />
                                 	${pur.productName }
                                 </td>
                                 <td rowspan="2" class="center border vertical-align font text-align">${pur.payAmount }원</td>
@@ -170,8 +169,6 @@ wrap {
                             </tr>
                             <tr class="white">
                                 <td colspan="1" class="data border font width">
-                                	<input type="button" disabled="true" class="white" style="border: none;" />
-                                	<input type="button" disabled="true" style="border: none; " class="background-1" />
                                 	${pur.productCount }&nbsp; 상자
                                 </td>
                                 <td colspan="2" class="center border font text-align delivery">${pur.dName }</td>
@@ -185,16 +182,16 @@ wrap {
 							</div>
 							<div id="deliveryInfo">
                             	<span class="span-box">이름</span>
-                            	<input type="text" class="input-box" value="${pur.recipient }"/>
+                            	<input type="text" class="input-box" disabled="true" value="${pur.recipient }"/>
                                 
                                 <span class="span-box">연락처</span>
-                                <input type="text" class="input-box" value="${pur.phone }"/>
+                                <input type="text" class="input-box" disabled="true" value="${pur.phone }"/>
                                 
                                 <span class="span-box">주소</span>
-                                <input type="text" class="input-box" value="${pur.address1 }"/>
+                                <input type="text" class="input-box" disabled="true" value="${pur.address1 }"/>
                                
                                 <span class="span-box">상세 주소</span>
-                                <input type="text" class="input-box" value="${pur.address2 }"/> 
+                                <input type="text" class="input-box" disabled="true" value="${pur.address2 }"/> 
 							</div>
 						</div>
 					</div>
