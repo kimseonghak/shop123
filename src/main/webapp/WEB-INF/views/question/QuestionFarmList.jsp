@@ -249,7 +249,9 @@
 			</div>
 <%-- 버튼 wrap --%>
 			<div id="question_search_writeForm">
+			<c:if test="${farm != null && (farm.rating eq 'FARM')}">
 				<button id="write_btn">글 쓰기</button>
+			</c:if>
 			</div>
 		</div>
 	</div><br>
