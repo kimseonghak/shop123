@@ -71,7 +71,7 @@
 
 .auctionSaleStatus-box {
 	width: 100%;
-	height: 16%;
+	height: 15.5%;
 	border-radius: 10px 10px 0 0;
 	background-color: #3BBD5A;
 }
@@ -82,13 +82,12 @@
 }
 
 .auctionSaleStatus span {
-	font-size: 100%;
 	color: #FFFFFF;
 	font-family: 'NanumSquare';
 	height: 100%;
 	display: block;
-	margin-left: 10px;
-	line-height: 30px;
+	padding : 1.7%;
+	font-size: 2.3vmin;
 }
 
 .auctionSaleProduct {
@@ -116,9 +115,8 @@
 
 .spanLeft{
 	width: 35%;
-	height: 7.8%;
+	height: 10%;
 	text-align:right;
-	margin-top:10px;
 	float : left;
 	font-size: 2.2vmin;
 	font-family: 'NanumSquare';
@@ -126,16 +124,15 @@
 }
 .spanRight{
 	width: 63%;
-	height: 7.8%;
+	height: 10%;
 	text-align: center;
-	margin-top:10px;
 	float : left;
 	font-size: 2.2vmin;
 	font-family: 'NanumSquare';
 }
 .auctionSaleBox-leftSpace{
 	width : 100%;
-	height: 4.5%;
+	height: 9.3%;
 }
 .fontWeight{
 	font-weight: bold;
@@ -150,20 +147,19 @@
    color : #3BBD5A;
    font-size: 2.3vmin;
    padding-left : 5%;
+   margin-top: -2%;
 }
 .spanRight-test {
    width: 63%;
    height: 10%;
    text-align: center;
-   margin-top:6px;
    float : left;
    font-family: 'NanumSquare';
 }
 .spanmiddel{
    width: 35%;
-   height: 30px;
+   height: 10%;
    text-align: center;
-   margin-top:10px;
    float : left;
    font-size: 2.2vmin;
    font-family: 'NanumSquare';
@@ -171,8 +167,7 @@
 }
 .spanLast{
    width: 25%;
-   height: 30px;
-   margin-top:10px;
+   height: 10%;
    float : left;
    font-size: 2.2vmin;
    font-family: 'NanumSquare';
@@ -180,7 +175,7 @@
    padding-left: 10px;
 }
 .btn{
-   width : 150px;
+   width : 45%;
    height: 9.5%;
    border : none;
    text-align: center;
@@ -195,7 +190,7 @@
 }
 
 .promotionBtn{
-   width : 150px;
+   width : 45%;
    height: 9.5%;
    border : 3px solid #3BBD5A;
    text-align: center;
@@ -224,7 +219,7 @@
 	width: 100%;
 	height: 100%;
 	background-color: black;
-	margin-top: -99.6%;
+	margin-top: -100%;
 	border-radius: 0 0 10px 10px;
 	opacity: 0.65;
 	color: #FFFFFF;
@@ -347,6 +342,7 @@
 							<input type="hidden" name="no" value="${sessionScope.farm.farmNo }"/>
 							<input type="hidden" name="auctionNo" value="${map.au1.auctionNo }"/>
 							<input type="hidden" name="boardNo" value="${map.au1.boardNo }"/>
+							<input type="hidden" name="userNo" value="${sessionScope.member.userNo }"/>
 							
 							<span class="spanLeft">시작일 :</span>
                      		<span class="spanRight">${map.au1.sellStart}</span>
@@ -469,6 +465,7 @@
 							<input type="hidden" name="no" value="${sessionScope.farm.farmNo }"/>
 							<input type="hidden" name="auctionNo" value="${map.au2.auctionNo }"/>
 							<input type="hidden" name="boardNo" value="${map.au2.boardNo }"/>
+							<input type="hidden" name="userNo" value="${sessionScope.member.userNo }"/>
 							
 							<span class="spanLeft">시작일 :</span>
                      		<span class="spanRight">${map.au2.sellStart}</span>
@@ -590,6 +587,7 @@
 							<input type="hidden" name="no" value="${sessionScope.farm.farmNo }"/>
 							<input type="hidden" name="auctionNo" value="${map.au3.auctionNo }"/>
 							<input type="hidden" name="boardNo" value="${map.au3.boardNo }"/>
+							<input type="hidden" name="userNo" value="${sessionScope.member.userNo }"/>
 							
 							<span class="spanLeft">시작일 :</span>
                      		<span class="spanRight">${map.au3.sellStart}</span>
@@ -636,25 +634,27 @@
 			var auctionNo = $(this).parent().find('input[name=auctionNo]').val();
 			
 			//회원인지 ,수량 제대로 입력했는지 유효성 검사
+			if(userNo==''){
+				alert('로그인 후 이용 가능합니다.');
+				return false;
+			}
 			if(farmNum!=''){	
 				alert('일반 회원만 이용 가능합니다.');
 				return false;
-			}else if(userNo==''){
-				alert('로그인 후 이용 가능합니다.');
-				return false;
-			}else if(auctionCount1==0){
+			}
+			if(auctionCount1==0){
 				alert('수량을 입력해주세요.');
 				return false;
-			}else if(currentCount<auctionCount1){
+			}
+			if(currentCount<auctionCount1){
 				alert(currentCount+'상자까지 입력 가능합니다.');
 				return false;
-			}else{
-				
-				if(confirm(auctionProduct+' '+auctionCount1+'상자 주문하시겠습니까?')){
-					$(this).parents('form').submit();
-				}
-									
 			}
+			if(confirm(auctionProduct+' '+auctionCount1+'상자 주문하시겠습니까?')){
+					$(this).parents('form').submit();
+			}
+									
+		
 	});
 	
 //홍보 게시판 버튼 눌렀을 경우

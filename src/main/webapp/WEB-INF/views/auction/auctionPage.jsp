@@ -82,13 +82,12 @@
 }
 
 .auctionStatus span {
-   font-size: 100%;
    color: #FFFFFF;
    font-family: 'NanumSquare';
    height: 100%;
    display: block;
-   margin-left: 10px;
-   line-height: 30px;
+   padding : 1.7%;
+   font-size: 2.3vmin;
 }
 
 .auctionProduct {
@@ -116,32 +115,30 @@
 
 .spanLeft{
    width: 33%;
-   height: 9.5%;
+   height: 13%;
    text-align:right;
-   margin-top:10px;
    float : left;
    font-size: 2.2vmin;
    font-family: 'NanumSquare';
 }
 .spanRight{
    width: 65%;
-   height: 9.5%;
+   height: 13%;
    text-align: center;
-   margin-top:10px;
    float : left;
    font-size: 2.2vmin;
    font-family: 'NanumSquare';
 }
 .auctionBox-leftSpace{
    width : 100%;
-   height: 8.5%;
+   height: 10%;
 }
 .fontWeight{
    font-weight: bold;
 }
 .auctionCount-input{
-   width : 85%;
-   height: 85%;
+   width : 95%;
+   height: 80%;
    border : none;
    text-align: center;
    border-radius: 5px;
@@ -149,30 +146,28 @@
    color : #3BBD5A;
    font-size: 2.3vmin;
    padding-left : 7%;
+   margin-top: -5%;
 }
 .spanRight-test {
    width: 38%;
-   height: 10%;
+   height: 13%;
    text-align: center;
-   margin-top:6px;
    float : left;
    font-family: 'NanumSquare';
    padding-left :40px;
 }
 .text-span{
 	width: 11%;
-	height: 9.5%;
+	height: 13%;
 	float :left;
-	margin-top:12px;
 	font-size: 2.2vmin;
    	font-family: 'NanumSquare';
    	color : #3BBD5A;
 }
 .spanmiddel{
    width: 35%;
-   height: 9.5%;
+   height: 13%;
    text-align: center;
-   margin-top:10px;
    float : left;
    font-size: 2.2vmin;
    font-family: 'NanumSquare';
@@ -180,8 +175,7 @@
 }
 .spanLast{
    width: 29%;
-   height: 9.5%;
-   margin-top:10px;
+   height: 13%;
    float : left;
    font-size: 2.2vmin;
    font-family: 'NanumSquare';
@@ -190,7 +184,7 @@
 }
 
 .margin-bottom{
-   margin-bottom: 14px;
+   margin-bottom: 3%;
 }
 
 .btn{
@@ -217,7 +211,7 @@
    width: 100%;
    height: 100%;
    background-color: black;
-   margin-top: -79.8%;
+   margin-top: -81.5%;
    border-radius: 0 0 10px 10px;
    opacity: 0.65;
    color: #FFFFFF;

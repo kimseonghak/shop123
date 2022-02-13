@@ -81,7 +81,7 @@
 }
 
 #payBox {
-    width: 296px;
+    width: 99%;
     height: 320px;
     float: left;
     border: 1px solid #E9E9E9;
@@ -200,6 +200,21 @@
     font-weight: bold;
     height: 100%;
     line-height: 50px;
+    width: 40%;
+    float: left;
+}
+.farm-nameBox {
+    display: block;
+    font-size: 14px;
+    margin-left: 15px;
+    font-weight: bold;
+    height: 100%;
+    line-height: 50px;
+    width: 100%;
+}
+#checkbox{
+	font-size: 12px;
+	float: left;
 }
 
 .product-span {
@@ -332,7 +347,15 @@
 	float: left;    
 	cursor:pointer;
 }
-
+#checkbox-box{
+	width: 35%;
+	height: 60%;
+	float: left;
+	font-family: 'NanumSquare';
+	padding-top: 17px;
+	padding-left: 70px;
+	font-size: 1.9vmin;
+}
 
 </style>
 </head>
@@ -351,6 +374,10 @@
 			 <div id="order-wrapBox">
                 <div id="order-memberInfoBox">
                 	<div id="memberInfoBox">
+                		<input type="hidden" name="userName" value="${requestScope.m.userName}"/>
+                		<input type="hidden" name="userPhone" value="${requestScope.m.userPhone}"/>
+                		<input type="hidden" name="addressMain" value="${requestScope.m.userAddressMain}"/>
+                		<input type="hidden" name="addressSub" value="${requestScope.m.userAddressSub}"/>
                 		<span id="customer">주문고객</span>
                         <span id="customer-name">${requestScope.m.userName }&nbsp;( ${requestScope.m.userPhone } )</span>
                 	</div>
@@ -358,6 +385,9 @@
                 	<div id="memberInputBox">
                         <div class="farm-box">
                             <span class="farm-name">주소 (배송지)</span>
+                            <div id="checkbox-box">
+                            	<input type="checkbox" value="Y" id="checkbox"/>주문자 정보와 동일
+                        	</div>
                         </div>
                         <div class="address-box">
                             <div class="name"><span class="star" style="color: darksalmon">*</span>
@@ -392,7 +422,7 @@
                    </div>
                    <div id="orderInfo">
                         <div class="farm-box">
-                            <p class="farm-name">${requestScope.f.farmName }</p>
+                            <p class="farm-nameBox">${requestScope.f.farmName }</p>
                             <div class="address-box">
                                 <span class="product-span" id="product">${requestScope.sf.auctionProduct }</span>
                             </div>
@@ -463,6 +493,29 @@
 		}
 
 
+//
+		$('#checkbox').click(function(){
+			
+			var name = $('input[name=userName]').val();
+			var phone = $('input[name=userPhone]').val();
+			var addressMain = $('input[name=addressMain]').val();
+			var addressSub = $('input[name=addressSub]').val();
+			
+			if($(this).prop('checked')){
+				$('#name').val(name);			
+				$('#phone').val(phone);			
+				$('.address1').val(addressMain);			
+				$('#address2').val(addressSub);			
+			}else{
+				$('#name').val('');			
+				$('#phone').val('');			
+				$('.address1').val('');			
+				$('#address2').val('');		
+			}
+		});
+
+		
+		
 		//var auctionPrice = ${requestScope.sf.auctionPrice };     
 		//var productCount = ${requestScope.sf.auctionCount1 };	 //수량
 		//var payAmount = auctionPrice * productCount;			 //총 금액
@@ -471,7 +524,7 @@
 		$(function(){
 				
 			var totalMoney = $('.totalMoney').html(payAmount+" 원");
-
+			
 		});
 		
 //취소 버튼 누를 경우 구매 페이지로 이동
