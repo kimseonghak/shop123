@@ -74,8 +74,8 @@
     {
         width: 100%;
         height: 10%;
-        font-size: 3vmin;
-        font-weight: bolder;
+        font-size: 3.7vmin;
+        font-weight: bold;
         text-align: center;
         line-height: 9vh;
         color: #3BBD5A;
@@ -93,7 +93,7 @@
     } 
     #contentWrap-listWrap
     {
-        width: 98%;
+        width: 80%;
         height: 100%;
         margin: 0 auto;
     }
@@ -134,37 +134,48 @@
         padding-bottom: 15px;
         border-top: 1px solid rgba(0, 0, 0, 0.2);
     }
-    .writeBtn
-    {
+
+    
+   	#writeBtn
+   	{
         width: 4.5vw;
         height: 4vh;
-        position: relative;
-        left: 78vw;
-        top: 1.4vh;
-    }
-    .writeBtn>a
+		border-radius: 5px;
+		background-color:#3BBD5A;
+		color: white;
+		border: none;
+		position: relative;
+        left: 70vw;
+        top: 3vh;
+	}
+    #writeBtn>a
     {
 		text-decoration: none;
-		color:#198754;
+		color: white;
     }
-    .writeBtn>a:hover
-    {
-		color:white;
-    }
+
     .updateBtn
     {
         width: 3vw;
         height: 3.5vh;
+       	border-radius: 5px;
+		background-color:#3BBD5A;
+		color: white;
+		border: none;
         position: relative;
-        left: 73vw;
+        left: 57vw;
         bottom: 0.5vh;
     }
     .deleteBtn
     {
         width: 3vw;
         height: 3.5vh;
+        border-radius: 5px;
+		background-color:#3BBD5A;
+		color: white;
+		border: none;
         position: relative;
-        left: 74vw;
+        left: 58vw;
         bottom: 0.5vh;
     }
 </style>
@@ -183,7 +194,7 @@
             <div id="empty1"></div>
             <div id="contentTitle"> 자주 찾는 질문</div>
             <div id="empty2">                        
-                <button type="button" class="btn btn-outline-success btn-sm writeBtn"><a href="/faq/faqWritePage.do">글 쓰기</a></button>
+                <button type="button" id="writeBtn"><a href="/faq/faqWritePage.do">글 쓰기</a></button>
             </div>
             <div id="contentWrap">
                 <div id="contentWrap-listWrap">
@@ -194,8 +205,8 @@
 	                        <details>
 	                            <summary class="faqTitle">${f.getFaqTitle()}</summary>
 	                            <p class="faqCotent">${f.getFaqContent()}</p>
-		                        <button type="button" class="btn btn-outline-success btn-sm updateBtn" boardNo="${f.getFaqNo()}">수정</button>
-		                        <button type="button" class="btn btn-outline-success btn-sm deleteBtn" boardNo="${f.getFaqNo()}">삭제</button>
+		                        <button type="button" class="updateBtn" boardNo="${f.getFaqNo()}">수정</button>
+		                        <button type="button" class="deleteBtn" boardNo="${f.getFaqNo()}">삭제</button>
 	                        </details>
                       </c:forEach>
 		                    </div>  

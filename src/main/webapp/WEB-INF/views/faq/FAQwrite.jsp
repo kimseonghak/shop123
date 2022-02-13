@@ -41,6 +41,7 @@
 	#contentForm{
 		width: 100%;
 		height: 800px;
+		padding-top: 40px;
 	}
 	
 	#footerFrom{
@@ -75,10 +76,10 @@
     }
     #faqHeader
     {
-        font-size: 30px;
-        font-weight: bolder;
+        font-size: 3.7vmin;
+        font-weight: bold;
         position: relative;
-        left: 43%;
+        left: 41%;
         top: 25%;
         color:#3BBD5A;
     }
@@ -144,18 +145,26 @@
         height: 10%;
     }
     
-    #insertBtn
+    .insertBtn
     {
         width: 4%;
         height: 40%;
+        border-radius: 5px;
+		background-color:#3BBD5A;
+		color: white;
+		border: none;
         position: relative;
         left: 43vw; 
         top: 2.5vh;
     }
-    #listBtn
+    .listBtn
     {
         width: 4%;
         height: 40%;
+       	border-radius: 5px;
+		background-color:#3BBD5A;
+		color: white;
+		border: none;
         position: relative;
         left: 44vw; 
         top: 2.5vh;
@@ -193,8 +202,8 @@
 		           </div>
 		        </div>
 		        <div id="btnArea">
-		            <button type="submit" id="insertBtn" class="btn btn-outline-success btn-sm">등록</button>
-				     <button type="button" id="listBtn" class="btn btn-outline-success btn-sm">목록</button>
+		            <button type="submit" class="insertBtn">등록</button>
+				     <button type="button" class="listBtn">목록</button>
 		        </div>
 			</form> 
     </div>
@@ -208,7 +217,7 @@
 
 <!-- 등록 버튼 클릭 시 유효성 검사 -->
 <script>
-	$('#insertBtn').click(function(){
+	$('.insertBtn').click(function(){
 		
 		  
 		if($('select[name=type]').val()==null)
@@ -231,7 +240,7 @@
 
 <!-- 목록 버튼 클릭 시 -->
 <script>
-	$('#listBtn').click(function(){
+	$('.listBtn').click(function(){
 		
 		location.replace("/faq/faqListPage.do");
 		

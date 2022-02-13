@@ -43,8 +43,9 @@
         width: 80%;
         height: 90%;
         margin: 0 auto;
-        border: 1px solid rgba(0, 0, 0, 0.2);;
+        border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 20px;
+      	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
        
     }
     
@@ -96,6 +97,7 @@
         height: 50%;
         position: relative;
         top: 25%;
+        padding-left: 5px;
        
     }
     
@@ -115,8 +117,7 @@
         float: left;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
-        
-       
+		padding: 15 15 15 15;
     }
   
     #btnArea
@@ -125,18 +126,26 @@
         height: 10%;
     }
     
-    #updateBtn
+    .updateBtn
     {
         width: 8%;
         height: 48%;
+        border-radius: 5px;
+		background-color:#3BBD5A;
+		color: white;
+		border: none;
         position: relative;
         left: 43vw; 
         top: 2.5vh;
     }
-    #closeBtn
+    .closeBtn
     {
         width: 8%;
         height: 48%;
+        border-radius: 5px;
+		background-color:#3BBD5A;
+		color: white;
+		border: none;
         position: relative;
         left: 44vw; 
         top: 2.5vh;
@@ -188,8 +197,8 @@
 		            </div>
 		        </div>
 		        <div id="btnArea">
-		            <button type="submit" id="updateBtn" class="btn btn-outline-success btn-sm">수정</button>
-				     <button type="button" id="closeBtn" class="btn btn-outline-success btn-sm">닫기</button>
+		            <button type="submit" class="updateBtn">수정</button>
+				     <button type="button" class="closeBtn">닫기</button>
 		        </div>
 			</form> 
     </div>
@@ -197,7 +206,7 @@
 		
 <!-- 수정 버튼 클릭 시 유효성 검사 -->
 <script>
-	$('#updateBtn').click(function(){
+	$('.updateBtn').click(function(){
 		
 		  
 		if($('select[name=type]').val()==null)
@@ -220,7 +229,7 @@
 
 <!--닫기 버튼 클릭 시 -->
 <script>
-	$('#closeBtn').click(function(){
+	$('.closeBtn').click(function(){
 		
 		window.close();
 		
