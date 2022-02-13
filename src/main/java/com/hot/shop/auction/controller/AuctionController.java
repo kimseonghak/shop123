@@ -125,7 +125,6 @@ public class AuctionController {
 	public void orderPay(Purchaselist p, HttpServletResponse response,
 						 @RequestParam int auctionNo)throws IOException {
 		
-		System.out.println(p.getRecipient());
 		
 		int auctionCount  = p.getProductCount();
 		int insertResult = aucService.insertOrder(p);
