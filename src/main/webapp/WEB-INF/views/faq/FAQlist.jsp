@@ -30,17 +30,16 @@
 	
 	#warpForm{
 		width: 100%;
-		height: 1417px;
 	}
 	
 	#headerForm{
 		width: 100%;
 		height: 175px;
+		margin: 30px auto;
 	}
 	
 	#contentForm{
 		width: 100%;
-		height: 1000px;
 	}
 	
 	#footerFrom{
@@ -53,14 +52,12 @@
     #faqWrap
     {
         width: 100%;
-        height: 900px;
       	
     }
     
     #faqContentWrap
     {
         width: 85%;
-        height: 100%;
         margin: 0 auto;
     }
     
@@ -74,11 +71,12 @@
     {
         width: 100%;
         height: 10%;
-        font-size: 3.7vmin;
+        font-size: 28px;
         font-weight: bold;
         text-align: center;
         line-height: 9vh;
         color: #3BBD5A;
+        font-family: 'Nanum Gothic';
     }
     #empty2
     {
@@ -89,25 +87,21 @@
     #contentWrap
     {
         width: 100%;
-        height: 76%;
     } 
     #contentWrap-listWrap
     {
         width: 80%;
-        height: 100%;
         margin: 0 auto;
     }
     
     #board-row
     {
         width: 100%;
-        height: 100%;
         margin: 0 auto; 
     }
     #board-row-content
     {
         width: 98%;
-        height: 100%;
         margin: 0 auto; 
         border-bottom: 1px solid;
     }
@@ -118,7 +112,7 @@
         height: 10%;
         margin: 0 auto;
         font-size: 14px;
-        padding-top: 25px;
+        padding-top: 28px;
         padding-bottom: 15px;
         border-top: 1px solid black;
     }
@@ -129,7 +123,7 @@
     {
         width: 100%;
         margin: 0 auto;
-        font-size: 17px;
+        font-size: 14px;
         padding-top: 15px;
         padding-bottom: 15px;
         border-top: 1px solid rgba(0, 0, 0, 0.2);
@@ -146,7 +140,7 @@
 		border: none;
 		position: relative;
         left: 70vw;
-        top: 3vh;
+        top: 2.5vh;
 	}
     #writeBtn>a
     {
