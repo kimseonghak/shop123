@@ -82,7 +82,8 @@
 	opacity:0.8;
 }
 .lnb-list>li>a:hover {
-	color: #248B00;
+	color: #198754;
+	font-weight: bold;
 }
 
 /*.link_user*/
@@ -118,6 +119,19 @@
 	font-size: 16px;
 	color: #3BBD5A;
 }
+.box-user>a:hover {
+	color:#198754;
+	font-weight: bold;
+}
+.img-info {
+	width: 30px;
+	height: 27px;
+	vertical-align: sub;
+	opacity: 0.8;
+}
+
+
+
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,

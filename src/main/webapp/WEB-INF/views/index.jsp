@@ -76,7 +76,7 @@
 						최저가 '경매' 의 역발상</p>
 					</div>
 					<div class="auction-area">
-						<button class="auction-btn"><a href="/auction/auctionPage.do">경매 확인하기</a></button>
+						<button class="auction-btn" ><a href="/auction/auctionPage.do">경매 확인하기</a></button>
 					</div>
 				</div>
 			</div>
