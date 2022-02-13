@@ -35,35 +35,24 @@ wrap {
 }
 .title {
 	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 28px;
+	font-size: 4vmin;
 	font-weight: bold;
 	text-align: center;
 	color: #3BBD5A;
 }
-.btn-submit {
-	width: 10%;
-    height: 3.5vh;
-    background-color: #3BBD5A;
-    font-family: 'Nanum Gothic', sans-serif;
-    font-size: 1.2vmin;
-    border: none;
-    border-radius: 18px;
-    cursor: pointer;
-    float: right;
-    margin-right: 10px;
-}
+
 .mypage-main {
 	width: 100%;
 	height: 11.6%;
 	border-bottom: 0.5px solid #ABABAB; 
 }
 .font {
-    font-size: 13px;
+    font-size: 2vmin;
 }
 #orderList-main{
 	width : 100%;
 	height: 80%;
-	margin-top: 50px;
+	margin-top: 5%;
 }
 .form{
 	margin-bottom: 5.5%;
@@ -72,15 +61,14 @@ wrap {
     font-size: 16px;
     font-family: 'NanumSquare';
     margin: 0 auto;
-    line-height: 36px;
-	width:60%;
+	width:65%;
 }
 .background {
     background-color: #D5D0D0;
     opacity: 0.9;
 }
 .data {
-    line-height: 40px;
+    line-height: 6vh;
     margin-left: 20px;
     width: 50%;
     text-align: left;
@@ -97,12 +85,6 @@ wrap {
     border: 0.5px solid rgba(213,208,208,0.7);
 }
 
-#orderNo{
-	width : 50px;
-    color: black;
-	height: 100%;
-	
-}
 .text-align{
 	text-align: center;
 }
@@ -113,7 +95,7 @@ wrap {
 	width : 35%;
 }
 #memberInfo-box{
-	width:60%;
+	width:65%;
 	height: 60%;
 	margin : 0 auto;
 	border-top: 2px solid #3BBD5A;
@@ -121,7 +103,7 @@ wrap {
 #delivery-box{
 	width: 100%;
 	height: 20%;
-	padding-top: 35px;
+	padding-top: 6%;
 }
 #deliveryInfo{
 	width: 100%;
@@ -149,7 +131,10 @@ wrap {
 	margin-bottom: 4.8%;
 	margin-left: 5%;
 }
-
+#orderNo-td{
+	text-align: right;
+	padding-right: 4%;
+}
 </style>
 </head>
 <body>
@@ -170,7 +155,7 @@ wrap {
                                 	<input type="button" disabled="true" class="background" style="border: none;" />
                                 	<input type="button" disabled="true" style="border: none; " class="background" />${pur.purchaseDate }</td>
                                 <td colspan="2" class="center background font" id="orderNo-td">
-                                	 <a href="/auction/orderDetailPage.do" id="orderNo" class="text-align">${pur.orderNo } </a>
+                                	 <span id="align-right">${pur.orderNo } </span>
                                 </td>
                             </tr>
                             <tr class="white">
@@ -200,16 +185,16 @@ wrap {
 							</div>
 							<div id="deliveryInfo">
                             	<span class="span-box">이름</span>
-                            	<input type="text" class="input-box" value="이현아"/>
+                            	<input type="text" class="input-box" value="${pur.recipient }"/>
                                 
                                 <span class="span-box">연락처</span>
-                                <input type="text" class="input-box" value="01011113333"/>
+                                <input type="text" class="input-box" value="${pur.phone }"/>
                                 
                                 <span class="span-box">주소</span>
-                                <input type="text" class="input-box" value="경기도 고양시 일산서구 인현로 120"/>
+                                <input type="text" class="input-box" value="${pur.address1 }"/>
                                
                                 <span class="span-box">상세 주소</span>
-                                <input type="text" class="input-box" value="303동 602호"/> 
+                                <input type="text" class="input-box" value="${pur.address2 }"/> 
 							</div>
 						</div>
 					</div>

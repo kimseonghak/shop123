@@ -16,15 +16,6 @@
 	*{
 		box-sizing: border-box;
 	}
-	table{
-		width:100%;
-		border-collapse: collapse;
-		text-align: center;
-		margin:0 auto;
-		white-space: nowrap;
-		border-spacing: 0px;
-		table-layout: fixed;
-	}
 	#mainContents{
 		padding: 0px;
 	}
@@ -37,6 +28,7 @@
 		padding-right:20px;
 		background-color: rgba(72,187,120,0.1);
 	}
+/* Navi CSS */
 	.naviArrow{
 		text-decoration: none;
 		display : inline-block;
@@ -76,11 +68,22 @@
 		background-color:#48bb78;
 		opacity: 0.3;
 	}
+/* table CSS */
+	table{
+		width:100%;
+		border-collapse: collapse;
+		text-align: center;
+		margin:0 auto;
+		white-space: nowrap;
+		border-spacing: 0px;
+		table-layout: fixed;
+	}
 	table td,th{
 		overflow:hidden;
 		text-overflow: ellipsis;
 		font-size:1.7vmin;
 		font-family: 'Nanum Gothic', 'sans-serif';
+		transition:background-color ease 0.3s;
 	}
 	table tr:not(:last-child)>td{
 		background-color: white;
@@ -96,6 +99,10 @@
 		width:100%;
 		height:0.5vmin
 	}
+	.tdTr:hover>td{
+		background-color: rgb(240, 240, 240);
+	}
+/* title CSS */
 	#titleSpace{
 		border:1px solid #198754;
 		width:10%;
@@ -114,12 +121,7 @@
 		overflow: hidden;
 		cursor: pointer;
 	}
-	.tdTr:hover{
-		cursor: pointer;
-	}
-	.tdTr:hover>td{
-		background-color: rgb(240, 240, 240);
-	}
+/* 검색바 CSS */
 	#searchWrap{
 		width:100%;
 		height:4vh;
@@ -167,6 +169,7 @@
 	#searchBtn>img{
 		height:100%;
 	}
+/* 답변 CSS */
 	.answerImgTd{
 		padding:0.5vmin;
 		line-height: 100%;
@@ -211,11 +214,11 @@
 						<th width="10%">진행 상황</th>
 					</tr>
 					<c:forEach items="${map.list }" var="q">
-					<tr class="tdTr" qUserNo=${q.questionUserNo }>
+					<tr class="tdTr">
 						<td>${q.questionUserNo }</td>
-						<td style="font-weight:bolder;">${q.questionUserTitle }</td>
+						<td class="questionUser" style="font-weight:bold; cursor:pointer;">${q.questionUserTitle }</td>
 						<td>${q.userNo }</td>
-						<td style="font-weight:bolder;">${q.userNick }</td>
+						<td class="user" style="font-weight:bold; cursor:pointer;">${q.userNick }</td>
 						<td>${q.questionUserRegdate }</td>
 						<c:if test="${String.valueOf(q.questionUserAnswerYN) eq 'N'}">
 							<td class="answerImgTd"><img class="answerImg" alt="" src="/resources/admin/img/답변 대기.png"></td>
@@ -257,11 +260,16 @@
 				$('#prev').unbind('mouseenter mouseleave');
 			}
 		});
-<%-- 글 tr 클릭시 해당 글 내용으로 이동하는 스크립트 --%>
-		$('.tdTr').click(function(){
-			var qUserNo = $(this).attr('qUserNo');
+<%-- 글 제목 클릭시 해당 글 내용으로 이동하는 스크립트 --%>
+		$('.questionUser').click(function(){
+			var qUserNo = $(this).prev().html();
 			var currentPage = ${currentPage};
 			location.replace('/admin/adminUserQNAContent.do?currentPage='+currentPage+'&questionUserNo='+qUserNo);
+		});
+<%-- 유저 이름 클릭시 유저 정보창 출력 --%>
+		$('.user').click(function(){
+			var userNo = $(this).prev().html();
+			window.open("/admin/adminMemberInfoPage.do?userNo="+userNo,"_blank","width=500px, height=430px");
 		});
 <%-- 검색아이콘 클릭시 서브밋 --%>
 		$('#searchIcon').click(function(){

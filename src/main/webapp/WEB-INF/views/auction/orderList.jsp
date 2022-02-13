@@ -17,7 +17,7 @@
 
 #content {
 	width: 100%;
-	height: 190vh;
+	height: 200vh;
 }
 .background-box {
 	width: 100%;
@@ -27,7 +27,7 @@
 .box-color {
 	margin: 0 auto;
 	width: 58vw;
-	height: 135vh;
+	height: 143vh;
 	background-color: white;
 	border-radius: 20px;
 	padding: 40px;
@@ -36,23 +36,12 @@
 }
 .title {
 	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 28px;
+	font-size: 4vmin;
 	font-weight: bold;
 	text-align: center;
 	color: #3BBD5A;
 }
-.btn-submit {
-	width: 10%;
-    height: 3.5vh;
-    background-color: #3BBD5A;
-    font-family: 'Nanum Gothic', sans-serif;
-    font-size: 1.2vmin;
-    border: none;
-    border-radius: 18px;
-    cursor: pointer;
-    float: right;
-    margin-right: 10px;
-}
+
 .mypage-main {
 	width: 100%;
 	height: 6.9%;
@@ -60,52 +49,52 @@
 }
 #dateSelect-btn{
 	width: 100%;
-	height: 80px;
+	height: 60px;
+	padding-top : 2.5%;
+	padding-left: 70%;
+	font-size: 2vmin;
 }
-#recent {
-    display: inline-block;
-    position: relative;
-    width: 10.5%;
-    height: 38%;
-    background-color: #3BBD5A;
-    color: white;
-    border: none;
-    border-radius: 5px;
-   	margin-left: 75%;
-   	margin-top: 25px;
-   	cursor:pointer;
-}
-
 #option {
     width: 10.5%;
-    height: 38.5%;
+    height: 55%;
     background-color: white;
     border: 2px solid #3BBD5A;
+    margin-right : 5px;
     border-radius: 5px;
     text-align: center;
     cursor:pointer;
+    font-size: 2vmin;
+}
+#optionBtn{
+	width: 10.5%;
+    height: 55%;
+	color : white;
+    border: none;
+    border-radius: 5px;
+    background-color: #3BBD5A;
+    text-align: center;
+    cursor:pointer;
+    font-size: 2vmin;
 }
 
 #orderList-main{
 	width : 100%;
-	height: 78%;
 }
-.form{
-	margin-bottom: 30px;
-}
+
 #table {
-    font-size: 13px;
+    font-size: 2vmin;
     font-family: 'NanumSquare';
     margin: 0 auto;
-    line-height: 36px;
-	width: 60%;
+    line-height: 100%;
+	width: 65%;
+	margin-bottom: 3.5%;
 }
 .background {
     background-color: #D5D0D0;
     opacity: 0.9;
 }
 .data {
-    line-height: 40px;
+    line-height: 6vh;
     margin-left: 20px;
     width: 50%;
     text-align: left;
@@ -134,15 +123,16 @@
 }
 #orderNo-td{
 	text-align: right;
-	padding-right: 27px;
+	padding-left: 7%;
 }
 #orderNo{
-	width : 105px;
+	width : 100%;
     color: black;
 	height: 100%;
 	border: none;
 	background-color: #D5D0D0;
 	cursor: pointer;
+	font-size: 2vmin;
 }
 .text-align{
 	text-align: center;
@@ -207,10 +197,10 @@
 }
 #infoEmptyBox{
 	width: 100%;
-	height: 100px;
-	margin-top : 150px;
+	height: 20%;
+	margin-top : 15%;
 	text-align: center;
-	font-size: 25px;
+	font-size: 3.5vmin;
 	font-family: 'NanumSquare';
 }
 
@@ -226,21 +216,24 @@
 					<div class="mypage-main">
 						<p class="title">주문 목록</p>
                     </div>
+				 <form action="/auction/orderListPage.do" method="get">
+				 	<input type="hidden" name="userNo" value="${sessionScope.member.userNo }"/>
 					<div id="dateSelect-btn">
-						<input type="button" id="recent" class="font" onclick="sixMonthInquery()" value="최근 6개월" />
-						<select name='year' id="option">
+						<select name='type' id="option">
                            <option value='2022' selected>2022</option>
-                           <option value='2021'>2021</option>
-                           <option value='2020'>2020</option>
-                           <option value='2019'>2019</option>
+                           <option value='2021' >2021</option>
+                           <option value='2020' >2020</option>
+                           <option value='2019' >2019</option>
                            <option value='2018'>2018</option>
                         </select>
+                        <input type="submit" id="optionBtn" value="조회">
 					</div>
+				 </form>
+				 <form action="/auction/orderDetailPage.do" method="post">
 					<div id="orderList-main">
 					<c:choose>
 					<c:when test="${!map.list.isEmpty() }">
 					<c:forEach items="${map.list }" var="pur">
-						<form class="form" action="/auction/orderDetailPage.do" method="post">
 							<table id="table">
 								<tr>
 	                                <td colspan="4" class="data background">
@@ -281,7 +274,6 @@
 		                            </c:choose>
 	                            </tr>
 							</table>
-						</form>
 					</c:forEach>
 					</c:when>
 					<c:otherwise>
@@ -291,11 +283,12 @@
 					</c:otherwise>
 					</c:choose>
 					</div>
-					<div id="navi">${map.pageNavi }</div>
+				   </form>
+				  <div id="navi">${map.pageNavi }</div>
 				</div>
+			  </div>
 			</div>
-		</div>
-	<c:import url="/WEB-INF/views/commons/footer.jsp"/>
+	<c:import url="/WEB-INF/views/commons/footer.jsp"/>  
 </div>
 <script>
 //navi css
@@ -312,14 +305,7 @@
 		}
 	});
 	
-//최근 6개월 버튼 누를 시 	
-	function sixMonthInquery(){
-		
-		
-	}
-	
-	
-	
+
 </script>
 </body>
 </html>

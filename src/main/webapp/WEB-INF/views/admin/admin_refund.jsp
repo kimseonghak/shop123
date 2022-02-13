@@ -264,8 +264,8 @@
 							<td>
 								<c:choose>
 									<c:when test="${String.valueOf(r.adminYN) eq 'X'}">
-										<button class="YNbtn Ybtn" data="${r.refundNo }" data2="Y">승인</button>
-										<button class="YNbtn Nbtn" data="${r.refundNo }" data2="N">거절</button>
+										<button class="YNbtn Ybtn" data="${r.refundNo }" data2="Y" data3="${r.orderNo }">승인</button>
+										<button class="YNbtn Nbtn" data="${r.refundNo }" data2="N" data3="${r.orderNo }">거절</button>
 									</c:when>
 									<c:otherwise></c:otherwise>
 								</c:choose>
@@ -316,7 +316,7 @@
 		$('.YNbtn').click(function(){
 			var refundNo = $(this).attr('data');
 			var adminYN = $(this).attr('data2');
-			var result;
+			var orderNo = $(this).attr('data3');
 			
 			if(adminYN=='Y'){
 				result = window.confirm("환불을 승인하시겠습니까?")
@@ -328,12 +328,12 @@
 				$.ajax({
 					url:"/admin/adminRefundUpdate.do",
 					data:{refundNo:refundNo,
-						adminYN:adminYN},
-					type:"get",
-					dataType:"json",
+						adminYN:adminYN,
+						orderNo:orderNo},
+					type:"post",
 					success:function(result){
 						if(result){
-							alert('환불 상태가 변경되었습니다.');
+							alert("환불상태가 변경 되었습니다.");
 							location.reload();
 						}
 					},
@@ -344,6 +344,8 @@
 			}else{
 				alert('취소하였습니다.');
 			}
+			
+			
 		});
 <%-- 문의 번호 클릭시 해당 게시글 팝업 --%>
 	$('.questionUser').click(function(){

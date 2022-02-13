@@ -55,23 +55,20 @@
         height: 100%;
         float: left;
     }
-    /*홈 & 로그아웃 아이콘 위치*/
+    /*홈  아이콘 위치*/
     #homeIcon
     {
+    	width:40px;
+    	height:40px;
         position: relative;
-        bottom: -3vh;
-        margin-left: 13px; 
+        top:2vh;
+        margin-left: 6vw; 
     }
-    
-    #logoutIcon
+    #homeIcon:hover
     {
-        position: relative;
-        bottom: -3.3vh;
-        margin-left: 13px;
+	    width:42px;
+    	height:42px;
     }
-    
-
-    
     
     /*사이드바 상단 랩 */
     #sideWrap1 {
@@ -184,20 +181,20 @@
         /*Content 영역*/    
     #farmContent1
     {
-        width: 10%;
+        width: 1%;
         height: 100%;
         float: left;
     }
     #farmContent2
     {
-        width: 80%;
+        width: 98%;
         height: 100%;
         float: left;
     }
 
     #farmContent3
     {
-        width: 10%;
+        width: 1%;
         height: 100%;
         float: left;
     }
@@ -257,21 +254,13 @@
         line-height: 1.2vh;
         margin: 25px 0px;
         list-style: none;
-        text-align: left;
+        text-align: center;
         color: white;
         position: relative;
         right: 1.2vw;
         top: 1vh;
         border-bottom: 1px solid white;
-    }
-   #sideFooterNavi>li>a
-    {
-		text-decoration: none;
-		color: white;
-    }
-   #sideFooterNavi>li>a:hover
-    {
-  		font-weight: bolder;
+        font-size: 1.7vmin;
     }
     
     #farmUpdate

@@ -187,17 +187,41 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.5</version>
 		</dependency>
+		
+		<!-- JSON -->
+		<dependency>
+	    	<groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+
+	<!--  iamport -->
+		<dependency>
+		    <groupId>com.github.iamport</groupId>
+		    <artifactId>iamport-rest-client-java</artifactId>
+		    <version>0.2.17</version>
+		</dependency>
+	
 
 	</dependencies>
+	
 
-	<!-- 오라클 저장소 -->
 	<repositories>
+	<!-- 오라클 저장소 -->
 		<repository>
 			<id>oracle</id>
 			<name>ORACLE JDBC Repository</name>
 			<url>http://www.datanucleus.org/downloads/maven2/</url>
 		</repository>
+		
+		<!--  iamport -->
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
 	</repositories>
+
+
 
 	<build>
 		<plugins>

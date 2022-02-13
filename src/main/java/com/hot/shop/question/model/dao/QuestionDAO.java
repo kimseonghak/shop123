@@ -159,9 +159,9 @@ public class QuestionDAO {
 	}
 
 	public boolean questionAnswer(QuestionAnswer qAnswer) {
-		if(qAnswer.getQuestionUserAnswerYN() == 'N') {
+		if(qAnswer.getQuestionUserAnswerYN() == 'N' || qAnswer.getQuestionFarmAnswerYN()== 'N') {
 			int result =sqlSession.insert("qUser.questionAnswer",qAnswer);
-			int result2 = sqlSession.update("qUser.questionUserAnswerYN",qAnswer);
+			int result2 = sqlSession.update("qUser.questionAnswerYN",qAnswer);
 			return result+result2 > 1;
 		}else {
 			int result = sqlSession.update("qUser.questionAnswerUpdate",qAnswer);
@@ -181,13 +181,86 @@ public class QuestionDAO {
 	public ArrayList<Farm> farmCheck(String farmName) {
 		return new ArrayList<Farm>(sqlSession.selectList("qUser.farmCheck",farmName));
 	}
+
+
 	
 	
 	
 	//-----------------------------------------농가 문의-----------------------------------------
-		public ArrayList<QuestionFarm> QuestionFarmPage() {
+	//농가 문의 리스트 공간
+		public ArrayList<QuestionFarm> farmQuestionList(int recordCountPerPage, HashMap<String, Object> map) {
 			// TODO Auto-generated method stub
-			return null;
+			int start = (int)map.get("currentPage")*recordCountPerPage-(recordCountPerPage-1);
+			int end = (int)map.get("currentPage")*recordCountPerPage;
+			
+			map.put("start", start);
+			map.put("end",end);
+			return new ArrayList<QuestionFarm>(sqlSession.selectList("qFarm.farmQuestionList",map));
 		}
 
+		public String FarmQuestionNavi(int recordCountPerPage, int naviCountPerPage, HashMap<String, Object> map) {
+			// TODO Auto-generated method stub
+			int recordTotalCount = qFarmTotalCount(map);
+			int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
+			int currentPage = (int)map.get("currentPage");
+			
+			int startNavi = ((currentPage-1)/naviCountPerPage) *naviCountPerPage+1;
+			int endNavi = startNavi+naviCountPerPage-1;
+			
+			if(endNavi>pageTotalCount) {
+				endNavi=pageTotalCount;
+			}
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a href='/question/QuestionFarmPage.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&lt;&lt;</a>");
+			sb.append("<a href='/question/QuestionFarmPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
+			for(int i= startNavi; i<=endNavi; i++) {
+				if(i==currentPage) {
+					sb.append("<a href='/question/QuestionFarmPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='currentNavi'>"+i+"</a>");
+				}else {
+					sb.append("<a href='/question/QuestionFarmPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='otherNavi'>"+i+"</a>");
+				}
+			}
+			if((currentPage+10)>pageTotalCount) {
+				sb.append("<a href='/question/QuestionFarmPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+			}else {
+				sb.append("<a href='/question/QuestionFarmPage.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+			}
+			sb.append("<a href='/question/QuestionFarmPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&gt;&gt;</a>");
+			
+			return sb.toString();
+		}
+
+		private int qFarmTotalCount(HashMap<String, Object> map) {
+			// TODO Auto-generated method stub
+			return sqlSession.selectOne("qFarm.qFarmTotalCount",map);
+		}
+		//농가 문의 리스트 공간 끝
+
+		//글 쓰기
+		public int questionFarmWrite(QuestionFarm qfarm) {
+			// TODO Auto-generated method stub
+			return sqlSession.insert("qFarm.questionFarmWrite", qfarm);
+		}
+
+		//글 조회
+		public HashMap<String, Object> questionFarmView(int questionFarmNo) {
+			// TODO Auto-generated method stub
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("qFarm", sqlSession.selectOne("qFarm.questionFarmView", questionFarmNo));
+			map.put("qAnswer", sqlSession.selectOne("qFarm.questionFarmAnswerCheck",questionFarmNo));
+			return map;
+		}
+
+		//글 수정
+		public int questionFaemUpdate(QuestionFarm qfarm) {
+			// TODO Auto-generated method stub
+			return sqlSession.update("qFarm.questionFaemUpdate", qfarm);
+		}
+
+		public int questionFarmDelete(int questionFarmNo) {
+			// TODO Auto-generated method stub
+			return sqlSession.update("qFarm.questionFarmDelete",questionFarmNo);
+		}
+		
 }

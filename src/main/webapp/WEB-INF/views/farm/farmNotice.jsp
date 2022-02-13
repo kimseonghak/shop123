@@ -29,7 +29,7 @@
 	 #naviArea
 	 {
 	 	display:inline-block;
-	 	margin-left:450px;
+	 	margin-left:600px;
 	 	text-align: center;
 	 }
 </style>

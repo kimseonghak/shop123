@@ -182,61 +182,31 @@
 			문의 제목
 		</div>
 		<div class="inputForm" style="border-top:none;">
-			${map.qUser.questionUserTitle }
+			${map.qFarm.questionFarmTitle }
 		</div>
 		<div class="infoForm">
 			문의 번호
 		</div>
 		<div class="inputForm">
-			${map.qUser.questionUserNo }
+			${map.qFarm.questionFarmNo }
 		</div>
 		<div class="infoForm">
 			문의 날짜
 		</div>
 		<div class="inputForm">
-			${map.qUser.questionUserRegdate }
+			${map.qFarm.questionFarmRegdate }
 		</div>
 		<div class="infoForm">
-			문의 대상
+			문의 농가
 		</div>
 		<div class="inputForm">
-			<c:if test="${map.qUser.questionUserClassify eq 'A'.charAt(0)}">운영자</c:if>
-			<c:if test="${map.qUser.questionUserClassify eq 'F'.charAt(0)}">농가 (농가 번호 : ${map.qUser.farmNo })</c:if>
-		</div>
-			<c:if test="${map.qUser.questionUserCode eq 'Q-1'}">
-			<div class="infoForm">
-				환불 현황
-			</div>
-			<div class="inputForm">
-				<c:if test="${map.refund.farmYN eq 'X'.charAt(0) }">대기중</c:if>
-				<c:if test="${map.refund.farmYN eq 'N'.charAt(0) }">거절</c:if>
-				<c:if test="${map.refund.farmYN eq 'Y'.charAt(0) && map.refund.adminYN eq 'X'.charAt(0)}">가승인</c:if>
-				<c:if test="${map.refund.farmYN eq 'Y'.charAt(0) && map.refund.adminYN eq 'N'.charAt(0)}">거절</c:if>
-				<c:if test="${map.refund.farmYN eq 'Y'.charAt(0) && map.refund.adminYN eq 'Y'.charAt(0)}">환불 완료</c:if>
-			</div>
-			</c:if>
-		<div class="infoForm">
-			문의 유저
-		</div>
-		<div class="inputForm">
-			${map.qUser.userNick }
+			${map.qFarm.farmName }
 		</div>
 		<div id="infoContent" style="border-bottom:none;">
 			문의 내용
 		</div>
 		<div id="inputContent" style="border-bottom:none;">
-			<c:if test="${map.qUser.questionphotoNo==1 }">
-				<textarea disabled="disabled" class="content">${map.qUser.questionUserContent }</textarea>
-			</c:if>
-			<c:if test="${map.qUser.questionphotoNo!=1 }">
-				<div id="imgWrap">
-					<img alt="" src="${map.qUser.questionPhotoFilePath }">
-				</div>
-				<div id="contentSpace"></div>
-				<div id="textWrap">
-					<textarea disabled="disabled" class="content">${map.qUser.questionUserContent }</textarea>
-				</div>
-			</c:if>
+				<textarea disabled="disabled" class="content">${map.qFarm.questionFarmContent }</textarea>
 		</div>
 		<hr style="border:1px solid black; margin-top:0px; margin-bottom:0px;">
 		<div id="answerWrap">
@@ -245,10 +215,10 @@
 			</div>
 			<div id="inputAnswer">
 				<form action="/qustionUser/questionAnswer.do" method="post" id="answerForm">
-					<input type="hidden" value="MU" name="questionWriter">
-					<input type="hidden" value="${map.qUser.questionUserNo}" name="questionBoardNo">
-					<input type="hidden" value="U" name="questionBoardCode">
-					<input type="hidden" value="${map.qUser.questionUserAnswerYN}" name="questionUserAnswerYN">
+					<input type="hidden" value="MF" name="questionWriter">
+					<input type="hidden" value="${map.qFarm.questionFarmNo}" name="questionBoardNo">
+					<input type="hidden" value="F" name="questionBoardCode">
+					<input type="hidden" value="${map.qFarm.questionFarmAnswerYN}" name="questionFarmAnswerYN">
 					<input type="hidden" value="${currentPage}" name="currentPage">
 					<input type="hidden" value="${type}" name="type">
 					<input type="hidden" value="${keyword}" name="keyword">
@@ -258,27 +228,14 @@
 		</div>
 		<hr style="border:1px solid black; margin-top:0px; margin-bottom:10px;">
 		<div id="btnWrap">
-			<c:choose>
-				<c:when test="${sessionScope.member!=null }">
-					<button class="btn listBtn">목록</button>
-					<c:if test="${map.qUser.questionUserCode eq 'Q-1'}">
-					<c:if test="${map.qUser.questionUserAnswerYN eq 'N'.charAt(0) && map.refund.farmYN eq 'X'.charAt(0)}">
+			<c:if test="${farm != null && (farm.farmNo eq map.qFarm.farmNo)}">
 					<button class="btn updateBtn">수정</button>
 					<button class="btn deleteBtn">삭제</button>
-					</c:if>
-					</c:if>
-					<c:if test="${map.qUser.questionUserCode eq 'Q-2'}">
-					<c:if test="${map.qUser.questionUserAnswerYN eq 'N'.charAt(0)}">
-					<button class="btn updateBtn">수정</button>
-					<button class="btn deleteBtn">삭제</button>
-					</c:if>
-					</c:if>
-				</c:when>
-				<c:otherwise>
+			</c:if>
+	
 					<button class="btn listBtn">목록</button>
 					<button class="btn answerBtn">답변</button>
-				</c:otherwise>
-			</c:choose>
+
 		</div>
 	</div>
 	<div id="footerFrom">
@@ -294,22 +251,20 @@
 		var currentPage = ${currentPage};
 		var type = "${type}";
 		var keyword = "${keyword}";
-		location.replace('/question/QuestionUserPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
+		location.replace('/question/QuestionFarmPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
 	});
 <%-- 삭제 버튼 로직 --%>
 	$('.deleteBtn').click(function(){
-		var questionUserNo=${map.qUser.questionUserNo};
-		var code = "${map.qUser.questionUserCode}";
-		
-		location.replace('/question/questionUserDelete.do?questionUserNo='+questionUserNo+'&questionUserCode='+code);
+		var questionFarmNo=${map.qFarm.questionFarmNo};
+		location.replace('/question/questionFarmDelete.do?questionFarmNo='+questionFarmNo);
 	});
 	$('.answerBtn').click(function(){
 		$('#answerForm').submit();
 	});
 <%-- 수정 버튼 로직 --%>
 	$('.updateBtn').click(function(){
-		var questionUserNo=${map.qUser.questionUserNo};
-		location.replace('/question/questionUserUpdatePage.do?questionUserNo='+questionUserNo);
+		var questionFarmNo =${map.qFarm.questionFarmNo};
+		location.replace('/question/questionFarmUpdatePage.do?questionFarmNo='+questionFarmNo);
 	});
 </script>
 <c:if test="${member!=null }">

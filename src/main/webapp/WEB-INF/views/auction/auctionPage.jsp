@@ -35,13 +35,17 @@
 }
 
 #subject {
-   width: 12.8%;
+   width: 100%;
    height: 100%;
    margin: 0 auto;
 }
 
 #subject>span {
-   font-size: 28px;
+   display : block;
+   width : 100%;
+   height : 100%;
+   font-size: 3.9vmin;
+   text-align : center;
    font-family: 'NanumSquare';
    color: #3BBD5A;
    font-weight: bold;
@@ -78,7 +82,7 @@
 }
 
 .auctionStatus span {
-   font-size: 16px;
+   font-size: 100%;
    color: #FFFFFF;
    font-family: 'NanumSquare';
    height: 100%;
@@ -93,11 +97,12 @@
 }
 
 .auctionProduct>span {
-   font-size: 25px;
+   display: block;
+   height : 100%;
+   font-size: 3.5vmin;
    color: #FFFFFF;
    font-family: 'NanumSquare';
    font-weight: bold;
-   display: block;
    text-align: center;
    margin-top: -5px;
 }
@@ -111,75 +116,74 @@
 
 .spanLeft{
    width: 33%;
-   height: 30px;
+   height: 9.5%;
    text-align:right;
    margin-top:10px;
    float : left;
-   font-size: 16px;
+   font-size: 2.2vmin;
    font-family: 'NanumSquare';
 }
 .spanRight{
    width: 65%;
-   height: 30px;
+   height: 9.5%;
    text-align: center;
    margin-top:10px;
    float : left;
-   font-size: 16px;
+   font-size: 2.2vmin;
    font-family: 'NanumSquare';
 }
 .auctionBox-leftSpace{
    width : 100%;
-   height: 7.5%;
+   height: 8.5%;
 }
 .fontWeight{
    font-weight: bold;
 }
 .auctionCount-input{
-   width : 120px;
-   height: 30px;
+   width : 85%;
+   height: 85%;
    border : none;
    text-align: center;
    border-radius: 5px;
    font-weight: bold;
    color : #3BBD5A;
-   font-size: 15px;
-   padding-left : 16px;
+   font-size: 2.3vmin;
+   padding-left : 7%;
 }
 .spanRight-test {
    width: 38%;
-   height: 37px;
+   height: 10%;
    text-align: center;
    margin-top:6px;
    float : left;
-   font-size: 16px;
    font-family: 'NanumSquare';
    padding-left :40px;
 }
 .text-span{
 	width: 11%;
-	height: 30px;
+	height: 9.5%;
 	float :left;
 	margin-top:12px;
-	font-size: 16px;
+	font-size: 2.2vmin;
    	font-family: 'NanumSquare';
    	color : #3BBD5A;
 }
 .spanmiddel{
    width: 35%;
-   height: 30px;
+   height: 9.5%;
    text-align: center;
    margin-top:10px;
    float : left;
-   font-size: 16px;
+   font-size: 2.2vmin;
    font-family: 'NanumSquare';
    text-align: right;
 }
 .spanLast{
    width: 29%;
-   height: 30px;
+   height: 9.5%;
    margin-top:10px;
    float : left;
-   font-size: 16px;
+   font-size: 2.2vmin;
    font-family: 'NanumSquare';
    text-align: left;
    padding-left: 10px;
@@ -191,13 +195,13 @@
 
 .btn{
    width : 150px;
-   height: 35px;
+   height: 12%;
    border : none;
    text-align: center;
    border-radius: 10px;
    font-weight: bold;
    color : #ffff;
-   font-size: 15px;
+   font-size: 2.1vmin;
    background-color: #3BBD5A;
    display: block;
    margin: 0 auto;
@@ -211,12 +215,11 @@
 
 .block {
    width: 100%;
-   height: 86.1%;
+   height: 100%;
    background-color: black;
-   margin-top: -90.4%;
+   margin-top: -79.8%;
    border-radius: 0 0 10px 10px;
    opacity: 0.65;
-   font-size: 25px;
    color: #FFFFFF;
    font-family: 'NanumSquare';
    text-align: center;
@@ -273,8 +276,8 @@
                      </span>
                      <span class="text-span font-style">원</span>
                      <input type="submit" class="btn" value="입찰하기"/>
+	                 <div class="block"></div>
                </div>
-               <div class="block"></div>
             </div>
             </c:when>
                      
@@ -319,8 +322,8 @@
                      </span> 
                      <span class="text-span font-style">원</span>
                      <input type="submit" class="btn" id="aucBtn1" value="입찰하기"/>
+	                 <div class="block" id="block1" style="display: none;"></div>
                </div>
-               <div class="block" id="block1" style="display: none;"></div>
             </div>
          </c:otherwise>
          </c:choose>
@@ -358,8 +361,8 @@
                      </span>
                      <span class="text-span font-style">원</span> 
                      <input type="submit" class="btn" value="입찰하기"/>
+	                 <div class="block"></div>
                   </div>
-               <div class="block"></div>
             </div>
             </c:when>
                      
@@ -396,7 +399,7 @@
                      <span class="spanRight fontWeight remainTime2" style="color: #FE0011"></span>
                      <span class="spanLeft">판매수량 :</span>
                      <span class="spanRight-test">
-                     	<input type="number" min="0" name="auctionCount" class="auctionCount-input margin" value="0"/>
+                     	<input type="number" min="0" name="auctionCount" class="auctionCount-input margin"/>
                      </span> 
                      <span class="font-style text-span">상자</span>
                      <span class="spanLeft">현재 최저가 :</span>
@@ -405,8 +408,8 @@
                      </span>
                      <span class="text-span font-style">원</span> 
                      <input type="submit" class="btn" id="aucBtn2" value="입찰하기"/>
+                     <div class="block" id="block2" style="display: none;"></div>
                </div>
-               <div class="block" id="block2" style="display: none;"></div>
             </div>
          </c:otherwise>
          </c:choose>
@@ -444,8 +447,8 @@
                      </span>
                      <span class="text-span font-style">원</span>
                      <input type="submit" class="btn" value="입찰하기"/>
+                     <div class="block"></div>
                   </div>
-                  <div class="block"></div>
             </div>
             </c:when>
                      
@@ -491,9 +494,9 @@
                         <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au3.auctionPrice }"/>
                      </span>
                      <span class="text-span font-style">원</span>
-                        <input type="button" class="btn" id="aucBtn3" value="입찰하기"/>
+                     <input type="button" class="btn" id="aucBtn3" value="입찰하기"/>
+	                 <div class="block" id="block3" style="display: none;"></div>
                   </div>
-                  <div class="block" id="block3" style="display: none;"></div>
             </div>
          </c:otherwise>
          </c:choose>

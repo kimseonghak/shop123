@@ -83,6 +83,7 @@ table {
 
 .boardTBL tr{
 	height: 16.6%;
+	transition:all ease 0.2s;
 }
 
 .boardTBL th{
@@ -95,15 +96,16 @@ table {
 	border-top: none;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	border-bottom:none;
 }
 
 .boardTBL tr:last-child>td {
-	border-bottom: none;
 }
 
 .boardTBL tr:not(:first-child):hover {
 	background-color: rgba(0, 0, 0, 0.03);
 	cursor: pointer;
+	transform:scale(1.1,1.1);
 }
 
 .borderDesignWrap {

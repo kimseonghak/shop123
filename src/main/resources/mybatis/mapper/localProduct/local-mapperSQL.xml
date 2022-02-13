@@ -14,7 +14,7 @@
 			        LOCALPRODUCT.LOCALPRODUCT_CLASSIFY as LocalProductClassify,
 			        LOCALPRODUCTPHOTO.LOCALPRODUCTPHOTO_FILEPATH as LocalProductPhotoFilePath
 			from    LOCALPRODUCT left join LOCALPRODUCTPHOTO on (LOCALPRODUCT.LocalproductPhoto_no=LOCALPRODUCTPHOTO.LocalproductPhoto_no)
-			where 	LOCALPRODUCT.LOCALPRODUCT_DEL_YN = 'N'
+			where 	LOCALPRODUCT.LOCALPRODUCT_DEL_YN = 'N' order by LOCALPRODUCT_NO desc
 		</select>
 		
 		<!-- 게시글 갯수 -->
@@ -102,6 +102,7 @@
 				<if test="!_parameter.equals('ALL')">
 					and LOCALPRODUCT.LOCALPRODUCT_CLASSIFY like '%'||#{localProductClassify}||'%'
 				</if>
+				order by LOCALPRODUCT_NO desc
 		 </select>
 		 
 		 <select id="localProductListToTalSearchCount" parameterType="string" resultType="integer">

@@ -233,8 +233,15 @@
 		<insert id="questionAnswer" parameterType="qAnswer">
 			insert into question_answer values(question_answer_seq.nextval,#{questionAnswerContent},sysdate,#{questionBoardNo},#{questionBoardCode},'N')
 		</insert>
-		<update id="questionUserAnswerYN" parameterType="qAnswer">
-			update question_user set question_user_answer_yn='Y' where question_user_no=#{questionBoardNo}
+		<update id="questionAnswerYN" parameterType="qAnswer">
+			<choose>
+				<when test='questionBoardCode.equals("U")'>
+					update question_user set question_user_answer_yn='Y' where question_user_no=#{questionBoardNo}
+				</when>
+				<otherwise>
+					update question_farm set question_farm_answer_yn='Y' where question_farm_no=#{questionBoardNo}
+				</otherwise>
+			</choose>
 		</update>
 		<update id="questionAnswerUpdate" parameterType="qAnswer">
 			update question_answer set question_answer_content = #{questionAnswerContent} where question_board_code=#{questionBoardCode} and question_board_no=#{questionBoardNo}

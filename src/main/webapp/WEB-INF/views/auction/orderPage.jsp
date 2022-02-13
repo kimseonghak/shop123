@@ -363,7 +363,7 @@
                             <div class="name"><span class="star" style="color: darksalmon">*</span>
                             <span class="name-span">받는분</span></div>
                             <div class="name-box">
-                                <input type="text" name="userName" class="name-input"/>
+                                <input type="text" name="userName" class="name-input" id="name"/>
                             </div>
 
                             <div class="name"><span class="star" style="color: darksalmon">*</span>
@@ -489,6 +489,7 @@
 			var userNo = ${requestScope.m.userNo };					 //회원번호
 			var farmNo = ${requestScope.f.farmNo };					 //농가번호
 			var phone; 							 					 //폰번호
+			var recipient;											 //받는 사람
 			var address1;					 						 //메인 주소
 			var address2;					 						 //서브 주소
 			var orderNo = new Date().getTime();						 //주문번호
@@ -524,7 +525,8 @@
            	               		"payAmount" : payAmount,
            	               		"orderNo" : orderNo,
            	               		"payMethod" : rsp.pay_method,
-           	               		"auctionNo" : auctionNo
+           	               		"auctionNo" : auctionNo,
+           	               		"recipient" : $('#name').val()
            	            },
            	            
            	     		success : function(result){

@@ -10,7 +10,7 @@
 	href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap"
 	rel="stylesheet">
 <meta charset="UTF-8">
-<title>123상회 Member관리</title>
+<title>123상회 Farm관리</title>
 <link rel="stylesheet" href="/resources/admin/css/common.css">
 <style>
 	*{
@@ -216,41 +216,40 @@
 		<div id="mainContents">
 			<div id="backgroundColor">
 			<div id="titleSpace">
-				<span id="title">Member</span>
+				<span id="title">Farm</span>
 			</div>
 			<div id="searchWrap">
-					<form action="/admin/adminMemberPage.do" method="get" style="widht:100%; height:100%;" id="searchForm">
+					<form action="/admin/adminFarmPage.do" method="get" style="widht:100%; height:100%;" id="searchForm">
 						<button type="submit" id="searchBtn"><img alt="" src="/resources/admin/img/searchLeaf.png"></button>
 						<input type="text" name="keyword" id="searchText" />
 						<select name="type" id="searchSelect">
-							<option value="userNo">회원 번호</option>
-							<option value="userName">회원 이름</option>
-							<option value="userNick">회원 닉네임</option>
-							<option value="all">회원 이름+닉네임</option>
+							<option value="farmNo">농가 번호</option>
+							<option value="farmName">농가 이름</option>
+							<option value="farmBusiNum">농가 사업자 번호</option>
 						</select>
 					</form>
 			</div>
 				<table>
 					<tr id="thTr">
-						<th width="10%">회원 번호</th>
-						<th width="20%">회원 ID</th>
-						<th width="10%">회원 이름</th>
-						<th width="20%">회원 닉네임</th>
-						<th width="30%">회원 이메일</th>
+						<th width="10%">농가 번호</th>
+						<th width="20%">농가 ID</th>
+						<th width="10%">농가 이름</th>
+						<th width="20%">농가 사업자번호</th>
+						<th width="30%">농가 이메일</th>
 						<th width="10%">탈퇴 여부</th>
 					</tr>
-					<c:forEach items="${map.list }" var="m">
+					<c:forEach items="${map.list }" var="f">
 					<tr class="tdTr">
-						<td>${m.userNo }</td>
-						<td class="userInfo" style="font-weight:bold;">${m.userId }</td>
-						<td>${m.userName }</td>
-						<td>${m.userNick }</td>
-						<td>${m.userEmail }</td>
-						<c:if test="${String.valueOf(m.userEndYN) eq 'N'}">
-							<td class="endYNtd"><button class="endYNbtn endYNN" data="${m.userEndYN }">탈퇴</button></td>
+						<td>${f.farmNo }</td>
+						<td class="farmInfo" style="font-weight:bold; cursor:pointer;">${f.farmId }</td>
+						<td>${f.farmName }</td>
+						<td>${f.farmBusiNum }</td>
+						<td>${f.farmEmail }</td>
+						<c:if test="${String.valueOf(f.farmEndYN) eq 'N'}">
+							<td class="endYNtd"><button class="endYNbtn endYNN" data="${f.farmEndYN }">탈퇴</button></td>
 						</c:if>
-						<c:if test="${String.valueOf(m.userEndYN) eq 'Y'}">
-							<td class="endYNtd"><button class="endYNbtn endYNY" data="${m.userEndYN }">복구</button></td>
+						<c:if test="${String.valueOf(f.farmEndYN) eq 'Y'}">
+							<td class="endYNtd"><button class="endYNbtn endYNY" data="${f.farmEndYN }">복구</button></td>
 						</c:if>
 					</tr>
 					<tr class="listSpace"></tr>
@@ -268,9 +267,9 @@
 	<script>
 <%-- 사이드바 선택 표시 --%>
 		$(function() {
-			$('#mainUl>li').eq(6).css('background-color', '#34734e');
-			$('#mainUl>li>a').eq(6).css('color', 'white');
-			$('#mainUl>li>a').eq(6).css('font-weight','bolder');
+			$('#mainUl>li').eq(5).css('background-color', '#34734e');
+			$('#mainUl>li>a').eq(5).css('color', 'white');
+			$('#mainUl>li>a').eq(5).css('font-weight','bolder');
 		});
 <%-- 네비화살표 hover시 투명도 조절 --%>
 		$('.naviArrow').hover(function() {
@@ -291,21 +290,21 @@
 			$(this).parents('form').submit();
 		});
 <%-- 아이디 클릭시 해당 회원 정보 창 출력 --%>
-		$('.userInfo').click(function(){
-			var userNo = $(this).prev().html();
-			window.open("/admin/adminMemberInfoPage.do?userNo="+userNo,"_blank","width=500px, height=430px");
+		$('.farmInfo').click(function(){
+			var farmNo = $(this).prev().html();
+			window.open("/admin/adminFarmInfoPage.do?farmNo="+farmNo,"_blank","width=500px, height=430px");
 		});
 <%-- 회원 탈퇴/복구 버튼 로직 --%>
 		$('.endYNbtn').click(function(){
 			var endYN = $(this).attr('data');
-			var userNo = $(this).parent().siblings().eq(0).html();
+			var farmNo = $(this).parent().siblings().eq(0).html();
 			var currentPage = ${currentPage };
 			
-			location.replace("/admin/adminMemberEndYNUpdate.do?endYN="+endYN+"&userNo="+userNo+"&currentPage="+currentPage);
+			location.replace("/admin/adminFarmEndYNUpdate.do?endYN="+endYN+"&farmNo="+farmNo+"&currentPage="+currentPage);
 		});
 <%-- 해당 페이지 최초 페이지 이동 --%>
 		$('#title').click(function(){
-			location.replace('/admin/adminMemberPage.do');
+			location.replace('/admin/adminFarmPage.do');
 		});
 	</script>
 </body>

@@ -1,15 +1,15 @@
 package com.hot.shop.admin.contoller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,14 +17,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.hot.shop.admin.model.service.AdminService;
 import com.hot.shop.admin.model.vo.Auction;
+import com.hot.shop.admin.model.vo.Refund;
 import com.hot.shop.admin.model.vo.SellForm;
 import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.question.model.vo.QuestionAnswer;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.CancelData;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 
 @Controller
 public class AdminController {
@@ -32,7 +38,14 @@ public class AdminController {
 	@Autowired
 	private AdminService aService;
 	
-	// 최초 대시보드 접속
+	private IamportClient client;
+	
+	@Value("#{db['imp_key']}")
+	private String key;
+	@Value("#{db['imp_secret']}")
+	private String secret;
+	
+	// 메인 대시보드
 	@RequestMapping(value="/admin/adminDashboardPage.do",method = RequestMethod.GET)
 	public ModelAndView adminDashboardPage(ModelAndView mav) {
 		HashMap<String, Integer> map = aService.countOutput();
@@ -40,14 +53,19 @@ public class AdminController {
 		HashMap<String, Integer> farmMap = aService.farmOutput();
 		ArrayList<QuestionUser> qUser = aService.questionUser();
 		ArrayList<QuestionFarm> qFarm = aService.questionFarm();
+		ArrayList<Refund> refund = aService.refund();
 		mav.addObject("dayMap",map);
 		mav.addObject("joinMap",joinMap);
 		mav.addObject("farmMap",farmMap);
 		mav.addObject("qUser",qUser);
 		mav.addObject("qFarm",qFarm);
+		mav.addObject("refund",refund);
 		mav.setViewName("admin/admin_dashBoard");
 		return mav;
 	}
+
+// 옥션 기능 모음
+	
 	// 옥션 페이지
 	@RequestMapping(value="/admin/adminAuctionPage.do",method = RequestMethod.GET)
 	public ModelAndView adminAuctionPage(ModelAndView mav) {
@@ -122,6 +140,7 @@ public class AdminController {
 	// 판매중인 상품의 판매기간/홍보주소/종료여부 변경하는 로직
 	@RequestMapping(value = "/admin/sellUpdate.do", method = RequestMethod.POST)
 	public ModelAndView sellUpdate(SellForm sf,ModelAndView mav) {
+		System.out.println(sf);
 		int result = aService.sellUpdate(sf);
 		if(result>0) {
 			mav.addObject("msg",sf.getSellFormNo()+"번 판매 정보가 변경되었습니다.");
@@ -135,13 +154,8 @@ public class AdminController {
 		return mav;
 	}
 	
-	// 방문자 카운트 더하는 로직
-	@RequestMapping(value = "/admin/countInput.do", method = RequestMethod.GET)
-	@ResponseBody
-	public String countInput() {
-		aService.countInput();
-		return "1";
-	}
+// farmQNA 모음	
+	
 	// farmQNA 페이지
 	@RequestMapping(value = "/admin/adminFarmQNAPage.do", method = RequestMethod.GET)
 	public ModelAndView farmQNASearch(@RequestParam(required = false, defaultValue = "default") String type, 
@@ -161,17 +175,26 @@ public class AdminController {
 	
 	// farmQNA 내용 페이지
 	@RequestMapping(value = "/admin/adminFarmQNAContent.do", method = RequestMethod.GET)
-	public ModelAndView farmQNAContent(@RequestParam(required = false, defaultValue = "1") int currentPage,
+	public ModelAndView farmQNAContent(
+			@RequestParam(required = false, defaultValue = "default") String type, 
+			@RequestParam(required = false, defaultValue = "") String keyword,
+			@RequestParam(required = false, defaultValue = "1") int currentPage,
 			@RequestParam int questionFarmNo,ModelAndView mav) {
 		
 		QuestionFarm qFarm = aService.questionFarmContent(questionFarmNo);
+		QuestionAnswer qAnswer = aService.questionFarmAnswer(questionFarmNo);
 		
+		mav.addObject("type",type);
+		mav.addObject("keyword",keyword);
 		mav.addObject("qFarm",qFarm);
+		mav.addObject("qAnswer",qAnswer);
 		mav.addObject("currentPage",currentPage);
 		mav.setViewName("admin/admin_farmQNAContent");
 		
 		return mav;
 	}
+	
+// userQNA 모음	
 	
 	// userQNA 검색 페이지
 	@RequestMapping(value = "/admin/adminUserQNAPage.do", method = RequestMethod.GET)
@@ -192,38 +215,163 @@ public class AdminController {
 		
 		return mav;
 	}
-	// member 상세정보 팝업창
-	@RequestMapping(value = "/admin/adminMemberInfoPage.do", method = RequestMethod.GET)
-	public ModelAndView memberInfoPage(@RequestParam int userNo,ModelAndView mav) {
-		Member m = aService.selectMember(userNo);
-		mav.addObject("m",m);
-		mav.setViewName("admin/admin_member_info");
+	
+	// userQNA 내용 페이지
+	@RequestMapping(value = "/admin/adminUserQNAContent.do", method = RequestMethod.GET)
+	public ModelAndView userQNAContent(
+			@RequestParam(required = false, defaultValue = "default") String type, 
+			@RequestParam(required = false, defaultValue = "") String keyword,
+			@RequestParam(required = false, defaultValue = "1") int currentPage,
+			@RequestParam int questionUserNo,
+			ModelAndView mav) {
+		
+		QuestionUser qUser = aService.questionUserContent(questionUserNo);
+		QuestionAnswer qAnswer = aService.questionUserAnswer(questionUserNo);
+		
+		mav.addObject("type",type);
+		mav.addObject("keyword",keyword);
+		mav.addObject("qUser",qUser);
+		mav.addObject("qAnswer",qAnswer);
+		mav.addObject("currentPage",currentPage);
+		mav.setViewName("admin/admin_userQNAContent");
+		
+		return mav;
+	}	
+	
+// refund 기능 모음
+	
+	// 최초 refund 페이지
+	@RequestMapping(value = "/admin/adminRefundPage.do", method = RequestMethod.GET)
+	public ModelAndView adminRefund(ModelAndView mav,
+			@RequestParam(required = false,defaultValue = "1") int currentPage,
+			@RequestParam(required = false,defaultValue = "default") String type,
+			@RequestParam(required = false,defaultValue = "") String keyword) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		map = aService.refundList(currentPage,map);
+		mav.addObject("currentPage",currentPage);
+		mav.addObject("map",map);
+		mav.setViewName("admin/admin_refund");
 		return mav;
 	}
-	// member 탈퇴 관리 (EndYN 변경)
-	@RequestMapping(value = "/admin/adminMemberEndYNUpdate.do", method = RequestMethod.GET)
-	public ModelAndView memberEndYNUpdate(ModelAndView mav,@RequestParam int userNo,@RequestParam int currentPage,@RequestParam String endYN) {
+
+	public void setup() {
+		String test_api_key = key;
+		String test_api_secret = secret;
+		client = new IamportClient(test_api_key, test_api_secret);
+	}
+	
+	//결제 환불 로직
+	@RequestMapping(value = "/admin/adminRefundUpdate.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Boolean adminRefundUpdate(
+			@RequestParam int refundNo,
+			@RequestParam char adminYN,
+			@RequestParam String orderNo) {
+		
+		setup();
+		
+		String test_already_cancelled_merchant_uid = orderNo;
+		CancelData cancel_data = new CancelData(test_already_cancelled_merchant_uid, false); //merchant_uid를 통한 전액취소
+		cancel_data.setEscrowConfirmed(true); //에스크로 구매확정 후 취소인 경우 true설정
+		
+		try {
+			IamportResponse<Payment> payment_response = client.cancelPaymentByImpUid(cancel_data);
+			
+		} catch (IamportResponseException e) {
+			
+			switch(e.getHttpStatusCode()) {
+			case 401 :
+				//TODO
+				break;
+			case 500 :
+				//TODO
+				break;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		map.put("refundNo", refundNo);
+		map.put("adminYN", adminYN);
+		boolean result = aService.refundUpdate(map);
+		
+		
+		return result;
+	}
+	
+// farm 기능 모음
+	
+	// 농가 검색 페이지
+	@RequestMapping(value = "/admin/adminFarmPage.do", method = RequestMethod.GET)
+	public ModelAndView farmSearchList(ModelAndView mav,
+			@RequestParam(required = false,defaultValue = "1") int currentPage,
+			@RequestParam(required = false,defaultValue = "default") String type, 
+			@RequestParam(required = false,defaultValue = "") String keyword) {
+		
+		if(type.equals("farmNo")) {
+			boolean isNumber = Pattern.matches("^[0-9]*$", keyword);
+			if(isNumber==false) {
+				type="default";
+				keyword="";
+			}
+		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("userNo", userNo);
+		map.put("type", type);
+		map.put("keyword", keyword);
+		map = aService.farmSearchList(map,currentPage);
+		
+		mav.addObject("map",map);
+		mav.addObject("currentPage",currentPage);
+		mav.setViewName("admin/admin_farm");
+		
+		return mav;
+	}
+	//농가 탈퇴 복구 로직
+	@RequestMapping(value = "/admin/adminFarmEndYNUpdate.do", method = RequestMethod.GET)
+	public ModelAndView farmEndYNUpdate(ModelAndView mav,
+			@RequestParam int farmNo,
+			@RequestParam int currentPage,
+			@RequestParam(required = false, defaultValue = "default") String type, 
+			@RequestParam(required = false, defaultValue = "") String keyword,
+			@RequestParam String endYN) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("farmNo", farmNo);
 		map.put("endYN", endYN);
-		int result = aService.memberEndYNUpdate(map);
+		int result = aService.farmEndYNUpdate(map);
 		if(result>0 && endYN.equals("N")) {
 			mav.addObject("msg","탈퇴 처리 되었습니다.");
-			mav.addObject("location","/admin/adminMemberPage.do?curretnPage="+currentPage);
+			mav.addObject("location","/admin/adminFarmPage.do?curretnPage="+currentPage+"&type="+type+"&keyword="+keyword);
 		}else {
 			mav.addObject("msg","복구 처리 되었습니다.");
-			mav.addObject("location","/admin/adminMemberPage.do?curretnPage="+currentPage);
+			mav.addObject("location","/admin/adminFarmPage.do?curretnPage="+currentPage+"&type="+type+"&keyword="+keyword);
 		}
 		mav.setViewName("commons/msg");
 		return mav;
 	}
-	// member 검색 페이지
+	
+	// 농장 정보 팝업 로직
+	@RequestMapping(value = "/admin/adminFarmInfoPage.do", method = RequestMethod.GET)
+	public ModelAndView farmInfoPage(ModelAndView mav,
+			@RequestParam int farmNo) {
+		Farm f = aService.farmInfo(farmNo);
+		mav.addObject("f",f);
+		mav.setViewName("/admin/admin_farm_info");
+		return mav;
+	}
+	
+// member 기능 모음
+	
+	// member 페이지
 	@RequestMapping(value = "/admin/adminMemberPage.do", method = RequestMethod.GET)
 	public ModelAndView memberSearchList(ModelAndView mav,
 			@RequestParam(required = false,defaultValue = "1") int currentPage,
 			@RequestParam(required = false,defaultValue = "default") String type, 
 			@RequestParam(required = false,defaultValue = "") String keyword) {
-		
+			
 		if(type.equals("userNo")) {
 			boolean isNumber = Pattern.matches("^[0-9]*$", keyword);
 			if(isNumber==false) {
@@ -242,41 +390,47 @@ public class AdminController {
 		
 		return mav;
 	}
-	// 최초 refund 페이지
-	@RequestMapping(value = "/admin/adminRefundPage.do", method = RequestMethod.GET)
-	public ModelAndView adminRefund(ModelAndView mav,
-			@RequestParam(required = false,defaultValue = "1") int currentPage,
-			@RequestParam(required = false,defaultValue = "default") String type,
-			@RequestParam(required = false,defaultValue = "") String keyword) {
-		
+	
+	// member 탈퇴 관리 (EndYN 변경)
+	@RequestMapping(value = "/admin/adminMemberEndYNUpdate.do", method = RequestMethod.GET)
+	public ModelAndView memberEndYNUpdate(ModelAndView mav,
+			@RequestParam int userNo,
+			@RequestParam int currentPage,
+			@RequestParam(required = false, defaultValue = "default") String type, 
+			@RequestParam(required = false, defaultValue = "") String keyword,
+			@RequestParam String endYN) {
+
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("type", type);
-		map.put("keyword", keyword);
-		map = aService.refundList(currentPage,map);
-		mav.addObject("currentPage",currentPage);
-		mav.addObject("map",map);
-		mav.setViewName("admin/admin_refund");
+		map.put("userNo", userNo);
+		map.put("endYN", endYN);
+		int result = aService.memberEndYNUpdate(map);
+		if(result>0 && endYN.equals("N")) {
+			mav.addObject("msg","탈퇴 처리 되었습니다.");
+			mav.addObject("location","/admin/adminMemberPage.do?curretnPage="+currentPage+"&type="+type+"&keyword="+keyword);
+		}else {
+			mav.addObject("msg","복구 처리 되었습니다.");
+			mav.addObject("location","/admin/adminMemberPage.do?curretnPage="+currentPage+"&type="+type+"&keyword="+keyword);
+		}
+		mav.setViewName("commons/msg");
 		return mav;
-	}
-	// refundYN Update 로직
-	@RequestMapping(value = "/admin/adminRefundUpdate.do", method = RequestMethod.GET)
-	@ResponseBody
-	public boolean adminRefundUpdate(
-			@RequestParam int refundNo,
-			@RequestParam char adminYN) {
-		HashMap<String,Object> map = new HashMap<String, Object>();
-		map.put("refundNo", refundNo);
-		map.put("adminYN", adminYN);
-		boolean result = aService.refundUpdate(map);
+	}	
+
+//기타 로직 모음
 		
-		return result;
-	}
-	@RequestMapping(value = "/admin/adminFarmInfoPage.do", method = RequestMethod.GET)
-	public ModelAndView farmInfoPage(ModelAndView mav,
-			@RequestParam int farmNo) {
-		Farm f = aService.farmInfo(farmNo);
-		mav.addObject("f",f);
-		mav.setViewName("/admin/admin_farm_info");
-		return mav;
-	}
+		// 방문자 카운트 더하는 로직
+		@RequestMapping(value = "/admin/countInput.do", method = RequestMethod.GET)
+		@ResponseBody
+		public String countInput() {
+			aService.countInput();
+			return "1";
+		}
+		
+		// member 상세정보 팝업창
+		@RequestMapping(value = "/admin/adminMemberInfoPage.do", method = RequestMethod.GET)
+		public ModelAndView memberInfoPage(@RequestParam int userNo,ModelAndView mav) {
+			Member m = aService.selectMember(userNo);
+			mav.addObject("m",m);
+			mav.setViewName("admin/admin_member_info");
+			return mav;
+		}
 }

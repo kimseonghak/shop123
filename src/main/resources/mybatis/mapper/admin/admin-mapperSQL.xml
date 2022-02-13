@@ -159,7 +159,7 @@
 			farm_No as farmNo,
 			question_Farm_End_YN as questionFarmEndYN,
 			farm_Name as farmName
-		from (select row_number() over (order by question_farm_no desc) as num, question_farm.*,farm_name from question_farm left join farm on(question_farm.farm_no = farm.farm_no)) where num between 1 and 5
+		from (select row_number() over (order by question_farm_no desc) as num, question_farm.*,farm_name from question_farm left join farm on(question_farm.farm_no = farm.farm_no) where question_farm_end_yn='N') where num between 1 and 5
 	</select>
 	<select id="questionFarmSearchList" parameterType="hashmap" resultType="qFarm">
 		select
@@ -428,5 +428,116 @@
 			farm_End_YN as farmEndYN,
 			rating as rating
 		from farm where farm_no=#{_parameter}
+	</select>
+	<select id="farmSearchList" parameterType="hashmap" resultType="farm">
+		select 
+			farm_No as farmNo,
+			farm_Id as farmId,
+			farm_Pwd as farmPwd,
+			farm_Name as farmName,
+			farm_Busi_Num as farmBusiNum,
+			farm_Email as farmEmail,
+			farm_Phone as farmPhone,
+			farm_Address_Main as farmAddressMain,
+			farm_Address_Sub as farmAddressSub,
+			farm_EnrollDate as farmEnrollDate,
+			farm_End_YN as farmEndYN,
+			rating as rating
+		FROM (select row_number() over (order by farm_no desc) as num,farm.* from farm
+		where farm_no not in(1,2,3)
+			<choose>
+				<when test="type.equals('farmNo')">
+					and farm_no = #{keyword}
+				</when>
+				<when test="type.equals('farmName')">
+					and farm_name like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('farmBusiNum')">
+					and farm_busi_num like '%'||#{keyword}||'%'
+				</when>
+				<otherwise></otherwise>
+			</choose>
+		)
+		where num between #{start} and #{end}
+	</select>
+	<select id="farmSearchTotalCount" parameterType="hashmap" resultType="integer">
+		select count(*) from farm where farm_no not in(1,2,3)
+			<choose>
+				<when test="type.equals('farmNo')">
+					and farm_no = #{keyword}
+				</when>
+				<when test="type.equals('farmName')">
+					and farm_name like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('farmBusiNum')">
+					and farm_busi_num like '%'||#{keyword}||'%'
+				</when>
+				<otherwise></otherwise>
+			</choose>
+	</select>
+	<update id="farmEndYNUpdate" parameterType="hashmap">
+		update farm set 
+		<if test='endYN.equals("N")'>
+			farm_end_yn='Y'
+		</if>
+		<if test='endYN.equals("Y")'>
+			farm_end_yn='N'
+		</if>
+		where farm_no = #{farmNo}
+	</update>
+	<select id="refund" resultType="refund">
+		select
+			refund_No as refundNo,
+			buy_No as buyNo,
+			user_No as userNo,
+			farm_No as farmNo,
+			farm_YN as farmYN,
+			admin_YN as adminYN,
+			del_YN as delYN,
+			question_User_No as questionUserNo,
+			order_no as orderNo
+		from (select row_number() over (order by refund_no desc) as num,refund.*,purchaselist.order_no from refund left join purchaselist on (refund.buy_no = purchaselist.buy_no)
+		where refund.farm_yn='Y')
+		where num between 1 and 5
+	</select>
+	<select id="questionUserContent" parameterType="integer" resultType="qUser">
+		select
+			question_User_No as questionUserNo,
+			question_User_Title as questionUserTitle,
+			question_User_Content as questionUserContent,
+			question_User_Regdate as questionUserRegdate,
+			question_user.user_No as userNo,
+			question_User_End_YN as questionUserEndYN,
+			questionphoto_No as questionphotoNo,
+			question_User_Code as questionUserCode,
+			question_User_Classify as questionUserClassify,
+			farm_No as farmNo,
+			order_No as orderNo,
+			member.user_Nick as userNick,
+			question_User_Answer_YN as questionUserAnswerYN
+		from question_user left join member on(question_user.user_no = member.user_no)
+		where question_user_end_yn='N' and question_user_classify='A' and question_user_no=#{_parameter}
+	</select>
+	<select id="questionUserAnswer" parameterType="integer" resultType="qAnswer">
+		select
+			question_Answer_No as questionAnswerNo,
+			question_Answer_Content as questionAnswerContent,
+			question_Answer_Regdate as questionAnswerRegdate,
+			question_Board_No as questionBoardNo,
+			question_Board_Code as questionBoardCode,
+			question_Answer_End_YN as questionAnswerEndYN
+		from question_Answer
+		where question_Board_code='U' and question_board_no=#{_parameter}
+	</select>
+	<select id="questionFarmAnswer" parameterType="integer" resultType="qAnswer">
+		select
+			question_Answer_No as questionAnswerNo,
+			question_Answer_Content as questionAnswerContent,
+			question_Answer_Regdate as questionAnswerRegdate,
+			question_Board_No as questionBoardNo,
+			question_Board_Code as questionBoardCode,
+			question_Answer_End_YN as questionAnswerEndYN
+		from question_Answer
+		where question_Board_code='F' and question_board_no=#{_parameter}
 	</select>
 </mapper>
