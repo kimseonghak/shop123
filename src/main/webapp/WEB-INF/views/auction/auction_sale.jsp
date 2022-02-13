@@ -225,7 +225,7 @@
 	width: 100%;
 	height: 86.1%;
 	background-color: black;
-	margin-top: -108.3%;
+	margin-top: -108.5%;
 	border-radius: 0 0 10px 10px;
 	opacity: 0.65;
 	color: #FFFFFF;
@@ -297,8 +297,8 @@
 		                <input type="button" class="btn" value="구매하기"/> 
 		                <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 		             </div> 
-                     <div class="block"></div>
                </div>
+              <div class="block"></div>
             </div>
          </c:when>
          <%--1번 폼 데이터가 null 일 경우 --%>
@@ -345,8 +345,8 @@
 		                <input type="button" class="btn" value="구매하기"/> 
 		                <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 		             </div>
-                     <div class="block"></div>
                </div>
+              <div class="block"></div>
             </div>
          
          </c:when>
@@ -410,8 +410,8 @@
 		                <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 		             </div>
                      </form>
-                     <div class="block" id="block1" style="display:none"></div>
                </div>
+              <div class="block" id="block1" style="display:none"></div>
             </div>
          </c:otherwise>
          </c:choose>
@@ -462,8 +462,8 @@
 		                  <input type="button" class="btn" value="구매하기"/> 
 		                  <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 		             </div>
-                     <div class="block"></div>
                </div>
+              <div class="block"></div>
             </div>
          </c:when>
          <%--2번 폼 데이터가 null 일 경우 --%>
@@ -511,8 +511,8 @@
 		                  <input type="button" class="btn" value="구매하기"/> 
 		                  <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 		             </div>
-                     <div class="block"></div>
                </div>
+              <div class="block"></div>
             </div>
          
          </c:when>
@@ -575,8 +575,8 @@
 		                  <input type="button" class="promotionBtn" value="홍보 게시판"/> 
 		             </div>
                      </form>
-                     <div class="block" id="block2" style="display:none"></div>
                </div>
+              <div class="block" id="block2" style="display:none"></div>
             </div>
          </c:otherwise>
          </c:choose>
@@ -627,8 +627,8 @@
                 		<input type="button" class="btn" value="구매하기"/> 
                			<input type="button" class="promotionBtn" value="홍보 게시판"/> 
                 	</div>
-                     <div class="block"></div>
                </div>
+              <div class="block"></div>
             </div>
          </c:when>
          <%--3번 폼 데이터가 null 일 경우 --%>
@@ -652,7 +652,7 @@
                		<div class="spanBox">
                			<span class="spanLeft">종료일 :</span>
                 		<span class="spanmiddel endDate3">${map.au3.sellEnd}</span>
-                        <span class="spanLast">&nbsp;&nbsp;23:59:59</span>
+                        <span class="spanLast">&nbsp;&nbsp;</span>
                     </div>
                     <div class="spanBox">
                			<span class="spanLeft">남은시간 :</span>
@@ -660,11 +660,11 @@
                		</div>
                		<div class="spanBox">
 						<span class="spanLeft">현재 상품 수량 :</span>
-						<span class="spanRight font-style auctionCount3">${map.au3.auctionCount1}&nbsp;상자</span>
+						<span class="spanRight font-style auctionCount3">${map.au3.auctionCount1}&nbsp;</span>
 					</div>
 					<div class="spanBox">
 						<span class="spanLeft">낙찰된 가격 :</span>
-						<span class="spanRight font-style">${map.au3.auctionPrice}&nbsp;원</span>
+						<span class="spanRight font-style">${map.au3.auctionPrice}&nbsp;</span>
 					</div>
 					<div class="spanBox">
 						<span class="spanLeft">구매 수량 :</span>
@@ -676,8 +676,8 @@
                 		<input type="button" class="btn" value="구매하기"/> 
                			<input type="button" class="promotionBtn" value="홍보 게시판"/> 
                 	</div>
-                     <div class="block"></div>
                </div>
+              <div class="block"></div>
             </div>
          </c:when>
          <c:otherwise>
@@ -739,8 +739,8 @@
                			<input type="button" class="promotionBtn" value="홍보 게시판"/> 
                 	</div>
                     </form>
-                     <div class="block" id="block3" style="display:none"></div>
                </div>
+              <div class="block" id="block3" style="display:none"></div>
             </div>
          </c:otherwise>
          </c:choose>
