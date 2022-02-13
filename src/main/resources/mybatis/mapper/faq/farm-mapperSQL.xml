@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="faq">
+  
+  <!-- faq 게시물 리스트 가져오기 -->
+  <select id="selectFaqList" resultType="faq">
+  	select 
+  		FAQ_NO AS faqNo,
+		FAQ_TITLE AS faqTitle,
+		FAQ_CONTENT AS faqContent,
+		FAQ_END_YN AS faqEndYN,
+		FAQ_CODE AS faqCode
+  	FROM FAQ
+	WHERE FAQ_END_YN='N'
+	ORDER BY 1 DESC
+  </select>
+  
+  
+  <!-- faq 게시물 삭제 -->
+  <update id="deleteFaqBoard">
+  	UPDATE FAQ SET FAQ_END_YN='Y' WHERE FAQ_NO=#{_parameter}
+  </update>
+  
+  <!-- faq 게시글 등록 -->
+  
+  <insert id="insertFaqBoard" parameterType="hashmap">
+  	INSERT INTO FAQ VALUES(FAQ_SEQ.NEXTVAL,
+  							#{faqTitle},
+  							#{faqContent},
+  							'N',
+  							#{type})
+  </insert>
+  
+  <!-- faq 1개의 게시물 가져오기 -->
+ 	<select id="selectFaqOneBoard" resultType="faq">
+ 		select 
+	  		FAQ_NO AS faqNo,
+			FAQ_TITLE AS faqTitle,
+			FAQ_CONTENT AS faqContent,
+			FAQ_END_YN AS faqEndYN,
+			FAQ_CODE AS faqCode
+	  	FROM FAQ
+		WHERE FAQ_NO=#{_parameter}
+ 	</select> 
+ 
+ <!-- 게시물 수정하기 -->
+ 	<update id="updateFaqBoard" parameterType="hashmap">
+ 	
+ 		UPDATE FAQ SET FAQ_CODE=#{type},
+ 					   FAQ_TITLE=#{faqTitle},
+ 					   FAQ_CONTENT=#{faqContent}
+ 		 WHERE FAQ_NO=#{boardNo}
+ 	</update>
+ 
+  
+  
+</mapper>
