@@ -49,6 +49,10 @@
     font-size: 16px;
     color: white;
 }
+.btn-submit:hover {
+	background-color: #198754;
+	transition:all ease 0.2s;
+}
 .info-Form {
 	height: 60px;
 	width: 100%;

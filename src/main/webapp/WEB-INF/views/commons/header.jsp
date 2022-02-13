@@ -6,6 +6,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="/resources/main/common/css/header.css">
+<style>
+
+</style>
 
 <header id="header">
 	<div class="link-user">
@@ -23,7 +26,10 @@
 		<c:when test="${sessionScope.member != null }">
 			<div class="link-user">
 				<div class="box-user">
-					<a href="/memberMypage/memberMypageListPage.do">회원 ${sessionScope.member.userNick }님</a> 
+					<a href="/memberMypage/memberMypageListPage.do">
+						<!-- <img src="/resources/main/common/img/user.png" class="img-info"> -->
+						${sessionScope.member.userNick }님
+					</a> 
 					<a href="/member/memberlogout.do">로그아웃</a>
 				</div>
 			</div>
@@ -32,7 +38,9 @@
 		<c:when test="${sessionScope.farm != null && sessionScope.farm.rating =='root' || sessionScope.farm.rating =='admin' }">
 			<div class="link-user">
 				<div class="box-user">
-					<a href="/admin/adminDashboardPage.do">관리자 ${sessionScope.farm.farmName }님</a> 
+					<a href="/admin/adminDashboardPage.do">
+						<img src="/resources/main/common/img/admin.png" class="img-info">
+						${sessionScope.farm.farmName }님</a> 
 					<a href="/farm/farmLogout.do">로그아웃</a>
 				</div>
 			</div>
@@ -41,7 +49,10 @@
 		<c:when test="${sessionScope.farm != null && (sessionScope.farm.rating =='farm' || sessionScope.farm.rating =='FARM')}">
 			<div class="link-user">
 				<div class="box-user">
-					<a href="/farm/farmDashBoardPage.do">농가 ${sessionScope.farm.farmName }님</a> 
+					<a href="/farm/farmDashBoardPage.do">
+						<img src="/resources/main/common/img/farmer.png" class="img-info">
+						${sessionScope.farm.farmName }님
+					</a> 
 					<a href="/farm/farmLogout.do">로그아웃</a>
 				</div>
 			</div>

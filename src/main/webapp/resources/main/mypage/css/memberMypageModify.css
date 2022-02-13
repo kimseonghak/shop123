@@ -74,7 +74,10 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
-
+.btn-submit:hover {
+	background-color: #198754;
+	transition:all ease 0.2s;
+}
 .btn-cancle {
 	width: 10%;
     height: 3.5vh;
@@ -87,6 +90,10 @@
     cursor: pointer;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+.btn-cancle:hover {
+	background-color: #198754;
+	transition:all ease 0.2s;
 }
 .join-Select {
 	width: 100%;
