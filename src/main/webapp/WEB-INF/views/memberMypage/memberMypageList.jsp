@@ -20,7 +20,7 @@
 <c:choose>
 
 	<c:when test="${sessionScope.member eq null} ">
-		location.href = "/"
+		location.href ="/"
 	</c:when>
 	
 	<c:otherwise>

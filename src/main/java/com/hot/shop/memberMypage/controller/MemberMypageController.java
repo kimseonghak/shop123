@@ -25,33 +25,64 @@ public class MemberMypageController {
 
 	//회원 ** 님 클릭 시 마이페이지 리스트로 접근
 	@RequestMapping(value="/memberMypage/memberMypageListPage.do", method=RequestMethod.GET)
-	public String memberMypageListPage() {
-		
-		return "memberMypage/memberMypageList";
+	public ModelAndView memberMypageListPage(@SessionAttribute(required = false) Member member,
+			ModelAndView mav) {
+		if(member==null) {
+			mav.addObject("msg", "잘못된 접근입니다. 메인페이지로 이동합니다.");
+			mav.addObject("location", "/");
+			mav.setViewName("commons/msg");
+		} else {
+			mav.setViewName("memberMypage/memberMypageList");
+		}
+		return mav;
 		
 	}
 	
 	//마이페이지 리스트에서 회원정보수정 페이지로 접근
 	@RequestMapping(value="/memberMypage/memberMypageModifyPage.do", method=RequestMethod.GET)
-	public String memberMypageModifyPage(@SessionAttribute Member member) {
+	public ModelAndView memberMypageModifyPage(@SessionAttribute(required = false) Member member,
+			ModelAndView mav) {
 	
-		return "memberMypage/memberMypageModify";
+		if(member==null) {
+			mav.addObject("msg", "잘못된 접근입니다. 메인페이지로 이동합니다.");
+			mav.addObject("location", "/");
+			mav.setViewName("commons/msg");
+		} else {
+			mav.setViewName("memberMypage/memberMypageModify");
+		}
+		return mav;
 		
 	}
 	
 	//마이페이지 리스트에서 비밀번호변경 페이지로 접근
 	@RequestMapping(value="/memberMypage/memberMypageChangePwdPage.do", method=RequestMethod.GET)
-	public String memberMypageChangePwdPage() {
+	public ModelAndView memberMypageChangePwdPage(@SessionAttribute(required = false) Member member,
+			ModelAndView mav) {
 		
-		return "memberMypage/memberMypageChangePwd";
+		if(member==null) {
+			mav.addObject("msg", "잘못된 접근입니다. 메인페이지로 이동합니다.");
+			mav.addObject("location", "/");
+			mav.setViewName("commons/msg");
+		} else {
+			mav.setViewName("memberMypage/memberMypageChangePwd");
+		}
+		return mav;
 		
 	}
 	
 	//마이페이지 리스트에서 회원탈퇴 페이지로 접근
 	@RequestMapping(value="/memberMypage/memberMypageWithdrawPage.do", method=RequestMethod.GET)
-	public String memberMypageWithdrawPage() {
+	public ModelAndView memberMypageWithdrawPage(@SessionAttribute(required = false) Member member,
+			ModelAndView mav) {
 		
-		return "memberMypage/memberMypageWithdraw";
+		if(member==null) {
+			mav.addObject("msg", "잘못된 접근입니다. 메인페이지로 이동합니다.");
+			mav.addObject("location", "/");
+			mav.setViewName("commons/msg");
+		} else {
+			mav.setViewName("memberMypage/memberMypageWithdraw");
+		}
+		return mav;
 		
 	}
 	
@@ -59,11 +90,13 @@ public class MemberMypageController {
 	@RequestMapping(value="/memberMypage/memberMypageWithdraw.do", method=RequestMethod.POST)
 	public ModelAndView memberMypageWithdraw(HttpServletRequest request,
 			ModelAndView mav,
-			@SessionAttribute Member member,
+			@SessionAttribute(required = false) Member member,
 			HttpSession session) {
 		
 		if(member==null) {
+			mav.addObject("msg", "잘못된 접근입니다. 메인페이지로 이동합니다.");
 			mav.addObject("location", "/");
+			mav.setViewName("commons/msg");
 		} else {
 			String userPwd = request.getParameter("userPwd");
 			
@@ -104,14 +137,16 @@ public class MemberMypageController {
 	
 	//비밀번호 변경
 	@RequestMapping(value="/memberMypage/memberMypageChangePwd.do", method=RequestMethod.POST)
-	public ModelAndView memberMypageWithdraw(@SessionAttribute Member member,
+	public ModelAndView memberMypageWithdraw(@SessionAttribute(required = false) Member member,
 			ModelAndView mav,
 			HttpServletRequest request,
 			@RequestParam String userPwd,
 			@RequestParam String userNewPwd) {
 		
 		if(member==null) {
+			mav.addObject("msg", "잘못된 접근입니다. 메인페이지로 이동합니다.");
 			mav.addObject("location", "/");
+			mav.setViewName("commons/msg");
 		} else {
 		
 			String userId = member.getUserId();
@@ -142,13 +177,15 @@ public class MemberMypageController {
 			@RequestParam String userPhone,
 			@RequestParam String userAddressMain,
 			@RequestParam String userAddressSub,
-			@SessionAttribute Member member,
+			@SessionAttribute(required = false) Member member,
 			HttpSession session,
 			HttpServletRequest request,
 			ModelAndView mav) {
 		
 		if(member==null) {
+			mav.addObject("msg", "잘못된 접근입니다. 메인페이지로 이동합니다.");
 			mav.addObject("location", "/");
+			mav.setViewName("commons/msg");
 		} else {
 			
 			String userId = member.getUserId();
