@@ -4,11 +4,7 @@
 	<div id="farmMainHeader">
     	<div id="farmMainHeader">
             <div id="headerDiv1">
-                  <div id="logoTitle">
-                       <hr>
-                         <p id="logoTitlePtag"><a href="/farm/farmDashBoardPage.do">123 상회</a></p>
-                       <hr>
-                   </div>
+                   <p id="logoTitlePtag"><a href="/farm/farmDashBoardPage.do">123 상회</a></p>
         	    </div>
             <div id="headerDiv2"></div>
            <div id="headerDiv3">

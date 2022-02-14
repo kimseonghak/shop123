@@ -41,6 +41,7 @@
 	#contentForm{
 		width: 100%;
 		height: 800px;
+		padding-top: 40px;
 	}
 	
 	#footerFrom{
@@ -62,9 +63,7 @@
         width: 70%;
         height: 70%;
         margin: 0 auto;
-        border: 1px solid rgba(0, 0, 0, 0.2);;
-        border-radius: 20px;
-       
+        box-shadow: 3px 3px 10px #aeaeae;
     }
     
     #title
@@ -75,10 +74,10 @@
     }
     #faqHeader
     {
-        font-size: 30px;
-        font-weight: bolder;
+        font-size: 3.7vmin;
+        font-weight: bold;
         position: relative;
-        left: 43%;
+        left: 41%;
         top: 25%;
         color:#3BBD5A;
     }
@@ -124,17 +123,12 @@
         width: 100%;
         height: 70%;
         float: left;
-       
-        
     }
     #faqContent
     {
         width: 100%;
         height: 100%;
         float: left;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-        
        
     }
   
@@ -144,22 +138,31 @@
         height: 10%;
     }
     
-    #insertBtn
+    .insertBtn
     {
         width: 4%;
         height: 40%;
+        border-radius: 5px;
+		background-color:#3BBD5A;
+		color: white;
+		border: none;
         position: relative;
         left: 43vw; 
         top: 2.5vh;
     }
-    #listBtn
+    .listBtn
     {
         width: 4%;
         height: 40%;
+       	border-radius: 5px;
+		background-color:#3BBD5A;
+		color: white;
+		border: none;
         position: relative;
         left: 44vw; 
         top: 2.5vh;
     }
+
 
 </style>
 
@@ -176,7 +179,7 @@
             <div id="title">
                <span id="faqHeader">자주 찾는 질문</span>
             </div>  
-            <form action="/fqa/fqaBoardWrite.do",method="post" onSubmit="return true;">
+            <form action="/fqa/fqaBoardWrite.do" method="post" onSubmit="return true;">
 	            <div id="faqTypeArea">
 	                <select id="faqType" name="type">
 		                  <option value="" disabled selected>분류</option>
@@ -193,8 +196,8 @@
 		           </div>
 		        </div>
 		        <div id="btnArea">
-		            <button type="submit" id="insertBtn" class="btn btn-outline-success btn-sm">등록</button>
-				     <button type="button" id="listBtn" class="btn btn-outline-success btn-sm">목록</button>
+		            <button type="submit" class="insertBtn">등록</button>
+				     <button type="button" class="listBtn">목록</button>
 		        </div>
 			</form> 
     </div>
@@ -208,7 +211,7 @@
 
 <!-- 등록 버튼 클릭 시 유효성 검사 -->
 <script>
-	$('#insertBtn').click(function(){
+	$('.insertBtn').click(function(){
 		
 		  
 		if($('select[name=type]').val()==null)
@@ -231,7 +234,7 @@
 
 <!-- 목록 버튼 클릭 시 -->
 <script>
-	$('#listBtn').click(function(){
+	$('.listBtn').click(function(){
 		
 		location.replace("/faq/faqListPage.do");
 		

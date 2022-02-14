@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 
-* {
+	* {
 	    box-sizing: border-box;
       }    
     
@@ -39,8 +39,10 @@
     #headerDiv1
     {
         width: 10%;
-        height: 100%;
+        height: 90%;
         float: left;
+        position: relative;
+        top: 1vh;
         
     }
     #headerDiv2
@@ -58,40 +60,48 @@
     /*홈  아이콘 위치*/
     #homeIcon
     {
-    	width:40px;
-    	height:40px;
+		width:4.9vmin;
+		height:4.9vmin;
         position: relative;
-        top:2vh;
-        margin-left: 6vw; 
+        top:1.7vh;
+        margin-left: 4.8vw; 
+        transition: all ease 0.5s;
     }
     #homeIcon:hover
     {
-	    width:42px;
-    	height:42px;
+		transform:scale(1.2,1.2);
     }
     
     /*사이드바 상단 랩 */
     #sideWrap1 {
         width: 100%;
         height: 10%;
-        
     }
+  
     
-    #logoTitle
-    {
-        width: 80%;
-        height: 100%;
-        margin: 0 auto;
-    }
+    /* logTitle CSS */
+	#logoTitlePtag 
+	{
+	letter-spacing: 3px;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	font-size: 2vmin;
+	line-height:280%;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	height:80%;
+	width:80%;
+	margin:0 auto;
+	transition:all ease 0.5s;
+	cursor:pointer;
+	}
+	
+	#logoTitlePtag:hover
+	{
+	transform:scale(1.1,1.1);
+	}
     
-    #logoTitle>p {
-        letter-spacing: 3px;
-        text-align: center;
-        text-decoration: none;
-        font-weight: 600;
-        color: white;
-        font-size: 15px;
-    }
     
     #logoTitle>hr{
         
@@ -149,10 +159,12 @@
         border-bottom-left-radius: 10px;
         border-top-left-radius: 10px;
         margin: 30px 0px;
+        transition:all ease 0.5s;
     }
     #mainUl>li:hover {
         background-color: #34734e;
         font-weight: bolder;
+        transform:scale(1.1,1.1);
     } 
     
     
