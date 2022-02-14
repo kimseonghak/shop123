@@ -262,5 +262,5 @@ public class QuestionDAO {
 			// TODO Auto-generated method stub
 			return sqlSession.update("qFarm.questionFarmDelete",questionFarmNo);
 		}
-		
+
 }

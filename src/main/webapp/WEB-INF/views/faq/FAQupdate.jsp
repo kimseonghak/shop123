@@ -1,203 +1,235 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<!-- jQuery 라이브러리 -->
+<%--jQuery 라이브러리 --%>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
+<%--jstl 라이브러리 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!--폰트-->
+<link
+	href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap"
+	rel="stylesheet">    
 
+ <!--부트스트랩-->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">    
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 
 <style type="text/css">
-*{
-	box-sizing: border-box;
-}
 
-/*해더 푸터 컨텐트 폼*/
-#warpForm{
-	width: 100%;
-	height: 1067px;
-}
+	*{
+		box-sizing: border-box;
+		font-family: 'Nanum Gothic', 'sans-serif';
+	}
+	
 
-#headerForm{
-	width: 100%;
-	height: 175px;
-}
+	
+	/* faqWrqp*/
 
-#contentForm{
-	width: 100%;
-	height: 650px;
-	background-color: #f0f0f0;
-	border: 1px solid white;
-}
+	#faqWrap
+    {
+        width: 100%;
+        height: 600px;
+    }
+    
+    #faqContentWrap
+    {
+        width: 80%;
+        height: 90%;
+        margin: 0 auto;
+        border: 1px solid rgba(0, 0, 0, 0.2);;
+        border-radius: 20px;
+       
+    }
+    
+    #title
+    {
+        width: 100%;
+        height: 20%;
+       
+    }
+    #faqHeader
+    {
+        font-size: 30px;
+        font-weight: bolder;
+        position: relative;
+        left: 36%;
+        top: 25%;
+        color:#3BBD5A;
+    }
+    
+    #faqTypeArea
+    {
+        width: 14%;
+        height: 10%;
+        float: left;
+       
+        
+    }
+    #faqType
+    {
+        width: 100%;
+        height: 50%;
+        position: relative;
+        top: 25%;
+        text-align: center;
+        
+    }
 
-#footerForm{
-	width: 100%;
-	height: 242px;
-}
+    #faqTitleArea
+    {
+        width: 86%;
+        height: 10%;
+        float: left;
+        
+        
+    }
+    #faqTitle
+    {
+        width: 100%;
+        height: 50%;
+        position: relative;
+        top: 25%;
+       
+    }
+    
+    
+    #faqContentArea
+    {
+        width: 100%;
+        height: 70%;
+        float: left;
+       
+        
+    }
+    #faqContent
+    {
+        width: 100%;
+        height: 100%;
+        float: left;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        
+       
+    }
+  
+    #btnArea
+    {
+        width: 100%;
+        height: 10%;
+    }
+    
+    #updateBtn
+    {
+        width: 8%;
+        height: 48%;
+        position: relative;
+        left: 43vw; 
+        top: 2.5vh;
+    }
+    #closeBtn
+    {
+        width: 8%;
+        height: 48%;
+        position: relative;
+        left: 44vw; 
+        top: 2.5vh;
+    }
 
-
-/*메인 폼 작업*/
-#FAQ-backgroundForm{
-	width:70%;
-	height:90%;
-	margin: 30px auto;
-	background-color: white;
-	padding: 10px;
-		border-radius: 5px / 5px;	
-}
-
-#FAQ-nameForm{
-	width: 80%;
-	height : 30px;
-	heightolid black;
-	text-align: center;
-	margin: 30px auto; 
-}
-
-#FAQ-contentForm{
-	overflow : auto;
-	width: 80%;
-	height: 300px;
-	margin: 0 auto;
-	border: 2px solid #f0f0f0;
-	border-radius: 5px / 5px;
-}
-
-#FAQ_content{
-	width: 100%;
-	height: 100%;
-	resize: none;
-	outline: none;
-	background-color: #f0f0f0;
-	border: none;
-}
-
-#FAQ_title{
-	width: 100%;
-	height: 100%;
-	outline: none;
-	border: none;
-	border-radius: 5px / 5px;
-	background-color: #f0f0f0;
-}
-
-#FAQ-titleForm{
-	overflow : auto;
-	width: 80%;
-	height: 40px;
-	border: 2px solid #f0f0f0;
-	border-radius: 5px / 5px;	
-	margin: 0 auto;
-}
-
-
-/*메인 폼 작업 끝*/
-
-
-/*버튼 폼*/
-#Write_BtnForm{
-	width: 80%;
-	height: 50px;
-	margin: 20px auto;
-}
-
-#submit_BtnForm{
-	width: 140px;
-	height: 50px;
-	float: right;
-	margin: -1.5px auto;
-}
-#reset_BtnForm{
-	width: 140px;
-	height: 50px;
-	float: right;
-	margin: -1.5px auto;
-}
-#main_BtnForm{
-	width: 140px;
-	height: 50px;
-	float: right;
-	margin: -1.5px auto;
-}
-
-
-#submitBtn{
-	width: 130px;
-	height: 50px;
-	background-color: #08E200;
-	font : normal bold 17.5px "고딕체";
-	color: #ffffff;
-	border-radius: 30px / 30px;	
-	border : none;
-	cursor : pointer;
-	margin: 0 auto;
-}
-#resetBtn{
-	width: 130px;
-	height: 50px;
-	background-color: #9B9B9B;
-	font : normal bold 17.5px "고딕체";
-	color: #ffffff;
-	border-radius: 30px / 30px;	
-	border : none;
-	cursor : pointer;
-	margin: 0 auto;
-}
-#mainBtn{
-	width: 130px;
-	height: 50px;
-	background-color: #08E200;
-	font : normal bold 17.5px "고딕체";
-	color: #ffffff;
-	border-radius: 30px / 30px;	
-	border : none;
-	cursor : pointer;
-	margin: 0 auto;
-}
-/*버튼 폼끝*/
 </style>
 
 </head>
 <body>
 
-	<div id="warpForm">
-		<div id="headerFrom">
-		<c:import url="/WEB-INF/views/commons/header.jsp"/>
-	</div>
-		
-		
-		<div id="contentForm">
-			<div id="FAQ-backgroundForm">
-				
-				<div id="FAQ-nameForm">
-					<span style="font-size: 20px; color: #3BBD5A; font-family: 'Nanum Gothic', sans-serif;">자주 묻는 질문 작성하기</span>
-				</div>
-				
-				<div id="FAQ-titleForm">
-					<input type="text" id="FAQ_title" placeholder="자주하는 질문사항의 제목을 입력하세요."/>
-				</div><br>
 
-				<div id="FAQ-contentForm">
-					<textarea id="FAQ_content" placeholder="자주하는 질문사항의 내용을 입력하세요."></textarea>
-				</div>
-				
-				<div id="Write_BtnForm">
-					<div id="main_BtnForm"><button id="mainBtn">메인으로</button></div>
-					<div id="reset_BtnForm"><button id="resetBtn">다시 쓰기</button></div>
-					<div id="submit_BtnForm"><button id="submitBtn">글 수정</button></div>
-				</div>
-			</div>
-		</div>
+	
+    <div id="faqWrap">
+        <div id="faqContentWrap" >
+            <div id="title">
+               <span id="faqHeader">자주 찾는 질문</span>
+            </div>  
+            <form action="/fqa/fqaBoardUpdate.do" method="post">
+	            <div id="faqTypeArea">
+	                <select id="faqType" name="type">
+	                	<c:choose>	
+	                		<c:when test="${list.get(0).getFaqCode() eq 'F-1'}">
+				                  <option value="" disabled selected>분류</option>
+				                  <option value="F-2">배송</option>
+				                  <option value="F-3">환불</option>
+				                  <option value="F-1" selected>기타</option>
+			                 </c:when> 
+			                 <c:when test="${list.get(0).getFaqCode() eq 'F-2'}">
+				                  <option value="" disabled>분류</option>
+				                  <option value="F-2" selected>배송</option>
+				                  <option value="F-3">환불</option>
+				                  <option value="F-1">기타</option>
+			                 </c:when> 
+			                <c:otherwise>
+				                  <option value="" disabled>분류</option>
+				                  <option value="F-2">배송</option>
+				                  <option value="F-3" selected>환불</option>
+				                  <option value="F-1">기타</option>
+			                </c:otherwise>
+	                  </c:choose>
+	                 </select>
+		            </div>
+		            <div id="faqTitleArea">
+		                <input type="text" name="faqTitle" id="faqTitle" value="${list.get(0).getFaqTitle()}"/>
+		                <input type="hidden" name="boardNo" value="${list.get(0).getFaqNo()}"/>
+		            </div>
+		            <div id="faqContentArea">
+		                 <textarea style="resize:none" name="faqContent" id="faqContent">${list.get(0).getFaqContent()}</textarea>
+		            </div>
+		        </div>
+		        <div id="btnArea">
+		            <button type="submit" id="updateBtn" class="btn btn-outline-success btn-sm">수정</button>
+				     <button type="button" id="closeBtn" class="btn btn-outline-success btn-sm">닫기</button>
+		        </div>
+			</form> 
+    </div>
+
 		
+<!-- 수정 버튼 클릭 시 유효성 검사 -->
+<script>
+	$('#updateBtn').click(function(){
 		
-		<div id="footerFrom">
-		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
-	</div>
-	</div>
+		  
+		if($('select[name=type]').val()==null)
+		{
+			alert('게시글의 분류를 선택해주세요');
+			return false;
+		}
+		
+		if($('input[name=faqTitle]').val()==null || $('input[name=faqTitle]').val()=='' ||  $('textarea[name=faqContent]').val()==null ||  $('textarea[name=faqContent]').val()=='')
+		{
+			alert('입력칸에 빈칸이 있는지 확인해주세요');
+			return false;
+		}
+	
+		
+	});
+
+</script>
+
+
+<!--닫기 버튼 클릭 시 -->
+<script>
+	$('#closeBtn').click(function(){
+		
+		window.close();
+		
+	});
+
+</script>
+
+
+
 
 
 </body>

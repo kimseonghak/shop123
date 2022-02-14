@@ -222,7 +222,13 @@
 					<input type="hidden" value="${currentPage}" name="currentPage">
 					<input type="hidden" value="${type}" name="type">
 					<input type="hidden" value="${keyword}" name="keyword">
-					<textarea name="questionAnswerContent" id="answerArea">${map.qAnswer.questionAnswerContent }</textarea>
+					<c:if test="${farm != null && (farm.rating eq 'root' || farm.rating eq 'admin')}">
+						<textarea name="questionAnswerContent" id="answerArea">${map.qAnswer.questionAnswerContent }</textarea>
+					</c:if>
+					<c:if test="${farm != null && (farm.rating eq 'FARM')}">
+						<textarea name="questionAnswerContent" id="answerArea" readonly="readonly">${map.qAnswer.questionAnswerContent }</textarea>
+					</c:if>
+
 				</form>
 			</div>
 		</div>
@@ -234,7 +240,9 @@
 			</c:if>
 	
 					<button class="btn listBtn">목록</button>
+			<c:if test="${farm != null && (farm.rating eq 'root' || farm.rating eq 'admin')}">
 					<button class="btn answerBtn">답변</button>
+			</c:if>
 
 		</div>
 	</div>
