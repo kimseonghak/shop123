@@ -143,12 +143,13 @@ body {
 	outline: none;
 }
 
-.btnform{
-	width: 100%;
+.Btnform{
+	width: 95%;
 	height: 40px;
 	padding: 10px;
 	margin-top: 40px;
 	text-align: center;
+	border-top: 1px solid #2a2a2a;
 }
 
 .listbtn{

@@ -118,13 +118,13 @@ body {
 
 .hit{
 	float: left;
-	margin-left: 40px;
-	margin-top: 10px;
+	margin-left: 20px;
+	margin-top: 5px;
 }
 
 .img{
-	width: 500px;
-	height: 400px;
+	width: 60%;
+	height: 500px;
 	margin-top: 50px;
 	border-radius: 15px;
 }

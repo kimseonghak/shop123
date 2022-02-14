@@ -7,7 +7,8 @@
 <%-- jstl 라이브러리 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 
-
+<%--jQuery 라이브러리 --%>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 <%-- 폰트 설정 라이브러리 --%>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,7 +51,6 @@ body {
 .contentForm{
 	padding: 30px;
 	width: 100%;
-	background-color: #f0f0f0;
 	
 }
 
@@ -60,27 +60,28 @@ body {
 }
 
 .contentwrap{
-	width: 90%;
+	width: 60%;
 	height: 80%;
 	margin: 100px auto;
 	padding: 10px;
 	background-color: white;
 	border-radius: 5px/5px;
+	box-shadow: 3px 3px 10px #aeaeae;
 }
 
 .page_name{
-	width: 25%;
+	width: 40%;
 	height: 60px;
 	text-align: center;
 	padding: 50px 20px 0px;
-	margin: 5% 75% 5% 5%;
+	margin: 5% 75% 5% 4.5%;
 	color: #3BBD5A;
 	font : normal bold 30px "Nanum Gothic",sans-serif;
 }
 
 .insert_zone{
 	width: 80%;
-	min-height: 900px;
+	min-height: 850px;
 }
 
 .empty{
@@ -89,27 +90,28 @@ body {
 }
 
 .optiontitle{
-	min-width: 100px;
+	min-width: 3%;
 	height: 30px;
 	color: #3BBD5A;
 	font : normal bold 20px "Nanum Gothic",sans-serif;
-	margin: 10px;
 	text-align: left;
+	float: left;
 }
 
 .option_form{
-	width: 100%;
-	height: 50px;
+	width: 10%;
+	height: 30px;
 }
 
 .option{
-	min-width: 100px;
+	min-width: 50px;
 	height: 30px;
 	border: none;
 	text-align: left;
 	font : normal bold 20px "Nanum Gothic",sans-serif;
 	float: left;
-	margin-left: 30px;
+	margin-left: -185px;
+	margin-top: -5px;
 	outline: none;
 }
 
@@ -132,7 +134,7 @@ body {
 
 .content{
 	width: 100%;
-	min-height: 400px;
+	min-height: 450px;
 	text-align: left;
 	border: none;
 	resize: none;
@@ -147,12 +149,25 @@ body {
 	text-align: left;
 }
 
-.btnform{
-	width: 100%;
+#img_Submit{
+    float: right;
+    width: 100px;
+    height: 30px;
+    background-color: #3BBD5A;
+    font : normal bold 17.5px "고딕체";
+    color: #ffffff;
+    border-radius: 15px;
+    border : none;
+    cursor : pointer;
+}
+
+.Btnform{
+	width: 95%;
 	height: 40px;
 	padding: 10px;
 	margin-top: 40px;
 	text-align: center;
+	border-top: 1px solid #2a2a2a;
 }
 
 .listbtn{
@@ -191,17 +206,6 @@ body {
 	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 }
 
-#img_Submit{
-    float: right;
-    width: 100px;
-    height: 30px;
-    background-color: #3BBD5A;
-    font : normal bold 17.5px "고딕체";
-    color: #ffffff;
-    border-radius: 15px;
-    border : none;
-    cursor : pointer;
-}
 </style>
 
 <body>
@@ -217,7 +221,7 @@ body {
 			
 			<%-- 제목 공간 --%>
 			<div class="page_name">
-				<span>제목 입력</span>
+				<span>제철 특산물 수정 페이지</span>
 			</div>
 			
 			<%-- 빈 공간 --%>		
@@ -230,7 +234,7 @@ body {
 				<input type="hidden" name="SeasonProductPhotoNo" value="${seasonBoard.seasonProductPhotoNo }">
 				<input type="hidden" name="seasonProductNo" value="${seasonBoard.seasonProductNo }">
 				<%-- 옵션 1 --%>
-				<div class="optiontitle">월 별로 선택해 주세요.</div>
+				<div class="optiontitle">월 별로 선택해 주세요:</div>
 					<div class="option_form">
 						<select class="option" name="SeasonProductClassify">
 						<c:choose>
@@ -446,13 +450,10 @@ body {
 				<%-- 버튼 폼 --%>
 				<div class="Btnform">
 					<input type="button" class="listbtn" value="리스트" onclick="location='/productintro/LocalProductListPage.do'">
-					<button type="reset" class="resetbtn">다시 쓰기</button>
-					<input type="submit" class="submitbtn" value="글쓰기">
+					<input type="submit" class="submitbtn" value="글 수정">
 					
 				</div>
 
-				
-			
 			</div>
 		</div>
 	</div>
@@ -464,8 +465,6 @@ body {
 </div>
 
 <!-- 이미지 처리 -->
-<%--jQuery 라이브러리 --%>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
 	$('#img_Submit').click(function(){
