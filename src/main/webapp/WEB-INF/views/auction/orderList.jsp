@@ -48,7 +48,7 @@
 }
 #dateSelect-btn{
 	width: 100%;
-	height: 60px;
+	height: 4%;
 	padding-top : 2.5%;
 	padding-left: 70%;
 	font-size: 2vmin;
@@ -81,7 +81,7 @@
 }
 
 #table {
-    font-size: 2vmin;
+    font-size: 1.9vmin;
     font-family: 'NanumSquare';
     margin: 0 auto;
     line-height: 100%;
@@ -94,7 +94,7 @@
     opacity: 0.9;
 }
 .data {
-    line-height: 6vh;
+    line-height: 5.5vh;
     margin-left: 20px;
     width: 50%;
     padding-left: 4%;
@@ -151,7 +151,7 @@
 #navi{
 	padding-top : 15px;
 	width: 100%;
-	height: 60px;
+	height: 4%;
 	text-align: center;
 }
 .naviArrow{

@@ -57,7 +57,6 @@
 }
 
 #auctionSale-wrapBox {
-	width: 84%;
 	height: 70%;
 	margin-left: 12.5%;
 }
