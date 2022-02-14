@@ -151,17 +151,29 @@
 	<script>
 		$(function(){
 			var context1 = document.getElementById('enterHome').getContext('2d');
+			
+			var productName1 = "${requestScope.productName1}";
+			var productCount1 = "${requestScope.productCount1}";
+			var productName2 = "${requestScope.productName2}";
+			var productCount2 = "${requestScope.productCount2}";
+			var productName3 = "${requestScope.productName3}";
+			var productCount3 = "${requestScope.productCount3}";
+			var productName4 = "${requestScope.productName4}";
+			var productCount4 = "${requestScope.productCount4}";
+			var productName5 = "${requestScope.productName5}";
+			var productCount5 = "${requestScope.productCount5}";
+			
 			var enterHome = new Chart(context1,{
 				type:'bar',
 				data:{
 	                //상품은 5개로 제한하고 Top-N으로 최근 경매로 한다.
-					labels:['감귤','도라지','사과','배','한라봉'],
+					labels:[productName1,productName2,productName3,productName4,productName5],
 					datasets:[{
 						label: '상품별 매출', // 차트 제목
 						fill:false, // line 형태일 때 선 안쪽을 채울지 말지
 	                    
 	                    //판매된 개수로 
-						data: [10, 100,30,40,20],
+						data: [productCount1,productCount2,productCount3,productCount4,productCount5],
 						backgroundColor:[
 							'rgba(255,99,132,0.2)',
 							'rgba(54,162,235,0.2)',
@@ -190,7 +202,7 @@
 				}
 			});
 		});	
-   </script>    
+   </script>      
 
   <!-- 공지사항 내용 팝업창 -->
   <script>

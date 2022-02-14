@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>배송 입력</title>
 
  <!--부트스트랩-->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -71,7 +71,7 @@
 	                      </tr>
 	                      <tr>
 	                          <td style="font-weight: bolder">발송일</td>
-	                           <td><input type="text" name="sendDate" placeholder="    ex) 2022/01/28" value="${list.get(0).getDeliveryDate()}" disabled="disabled"></td>
+	                           <td><input type="date" name="sendDate" placeholder="    ex) 2022/01/28" value="${list.get(0).getDeliveryDate()}" disabled="disabled"></td>
 	                      </tr> 
                       </c:when>
                       <c:otherwise>

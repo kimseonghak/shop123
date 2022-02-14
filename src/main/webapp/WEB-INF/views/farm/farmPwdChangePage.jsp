@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>농가 비밀번호 수정</title>
 
   <!--font-->
    <link rel="preconnect" href="https://fonts.googleapis.com">
