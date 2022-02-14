@@ -31,27 +31,20 @@
 	position: relative;
 }
 
-#leftSpace-left {
-	width: 15%;
-	height: 875px;
-	float: left;
-}
-
 #subject-box {
-	width: 84%;
-	height: 59px;
+	width: 100%;
+	height: 8%;
 	float: left;
 }
 
 #subject {
 	width: 100%;
-	height: 37px;
-	margin-top: 13px;
-	margin-left: 37.7%;
+	height: 100%;
+	text-align: center;
 }
 
 #subject>span {
-	font-size: 28px;
+	font-size: 3.9vmin;
 	font-family: 'NanumSquare';
 	color: #3BBD5A;
 	font-weight: bold;
@@ -66,7 +59,7 @@
     width: 50%;
     height: 100%;
     float: left;
-    margin-left: 150px;
+    margin-left: 27%
 }
 #order-memberInfoBox{
 	width : 53vh;
@@ -103,14 +96,14 @@
     float: left;
     font-weight: bold;
 	margin: 15px 15px;
-	margin-right: 38%;
+	margin-right: 37%;
 	font-size: 2vmin;
 }
 
 #customer-name {
     display: block;
     float: left;
-    margin-top: 15px;
+    margin-top: 4%;
     font-size: 2vmin;
 }
 
@@ -237,9 +230,12 @@
 .price-span {
     font-size: 2vmin;
     display: block;
+    width : 72%;
+    height : 100%;
     float: left;
-    margin-top: 15px;
-    margin-left: 225px;
+    margin-top: 4%;
+	text-align : right;
+	padding-right : 2%;
     font-weight: bold;
 }
 
@@ -247,8 +243,8 @@
     font-size: 2vmin;
     display: block;
     float: left;
-    margin-top: 15px;
-    margin-left: 275px;
+    margin-top: 4%;
+    margin-left: 70%;
     font-weight: bold;
 }
 
@@ -279,18 +275,20 @@
     font-size: 2vmin;
     display: block;
     float: left;
-    margin-top: 17px;
-    margin-left: 50px;
+    margin-top: 7%;
+    width : 49%;
+    padding-right : 1.5%; 	
+    text-align : right;
     font-weight: bold;
 }
 
 .payspan {
     line-height: 30px;
-    font-size: 14px;
+    font-size: 2vmin;
     display: block;
     float: left;
-    margin-top: 17px;
-    margin-left: 15px;
+    margin-top: 7%;
+    margin-left: 5%;
 }
 
 .terms {
@@ -305,8 +303,8 @@
 .terms-text {
     width: 80%;
     height: 10%;
-    margin: 20px 0 0 38px;
-    font-size: 2vmin;
+    margin: 7% 0 0 17%;
+    font-size: 1.8vmin;
     font-family: 'Nanum Gothic', sans-serif;
     color: #707070;
 }
@@ -353,8 +351,8 @@
 	height: 60%;
 	float: left;
 	font-family: 'NanumSquare';
-	padding-top: 17px;
-	padding-left: 70px;
+	padding-top: 4.5%;
+	padding-left: 18.8%;
 	font-size: 1.9vmin;
 }
 
@@ -365,7 +363,6 @@
 		<c:import url="/WEB-INF/views/commons/header.jsp" />
 		<div id="leftSpace-top"></div>
 		<div id="content">
-			<div id="leftSpace-left"></div>
 			<div id="subject-box">
 				<div id="subject">
 					<span>주문하기</span>
@@ -518,10 +515,10 @@
 
 		
 		
-		//var auctionPrice = ${requestScope.sf.auctionPrice };     
-		//var productCount = ${requestScope.sf.auctionCount1 };	 //수량
-		//var payAmount = auctionPrice * productCount;			 //총 금액
-		var payAmount = 100;
+		var auctionPrice = ${requestScope.sf.auctionPrice };     
+		var productCount = ${requestScope.sf.auctionCount1 };	 //수량
+		var payAmount = auctionPrice * productCount;			 //총 금액
+		//var payAmount = 100;
 //총 금액 구해서 값 넣어주기
 		$(function(){
 				
