@@ -217,7 +217,7 @@
    width: 100%;
    height: 100%;
    background-color: black;
-   margin-top: -90.5%;
+   margin-top: -43.1vmin;
    border-radius: 0 0 10px 10px;
    opacity: 0.65;
    color: #FFFFFF;
@@ -422,6 +422,10 @@
                		 <input type="hidden" name="auctionEndYN2" value="${map.au2.auctionEndYN }"/>
                		 <input type="hidden" name="userNo" value="${sessionScope.member.userNo }"/>
                      
+                     <div class="spanBox">                     
+                     	<span class="spanLeft">시작일 :</span>
+                     	<span class="spanRight auctionStart">${map.au2.auctionStart }</span>
+                     </div>
                      <div class="spanBox">  
                      	<span class="spanLeft">종료일 :</span>
                      	<span class="spanmiddel endDate2">${map.au2.auctionEnd  }</span>
@@ -434,7 +438,7 @@
                      <div class="spanBox">  
                      	<span class="spanLeft">판매수량 :</span>
                      	<span class="spanRight-test">
-                        	 <input type="number" min="0" name="auctionCount" class="auctionCount-input margin"/>
+                        	 <input type="number" min="0" name="auctionCount" class="auctionCount-input margin" value="0"/>
                      	</span>
                      	<span class="font-style text-span">상자</span>
                      </div>
@@ -485,7 +489,7 @@
                      <div class="spanBox">  
                      	<span class="spanLeft">판매수량 :</span>
                      	<span class="spanRight-test">
-                        	 <input type="number" min="0" name="auctionCount" class="auctionCount-input margin"/>
+                        	 <input type="number" min="0" name="auctionCount1" class="auctionCount-input margin"/>
                      	</span>
                      	<span class="font-style text-span">상자</span>
                      </div>
@@ -545,7 +549,7 @@
                      <div class="spanBox">  
                      	<span class="spanLeft">판매수량 :</span>
                      	<span class="spanRight-test">
-                        	 <input type="number" min="0" name="auctionCount" class="auctionCount-input margin"/>
+                        	 <input type="number" min="0" name="auctionCount1" class="auctionCount-input margin"/>
                      	</span>
                      	<span class="font-style text-span">상자</span>
                      </div>
@@ -664,6 +668,7 @@
             $('.time1').html('');
             $('#block1').css('display','block');
             $('#aucBtn1').val('입찰종료');
+            $('input[name=auctionCount1]').val('');
          }
       });
    });
@@ -700,6 +705,7 @@
             $('.time2').html('');
             $('#block2').css('display','block');
             $('#aucBtn2').val('입찰종료');
+            $('input[name=auctionCount1]').val('');
          }
       });
    });
@@ -736,6 +742,7 @@
             $('.time3').html('');
             $('#block3').css('display','block');
             $('#aucBtn3').val('입찰종료');
+            $('input[name=auctionCount1]').val('');
          }
       });
    });
