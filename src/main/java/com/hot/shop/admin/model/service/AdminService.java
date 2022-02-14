@@ -74,5 +74,9 @@ public interface AdminService {
 
 	int auctionUpdate(Auction au);
 
-	HashMap<String, Integer> sugWork();
+	HashMap<String, Object> sugWork();
+
+	HashMap<String, Object> adminBoard(HashMap<String, Object> map);
+
+	boolean promotionEndYNUpdate(HashMap<String, Object> map);
 }

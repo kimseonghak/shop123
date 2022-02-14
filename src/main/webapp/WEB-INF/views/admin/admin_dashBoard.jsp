@@ -22,7 +22,7 @@
 		<c:import url="/resources/admin/common/sideBar.jsp" />
 		<%-- mainContents --%>
 		<div id="mainContents">
-			<%-- 카운트 요약 부분 --%>
+<%-- 카운트 요약 부분 --%>
 			<div class="countWrap">
 				<div class="count-graphWrap">
 					<canvas id="enterHome"></canvas>
@@ -39,12 +39,27 @@
 				</div>
 			</div>
 			<div class="countWrap">
-				<div class="count-graphWrap"></div>
+				<div class="count-graphWrap">
+<%-- 추천 작업 부분 --%>
+					<div class="boardHeader">
+						<span class="boardTitle boardSpan">추천 작업</span> 
+					</div>
+					<hr style="border:1px solid #48bb78;">
+					<div class="boardBody">
+						<ul id="sugWorkUL">
+							<li>판매 대기 : ${sugMap.BID_SELL_YN }</li>
+							<li>유저 문의 : ${sugMap.QUSER_ANSWER_YN }</li>
+							<li>농가 문의 : ${sugMap.QFARM_ANSWER_YN }</li>
+							<li>환불 대기 : ${sugMap.REFUND_YN }</li>
+						</ul>
+					</div>
+				</div>
 			</div>
-			<%-- 보드 요약 부분 --%>
+<%-- 보드 요약 부분 --%>
 			<div class="boardWrap">
 				<div class="borderDesignWrap">
 					<div class="boardHeader">
+<%-- 유저 문의 사항 --%>
 						<span class="boardTitle boardSpan">유저 문의사항</span> 
 						<span class="boardPlus boardSpan"><a href="/admin/adminUserQNAPage.do">+ 더보기</a></span>
 					</div>
@@ -69,6 +84,7 @@
 			<div class="boardWrap">
 				<div class="borderDesignWrap">
 					<div class="boardHeader">
+<%-- 농가 문의 사항 --%>
 						<span class="boardTitle boardSpan">농가 문의사항</span> 
 						<span class="boardPlus boardSpan"><a href="/admin/adminFarmQNAPage.do">+ 더보기</a></span>
 					</div>
@@ -93,6 +109,7 @@
 			<div class="boardWrap">
 				<div class="borderDesignWrap">
 					<div class="boardHeader">
+<%-- 유저 환불 목록 --%>
 						<span class="boardTitle boardSpan">유저 환불목록</span> 
 						<span class="boardPlus boardSpan"><a href="">+ 더보기</a></span>
 					</div>

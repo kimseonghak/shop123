@@ -543,4 +543,62 @@
 		from question_Answer
 		where question_Board_code='F' and question_board_no=#{_parameter}
 	</select>
+	<select id="sugWork" resultType="hashMap">
+		select * from 
+			(select count(*) as bid_Sell_YN from bid where bid_sell_yn = 'N'),
+			(select count(*) as qUser_Answer_YN from question_user where question_user_answer_yn='N'),
+			(select count(*) as qFarm_Answer_YN from question_farm where question_farm_answer_yn='N'),
+			(select count(*) as refund_YN from refund where farm_yn='Y' and admin_yn='N')
+	</select>
+	<select id="promotionList" parameterType="hashmap" resultType="promotion">
+			select
+				PROMOTION_NO as promotionNo,
+				PROMOTION_TITLE as promotionTitle,
+				PROMOTION_CONTENT as promotionContent,
+				PROMOTION_REGDATE as promotionRegdate,
+				FARM_NO as farmNo,
+				FARM_NAME as farmName,
+				PROMOTION_COUNT as promotionCount,
+				PROMOTION_END_YN as promotionEndYN,
+				PROMOTIONPHOTO_NO as promotionPhotoNo,
+				ADVERTISE_YN as advertiseYN,
+				PROMOTIONPHOTO_FILEPATH as promotionFilePath,
+				PROMOTIONPHOTO_ORIGINAL as promotionPhotoOriginal
+			from (select row_number() over(order by PROMOTION_NO desc) as num, PROMOTION.* ,FARM_NAME, PROMOTIONPHOTO_FILEPATH, PROMOTIONPHOTO_ORIGINAL 
+				from PROMOTION 
+				left join FARM on (PROMOTION.FARM_NO=FARM.FARM_NO)
+				left Join PROMOTIONPHOTO on (PROMOTION.PROMOTIONPHOTO_NO=PROMOTIONPHOTO.PROMOTIONPHOTO_NO)
+			<choose>
+				<when test="type.equals('title')">
+					where promotion_title like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('content')">
+					where promotion_content like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('all')">
+					where promotion_title like '%'||#{keyword}||'%' or promotion_content like '%'||#{keyword}||'%'
+				</when>
+				<otherwise></otherwise>
+			</choose>
+				)
+			where num between #{start} and #{end}
+	</select>
+	<select id="promotionTotalCount" parameterType="hashmap" resultType="integer">
+		select count(*) from promotion
+			<choose>
+				<when test="type.equals('title')">
+					where promotion_title like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('content')">
+					where promotion_content like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('all')">
+					where promotion_title like '%'||#{keyword}||'%' or promotion_content like '%'||#{keyword}||'%'
+				</when>
+				<otherwise></otherwise>
+			</choose>
+	</select>
+	<update id="promotionYNUpdate" parameterType="hashmap">
+		update promotion set promotion_end_yn=#{endYN} where promotion_no = #{promotionNo}
+	</update>
 </mapper>
