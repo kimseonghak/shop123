@@ -233,9 +233,138 @@ body {
 				<%-- 옵션 1 --%>
 				<div class="optiontitle">지역별로 선택해 주세요.</div>
 					<div class="option_form">
-						<select class="option" name="LocalProductClassify">
-							<option value="" disabled selected>월 선택</option>
-								<option value="" disabled selected>지역 선택</option>
+						<!-- 서울 선택되어 있다면 -->
+						<c:if test="${localBoard.localProductClassify eq 'SEOUL'}">
+							<select class="option" name="LocalProductClassify">
+									<option value="${localBoard.localProductClassify}">서울</option>
+									<option value="GYEONGGI">경기도</option>
+									<option value="GANGWWON">강원도</option>
+									<option value="CHUNGBUK">충청북도</option>
+									<option value="CHUNGNAM">충청남도</option>
+									<option value="GYEONGBUK">경상북도</option>
+									<option value="GYEONGNAM">경상남도</option>
+									<option value="JEONBUK">전라북도</option>
+									<option value="JEONNAM">전라남도</option>
+									<option value="JEJU">제주도</option>
+							</select>
+						</c:if>
+
+						<!-- 경기 선택되어 있다면 -->
+						<c:if test="${localBoard.localProductClassify eq 'GYEONGGI'}">
+							<select class="option" name="LocalProductClassify">
+									<option value="${localBoard.localProductClassify}">경기도</option>
+									<option value="SEOUL">서울</option>
+									<option value="GANGWWON">강원도</option>
+									<option value="CHUNGBUK">충청북도</option>
+									<option value="CHUNGNAM">충청남도</option>
+									<option value="GYEONGBUK">경상북도</option>
+									<option value="GYEONGNAM">경상남도</option>
+									<option value="JEONBUK">전라북도</option>
+									<option value="JEONNAM">전라남도</option>
+									<option value="JEJU">제주도</option>
+							</select>
+						</c:if>
+
+						<!-- 강원 선택되어 있다면 -->
+						<c:if test="${localBoard.localProductClassify eq 'GANGWWON'}">
+							<select class="option" name="LocalProductClassify">
+									<option value="${localBoard.localProductClassify}">강원도</option>
+									<option value="SEOUL">서울</option>
+									<option value="GYEONGGI">경기도</option>
+									<option value="CHUNGBUK">충청북도</option>
+									<option value="CHUNGNAM">충청남도</option>
+									<option value="GYEONGBUK">경상북도</option>
+									<option value="GYEONGNAM">경상남도</option>
+									<option value="JEONBUK">전라북도</option>
+									<option value="JEONNAM">전라남도</option>
+									<option value="JEJU">제주도</option>
+							</select>
+						</c:if>
+
+						<!-- 충북 선택되어 있다면 -->
+						<c:if test="${localBoard.localProductClassify eq 'CHUNGBUK'}">
+							<select class="option" name="LocalProductClassify">
+									<option value="${localBoard.localProductClassify}">충청북도</option>
+									<option value="SEOUL">서울</option>
+									<option value="GYEONGGI">경기도</option>
+									<option value="GANGWWON">강원도</option>
+									<option value="CHUNGNAM">충청남도</option>
+									<option value="GYEONGBUK">경상북도</option>
+									<option value="GYEONGNAM">경상남도</option>
+									<option value="JEONBUK">전라북도</option>
+									<option value="JEONNAM">전라남도</option>
+									<option value="JEJU">제주도</option>
+							</select>
+						</c:if>
+
+						<!-- 충남 선택되어 있다면 -->
+						<c:if test="${localBoard.localProductClassify eq 'CHUNGNAM'}">
+							<select class="option" name="LocalProductClassify">
+									<option value="${localBoard.localProductClassify}">충청남도</option>
+									<option value="SEOUL">서울</option>
+									<option value="GYEONGGI">경기도</option>
+									<option value="GANGWWON">강원도</option>
+									<option value="CHUNGBUK">충청북도</option>
+									<option value="GYEONGBUK">경상북도</option>
+									<option value="GYEONGNAM">경상남도</option>
+									<option value="JEONBUK">전라북도</option>
+									<option value="JEONNAM">전라남도</option>
+									<option value="JEJU">제주도</option>
+							</select>
+						</c:if>
+
+						<!-- 경북 선택되어 있다면 -->
+						<c:if test="${localBoard.localProductClassify eq 'GYEONGBUK'}">
+							<select class="option" name="LocalProductClassify">
+									<option value="${localBoard.localProductClassify}">경상북도</option>
+									<option value="SEOUL">서울</option>
+									<option value="GYEONGGI">경기도</option>
+									<option value="GANGWWON">강원도</option>
+									<option value="CHUNGBUK">충청북도</option>
+									<option value="CHUNGNAM">충청남도</option>
+									<option value="GYEONGNAM">경상남도</option>
+									<option value="JEONBUK">전라북도</option>
+									<option value="JEONNAM">전라남도</option>
+									<option value="JEJU">제주도</option>
+							</select>
+						</c:if>
+
+						<!-- 경남 선택되어 있다면 -->
+						<c:if test="${localBoard.localProductClassify eq 'GYEONGNAM'}">
+							<select class="option" name="LocalProductClassify">
+									<option value="${localBoard.localProductClassify}">경상남도</option>
+									<option value="SEOUL">서울</option>
+									<option value="GYEONGGI">경기도</option>
+									<option value="GANGWWON">강원도</option>
+									<option value="CHUNGBUK">충청북도</option>
+									<option value="CHUNGNAM">충청남도</option>
+									<option value="GYEONGBUK">경상북도</option>
+									<option value="JEONBUK">전라북도</option>
+									<option value="JEONNAM">전라남도</option>
+									<option value="JEJU">제주도</option>
+							</select>
+						</c:if>
+
+						<!-- 전북 선택되어 있다면 -->
+						<c:if test="${localBoard.localProductClassify eq 'JEONBUK'}">
+							<select class="option" name="LocalProductClassify">
+									<option value="${localBoard.localProductClassify}">전라북도</option>
+									<option value="SEOUL">서울</option>
+									<option value="GYEONGGI">경기도</option>
+									<option value="GANGWWON">강원도</option>
+									<option value="CHUNGBUK">충청북도</option>
+									<option value="CHUNGNAM">충청남도</option>
+									<option value="GYEONGBUK">경상북도</option>
+									<option value="GYEONGNAM">경상남도</option>
+									<option value="JEONNAM">전라남도</option>
+									<option value="JEJU">제주도</option>
+							</select>
+						</c:if>
+
+						<!-- 전남 선택되어 있다면 -->
+						<c:if test="${localBoard.localProductClassify eq 'JEONNAM'}">
+							<select class="option" name="LocalProductClassify">
+									<option value="${localBoard.localProductClassify}">전라남도</option>
 									<option value="SEOUL">서울</option>
 									<option value="GYEONGGI">경기도</option>
 									<option value="GANGWWON">강원도</option>
@@ -246,7 +375,24 @@ body {
 									<option value="JEONBUK">전라북도</option>
 									<option value="JEONNAM">전라남도</option>
 									<option value="JEJU">제주도</option>
-						</select>
+							</select>
+						</c:if>
+
+						<!-- 제주 선택되어 있다면 -->
+						<c:if test="${localBoard.localProductClassify eq 'JEJU'}">
+							<select class="option" name="LocalProductClassify">
+									<option value="${localBoard.localProductClassify}">제주도</option>
+									<option value="SEOUL">서울</option>
+									<option value="GYEONGGI">경기도</option>
+									<option value="GANGWWON">강원도</option>
+									<option value="CHUNGBUK">충청북도</option>
+									<option value="CHUNGNAM">충청남도</option>
+									<option value="GYEONGBUK">경상북도</option>
+									<option value="GYEONGNAM">경상남도</option>
+									<option value="JEONBUK">전라북도</option>
+									<option value="JEONNAM">전라남도</option>
+							</select>
+						</c:if>
 					</div>
 					
 	

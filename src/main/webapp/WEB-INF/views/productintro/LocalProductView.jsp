@@ -291,7 +291,7 @@ body {
 					<button type="button" class="deleteBtn">글 삭제</button>
 					<button class="updateBtn">글 수정</button>
 
-				<input type="button" class="mainBtn" value="리스트" onclick="location='/productintro/LocalProductListPage.do'">
+					<input type="button" class="mainBtn" value="리스트" onclick="location='/productintro/LocalProductListPage.do'">
 			</div>
 		</form>
 			

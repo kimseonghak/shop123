@@ -78,7 +78,7 @@
 }
 
 .select_local{
-	width: 8%;
+	width: 6%;
 	height: 40px;
 	background-color: #3BBD5A;
 	font : normal bold 17.5px "Nanum Gothic",sans-serif;
@@ -213,6 +213,7 @@
 			
 			<%-- 지역 선택 공간 --%>
 			<div class="select_form" align="center">
+				<button class="select_local">전체</button>
 				<button class="select_local">1월</button>
 				<button class="select_local">2월</button>
 				<button class="select_local">3월</button>
@@ -290,8 +291,8 @@ $(".select_local").click(function () {
      inputTag.setAttribute("name","seasonProductClassify");
      
      var text = $(this).text();
-     
      switch(text){
+     	case "전체" :  inputTag.setAttribute("value","0");break;
      	case "1월" :  inputTag.setAttribute("value","1");break;
      	case "2월" :  inputTag.setAttribute("value","2");break;
      	case "3월" :  inputTag.setAttribute("value","3");break;
