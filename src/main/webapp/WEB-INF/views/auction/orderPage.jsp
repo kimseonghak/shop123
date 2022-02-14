@@ -56,10 +56,10 @@
 	float: left;
 }
 #order-wrapBox {
-    width: 50%;
+    width: 100%;
     height: 100%;
     float: left;
-    margin-left: 27%
+    margin-left: 26.5%;
 }
 #order-memberInfoBox{
 	width : 53vh;
@@ -163,6 +163,7 @@
 .addr-box {
     width: 30%;
     height: 75%;
+    font-size: 1.9vmin;
     margin-top: 5px;
     border: 2px solid #E9E9E9;
     border-radius: 3px;
@@ -454,7 +455,7 @@
 	                          </p>
 	                           </div>
 	                      <div id="pay-button">
-	                      	   <button id="payBtn" onclick="requestPay()">카드결제</button>
+	                      	   <button id="payBtn">카드결제</button>
 	                          <input type="button" id="cancleBtn" value="취소"/>
 	                      </div>
 					</div>
@@ -532,6 +533,18 @@
 		 	location.replace('/auction/auctionSalePage.do');
 		})
 
+//카드 결제 버튼을 눌렀을 때
+		$('#payBtn').click(function(){
+			
+			if($('#name').val()=='' || $('#phone').val()=='' || $('.address1').val()=='' || $('#address2').val()==''){
+				alert('필수 입력 항목을 기입해주세요');
+				return false;
+			}else{
+				requestPay();
+			}
+			
+			
+		});
 	
 //아임포트 API
         function requestPay() {
@@ -546,6 +559,8 @@
 			var address2;					 						 //서브 주소
 			var orderNo = new Date().getTime();						 //주문번호
 			var auctionNo = ${requestScope.sf.auctionNo}             //경매번호
+			var userName = $('input[name=userName]').val();			 //이름
+			var email = '';
 			
 			var payMethod = '';
 		
@@ -558,8 +573,9 @@
                 pay_method: "card",
                 merchant_uid: orderNo,
                 name: productName,
-                amount: payAmount
-                
+                amount: payAmount,
+                buyer_email : email,
+                buyer_name : userName
                 
             }, function(rsp) { // callback
             	  if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
