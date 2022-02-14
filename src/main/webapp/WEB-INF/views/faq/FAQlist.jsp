@@ -188,7 +188,9 @@
             <div id="empty1"></div>
             <div id="contentTitle"> 자주 찾는 질문</div>
             <div id="empty2">                        
-                <button type="button" id="writeBtn"><a href="/faq/faqWritePage.do">글 쓰기</a></button>
+            	<c:if test="${sessionScope.farm.rating =='root' || sessionScope.farm.rating =='admin'}">
+                	<button type="button" id="writeBtn"><a href="/faq/faqWritePage.do">글 쓰기</a></button>
+                </c:if>
             </div>
             <div id="contentWrap">
                 <div id="contentWrap-listWrap">
@@ -199,8 +201,10 @@
 	                        <details>
 	                            <summary class="faqTitle">${f.getFaqTitle()}</summary>
 	                            <p class="faqCotent">${f.getFaqContent()}</p>
-		                        <button type="button" class="updateBtn" boardNo="${f.getFaqNo()}">수정</button>
-		                        <button type="button" class="deleteBtn" boardNo="${f.getFaqNo()}">삭제</button>
+	                            <c:if test="${sessionScope.farm.rating =='root' || sessionScope.farm.rating =='admin'}">
+			                        <button type="button" class="updateBtn" boardNo="${f.getFaqNo()}">수정</button>
+			                        <button type="button" class="deleteBtn" boardNo="${f.getFaqNo()}">삭제</button>
+		                        </c:if>
 	                        </details>
                       </c:forEach>
 		                    </div>  

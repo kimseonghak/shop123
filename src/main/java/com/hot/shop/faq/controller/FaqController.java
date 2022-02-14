@@ -59,7 +59,7 @@ public class FaqController {
 	}
 	
 	//게시물 등록
-	@RequestMapping(value="/fqa/fqaBoardWrite.do",method = RequestMethod.GET)
+	@RequestMapping(value="/fqa/fqaBoardWrite.do",method = RequestMethod.POST)
 	public ModelAndView faqWrite(@RequestParam String type,@RequestParam String faqTitle,@RequestParam String faqContent,ModelAndView mv)
 	{
 		HashMap<String, String>	dataMap = new HashMap<String, String>();

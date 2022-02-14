@@ -63,9 +63,7 @@
         width: 70%;
         height: 70%;
         margin: 0 auto;
-        border: 1px solid rgba(0, 0, 0, 0.2);;
-        border-radius: 20px;
-       
+        box-shadow: 3px 3px 10px #aeaeae;
     }
     
     #title
@@ -125,17 +123,12 @@
         width: 100%;
         height: 70%;
         float: left;
-       
-        
     }
     #faqContent
     {
         width: 100%;
         height: 100%;
         float: left;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-        
        
     }
   
@@ -170,6 +163,7 @@
         top: 2.5vh;
     }
 
+
 </style>
 
 </head>
@@ -185,7 +179,7 @@
             <div id="title">
                <span id="faqHeader">자주 찾는 질문</span>
             </div>  
-            <form action="/fqa/fqaBoardWrite.do",method="post" onSubmit="return true;">
+            <form action="/fqa/fqaBoardWrite.do" method="post" onSubmit="return true;">
 	            <div id="faqTypeArea">
 	                <select id="faqType" name="type">
 		                  <option value="" disabled selected>분류</option>

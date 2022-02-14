@@ -45,7 +45,7 @@
         margin: 0 auto;
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 20px;
-      	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+      	box-shadow: 3px 3px 10px #aeaeae;
       	padding: 5 5 5 5 ;
        
     }
