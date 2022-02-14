@@ -124,9 +124,10 @@
         width: 100%;
         margin: 0 auto;
         font-size: 14px;
-        padding-top: 15px;
-        padding-bottom: 15px;
+        padding-top: 30px;
+        padding-bottom: 30px;
         border-top: 1px solid rgba(0, 0, 0, 0.2);
+        background-color: rgba(246 246 246);
     }
 
     
@@ -172,6 +173,7 @@
         left: 58vw;
         bottom: 0.5vh;
     }
+    
 </style>
 
 
