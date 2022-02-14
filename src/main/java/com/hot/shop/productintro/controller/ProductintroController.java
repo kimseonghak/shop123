@@ -388,7 +388,6 @@ public class ProductintroController {
 		//기존 이미지도 기본 이미지가 아닌 경우
 		//기존 이미지 삭제 로직
 			
-		
 		}else if(localBoard.getLocalProductPhotoNo() !=1  && localBoard.getOriginalLocalphotoNo()!=1) {
 			LocalProductFile lPhoto = piService.localdeleteFileCheck(localBoard.getOriginalLocalphotoNo());
 			String path = context.getRealPath("/resources/localProductPhoto/img/");
