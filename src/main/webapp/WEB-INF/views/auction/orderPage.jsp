@@ -69,12 +69,12 @@
     margin-left: 150px;
 }
 #order-memberInfoBox{
-	width : 380px;
+	width : 53vh;
 	height: 100%;
 	float: left;
 }
 #order-payBox{
-	width: 300px;
+	width: 42vh;
 	height: 100%;
 	float: left;
 	margin-left: 25px;
@@ -82,7 +82,7 @@
 
 #payBox {
     width: 99%;
-    height: 320px;
+    height: 40%;;
     float: left;
     border: 1px solid #E9E9E9;
     box-shadow: 5px 5px 5px #E9E9E9;
@@ -90,8 +90,8 @@
 }
 
 #memberInfoBox {
-    width: 380px;
-    height : 50px;
+    width: 99%;
+    height : 6%;
     border: 1px solid #E9E9E9;
     font-size: 14px;
     box-shadow: 5px 5px 5px #E9E9E9;
@@ -103,34 +103,32 @@
     float: left;
     font-weight: bold;
 	margin: 15px 15px;
-	margin-right: 145px;
+	margin-right: 38%;
+	font-size: 2vmin;
 }
 
 #customer-name {
     display: block;
     float: left;
     margin-top: 15px;
+    font-size: 2vmin;
 }
 
 #memberInputBox {
-    width: 380px;
-    height: 315px;
+    width: 99%;
+    height: 40%;
     border: 1px solid #E9E9E9;
     box-shadow: 5px 5px 5px #E9E9E9;
-    margin-top: 10px;
+    margin-top: 2.5%;
 }
 
 .address-box {
     width: 100%;
-    height: 50px;
+    height: 16.3%;
 }
-
-#customer-addr {
-    display: block;
-    font-size: 14px;
-    margin-left: 15px;
-    font-weight: bold;
-    margin-top: 20px;
+.farmOrder-box {
+    width: 100%;
+    height: 23%;
 }
 
 .name {
@@ -143,7 +141,6 @@
     width: 69%;
     height: 100%;
     float: left;
-
 }
 
 .star {
@@ -154,7 +151,7 @@
 }
 
 .name-span {
-    font-size: 14px;
+    font-size: 2vmin;
     display: block;
     margin-left: 5px;
     margin-top: 15px;
@@ -164,7 +161,7 @@
 .name-input {
     width: 97%;
     height: 75%;
-    margin-top: 5px;
+    margin-top: 2.5%;
     border: 2px solid #E9E9E9;
     border-radius: 3px;
     padding-left: 5px;
@@ -180,8 +177,8 @@
 }
 
 #orderInfo {
-    width: 380px;
-    height: 205px;
+    width: 99%;
+    height: 23%;
     border: 1px solid #E9E9E9;
     box-shadow: 5px 5px 5px #E9E9E9;
     margin-top: 10px;
@@ -189,13 +186,18 @@
 
 .farm-box {
     width: 100%;
-    height: 50px;
+    height: 25.5%;
+    background-color: #EEF3EE;
+}
+.member-box{
+	width: 100%;
+    height: 15.5%;
     background-color: #EEF3EE;
 }
 
 .farm-name {
     display: block;
-    font-size: 14px;
+    font-size: 2vmin;
     margin-left: 15px;
     font-weight: bold;
     height: 100%;
@@ -205,7 +207,7 @@
 }
 .farm-nameBox {
     display: block;
-    font-size: 14px;
+    font-size: 2vmin;
     margin-left: 15px;
     font-weight: bold;
     height: 100%;
@@ -213,12 +215,11 @@
     width: 100%;
 }
 #checkbox{
-	font-size: 12px;
 	float: left;
 }
 
 .product-span {
-    font-size: 14px;
+    font-size: 2vmin;
     display: block;
     float: left;
     margin-left: 15px;
@@ -227,14 +228,14 @@
 }
 
 .count-span {
-    font-size: 14px;
+    font-size: 2vmin;
     display: block;
     float: left;
     margin-top: 15px;
 }
 
 .price-span {
-    font-size: 14px;
+    font-size: 2vmin;
     display: block;
     float: left;
     margin-top: 15px;
@@ -243,7 +244,7 @@
 }
 
 .mount-span {
-    font-size: 14px;
+    font-size: 2vmin;
     display: block;
     float: left;
     margin-top: 15px;
@@ -252,7 +253,7 @@
 }
 
 .pay-span {
-    font-size: 15px;
+    font-size: 2vmin;
     display: block;
     margin-top: 18px;
     font-weight: bold;
@@ -261,21 +262,21 @@
 
 .pay-box {
     width: 80%;
-    height: 35px;
+    height: 11%;
     margin: 0 auto;
     border-bottom: 2px solid #3BBD5A;
 }
 
 .payment-box {
     width: 80%;
-    height: 60px;
+    height: 18%;
     margin: 0 auto;
     border-bottom: 2px solid #3BBD5A;
 }
 
 .payment-span {
     line-height: 30px;
-    font-size: 14px;
+    font-size: 2vmin;
     display: block;
     float: left;
     margin-top: 17px;
@@ -294,7 +295,7 @@
 
 .terms {
     width: 80%;
-    height: 60px;
+    height: 20%;
     margin: 0 auto;
     border: none;
     background-color: #F2F2F2;
@@ -303,20 +304,20 @@
 
 .terms-text {
     width: 80%;
-    height: 30px;
+    height: 10%;
     margin: 20px 0 0 38px;
-    font-size: 13px;
+    font-size: 2vmin;
     font-family: 'Nanum Gothic', sans-serif;
     color: #707070;
 }
 .terms-box{
-    font-size: 12px;
+    font-size: 1.7vmin;
     font-family: 'Nanum Gothic', sans-serif;
     color: #707070;
 }
 #pay-button{
     width: 80%;
-    height: 35px;
+    height: 12%;
     margin: 30px auto;
 }
 #payBtn{
@@ -326,7 +327,7 @@
     background-color: #3BBD5A;
     border: none;
     color: white;
-    font-size: 14px;
+    font-size: 2vmin;
     font-family: 'NanumSquare';
 	display: block;
 	float: left;    
@@ -341,7 +342,7 @@
     background-color: #ffff;
     border: 3px solid #3BBD5A;
     color: #3BBD5A;
-    font-size: 14px;
+    font-size: 2vmin;
     font-family: 'NanumSquare';
     display: block;
 	float: left;    
@@ -378,12 +379,13 @@
                 		<input type="hidden" name="userPhone" value="${requestScope.m.userPhone}"/>
                 		<input type="hidden" name="addressMain" value="${requestScope.m.userAddressMain}"/>
                 		<input type="hidden" name="addressSub" value="${requestScope.m.userAddressSub}"/>
+                		
                 		<span id="customer">주문고객</span>
                         <span id="customer-name">${requestScope.m.userName }&nbsp;( ${requestScope.m.userPhone } )</span>
                 	</div>
                 	
                 	<div id="memberInputBox">
-                        <div class="farm-box">
+                        <div class="member-box">
                             <span class="farm-name">주소 (배송지)</span>
                             <div id="checkbox-box">
                             	<input type="checkbox" value="Y" id="checkbox"/>주문자 정보와 동일
@@ -423,16 +425,16 @@
                    <div id="orderInfo">
                         <div class="farm-box">
                             <p class="farm-nameBox">${requestScope.f.farmName }</p>
-                            <div class="address-box">
+                         </div>
+                            <div class="farmOrder-box">
                                 <span class="product-span" id="product">${requestScope.sf.auctionProduct }</span>
                             </div>
-                            <div class="address-box">
+                            <div class="farmOrder-box">
                                 <span class="product-span">수량 : </span><span class="mount-span">${requestScope.sf.auctionCount1 } 개</span>
                             </div>
-                            <div class="address-box">
+                            <div class="farmOrder-box">
                                 <span class="product-span">총 금액 : </span><span class="price-span totalMoney"></span>
                             </div>
-                        </div>
                    </div>
                
                </div>

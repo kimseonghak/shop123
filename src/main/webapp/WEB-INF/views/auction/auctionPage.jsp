@@ -64,7 +64,7 @@
 
 .auction-box {
    width: 27%;
-   height: 85%;
+   height: 50vh;
    float: left;
    margin-right: 50px;
 }
@@ -112,10 +112,14 @@
    border-radius: 0 0 10px 10px;
    background-color: #E4FFF8;
 }
+.spanBox{
+	width: 100%;
+	height: 13%;
+}
 
 .spanLeft{
    width: 33%;
-   height: 13%;
+   height: 100%;
    text-align:right;
    float : left;
    font-size: 2.2vmin;
@@ -123,7 +127,7 @@
 }
 .spanRight{
    width: 65%;
-   height: 13%;
+   height: 100%;
    text-align: center;
    float : left;
    font-size: 2.2vmin;
@@ -150,7 +154,7 @@
 }
 .spanRight-test {
    width: 38%;
-   height: 13%;
+   height: 100%;
    text-align: center;
    float : left;
    font-family: 'NanumSquare';
@@ -158,7 +162,7 @@
 }
 .text-span{
 	width: 11%;
-	height: 13%;
+	height: 100%;
 	float :left;
 	font-size: 2.2vmin;
    	font-family: 'NanumSquare';
@@ -166,7 +170,7 @@
 }
 .spanmiddel{
    width: 35%;
-   height: 13%;
+   height: 100%;
    text-align: center;
    float : left;
    font-size: 2.2vmin;
@@ -175,21 +179,23 @@
 }
 .spanLast{
    width: 29%;
-   height: 13%;
+   height: 100%;
    float : left;
    font-size: 2.2vmin;
    font-family: 'NanumSquare';
    text-align: left;
-   padding-left: 10px;
 }
 
 .margin-bottom{
    margin-bottom: 3%;
 }
-
+.btnBox{
+	width: 100%;
+	height: 25%;
+}
 .btn{
    width : 150px;
-   height: 12%;
+   height: 45%;
    border : none;
    text-align: center;
    border-radius: 10px;
@@ -211,7 +217,7 @@
    width: 100%;
    height: 100%;
    background-color: black;
-   margin-top: -81.5%;
+   margin-top: -90.5%;
    border-radius: 0 0 10px 10px;
    opacity: 0.65;
    color: #FFFFFF;
@@ -252,24 +258,34 @@
                   <div class="auction-info">
                      <div class="auctionBox-leftSpace"></div>
                      <!-- 경매 폼 로직-->
-                     <span class="spanLeft">시작일 :</span>
-                     <span class="spanRight">${map.au1.auctionStart}</span>
-                     <span class="spanLeft">종료일 :</span>
-                     <span class="spanmiddel">${map.au1.auctionEnd  }</span>
-                     <span class="spanLast">23:59:59</span>
-                     <span class="spanLeft">남은시간 :</span>
-                     <span class="spanRight fontWeight" style="color: #FE0011"></span>
-                     <span class="spanLeft">판매수량 :</span>
-                     <span class="spanRight-test">
-                         <input type="number" name="auctionCount" class="auctionCount-input margin"/>
-                     </span> 
-                     <span class="font-style text-span">상자</span>
-                     <span class="spanLeft">현재 최저가 :</span>
-                     <span class="spanRight-test margin-bottom font-style">
-                         <input type="number" name="auctionPrice" class="auctionCount-input"/>
-                     </span>
-                     <span class="text-span font-style">원</span>
-                     <input type="submit" class="btn" value="입찰하기"/>
+                      <div class="spanBox">                     
+                     	<span class="spanLeft">시작일 :</span>
+                     	<span class="spanRight auctionStart">${map.au1.auctionStart }</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">종료일 :</span>
+                     	<span class="spanmiddel">${map.au1.auctionEnd  }</span>
+                     	<span class="spanLast">&nbsp;&nbsp;23:59:59</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">남은시간 :</span>
+                     	<span class="spanRight fontWeight" style="color: #FE0011"></span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">판매수량 :</span>
+                     	<span class="spanRight-test">
+                        	 <input type="number" min="0" name="auctionCount" class="auctionCount-input margin" value="0"/>
+                     	</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">현재 최저가 :</span>
+                     	<span class="spanRight-test margin-bottom font-style">
+                        	 <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au1.auctionPrice }"/>
+                     	</span> 
+                     </div>
+                     <div class="btnBox">
+                     	<input type="submit" class="btn" id="aucBtn1" value="입찰하기"/>
+	                 </div>
 	                 <div class="block"></div>
                </div>
             </div>
@@ -292,30 +308,41 @@
                      <input type="hidden" name="farmNo" value="${sessionScope.farm.farmNo }"/>
                      <input type="hidden" name="auctionProduct" value="${map.au1.auctionProduct }"/>
                      <input type="hidden" name="currentPrice" value="${map.au1.auctionPrice }"/>
-                     <input type="hidden" name="auctionCount1" value="${map.au1.auctionCount1 }"/>
                      <input type="hidden" name="auctionStart" value="${map.au1.auctionStart }"/>
                      <input type="hidden" name="auctionEnd" value="${map.au1.auctionEnd }"/>
                      <input type="hidden" name="auctionEndYN1" value="${map.au1.auctionEndYN }"/>
                      <input type="hidden" name="userNo" value="${sessionScope.member.userNo }"/>
                      <!-- 경매 폼 로직-->
-                     <span class="spanLeft">시작일 :</span>
-                     <span class="spanRight auctionStart">${map.au1.auctionStart }</span>
-                     <span class="spanLeft">종료일 :</span>
-                     <span class="spanmiddel endDate1">${map.au1.auctionEnd  }</span>
-                     <span class="spanLast time1">23:59:59</span>
-                     <span class="spanLeft">남은시간 :</span>
-                     <span class="spanRight fontWeight remainTime1" style="color: #FE0011"></span>
-                     <span class="spanLeft">판매수량 :</span>
-                     <span class="spanRight-test">
-                         <input type="number" min="0" name="auctionCount" class="auctionCount-input margin" value="${map.au1.auctionCount1 }"/>
-                     </span> 
-                     <span class="font-style text-span">상자</span>
-                     <span class="spanLeft">현재 최저가 :</span>
-                     <span class="spanRight-test margin-bottom font-style">
-                         <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au1.auctionPrice }"/>
-                     </span> 
-                     <span class="text-span font-style">원</span>
-                     <input type="submit" class="btn" id="aucBtn1" value="입찰하기"/>
+					 <div class="spanBox">                     
+                     	<span class="spanLeft">시작일 :</span>
+                     	<span class="spanRight auctionStart">${map.au1.auctionStart }</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">종료일 :</span>
+                     	<span class="spanmiddel endDate1">${map.au1.auctionEnd  }</span>
+	                    <span class="spanLast time1">&nbsp;&nbsp;23:59:59</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">남은시간 :</span>
+                     	<span class="spanRight fontWeight remainTime1" style="color: #FE0011"></span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">판매수량 :</span>
+                     	<span class="spanRight-test">
+                        	 <input type="number" min="0" name="auctionCount1" class="auctionCount-input margin" value="0"/>
+                     	</span>
+                     	<span class="font-style text-span">상자</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">현재 최저가 :</span>
+                     	<span class="spanRight-test margin-bottom font-style">
+                        	 <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au1.auctionPrice }"/>
+                     	</span> 
+                     	<span class="text-span font-style">원</span>
+                     </div>
+                     <div class="btnBox">
+                     	<input type="submit" class="btn" id="aucBtn1" value="입찰하기"/>
+	                 </div>
 	                 <div class="block" id="block1" style="display: none;"></div>
                </div>
             </div>
@@ -337,24 +364,36 @@
                   <div class="auction-info">
                      <div class="auctionBox-leftSpace"></div>
                      <!-- 경매 폼 로직-->
-                     <span class="spanLeft">시작일 :</span>
-                     <span class="spanRight">${map.au2.auctionStart}</span>
-                     <span class="spanLeft">종료일 :</span>
-                     <span class="spanmiddel">${map.au3.auctionEnd  }</span>
-                     <span class="spanLast">23:59:59</span>
-                     <span class="spanLeft">남은시간 :</span>
-                     <span class="spanRight fontWeight" style="color: #FE0011"></span>
-                     <span class="spanLeft">판매수량 :</span>
-                     <span class="spanRight-test">
-                        <input type="number" name="auctionCount" class="auctionCount-input margin"/>
-                     </span>
-                     <span class="font-style text-span">상자</span> 
-                     <span class="spanLeft">현재 최저가 :</span>
-                     <span class="spanRight-test margin-bottom font-style">
-                        <input type="number" min="0" name="auctionPrice" class="auctionCount-input"/>
-                     </span>
-                     <span class="text-span font-style">원</span> 
-                     <input type="submit" class="btn" value="입찰하기"/>
+                     <div class="spanBox">                     
+                     	<span class="spanLeft">시작일 :</span>
+                     	<span class="spanRight auctionStart">${map.au2.auctionStart }</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">종료일 :</span>
+                     	<span class="spanmiddel">${map.au2.auctionEnd  }</span>
+                     	<span class="spanLast time2">&nbsp;&nbsp;23:59:59</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">남은시간 :</span>
+                     	<span class="spanRight fontWeight" style="color: #FE0011"></span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">판매수량 :</span>
+                     	<span class="spanRight-test">
+                        	 <input type="number" min="0" name="auctionCount" class="auctionCount-input margin"/>
+                     	</span>
+                     	<span class="font-style text-span">상자</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">현재 최저가 :</span>
+                     	<span class="spanRight-test margin-bottom font-style">
+                        	 <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au3.auctionPrice }"/>
+                     	</span>
+                     	<span class="text-span font-style">원</span> 
+                     </div>
+                     <div class="btnBox">
+                     	<input type="submit" class="btn" value="입찰하기"/>
+	                 </div>
 	                 <div class="block"></div>
                   </div>
             </div>
@@ -378,30 +417,37 @@
                      <input type="hidden" name="farmNo" value="${sessionScope.farm.farmNo }"/>
                      <input type="hidden" name="auctionProduct" value="${map.au2.auctionProduct }"/>
                      <input type="hidden" name="currentPrice" value="${map.au2.auctionPrice }"/>
-                     <input type="hidden" name="auctionCount1" value="${map.au2.auctionCount1 }"/>
                      <input type="hidden" name="auctionStart" value="${map.au2.auctionStart }"/>
                      <input type="hidden" name="auctionEnd" value="${map.au2.auctionEnd }"/>
                		 <input type="hidden" name="auctionEndYN2" value="${map.au2.auctionEndYN }"/>
                		 <input type="hidden" name="userNo" value="${sessionScope.member.userNo }"/>
                      
-                     <span class="spanLeft">시작일 :</span>
-                     <span class="spanRight">${map.au2.auctionStart }</span>
-                     <span class="spanLeft">종료일 :</span>
-                     <span class="spanmiddel endDate2">${map.au2.auctionEnd  }</span>
-                     <span class="spanLast time2">23:59:59</span>
-                     <span class="spanLeft">남은시간 :</span>
-                     <span class="spanRight fontWeight remainTime2" style="color: #FE0011"></span>
-                     <span class="spanLeft">판매수량 :</span>
-                     <span class="spanRight-test">
-                     	<input type="number" min="0" name="auctionCount" class="auctionCount-input margin"/>
-                     </span> 
-                     <span class="font-style text-span">상자</span>
-                     <span class="spanLeft">현재 최저가 :</span>
-                     <span class="spanRight-test margin-bottom font-style">
-                        <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au2.auctionPrice }"/>
-                     </span>
-                     <span class="text-span font-style">원</span> 
-                     <input type="submit" class="btn" id="aucBtn2" value="입찰하기"/>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">종료일 :</span>
+                     	<span class="spanmiddel endDate2">${map.au2.auctionEnd  }</span>
+                     	<span class="spanLast time2">&nbsp;&nbsp;23:59:59</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">남은시간 :</span>
+                     	<span class="spanRight fontWeight remainTime2" style="color: #FE0011"></span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">판매수량 :</span>
+                     	<span class="spanRight-test">
+                        	 <input type="number" min="0" name="auctionCount" class="auctionCount-input margin"/>
+                     	</span>
+                     	<span class="font-style text-span">상자</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">현재 최저가 :</span>
+                     	<span class="spanRight-test margin-bottom font-style">
+                        	 <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au3.auctionPrice }"/>
+                     	</span>
+                     	<span class="text-span font-style">원</span> 
+                     </div>
+                     <div class="btnBox">
+                     	<input type="submit" class="btn" value="입찰하기"/>
+	                 </div>
                      <div class="block" id="block2" style="display: none;"></div>
                </div>
             </div>
@@ -423,24 +469,37 @@
                   <div class="auction-info">
                      <div class="auctionBox-leftSpace"></div>
                      <!-- 경매 폼 로직-->
-                     <span class="spanLeft">시작일 :</span>
-                     <span class="spanRight">${map.au3.auctionStart}</span>
-                     <span class="spanLeft">종료일 :</span>
-                     <span class="spanmiddel">${map.au3.auctionEnd  }</span>
-                     <span class="spanLast">23:59:59</span>
-                     <span class="spanLeft">남은시간 :</span>
-                     <span class="spanRight fontWeight" style="color: #FE0011"></span>
-                     <span class="spanLeft">판매수량 :</span>
-                     <span class="spanRight-test">
-                     	<input type="number" name="auctionCount" class="auctionCount-input margin"/>
-                     </span>
-                     <span class="font-style text-span">상자</span>
-                     <span class="spanLeft">현재 최저가 :</span>
-                     <span class="spanRight-test margin-bottom font-style">
-                     	<input type="number" name="auctionPrice" class="auctionCount-input"/> 
-                     </span>
-                     <span class="text-span font-style">원</span>
-                     <input type="submit" class="btn" value="입찰하기"/>
+                     <div class="spanBox">                     
+                     	<span class="spanLeft">시작일 :</span>
+                     	<span class="spanRight auctionStart">${map.au3.auctionStart }</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">종료일 :</span>
+                     	<span class="spanmiddel">${map.au3.auctionEnd  }</span>
+                     	<span class="spanLast time3">&nbsp;&nbsp;23:59:59</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">남은시간 :</span>
+                     	<span class="spanRight fontWeight" style="color: #FE0011"></span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">판매수량 :</span>
+                     	<span class="spanRight-test">
+                        	 <input type="number" min="0" name="auctionCount" class="auctionCount-input margin"/>
+                     	</span>
+                     	<span class="font-style text-span">상자</span>
+                     </div>
+                    
+                     <div class="spanBox">  
+                     	<span class="spanLeft">현재 최저가 :</span>
+                     	<span class="spanRight-test margin-bottom font-style">
+                        	 <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au3.auctionPrice }"/>
+                     	</span> 
+                     	<span class="text-span font-style">원</span>
+                     </div>
+                     <div class="btnBox">
+                     	<input type="submit" class="btn" value="입찰하기"/>
+	                 </div>
                      <div class="block"></div>
                   </div>
             </div>
@@ -464,31 +523,43 @@
                      <input type="hidden" name="farmNo" value="${sessionScope.farm.farmNo }"/>
                      <input type="hidden" name="auctionProduct" value="${map.au3.auctionProduct }"/>
                      <input type="hidden" name="auctionPrice" value="${map.au3.auctionPrice }"/>
-                     <input type="hidden" name="auctionCount1" value="${map.au3.auctionCount1 }"/>
                      <input type="hidden" name="auctionStart" value="${map.au3.auctionStart }"/>
                      <input type="hidden" name="auctionEnd" value="${map.au3.auctionEnd }"/>
                      <input type="hidden" name="currentPrice" value="${map.au3.auctionPrice }"/>
                      <input type="hidden" name="auctionEndYN3" value="${map.au3.auctionEndYN }"/>
                      <input type="hidden" name="userNo" value="${sessionScope.member.userNo }"/>
                      
-                     <span class="spanLeft">시작일 :</span>
-                     <span class="spanRight">${map.au3.auctionStart }</span>
-                     <span class="spanLeft">종료일 :</span>
-                     <span class="spanmiddel endDate3">${map.au3.auctionEnd  }</span>
-                     <span class="spanLast time3">23:59:59</span>
-                     <span class="spanLeft">남은시간 :</span>
-                     <span class="spanRight fontWeight remainTime3" style="color: #FE0011"></span>
-                     <span class="spanLeft">판매수량 :</span>
-                     <span class="spanRight-test">
-                     	<input type="number" min="0" name="auctionCount" class="auctionCount-input margin" value="${map.au3.auctionCount1 }"/>
-                     </span>
-                     <span class="font-style text-span">상자</span>
-                     <span class="spanLeft">현재 최저가 :</span>
-                     <span class="spanRight-test margin-bottom font-style">
-                        <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au3.auctionPrice }"/>
-                     </span>
-                     <span class="text-span font-style">원</span>
-                     <input type="button" class="btn" id="aucBtn3" value="입찰하기"/>
+                      <div class="spanBox">                     
+                     	<span class="spanLeft">시작일 :</span>
+                     	<span class="spanRight auctionStart">${map.au3.auctionStart }</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">종료일 :</span>
+                     	<span class="spanmiddel endDate3">${map.au3.auctionEnd  }</span>
+                     	<span class="spanLast time3">&nbsp;&nbsp;23:59:59</span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">남은시간 :</span>
+                     	<span class="spanRight fontWeight remainTime3" style="color: #FE0011"></span>
+                     </div>
+                     <div class="spanBox">  
+                     	<span class="spanLeft">판매수량 :</span>
+                     	<span class="spanRight-test">
+                        	 <input type="number" min="0" name="auctionCount" class="auctionCount-input margin"/>
+                     	</span>
+                     	<span class="font-style text-span">상자</span>
+                     </div>
+                    
+                     <div class="spanBox">  
+                     	<span class="spanLeft">현재 최저가 :</span>
+                     	<span class="spanRight-test margin-bottom font-style">
+                        	 <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au3.auctionPrice }"/>
+                     	</span> 
+                     	<span class="text-span font-style">원</span>
+                     </div>
+                     <div class="btnBox">
+                     	<input type="submit" class="btn" id="aucBtn3" value="입찰하기"/>
+	                 </div>
 	                 <div class="block" id="block3" style="display: none;"></div>
                   </div>
             </div>
@@ -505,16 +576,15 @@
    //입찰하기 버튼 누를 시, 최저가/수량 비교해 로직 처리
    $('.btn').click(function(){
       
-      var auctionCount1 = $(this).parent().find('input[name=auctionCount1]').val();     			  //수량
-      var auctionFormNo = $(this).parent().find('input[name=auctionFormNo]').val();    			  //경매 폼 번호
-      var auctionStart = $(this).parent().find('input[name=auctionStart]').val();    			  //시작일
-      var auctionPrice = $(this).parent().children().find('input[name=auctionPrice]').val();      //입력한 가격
-      var auctionEnd = $(this).parent().find('input[name=auctionEnd]').val();         			  //종료일
-      var auctionProduct = $(this).parent().find('input[name=auctionProduct]').val();  			  //상품
-      var farmNo = $(this).parent().find('input[name=farmNo]').val();               			  //농가번호
-      var currentPrice = $(this).parent().find('input[name=currentPrice]').val();      			  //현재 최저가
-      var userNo = $(this).parent().find('input[name=userNo]').val();
-      var auctionCount; // = $(this).parent().find('input[name=auctionCount]').val();
+      var auctionCount1 = $(this).parent().parent().find('input[name=auctionCount1]').val();     		  //수량
+      var auctionFormNo = $(this).parent().parent().find('input[name=auctionFormNo]').val();    			  //경매 폼 번호
+      var auctionStart = $(this).parent().parent().find('input[name=auctionStart]').val();    			  //시작일
+      var auctionPrice = $(this).parent().parent().children().find('input[name=auctionPrice]').val();      //입력한 가격
+      var auctionEnd = $(this).parent().parent().find('input[name=auctionEnd]').val();         			  //종료일
+      var auctionProduct = $(this).parent().parent().find('input[name=auctionProduct]').val();  			  //상품
+      var farmNo = $(this).parent().parent().find('input[name=farmNo]').val();               			  //농가번호
+      var currentPrice = $(this).parent().parent().find('input[name=currentPrice]').val();      			  //현재 최저가
+      var userNo = $(this).parent().parent().find('input[name=userNo]').val();
       
       //회원인지 유효성 검사
       if(userNo!=''){
@@ -526,8 +596,8 @@
          return false;
       }
       //수량, 최저가 유효성 검사
-      if($(this).parent().find('input[name=auctionCount]').val()<50 || $(this).parent().find('input[name=auctionCount]').val()==0 || $(this).parent().find('input[name=auctionCount]').val()==''){
-         alert('최소 판매 수량 50개 이상 입력해주세요.');
+      if($(this).parent().find('input[name=auctionCount1]').val()<50 || $(this).parent().find('input[name=auctionCount1]').val()==0 || $(this).parent().find('input[name=auctionCount]').val()==''){
+         alert('최소 판매 수량 50상자 이상 입력해주세요.');
          return false;
       }
       if(auctionPrice>currentPrice || auctionPrice==currentPrice){
@@ -550,8 +620,7 @@
             success : function(result){
                if(result=="true"){
                   alert('최저가로 입찰되었습니다.');
-                  currentPrice.html(auctionPrice);
-                  auctionCount.val('0');
+                  window.location.reload(true);
                }else{
                   alert('잘못된 접근입니다');
                }

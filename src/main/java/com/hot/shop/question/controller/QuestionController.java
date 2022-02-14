@@ -330,6 +330,7 @@ public class QuestionController {
 			ArrayList<Farm> farm = qService.farmCheck(farmName);
 			return farm;
 		}
+		
 		//-----------------------------------------농가 문의-----------------------------------------
 		
 		//헤더에서 1:1문의 버튼을 누르면 문의 리스트로 이동하는 메소드(유저 문의)	
@@ -451,4 +452,5 @@ public class QuestionController {
 			mav.setViewName("commons/msg");
 			return mav;
 		}
+		
 }

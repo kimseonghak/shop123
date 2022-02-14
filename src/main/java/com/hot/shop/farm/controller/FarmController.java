@@ -53,7 +53,7 @@ public class FarmController {
 			mav.addObject("location", "/");
 		} else {
 			mav.addObject("msg", "로그인 실패. 아이디와 비밀번호를 확인해주세요.");
-			mav.addObject("location", "/");
+			mav.addObject("location", "/member/memberLoginPage.do");
 		}
 		mav.setViewName("commons/msg");
 		return mav;
