@@ -187,7 +187,7 @@
 }
 
 #navi{
-	width: 40%;
+	width: 5%;
 	height: 30px;
 	margin: 0 auto;
 }

@@ -233,8 +233,9 @@ body {
 				<div class="optiontitle">월 별로 선택해 주세요.</div>
 					<div class="option_form">
 						<select class="option" name="SeasonProductClassify">
-							<option value="" disabled selected>월 선택</option>
-								<option value="1">1월</option>
+						<c:choose>
+							<c:when test="${seasonBoard.seasonProductClassify == '1'}">
+								<option value="${seasonBoard.seasonProductClassify}">1월</option>
 								<option value="2">2월</option>
 								<option value="3">3월</option>
 								<option value="4">4월</option>
@@ -246,6 +247,173 @@ body {
 								<option value="10">10월</option>
 								<option value="11">11월</option>
 								<option value="12">12월</option>
+							</c:when>
+							
+							<c:when test="${seasonBoard.seasonProductClassify == '2'}">
+								<option value="${seasonBoard.seasonProductClassify}">2월</option>
+								<option value="1">1월</option>
+								<option value="3">3월</option>
+								<option value="4">4월</option>
+								<option value="5">5월</option>
+								<option value="6">6월</option>
+								<option value="7">7월</option>
+								<option value="8">8월</option>
+								<option value="9">9월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+							</c:when>
+							
+							<c:when test="${seasonBoard.seasonProductClassify eq '3'}">
+								<option value="${seasonBoard.seasonProductClassify}">3월</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="4">4월</option>
+								<option value="5">5월</option>
+								<option value="6">6월</option>
+								<option value="7">7월</option>
+								<option value="8">8월</option>
+								<option value="9">9월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+							</c:when>
+							
+							<c:when test="${seasonBoard.seasonProductClassify eq '4'}">
+								<option value="${seasonBoard.seasonProductClassify}">4월</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="3">3월</option>
+								<option value="5">5월</option>
+								<option value="6">6월</option>
+								<option value="7">7월</option>
+								<option value="8">8월</option>
+								<option value="9">9월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+							</c:when>
+
+							<c:when test="${seasonBoard.seasonProductClassify eq '5'}">
+								<option value="${seasonBoard.seasonProductClassify}">5월</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="3">3월</option>
+								<option value="4">4월</option>
+								<option value="6">6월</option>
+								<option value="7">7월</option>
+								<option value="8">8월</option>
+								<option value="9">9월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+							</c:when>
+
+							<c:when test="${seasonBoard.seasonProductClassify eq '6'}">
+								<option value="${seasonBoard.seasonProductClassify}">6월</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="3">3월</option>
+								<option value="4">4월</option>
+								<option value="5">5월</option>
+								<option value="7">7월</option>
+								<option value="8">8월</option>
+								<option value="9">9월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+							</c:when>
+
+							<c:when test="${seasonBoard.seasonProductClassify eq '7'}">
+								<option value="${seasonBoard.seasonProductClassify}">7월</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="3">3월</option>
+								<option value="4">4월</option>
+								<option value="5">5월</option>
+								<option value="6">6월</option>
+								<option value="8">8월</option>
+								<option value="9">9월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+							</c:when>
+
+							<c:when test="${seasonBoard.seasonProductClassify eq '8'}">
+								<option value="${seasonBoard.seasonProductClassify}">8월</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="3">3월</option>
+								<option value="4">4월</option>
+								<option value="5">5월</option>
+								<option value="6">6월</option>
+								<option value="7">7월</option>
+								<option value="9">9월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+							</c:when>
+
+							<c:when test="${seasonBoard.seasonProductClassify eq '9'}">
+								<option value="${seasonBoard.seasonProductClassify}">9월</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="3">3월</option>
+								<option value="4">4월</option>
+								<option value="5">5월</option>
+								<option value="6">6월</option>
+								<option value="7">7월</option>
+								<option value="8">8월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+							</c:when>
+
+							<c:when test="${seasonBoard.seasonProductClassify eq '10'}">
+								<option value="${seasonBoard.seasonProductClassify}">10월</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="3">3월</option>
+								<option value="4">4월</option>
+								<option value="5">5월</option>
+								<option value="6">6월</option>
+								<option value="7">7월</option>
+								<option value="8">8월</option>
+								<option value="9">9월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+							</c:when>
+
+							<c:when test="${seasonBoard.seasonProductClassify eq '11'}">
+								<option value="${seasonBoard.seasonProductClassify}">11월</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="3">3월</option>
+								<option value="4">4월</option>
+								<option value="5">5월</option>
+								<option value="6">6월</option>
+								<option value="7">7월</option>
+								<option value="8">8월</option>
+								<option value="9">9월</option>
+								<option value="10">10월</option>
+								<option value="12">12월</option>
+							</c:when>
+							
+							<c:otherwise>
+								<option value="${seasonBoard.seasonProductClassify}">12월</option>
+								<option value="1">1월</option>
+								<option value="2">2월</option>
+								<option value="3">3월</option>
+								<option value="4">4월</option>
+								<option value="5">5월</option>
+								<option value="6">6월</option>
+								<option value="7">7월</option>
+								<option value="8">8월</option>
+								<option value="9">9월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+							</c:otherwise>
+						</c:choose>
 						</select>
 					</div>
 					
