@@ -113,7 +113,7 @@
     </div>
 
 
-  <!-- sidebar 효과 -->
+  <%-- sidebar 효과 --%>
    <script>
 	    $(function() {
 	        $('#mainUl>li').eq(0).css('background-color', '#34734e');
@@ -123,7 +123,7 @@
     
   </script>
   
-  <!-- 작성 내용 가져오기 -->
+  <%-- 작성 내용 가져오기 --%>
   <script>
   		$('.noticeTitle').click(function(){
   			
@@ -138,12 +138,7 @@
             var _top = Math.ceil(( window.screen.height - _height )/2);
            
             window.open('/farm/farmNoticeContent.do?noticeContent='+noticeContent+'&noticeTitle='+noticeTitle+'', '_blank', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
-  			
-  			
   		});
-  
-  
-  
   
   </script>
   

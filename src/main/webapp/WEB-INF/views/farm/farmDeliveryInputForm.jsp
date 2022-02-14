@@ -86,7 +86,7 @@
 	                      </tr>
 	                      <tr>
 	                          <td style="font-weight: bolder">발송일</td>
-	                           <td><input type="text" name="sendDate" placeholder="    ex) 2022/01/28" value="${list.get(0).getDeliveryDate()}"></td>
+	                           <td><input type="date" name="sendDate" placeholder="    ex) 2022/01/28" value="${list.get(0).getDeliveryDate()}"></td>
 	                      </tr> 
                       </c:otherwise>
                     </c:choose>  
@@ -121,9 +121,8 @@
             </form>
     </div>
    
-    
+    <%-- 배송 입력 유효성 검사 --%>
     <script>
-    
     	$('#lastBtn').click(function(){
     		
     	
@@ -140,7 +139,7 @@
     
     </script>
     
-    <!-- 배송완료 버튼 누를 시  -->
+    <%-- 배송완료 버튼 누를 시  --%>
     <script>
     	$('#D_03').click(function(){
 			 var result = window.confirm('배송 완료를 선택할 경우 수정이 불가합니다. 배송입력을 완료하시겠습니까?')
@@ -157,7 +156,7 @@
     </script>
     
     
-    <!-- 닫기 버튼 -->
+    <%-- 닫기 버튼 --%>
     <script>
     	$('#closeBtn').click(function(){
     		
@@ -165,6 +164,22 @@
     		
     	});
     
+    </script>
+    
+    <%-- 날짜 설정 --%>
+    <script >
+	$(function(){
+		const offset = new Date().getTimezoneOffset() * 60000;
+		var date = new Date(Date.now() - offset).toISOString().substring(0,10);
+
+		for(var i=0; i<3; i++){
+			if($('input[name=sendDate]').eq(i).val()==''){
+				$('input[name=sendDate]').eq(i).val(date);
+				$('input[name=sendDate]').eq(i).val(date);
+			};
+		}
+
+	});
     </script>
     
 	

@@ -204,7 +204,7 @@
 		});	
    </script>      
 
-  <!-- 공지사항 내용 팝업창 -->
+  <%-- 공지사항 내용 팝업창 --%>
   <script>
   		$('.noticeTitle').click(function(){
   			
@@ -224,7 +224,7 @@
   </script>
   
   
-  <!-- 문의사항  팝업창 -->
+  <%-- 문의사항  팝업창 --%>
   <script>
   		$('.qnaTitle').click(function(){
   			
@@ -242,7 +242,7 @@
   		});
   </script>
   
-    <!-- 환불접수  팝업창 -->
+    <%-- 환불접수  팝업창 --%>
   <script>
   		$('.refundTitle').click(function(){
   			
