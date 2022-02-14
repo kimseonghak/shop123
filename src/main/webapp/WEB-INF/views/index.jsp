@@ -61,7 +61,7 @@
 					</div>
 				</div>
 				<div class="promotion-area">
-					<button class="promotion-btn"><a href="">우리 농가 홍보하기 /제철 상품 홍보하기</a></button>
+					<button class="promotion-btn"><a href="/productintro/SeasonProductListPage.do">우리 농가 홍보하기 /제철 상품 홍보하기</a></button>
 				</div>
 				
 			</div>

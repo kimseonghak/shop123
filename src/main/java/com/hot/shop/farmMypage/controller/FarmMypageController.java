@@ -26,14 +26,16 @@ public class FarmMypageController {
 	
 	//farm 비밀번호 변경
 		@RequestMapping(value="/farmMypage/farmMypageChangePwd.do", method=RequestMethod.POST)
-		public ModelAndView memberMypageWithdraw(@SessionAttribute Farm farm,
+		public ModelAndView memberMypageWithdraw(@SessionAttribute(required = false) Farm farm,
 				ModelAndView mav,
 				HttpServletRequest request,
 				@RequestParam String farmPwd,
 				@RequestParam String farmNewPwd) {
 			
 			if(farm==null) {
+				mav.addObject("msg", "잘못된 접근입니다. 메인페이지로 이동합니다.");
 				mav.addObject("location", "/");
+				mav.setViewName("commons/msg");
 			} else {
 			
 				String farmId = farm.getFarmId();
@@ -60,11 +62,13 @@ public class FarmMypageController {
 	@RequestMapping(value="/farmMypage/farmMypageWithdraw.do", method=RequestMethod.POST)
 	public ModelAndView memberMypageWithdraw(HttpServletRequest request,
 			ModelAndView mav,
-			@SessionAttribute Farm farm,
+			@SessionAttribute(required = false) Farm farm,
 			HttpSession session) {
 		
 		if(farm==null) {
+			mav.addObject("msg", "잘못된 접근입니다. 메인페이지로 이동합니다.");
 			mav.addObject("location", "/");
+			mav.setViewName("commons/msg");
 		} else {
 			String farmPwd = request.getParameter("farmPwd");
 			
@@ -110,13 +114,15 @@ public class FarmMypageController {
 			@RequestParam String farmPhone,
 			@RequestParam String farmAddressMain,
 			@RequestParam String farmAddressSub,
-			@SessionAttribute Farm farm,
+			@SessionAttribute(required = false) Farm farm,
 			HttpSession session,
 			HttpServletRequest request,
 			ModelAndView mav) {
 		
 		if(farm==null) {
+			mav.addObject("msg", "잘못된 접근입니다. 메인페이지로 이동합니다.");
 			mav.addObject("location", "/");
+			mav.setViewName("commons/msg");
 		} else {
 			
 			String farmId = farm.getFarmId();

@@ -19,7 +19,9 @@
 <c:choose>
 
 	<c:when test="${sessionScope.member eq null} ">
-		location.href = "/"
+		<script>
+			location.href = "/"
+		</script>
 	</c:when>
 
 	<c:otherwise>
