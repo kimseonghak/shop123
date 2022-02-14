@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <div id="header">
 	<div id="headerDiv1">
-		<p id="logoTitlePtag">123 상회</p>
+		<p id="logoTitlePtag"><a style="width:100%; height:100%; display: block;" href="/admin/adminDashboardPage.do">123 상회</a></p>
 	</div>
 	<div id="headerDiv2"></div>
 	<div id="headerDiv3">

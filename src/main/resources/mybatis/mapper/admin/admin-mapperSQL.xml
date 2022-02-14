@@ -20,9 +20,12 @@
 			auction_Count3 as auctionCount3,
 			auction_EndYN as auctionEndYN
 		from (select row_number() over (order by auction_no desc) as num, auction.* from auction 
-		where auction_form_no=#{_parameter} and to_date(auction_end)>=to_date(sysdate))
+		where auction_form_no=#{_parameter} and to_date(auction_end)>=to_date(sysdate) and auction_endyn='N')
 		where num=1
 	</select>
+	<update id="auctionUpdate" parameterType="auction">
+		update auction set auction_endyn='Y' where auction_form_no=#{auctionFormNo} and auction_endyn='N'
+	</update>
 	<select id="BIDScheduler" parameterType="integer" resultType="auction">
 		select auction_no as auctionNo,
 			auction_start as auctionStart,

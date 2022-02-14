@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hot.shop.admin.model.service.AdminService;
@@ -47,10 +51,18 @@ public class AdminController {
 	
 	// 메인 대시보드
 	@RequestMapping(value="/admin/adminDashboardPage.do",method = RequestMethod.GET)
-	public ModelAndView adminDashboardPage(ModelAndView mav) {
+	public ModelAndView adminDashboardPage(ModelAndView mav, @SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
+		
 		HashMap<String, Integer> map = aService.countOutput();
 		HashMap<String, Integer> joinMap = aService.joinOutput();
 		HashMap<String, Integer> farmMap = aService.farmOutput();
+		HashMap<String, Integer> sugMap = aService.sugWork();
 		ArrayList<QuestionUser> qUser = aService.questionUser();
 		ArrayList<QuestionFarm> qFarm = aService.questionFarm();
 		ArrayList<Refund> refund = aService.refund();
@@ -68,7 +80,13 @@ public class AdminController {
 	
 	// 옥션 페이지
 	@RequestMapping(value="/admin/adminAuctionPage.do",method = RequestMethod.GET)
-	public ModelAndView adminAuctionPage(ModelAndView mav) {
+	public ModelAndView adminAuctionPage(ModelAndView mav, @SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
 		
 		HashMap<String, Object> map = aService.auctionCheck();
 		HashMap<String, Object> map2 = aService.sellFormCheck();
@@ -79,8 +97,30 @@ public class AdminController {
 	}
 	// 경매 정보 입력
 	@RequestMapping(value = "/admin/auctionInput.do",method = RequestMethod.POST)
-	public ModelAndView auctionInput(Auction au,ModelAndView mav) {
+	public ModelAndView auctionInput(Auction au,ModelAndView mav, @SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
+		
 		au.setFarmNo(1);
+		System.out.println(au.toString());
+		if(au.getAuctionEndYN()=='Y') {
+			int result = aService.auctionUpdate(au);
+			if(result>0) {
+				mav.addObject("msg",au.getAuctionFormNo()+"번 경매가 취소되었습니다.");
+				mav.addObject("location","/admin/adminAuctionPage.do");
+			}else {
+				mav.addObject("msg","오류가 발생하였습니다.");
+				mav.addObject("location","/admin/adminAuctionPage.do");
+			}
+			
+			mav.setViewName("commons/msg");
+			
+			return mav;
+		}
 		int result = aService.auctionInput(au);
 		if(result>0) {
 			mav.addObject("msg",au.getAuctionFormNo()+"번 경매가 시작되었습니다.");
@@ -97,7 +137,14 @@ public class AdminController {
 	// 낙찰 정보 가져오기(BID)
 	@RequestMapping(value = "/admin/adminAuctionInfoPage.do", method = RequestMethod.GET)
 	public ModelAndView adminAuctionInfoPage(HttpServletRequest request,ModelAndView mav,@RequestParam int formNo,
-			@RequestParam(required = false, defaultValue = "1") int currentPage) {
+			@RequestParam(required = false, defaultValue = "1") int currentPage,
+			@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
 		
 		HashMap<String,Object> map = aService.BIDInfo(currentPage,formNo);
 		
@@ -111,7 +158,17 @@ public class AdminController {
 	// 관리자 페이지 판매폼에 낙찰된 경매 정보 입력받는 로직(BID 경매번호 토대로 경매 정보 가져오기)
 	@RequestMapping(value = "/admin/outputAuctionInfo.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Auction outputAucionInfo(@RequestParam int auctionNo) throws IOException{
+	public Auction outputAucionInfo(@RequestParam int auctionNo,
+			@SessionAttribute(required = false) Farm farm,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException{
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/commons/error.jsp");
+			view.forward(request, response);
+		}
+		
 		Auction au = aService.outputAucionInfo(auctionNo);
 		/*
 		Gson gson = new Gson();
@@ -123,7 +180,14 @@ public class AdminController {
 	}
 	// 판매DB 입력 로직
 	@RequestMapping(value = "/admin/sellInput.do", method = RequestMethod.POST)
-	public ModelAndView sellInput(SellForm sf,ModelAndView mav) {
+	public ModelAndView sellInput(SellForm sf,ModelAndView mav,@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
+		
 		int result = aService.sellInput(sf);
 		if(result>1) {
 			mav.addObject("msg",sf.getSellFormNo()+"번 판매가 시작되었습니다.");
@@ -139,8 +203,14 @@ public class AdminController {
 	}
 	// 판매중인 상품의 판매기간/홍보주소/종료여부 변경하는 로직
 	@RequestMapping(value = "/admin/sellUpdate.do", method = RequestMethod.POST)
-	public ModelAndView sellUpdate(SellForm sf,ModelAndView mav) {
-		System.out.println(sf);
+	public ModelAndView sellUpdate(SellForm sf,ModelAndView mav,@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
+		
 		int result = aService.sellUpdate(sf);
 		if(result>0) {
 			mav.addObject("msg",sf.getSellFormNo()+"번 판매 정보가 변경되었습니다.");
@@ -160,7 +230,15 @@ public class AdminController {
 	@RequestMapping(value = "/admin/adminFarmQNAPage.do", method = RequestMethod.GET)
 	public ModelAndView farmQNASearch(@RequestParam(required = false, defaultValue = "default") String type, 
 			@RequestParam(required = false, defaultValue = "") String keyword, 
-			@RequestParam(required = false, defaultValue = "1") int currentPage, ModelAndView mav) {
+			@RequestParam(required = false, defaultValue = "1") int currentPage, ModelAndView mav,
+			@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("type", type);
 		map.put("keyword", keyword);
@@ -179,7 +257,14 @@ public class AdminController {
 			@RequestParam(required = false, defaultValue = "default") String type, 
 			@RequestParam(required = false, defaultValue = "") String keyword,
 			@RequestParam(required = false, defaultValue = "1") int currentPage,
-			@RequestParam int questionFarmNo,ModelAndView mav) {
+			@RequestParam int questionFarmNo,ModelAndView mav,
+			@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
 		
 		QuestionFarm qFarm = aService.questionFarmContent(questionFarmNo);
 		QuestionAnswer qAnswer = aService.questionFarmAnswer(questionFarmNo);
@@ -201,7 +286,14 @@ public class AdminController {
 	public ModelAndView userQNASearch(
 			@RequestParam(required = false, defaultValue = "default") String type, 
 			@RequestParam(required = false, defaultValue = "") String keyword, 
-			@RequestParam(required = false, defaultValue = "1") int currentPage, ModelAndView mav) {
+			@RequestParam(required = false, defaultValue = "1") int currentPage, ModelAndView mav,
+			@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("type", type);
@@ -223,7 +315,14 @@ public class AdminController {
 			@RequestParam(required = false, defaultValue = "") String keyword,
 			@RequestParam(required = false, defaultValue = "1") int currentPage,
 			@RequestParam int questionUserNo,
-			ModelAndView mav) {
+			ModelAndView mav,
+			@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
 		
 		QuestionUser qUser = aService.questionUserContent(questionUserNo);
 		QuestionAnswer qAnswer = aService.questionUserAnswer(questionUserNo);
@@ -245,7 +344,14 @@ public class AdminController {
 	public ModelAndView adminRefund(ModelAndView mav,
 			@RequestParam(required = false,defaultValue = "1") int currentPage,
 			@RequestParam(required = false,defaultValue = "default") String type,
-			@RequestParam(required = false,defaultValue = "") String keyword) {
+			@RequestParam(required = false,defaultValue = "") String keyword,
+			@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("type", type);
@@ -269,7 +375,16 @@ public class AdminController {
 	public Boolean adminRefundUpdate(
 			@RequestParam int refundNo,
 			@RequestParam char adminYN,
-			@RequestParam String orderNo) {
+			@RequestParam String orderNo,
+			@SessionAttribute(required = false) Farm farm,
+			HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/commons/error.jsp");
+			view.forward(request, response);
+		}
 		
 		setup();
 		
@@ -310,7 +425,14 @@ public class AdminController {
 	public ModelAndView farmSearchList(ModelAndView mav,
 			@RequestParam(required = false,defaultValue = "1") int currentPage,
 			@RequestParam(required = false,defaultValue = "default") String type, 
-			@RequestParam(required = false,defaultValue = "") String keyword) {
+			@RequestParam(required = false,defaultValue = "") String keyword,
+			@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
 		
 		if(type.equals("farmNo")) {
 			boolean isNumber = Pattern.matches("^[0-9]*$", keyword);
@@ -337,7 +459,15 @@ public class AdminController {
 			@RequestParam int currentPage,
 			@RequestParam(required = false, defaultValue = "default") String type, 
 			@RequestParam(required = false, defaultValue = "") String keyword,
-			@RequestParam String endYN) {
+			@RequestParam String endYN,
+			@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("farmNo", farmNo);
 		map.put("endYN", endYN);
@@ -356,7 +486,15 @@ public class AdminController {
 	// 농장 정보 팝업 로직
 	@RequestMapping(value = "/admin/adminFarmInfoPage.do", method = RequestMethod.GET)
 	public ModelAndView farmInfoPage(ModelAndView mav,
-			@RequestParam int farmNo) {
+			@RequestParam int farmNo,
+			@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
+		
 		Farm f = aService.farmInfo(farmNo);
 		mav.addObject("f",f);
 		mav.setViewName("/admin/admin_farm_info");
@@ -370,8 +508,15 @@ public class AdminController {
 	public ModelAndView memberSearchList(ModelAndView mav,
 			@RequestParam(required = false,defaultValue = "1") int currentPage,
 			@RequestParam(required = false,defaultValue = "default") String type, 
-			@RequestParam(required = false,defaultValue = "") String keyword) {
-			
+			@RequestParam(required = false,defaultValue = "") String keyword,
+			@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
+		
 		if(type.equals("userNo")) {
 			boolean isNumber = Pattern.matches("^[0-9]*$", keyword);
 			if(isNumber==false) {
@@ -398,8 +543,15 @@ public class AdminController {
 			@RequestParam int currentPage,
 			@RequestParam(required = false, defaultValue = "default") String type, 
 			@RequestParam(required = false, defaultValue = "") String keyword,
-			@RequestParam String endYN) {
+			@RequestParam String endYN,
+			@SessionAttribute(required = false) Farm farm) {
 
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
 		map.put("endYN", endYN);
@@ -413,7 +565,23 @@ public class AdminController {
 		}
 		mav.setViewName("commons/msg");
 		return mav;
-	}	
+	}
+	
+	// member 상세정보 팝업창
+	@RequestMapping(value = "/admin/adminMemberInfoPage.do", method = RequestMethod.GET)
+	public ModelAndView memberInfoPage(@RequestParam int userNo,ModelAndView mav,@SessionAttribute(required = false) Farm farm) {
+		
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
+		}
+		
+		Member m = aService.selectMember(userNo);
+		mav.addObject("m",m);
+		mav.setViewName("admin/admin_member_info");
+		return mav;
+	}
 
 //기타 로직 모음
 		
@@ -425,12 +593,4 @@ public class AdminController {
 			return "1";
 		}
 		
-		// member 상세정보 팝업창
-		@RequestMapping(value = "/admin/adminMemberInfoPage.do", method = RequestMethod.GET)
-		public ModelAndView memberInfoPage(@RequestParam int userNo,ModelAndView mav) {
-			Member m = aService.selectMember(userNo);
-			mav.addObject("m",m);
-			mav.setViewName("admin/admin_member_info");
-			return mav;
-		}
 }

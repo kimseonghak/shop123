@@ -34,7 +34,9 @@
 				</div>
 			</div>
 			<div class="countWrap">
-				<div class="count-graphWrap"></div>
+				<div class="count-graphWrap">
+					
+				</div>
 			</div>
 			<div class="countWrap">
 				<div class="count-graphWrap"></div>

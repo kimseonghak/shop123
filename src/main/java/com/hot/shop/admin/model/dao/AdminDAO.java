@@ -457,4 +457,12 @@ public class AdminDAO {
 	public QuestionAnswer questionFarmAnswer(int questionFarmNo) {
 		return sql.selectOne("admin.questionFarmAnswer",questionFarmNo);
 	}
+
+	public int auctionUpdate(Auction au) {
+		return sql.update("admin.auctionUpdate",au);
+	}
+
+	public HashMap<String, Integer> sugWork() {
+		return null;
+	}
 }

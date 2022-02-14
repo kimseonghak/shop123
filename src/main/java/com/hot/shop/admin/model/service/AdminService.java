@@ -71,4 +71,8 @@ public interface AdminService {
 	QuestionAnswer questionUserAnswer(int questionUserNo);
 
 	QuestionAnswer questionFarmAnswer(int questionFarmNo);
+
+	int auctionUpdate(Auction au);
+
+	HashMap<String, Integer> sugWork();
 }
