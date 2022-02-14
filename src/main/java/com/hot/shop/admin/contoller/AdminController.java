@@ -584,7 +584,7 @@ public class AdminController {
 		return mav;
 	}
 // 게시판 관련 기능
-	
+	// 게시판 페이지
 	@RequestMapping(value = "/admin/adminBoardPage.do", method = RequestMethod.GET)
 	public ModelAndView adminBoardPage(ModelAndView mav,
 			@RequestParam(required = false, defaultValue = "default") String type, 
@@ -608,7 +608,7 @@ public class AdminController {
 		
 		return mav;
 	}
-	
+	// 홍보게시판 삭제 복구
 	@RequestMapping(value = "/admin/adminPromotionEndYNUpdate.do", method = RequestMethod.GET)
 	public ModelAndView promotionEndYNUpdate(ModelAndView mav,
 			@RequestParam String endYN,
@@ -637,7 +637,6 @@ public class AdminController {
 		return mav;
 	}
 	
-	
 // 기타 로직 모음
 		
 	// 방문자 카운트 더하는 로직
@@ -647,5 +646,4 @@ public class AdminController {
 		aService.countInput();
 		return "1";
 	}
-		
 }

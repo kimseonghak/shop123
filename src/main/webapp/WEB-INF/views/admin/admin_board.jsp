@@ -303,12 +303,6 @@
 				};
 			}
 		});
-<%-- 글 제목 클릭시 해당 글 내용으로 이동하는 스크립트 --%>
-		$('.promotion').click(function(){
-			var promotionNo = $(this).prev().html();
-			var currentPage = ${map.currentPage};
-			location.replace('/admin/adminBoardContent.do?currentPage='+currentPage+'&promotionNo='+promotionNo);
-		});
 <%-- 농가 이름 클릭시 유저 정보창 출력 --%>
 		$('.farm').click(function(){
 			var farmNo = $(this).prev().html();
@@ -321,6 +315,11 @@
 <%-- 해당 페이지 최초 페이지 이동 --%>
 		$('#title').click(function(){
 			location.replace('/admin/adminBoardPage.do');
+		});
+<%-- 문의 번호 클릭시 해당 게시글 팝업 --%>
+		$('.promotion').click(function(){
+			var questionUserNo=$(this).prev().html();
+			window.open("/promotion/promotionViewPage.do?promotionNo="+questionUserNo,'_blank','width=1000px,height=800px');
 		});
 	</script>
 </body>

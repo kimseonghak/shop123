@@ -47,10 +47,15 @@
 					<hr style="border:1px solid #48bb78;">
 					<div class="boardBody">
 						<ul id="sugWorkUL">
-							<li>판매 대기 : ${sugMap.BID_SELL_YN }</li>
-							<li>유저 문의 : ${sugMap.QUSER_ANSWER_YN }</li>
-							<li>농가 문의 : ${sugMap.QFARM_ANSWER_YN }</li>
-							<li>환불 대기 : ${sugMap.REFUND_YN }</li>
+							<li id="liText">
+								판매 대기 중인 낙찰건 : ${sugMap.BID_SELL_YN }<br>
+								답변 대기 중인 농가 문의 : ${sugMap.QUSER_ANSWER_YN }<br>
+								답변 대기 중인 유저 문의 : ${sugMap.QFARM_ANSWER_YN }<br>
+								환불 대기 중인 환불 건 : ${sugMap.REFUND_YN }<br>
+							</li>
+							<li id="liGraph">
+								<canvas id="test"></canvas>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -222,6 +227,50 @@
 						}
 					}
 				}
+			});
+		});
+		$(function(){
+			var context = document.getElementById('test').getContext('2d');
+			var num1 = ${sugMap.BID_SELL_YN };
+			var num2 = ${sugMap.QUSER_ANSWER_YN };
+			var num3 = ${sugMap.QFARM_ANSWER_YN };
+			var num4 = ${sugMap.REFUND_YN };
+			var test = new Chart(context,{
+				type:'bar',
+				data:{
+					labels:['판매대기','유저문의','농가문의','환불대기'],
+					datasets:[{
+						label:'추천 작업',
+						data: [num1,num2,num3,num4],
+						backgroundColor:[
+							'rgba(255,99,132,0.2)',
+							'rgba(54,162,235,0.2)',
+							'rgba(255, 159, 64, 0.2)',
+							'rgba(75, 192, 192, 0.2)'
+						],
+						borderColor:[
+							'rgba(255,99,132,1)',
+							'rgba(54,162,235,1)',
+							'rgba(255, 159, 64, 1)',
+							'rgba(75, 192, 192, 1)'
+						],
+						borderWidth:1
+					}],
+				},
+				options:{
+					maintainAspectRatio: false, //false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+					indexAxis: 'y',
+					scales:{
+						y:{
+							beginAtZero:true
+						}
+					}
+				},
+				plugins:{
+					legend:{
+						position: 'right',
+					}
+				},
 			});
 		});
 <%-- tr 클릭시 해당 글로 이동하는 로직 --%>

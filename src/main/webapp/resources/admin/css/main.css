@@ -130,7 +130,9 @@ table {
 	font-size:2vmin;
 	font-family: 'Nanum Gothic', 'sans-serif';
 }
-#sugWorkUL>li{
-	height:25%;
-	line-height: 300%;
+#liText{
+	height:30%;
+}
+#liGraph{
+	height:70%;
 }

@@ -12,7 +12,7 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="/resources/admin/css/common.css">
 <meta charset="UTF-8">
-<title>123상회 farmQNA관리</title>
+<title>123상회 userQNA</title>
 <style>
 	#mainContents{
 		padding: 0px;
