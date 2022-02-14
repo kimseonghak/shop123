@@ -8,11 +8,11 @@ import com.hot.shop.notice.model.vo.Notice;
 
 public interface NoticeService {
 
-	HashMap<String, Object> noticeList(int currentPage,HashMap<String, Object> searchMap);//공지사항 리스트
-
+	HashMap<String, Object> selectNoticeList(HashMap<String, Object> map); //공지사항 리스트
+	
 	int insertWrite(Notice n);//공지사항 글쓰기
 
-	Notice NoticeViewPage(int noticeNo);//공지사항 글 조회(뷰)
+	HashMap<String, Object> NoticeViewPage(int noticeNo);//공지사항 글 조회(뷰)
 
 	int updateWrite(Notice n); //공지사항 수정
 

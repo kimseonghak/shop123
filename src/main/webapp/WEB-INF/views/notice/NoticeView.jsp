@@ -1,222 +1,306 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ 
+<!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 
-<!-- 제이쿼리 라이브러리 -->
+<%-- jstl 라이브러리 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+
+<%--jQuery 라이브러리 --%>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
-<meta charset="UTF-8">
-<title>공지 사항</title>
+<%-- 폰트 설정 라이브러리 --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">
 
-<style type="text/css">
+<%-- 부트스트랩 라이브러리 --%>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<%-- css import --%>
+
+<title>Insert title here</title>
+</head>
+
+<style>
 
 *{
 	box-sizing: border-box;
 }
 
-#warpForm{
-	width: 100%;
-	height: 1417px;
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
 }
 
-#headerForm{
+.wrapForm{
+	width: 100%;
+	min-height: 100%;
+}
+
+.headerForm{
 	width: 100%;
 	height: 175px;
 }
 
-#contentForm{
+.contentForm{
+	padding: 30px;
 	width: 100%;
-	height: 1000px;
-	background-color : #f0f0f0 ;
+	
 }
 
-#footerForm{
+.footerForm{
 	width: 100%;
 	height: 242px;
 }
 
-
-#content_background{
-	width: 60%;
+.contentwrap{
+	width: 90%;
 	height: 80%;
-	border-radius: 15px / 15px;	
-	margin: 30px auto;
-	padding: 50px;
+	margin: 100px auto;
+	padding: 10px;
 	background-color: white;
+	border-radius: 5px/5px;
+	border: 2px solid #3BBD5A;
 }
 
+.titleform1{
+	width: 95%;
+	height: 50px;
+	border-bottom: 1px solid black;
+	position: relative;
+	padding: 10px;
+	margin-top: 20px;
+	margin-botton: 50px;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+}
 
-#content_titleForm{
-	width: 100%;
-	height: 30px;
+.tag-select{
 	text-align: left;
+	float: left;
+	
 }
 
-#content_RegdateForm{
+.title{
+	width: 75%;
+	text-align: left;
+	float: left;
+	margin-left: 10px;
+}
+
+.titleform2{
+	width: 95%;
+	height: 40px;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+}
+
+.icon{
+	width:17.5px;
+	height:17.5px;
+	margin-bottom: -3px;
+}
+
+.time{
+	text-align: left;
+	float: left;
+	margin-left: 20px;
+	margin-top:5px;
+}
+
+.hit{
+	float: left;
+	margin-left: 20px;
+	margin-top:5px;
+}
+
+.context{
+	width: 85%;
+	min-height: 200px;
+	margin-top: 50px;
+}
+
+.empty{
 	width: 100%;
-	height: 30px;
-	text-align: right;
+	height: 50px;
 }
 
-#writerForm{
-	width: 20%;
-	height: 30px;
-	float: right;
-	text-align: right;
-}
-
-#content_textForm{
+.btnform{
 	width: 100%;
-	height: 60%;
+	height: 40px;
+	padding: 10px;
+	margin-top: 40px;
 	text-align: center;
-	border: 1px solid rgba(0, 0, 0, .15);
+}
+
+.promotionBtn{
+	width: 130px;
+	height: 40px;
+	background-color: #3BBD5A;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+	color: #ffffff;
 	border-radius: 5px / 5px;	
+	border : none;
+	margin-right: 20px;
+	cursor : pointer;
 }
 
-
-/*버튼 디자인*/
-#btnForm{
-	width: 100%;
-	height: 50px;
-	margin: 0 auto;
+.listBtn{
+	width: 130px;
+	height: 40px;
+	background-color: gray;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+	color: #ffffff;
+	border-radius: 5px / 5px;	
+	border : none;
+	margin-right: 20px;
+	cursor : pointer;
 }
 
-#update_Btn_Form{
-	width: 120px;
-	height: 50px;
-	float: right;
+.deleteBtn{
+	width: 130px;
+	height: 40px;
+	background-color: gray;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+	color: #ffffff;
+	border-radius: 5px / 5px;	
+	border : none;
+	margin-right: 20px;
+	cursor : pointer;
 }
 
-#delete_Btn_Form{
-	width: 120px;
-	height: 50px;
-	float: right;
-}
-
-#list_Btn_Form{
-	width: 120px;
-	height: 50px;
-	float: right;
-}
-
-#mainBtn{
-	width: 110px;
-	height: 50px;
-	float: right;
+.updateBtn{
+	width: 130px;
+	height: 40px;
 	background-color: #3BBD5A;
 	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 	color: #ffffff;
-	border-radius: 5px / 5px;
+	border-radius: 5px / 5px;	
 	border : none;
+	margin-right: 20px;
 	cursor : pointer;
-	margin: 0 auto;
 }
 
-#deleteBtn{
-	width: 110px;
-	height: 50px;
-	float: right;
-	background-color: #9B9B9B;
-	font : normal bold 17.5px "Nanum Gothic",sans-serif;
-	color: #ffffff;
-	border-radius: 5px / 5px;
-	border : none;
-	cursor : pointer;
-	margin: 0 auto;
-}
-
-#updateBtn{
-	width: 110px;
-	height: 50px;
-	float: right;
-	background-color: #3BBD5A;
-	font : normal bold 17.5px "Nanum Gothic",sans-serif;
-	color: #ffffff;
-	border-radius: 5px / 5px;
-	border : none;
-	cursor : pointer;
-	margin: 0 auto;
-}
 </style>
 
-</head>
 <body>
 
-<div id="warpForm" align="center">
-	<div id="headerForm">
+<div id="wrapForm" align="center">
+	<div class="headerForm">
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
-	
-	
-	<div id="contentForm"><br>
-		<div id="content_background">
-			<form action="/notice/noticeUpdatePage.do" method="post" >
-			
-			<!-- 수정 폼으로 데이터를 넘겨주기 위한 코드 (추후 간결화되면 삭제해야 함) -->
-			<input type="hidden" name="noticeNo" value="${notice.noticeNo}"/>
-			<input type="hidden" name="noticeCode" value="${notice.noticeCode}"/>
-			<input type="hidden" name="noticeCategory" value="${notice.noticeCategory}"/>
-			<input type="hidden" name="noticeTitle" value="${notice.noticeTitle}"/>
-			<input type="hidden" name="noticeContent" value="${notice.noticeContent }"/>
-			<input type="hidden" name="farmNo" value="${notice.farmNo}"/>
-			
-				<div id="content_titleForm">
-					<span>${notice.noticeTitle}</span>
-				<div id="writerForm">
-					<span>[ ${notice.farmNo } ]</span>
+
+	<div class="contentForm">
+		<div class="contentwrap">
+		
+			<%-- 필요한 name 데이터 --%>
+			<input type="hidden" name="noticeNo" value="${map.notice.noticeNo }">
+				
+		
+			<%-- 태그, 제목, 작성자 영역 --%>
+			<div class="titleform1">
+				<div class="tag-select">
+				<c:if test="${map.notice.noticeCategory eq 'Category-1' }">
+					<span>[기타]</span>
+				</c:if>
+				<c:if test="${map.notice.noticeCategory eq 'Category-2' }">
+					<span>[회원가입]</span>
+				</c:if>
+				<c:if test="${map.notice.noticeCategory eq 'Category-3' }">
+					<span>[경매]</span>
+				</c:if>
 				</div>
-			</div><hr>
-	
-			<div id="content_RegdateForm">
-				<span>[작성일 : ${notice.noticeRegdate}]</span> <span>[조회수 : ${notice.noticeCount}]</span>
+				<div class="title">
+					<span>${map.notice.noticeTitle}</span>
+				</div>
+				
 			</div>
-	
-			<div id="content_textForm">
-				${notice.noticeContent }
-			</div><br>
 			
-			
-			<div id="btnForm">
-				<div id="list_Btn_Form"><button type="button" id="mainBtn">메인으로</button></div>
-				<div id="delete_Btn_Form"><button type="button" id="deleteBtn">글 삭제</button></div>
-				<div id="update_Btn_Form"><button type="submit" id="updateBtn">글 수정</button></div>
+			<%-- 작성일, 조회수 영역 --%>
+			<div class="titleform2">
+				<div class="time">
+					<img class="icon" src="/resources/icon/clock_icon.png"/>
+					<span>${map.notice.noticeRegdate}</span>
+				</div>
+				<div class="hit">
+					<img class="icon" src="/resources/icon/hit_icon.png"/>
+					<span>${map.notice.noticeCount}</span>
+				</div>
 			</div>
-			</form>
+			
+			<%-- 게시글 영역 --%>
+			<div class="content_zone">
+				<div class="context">
+					<p>${map.notice.noticeContent}</p>
+				</div>
+			</div>
+			
+			<%-- 빈 공간 --%>
+			<div class="empty"></div>
+			
+			<%-- 버튼 영역 --%>
+			<div class="btnForm">
+				<c:if test="${farm != null && (farm.rating eq 'admin' or farm.rating eq 'root')}"> 
+					<button type="button" class="deleteBtn">글 삭제</button>
+					<button type="submit" class="updateBtn">글 수정</button>
+				</c:if>
+				<button type="button" class="listBtn">메인으로</button>
+			</div>
+			
+			<%-- 빈 공간 --%>
+			<div class="empty"></div>
+			
 		</div>
 	</div>
 
-	
-	<div id="footerForm">
+	<div class="footerForm">
 		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
-	</div>
-
+	</div>	
 </div>
 
 <script>
-	$('#deleteBtn').click(function(){
-	    if(window.confirm('삭제할건가요?')){
-	        var formTag = document.createElement("form");
-	        formTag.setAttribute("action",'/notice/noticeDelete.do');
-	        formTag.setAttribute("method",'post');
-	
-	        var inputTag = document.createElement("input");
-	        inputTag.setAttribute("type","hidden");
-	        inputTag.setAttribute("name","noticeNo");
-	        inputTag.setAttribute("value","${notice.noticeNo}");
-	
-	        formTag.appendChild(inputTag);//폼 테그안에 인풋 태그 넣고
-	        document.body.appendChild(formTag);//폼 테그를 연결시켜준다
-	        formTag.submit();
-	    }else{
-	        alert('삭제를 취소하셨습니다.');
-	    }
-	});
+<%-- 글 목록으로 돌아가는 버튼 --%>
+$('.listBtn').click(function(){
+	var currentPage = ${currentPage};
+	var type = "${type}";
+	var keyword = "${keyword}";
+	location.replace('/notice/noticeListPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
+});
 
+<%-- 글 수정 버튼 --%>
+$('.updateBtn').click(function(){
+	var noticeNo=${map.notice.noticeNo};
+	location.replace('/notice/noticeUpdatePage.do?noticeNo='+noticeNo);
+});
+
+<%-- 글 삭제 버튼 --%>
+$('.deleteBtn').click(function(){
+	if(window.confirm('게시글을 삭제하시겠습니까?')){
+
+		var form = "${map.notice.noticeNo }";
+		console.log(form);
+		
+        var formTag = document.createElement("form");
+        formTag.setAttribute("action",'/notice/noticeDelete.do');
+        formTag.setAttribute("method",'post');
+
+        var inputTag = document.createElement("input");
+        inputTag.setAttribute("type","hidden");
+        inputTag.setAttribute("name","noticeNo");
+        inputTag.setAttribute("value","${map.notice.noticeNo }");
+
+        formTag.appendChild(inputTag);//폼 테그안에 인풋 태그 넣고
+        document.body.appendChild(formTag);//폼 테그를 연결시켜준다
+        formTag.submit();
+    }else{
+        alert('삭제를 취소하셨습니다.');
+    }
+});
 </script>
-
 
 </body>
 </html>

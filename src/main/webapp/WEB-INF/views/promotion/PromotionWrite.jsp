@@ -236,7 +236,6 @@ body {
 				<%-- 버튼 폼 --%>
 				<div class="Btnform">
 					<button type="button" class="listbtn">리스트</button>
-					<button type="reset" class="resetbtn">다시 쓰기</button>
 					<button type="submit" class="submitbtn">글 작성하기</button>
 				</div>
 	
@@ -287,9 +286,12 @@ $('.submitbtn').click(function(){
 });
 
 <%-- 리스트 돌아가기 버튼 --%>
-$('.listBtn').click(function(){
-	location.replace("/promotion/promotionListPage.do.do");
-});
+	$('.listbtn').click(function(){
+		var currentPage = "${currentPage}";
+		var type = "${type}";
+		var keyword = "${keyword}";
+		location.replace('/promotion/promotionListPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
+	});
 
 </script>
 

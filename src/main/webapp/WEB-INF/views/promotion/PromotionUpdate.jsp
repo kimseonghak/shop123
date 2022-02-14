@@ -211,16 +211,18 @@ body {
 			
 			<%-- 입력 폼 --%>
 			<div class="insert_zone">
-			<form action="/promotion/promotionUpdate.do" method="post" id="textWrite">
+			<form action="/promotion/promotionUpdate.do" method="get" id="textUpdate">
 				
 				<%-- 데이터를 보내주기 위한 Hidden --%>
-						
+					<input type="hidden" name="originalPromotionphotoNo" value="1">
+					<input type="hidden" name="promotionPhotoNo"  value="${map.promotion.promotionPhotoNo }">
+					<input type="hidden" name="promotionNo" value="${map.promotion.promotionNo }">
 				<%-- 글 제목 입력 --%>
-				<input type="text" class="title" placeholder="제목을 입력하시오" value="${map.promotion.promotionTitle }"/>
+				<input type="text" class="title" name="promotionTitle" placeholder="제목을 입력하시오" value="${map.promotion.promotionTitle }"/>
 				
 				<%-- 글 내용 입력 --%>
 				<div class="contextForm">
-					<textarea class="content" placeholder="내용을 입력하시오">${map.promotion.promotionContent }</textarea>
+					<textarea class="content" name="promotionContent" placeholder="내용을 입력하시오">${map.promotion.promotionContent }</textarea>
 				</div>
 			
 			</form>
@@ -240,7 +242,7 @@ body {
 				
 				<%-- 첨부파일 --%>
 				<div class="imgForm">
-					<input type="file" id="file_submit"/>
+					<input type="file" name="file" id="file_submit"/>
 					<button id="img_Submit">업로드하기</button>
 				</div>
 				
@@ -250,7 +252,6 @@ body {
 				<%-- 버튼 폼 --%>
 				<div class="Btnform">
 					<button type="button" class="listbtn">리스트</button>
-					<button type="reset" class="resetbtn">다시 쓰기</button>
 					<button type="submit" class="submitbtn">글 작성하기</button>
 				</div>
 			
@@ -265,15 +266,49 @@ body {
 </div>
 
 <script>
-<%-- 글쓰기 버튼 --%>
-	$('.submitbtn').click(function(){
-		$("#textWrite").submit();
-	});
+
 
 <%-- 리스트 돌아가기 버튼 --%>
-	$('.listBtn').click(function(){
-		location.replace("/promotion/promotionListPage.do.do");
+	$('.listbtn').click(function(){
+		var currentPage = "${currentPage}";
+		var type = "${type}";
+		var keyword = "${keyword}";
+		location.replace('/promotion/promotionListPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
 	});
+
+<%-- 글 수정 버튼 --%>
+	$('.submitbtn').click(function(){
+		$("#textUpdate").submit();
+	});	
+	
+<%-- 이미지 업로드 Ajax --%>
+	$('#img_Submit').click(function(){
+	    var formData = new FormData();
+	
+	    var inputFile = $("input[name='file']");
+	
+	    var files = inputFile[0].files;
+	
+	    formData.append("file", files[0]);
+	
+	    $.ajax({
+	        url : "/promotion/promotionWriteFileUpload.do",
+	        processData : false,
+	        contentType : false,
+	        data : formData,
+	        type : "POST",
+	        success:function(result){
+	            if(result != null && result != 0){
+	                alert("파일이 업로드되었습니다.");
+	                $("input[name='promotionPhotoNo']").val(result);
+	                console.log($("input[name='promotionPhotoNo']").val());
+	            }else{
+	                alert("파일 업로드에 실패하였습니다.");
+	            }
+	        }
+	    });
+	});
+	
 </script>
 
 </body>
