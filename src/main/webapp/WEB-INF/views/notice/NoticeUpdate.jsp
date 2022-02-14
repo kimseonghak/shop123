@@ -60,20 +60,20 @@ body {
 }
 
 .contentwrap{
-	width: 90%;
-	height: 70%;
+	width: 60%;
+	height: 60%;
 	margin: 100px auto;
 	padding: 10px;
 	border-radius: 5px/5px;
-	border: 2px solid #3BBD5A;
+	box-shadow: 3px 3px 10px #aeaeae;
 }
 
 .page_name{
-	width: 25%;
+	width: 40%;
 	height: 60px;
 	text-align: center;
 	padding: 50px 20px 0px;
-	margin: 5% 75% 5% 5%;
+	margin: 2% 60% 5% 5%;
 	color: #3BBD5A;
 	font : normal bold 30px "Nanum Gothic",sans-serif;
 }
@@ -99,19 +99,20 @@ body {
 
 .option_form{
 	min-width: 10%;
-	height: 50px;
+	height: 30px;
 }
 
 .option{
-	min-width: 175px;
+	min-width: 50px;
 	height: 30px;
 	border: none;
 	text-align: left;
-	font : normal bold 20px "Nanum Gothic",sans-serif;
-	float: left;
+	font : normal bold 21px "Nanum Gothic",sans-serif;
 	margin-left: 15px;
 	margin-top: -3px;
+	float: left;
 	outline: none;
+	
 }
 
 .title{
@@ -140,12 +141,6 @@ body {
 	font : normal 20px "Nanum Gothic",sans-serif;
 	background-color: #f0f0f0;
 	outline: none;
-}
-
-.imgForm{
-	width: 100%;
-	height: 30px;
-	text-align: left;
 }
 
 .btnform{
@@ -207,7 +202,7 @@ body {
 			
 			<%-- 제목 공간 --%>
 			<div class="page_name">
-				<span>공지사항 수정</span>
+				<span>공지사항을 수정해 주세요</span>
 			</div>
 			
 			<%-- 빈 공간 --%>		
@@ -244,6 +239,9 @@ body {
 						</c:choose>
 						</select>
 					</div>
+				
+				<%-- 빈 공간 --%>		
+				<div class="empty"></div>	
 					
 				<%-- 옵션 2 --%>
 				<div class="optiontitle">공지사항 분류 :</div>
@@ -313,8 +311,7 @@ body {
 	});
 
 <%-- 글 수정 버튼 --%>
-	$('.submitbtn').click(function(){
-		
+	$('.submitbtn').click(function(){	
 		$("#textUpdate").submit();
 	});	
 

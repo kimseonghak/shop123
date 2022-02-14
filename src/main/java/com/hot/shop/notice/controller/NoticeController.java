@@ -34,10 +34,7 @@ public class NoticeController {
 			@RequestParam(required = false, defaultValue = "default") String type,
 			@SessionAttribute(required = false) Farm farm) 
 	{
-		if(member==null&&farm==null) {
-			mav.setViewName("member/login");
-			return mav;
-		}else {
+		
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("farm", farm);
 			map.put("currentPage", currentPage);
@@ -50,7 +47,7 @@ public class NoticeController {
 			mav.addObject("currentPage",currentPage);
 			mav.setViewName("notice/NoticeList");
 			return mav;
-		}
+		
 		
 	}
 	

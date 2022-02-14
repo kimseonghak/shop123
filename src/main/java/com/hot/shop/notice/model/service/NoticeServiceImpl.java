@@ -19,7 +19,7 @@ public class NoticeServiceImpl implements NoticeService{
 	//공지사항 리스트
 		@Override
 		public HashMap<String, Object> selectNoticeList(HashMap<String, Object> map) {
-			int recordCountPerPage=5;
+			int recordCountPerPage=10;
 			ArrayList<Notice> list = nDAO.getNoticeList(recordCountPerPage,map);
 			int naviCountPerPage=10;
 			String pageNavi = nDAO.getNoticeNavi(recordCountPerPage,naviCountPerPage,map);

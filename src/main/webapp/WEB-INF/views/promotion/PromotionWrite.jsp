@@ -51,7 +51,6 @@ body {
 .contentForm{
 	padding: 30px;
 	width: 100%;
-	background-color: #f0f0f0;
 	
 }
 
@@ -61,12 +60,13 @@ body {
 }
 
 .contentwrap{
-	width: 90%;
-	height: 80%;
+	width: 60%;
+	height: 70%;
 	margin: 100px auto;
 	padding: 10px;
 	background-color: white;
 	border-radius: 5px/5px;
+	box-shadow: 3px 3px 10px #aeaeae;
 }
 
 .page_name{
@@ -74,7 +74,7 @@ body {
 	height: 60px;
 	text-align: center;
 	padding: 50px 20px 0px;
-	margin: 5% 75% 5% 5%;
+	margin: 5% 70% 5% 8%;
 	color: #3BBD5A;
 	font : normal bold 30px "Nanum Gothic",sans-serif;
 }
@@ -135,7 +135,7 @@ body {
 	cursor : pointer;
 }
 
-.btnform{
+.Btnform{
 	width: 100%;
 	height: 40px;
 	padding: 10px;
@@ -238,6 +238,9 @@ body {
 					<button type="button" class="listbtn">리스트</button>
 					<button type="submit" class="submitbtn">글 작성하기</button>
 				</div>
+				
+				<%-- 빈 공간 --%>		
+				<div class="empty"></div>
 	
 			</div>
 		</div>

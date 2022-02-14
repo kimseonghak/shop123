@@ -60,13 +60,13 @@ body {
 }
 
 .contentwrap{
-	width: 90%;
+	width: 65%;
 	height: 80%;
 	margin: 100px auto;
 	padding: 10px;
 	background-color: white;
 	border-radius: 5px/5px;
-	border: 2px solid #3BBD5A;
+	box-shadow: 3px 3px 10px #aeaeae;
 }
 
 .titleform1{
@@ -109,13 +109,13 @@ body {
 	text-align: left;
 	float: left;
 	margin-left: 20px;
-	margin-top:5px;
+	margin-top:10px;
 }
 
 .hit{
 	float: left;
-	margin-left: 20px;
-	margin-top:5px;
+	margin-left: 40px;
+	margin-top:10px;
 }
 
 .context{
@@ -129,24 +129,13 @@ body {
 	height: 50px;
 }
 
-.btnform{
-	width: 100%;
+.btnForm{
+	width: 95%;
 	height: 40px;
 	padding: 10px;
 	margin-top: 40px;
 	text-align: center;
-}
-
-.promotionBtn{
-	width: 130px;
-	height: 40px;
-	background-color: #3BBD5A;
-	font : normal bold 17.5px "Nanum Gothic",sans-serif;
-	color: #ffffff;
-	border-radius: 5px / 5px;	
-	border : none;
-	margin-right: 20px;
-	cursor : pointer;
+	border-top: 1px solid #2a2a2a;
 }
 
 .listBtn{
@@ -158,6 +147,7 @@ body {
 	border-radius: 5px / 5px;	
 	border : none;
 	margin-right: 20px;
+	margin-top: 10px;
 	cursor : pointer;
 }
 
@@ -170,6 +160,7 @@ body {
 	border-radius: 5px / 5px;	
 	border : none;
 	margin-right: 20px;
+	margin-top: 10px;
 	cursor : pointer;
 }
 
@@ -182,6 +173,7 @@ body {
 	border-radius: 5px / 5px;	
 	border : none;
 	margin-right: 20px;
+	margin-top: 10px;
 	cursor : pointer;
 }
 

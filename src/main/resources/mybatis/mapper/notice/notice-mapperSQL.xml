@@ -14,7 +14,7 @@
 				NOTICE_END_YN as noticeEndYN,
 				NOTICE_CODE as noticeCode,
 				NOTICE_CATEGORY as noticeCategory
-			from (select row_number() over(order by 1 desc)as num, notice.* from notice LEFT JOIN farm on (notice.FARM_NO=farm.FARM_NO)
+			from (select row_number() over(order by NOTICE_NO desc)as num, notice.* from notice LEFT JOIN farm on (notice.FARM_NO=farm.FARM_NO)
 			where NOTICE_CODE IN ('A','F','U') AND NOTICE_END_YN='N'
 			<choose>
 				<when test="type!=null and type.equals('subject')">
