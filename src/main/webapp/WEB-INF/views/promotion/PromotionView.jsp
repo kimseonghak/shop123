@@ -51,7 +51,6 @@ body {
 .contentForm{
 	padding: 30px;
 	width: 100%;
-	background-color: #f0f0f0;
 	
 }
 
@@ -61,12 +60,13 @@ body {
 }
 
 .contentwrap{
-	width: 90%;
+	width: 65%;
 	height: 80%;
 	margin: 100px auto;
 	padding: 10px;
 	background-color: white;
 	border-radius: 5px/5px;
+	box-shadow: 3px 3px 10px #aeaeae;
 }
 
 .titleform1{
@@ -113,18 +113,18 @@ body {
 	text-align: left;
 	float: left;
 	margin-left: 20px;
-	margin-top:5px;
+	margin-top: 10px;
 }
 
 .hit{
 	float: left;
-	margin-left: 20px;
-	margin-top:5px;
+	margin-left: 40px;
+	margin-top: 10px;
 }
 
 .img{
-	width: 60%;
-	height: 500px;
+	width: 500px;
+	height: 400px;
 	margin-top: 50px;
 	border-radius: 15px;
 }
@@ -141,12 +141,13 @@ body {
 	height: 50px;
 }
 
-.btnform{
-	width: 100%;
+.btnForm{
+	width: 95%;
 	height: 40px;
 	padding: 10px;
 	margin-top: 40px;
 	text-align: center;
+	border-top: 1px solid #2a2a2a;
 }
 
 .promotionBtn{

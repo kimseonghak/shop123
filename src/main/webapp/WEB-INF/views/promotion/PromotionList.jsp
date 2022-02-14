@@ -49,7 +49,6 @@ body {
 .contentForm{
 	padding: 30px;
 	width: 100%;
-	background-color: #f0f0f0;
 }
 
 .footerForm{
@@ -58,18 +57,19 @@ body {
 }
 
 .contentwrap{
-	width: 90%;
-	min-height: 1200px;
+	width: 65%;
+	min-height: 67%;
 	margin: 100px auto;
 	background-color: white;
 	border-radius: 5px/5px;
+	box-shadow: 3px 3px 10px #aeaeae;
 }
 
 .page_name{
 	width: 25%;
 	height: 60px;
 	text-align: center;
-	padding: 50px 20px 0px;
+	padding: 65px 20px 0px;
 	margin: 5% 75% 5% 5%;
 	color: #3BBD5A;
 	font : normal bold 30px "Nanum Gothic",sans-serif;
@@ -117,15 +117,14 @@ body {
 	width: 80%;
 	min-height: 1000px;
 	padding: 2px;
-	border: 1px solid #f0f0f0;
 	border-radius: 15px;
 }
 
 .list{
 	width: 100%;
-	height: 22%;
+	height: 20%;
 	margin: 5px auto;
-	border: 1px solid gray;
+	box-shadow: 3px 3px 10px #aeaeae;
 	border-radius: 10px;
 	cursor: pointer;
 }
@@ -163,8 +162,48 @@ body {
 	text-align: center;
 }
 
+.naviArrow{
+	text-decoration: none;
+	display : inline-block;
+	color: black;
+	margin : 2px;
+	width : 25px;
+	height: 25px;
+	font-weight: bolder;
+	opacity: 0.3;
+	line-height: 150%;
+}
+#currentNavi{
+	text-decoration: none;
+	display:inline-block;
+	color: white;
+	background-color:#48bb78;
+	border : 1px solid #48bb78;
+	width : 25px;
+	height: 25px;
+	margin : 1px;
+	font-weight: bolder;
+	line-height: 150%;
+}
+.otherNavi{
+	text-decoration: none;
+	display:inline-block;
+	color: #48bb78;
+	border : 1px solid #48bb78;
+	width : 25px;
+	height: 25px;
+	margin : 1px;
+	font-weight: bolder;
+	line-height: 150%;
+}
+.otherNavi:hover{
+	color: white;
+	background-color:#48bb78;
+	opacity: 0.3;
+}
+
 .buttonform{
-	width: 100%;
+	width: 95%;
 	height: 40px;
 	margin-top: 40px;
 	margin-right: 40px;
@@ -197,7 +236,7 @@ body {
 
 .empty{
 	width: 100%;
-	height: 40px;
+	height: 50px;
 }
 
 </style>
@@ -234,6 +273,8 @@ body {
 				</div>
 			</form>
 			
+			<div class="empty"></div>
+			
 			<%-- 리스트 공간 --%>
 			<div class="list_zone">
 				<c:forEach items="${map.list}" var="promotion">
@@ -247,7 +288,7 @@ body {
 					</div>
 					
 					<div class="titleform2">
-						<P>[ 작성일 : ${promotion.promotionRegdate} ]</P>
+						<P>[ 작성일 : ${promotion.promotionRegdate} ]</P><br>
 						<p>[ 조회수 : ${promotion.promotionCount} ]</p>
 					</div>
 					

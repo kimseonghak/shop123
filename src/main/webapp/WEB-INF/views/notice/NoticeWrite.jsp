@@ -60,12 +60,12 @@ body {
 }
 
 .contentwrap{
-	width: 90%;
+	width: 60%;
 	height: 60%;
 	margin: 100px auto;
 	background-color: white;
 	border-radius: 15px;
-	border: 2px solid #3BBD5A;
+	box-shadow: 3px 3px 10px #aeaeae;
 }
 
 .page_name{
@@ -73,7 +73,7 @@ body {
 	height: 60px;
 	text-align: center;
 	padding: 50px 20px 0px;
-	margin: 2% 70% 5% 2%;
+	margin: 2% 60% 5% 5%;
 	color: #3BBD5A;
 	font : normal bold 30px "Nanum Gothic",sans-serif;
 }

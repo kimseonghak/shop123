@@ -57,18 +57,18 @@ body {
 }
 
 .contentwrap{
-	width: 80%;
-	height: 75%;
+	width: 65%;
+	height: 65%;
 	margin: 100px auto;
 	border-radius: 15px;
-	border: 2px solid #3BBD5A;
+	box-shadow: 3px 3px 10px #aeaeae;
 }
 
 .page_name{
 	width: 25%;
 	height: 60px;
 	text-align: center;
-	padding: 50px 20px 0px;
+	padding: 80px 20px 0px;
 	margin: 5% 75% 5% 5%;
 	color: #3BBD5A;
 	font : normal bold 30px "Nanum Gothic",sans-serif;
@@ -114,8 +114,8 @@ body {
 
 .table_zone{
 	width: 80%;
-	height: 55%;
-	border: 1px solid black;
+	height: 50%;
+	border: 1px solid #2a2a2a;
 	border-radius: 15px;
 
 }
@@ -139,16 +139,56 @@ body {
 	text-align: center;
 }
 
+.naviArrow{
+	text-decoration: none;
+	display : inline-block;
+	color: black;
+	margin : 2px;
+	width : 25px;
+	height: 25px;
+	font-weight: bolder;
+	opacity: 0.3;
+	line-height: 150%;
+}
+#currentNavi{
+	text-decoration: none;
+	display:inline-block;
+	color: white;
+	background-color:#48bb78;
+	border : 1px solid #48bb78;
+	width : 25px;
+	height: 25px;
+	margin : 1px;
+	font-weight: bolder;
+	line-height: 150%;
+}
+.otherNavi{
+	text-decoration: none;
+	display:inline-block;
+	color: #48bb78;
+	border : 1px solid #48bb78;
+	width : 25px;
+	height: 25px;
+	margin : 1px;
+	font-weight: bolder;
+	line-height: 150%;
+}
+.otherNavi:hover{
+	color: white;
+	background-color:#48bb78;
+	opacity: 0.3;
+}
+
 .empty{
 	width: 100%;
 	height: 30px;
 }
 
 .buttonform{
-	width: 100%;
+	width: 95%;
 	height: 40px;
 	margin-top: 40px;
-	margin-right: 40px;
+	margin-right: 100px;
 	text-align: right;
 }
 
@@ -229,15 +269,18 @@ body {
 					<c:forEach items="${map.list}" var="notice">				
 						<tr class="view" onclick="location.href='/notice/NoticeView.do?noticeNo=${notice.noticeNo}&currentPage=${currentPage}&type=${map.type}&keyword=${keyword}'">
 					      <th scope="row">${notice.noticeNo}</th>
-					      <c:if test="${notice.noticeCategory eq 'Category-1' }">					
-							  <td>[기타]</td>
-						  </c:if>
-						  <c:if test="${notice.noticeCategory eq 'Category-2' }">					
-							  <td>[회원가입]</td>
-						  </c:if>
-						  <c:if test="${notice.noticeCategory eq 'Category-3' }">					
-							  <td>[경매]</td>
-						  </c:if>
+					      <c:choose>
+						      <c:when test="${notice.noticeCategory eq 'Category-1' }">					
+								  <td>[기타]</td>
+							  </c:when>
+							  <c:when test="${notice.noticeCategory eq 'Category-2' }">					
+								  <td>[회원가입]</td>
+							  </c:when>
+							  <c:when test="${notice.noticeCategory eq 'Category-3' }">					
+								  <td>[경매]</td>
+							  </c:when>
+							  <c:otherwise></c:otherwise>
+						  </c:choose>
 					      <td class="boardtitle">${notice.noticeTitle}</td>
 					      <td>${notice.noticeRegdate}</td>
 					      <td>${notice.noticeCount}</td>
