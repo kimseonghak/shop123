@@ -159,7 +159,7 @@ public class ProductintroController {
 		@RequestMapping(value = "/productintro/SeasonProductUpdate.do",method = RequestMethod.POST)
 		public ModelAndView SeasonProductUpdate(	ModelAndView mav,SeasonProductBoard seasonBoard) {
 			
-			System.out.println(seasonBoard);
+			
 			//글 수정했을때 새로운 이미지 파일이 들어오지 않았을 경우
 			if(seasonBoard.getSeasonProductPhotoNo()==1) {
 				seasonBoard.setSeasonProductNo(seasonBoard.getOriginalSeasonphotoNo());
@@ -177,7 +177,7 @@ public class ProductintroController {
 			}
 			
 			int result = piService.SeasonProductUpdate(seasonBoard);
-			System.out.println(seasonBoard);
+			
 			if(result > 1) {
 				mav.addObject("msg", "글이 수정되었습니다.." );
 				mav.addObject("location", "/productintro/SeasonProductView.do?seasonProductNo="+seasonBoard.getSeasonProductNo());
@@ -328,7 +328,7 @@ public class ProductintroController {
 	public ModelAndView LocalProductView(@RequestParam int localProductNo,ModelAndView mav) {
 		
 		LocalProductBoard localBoard = piService.LocalProductView(localProductNo);
-		System.out.println("조회="+localBoard);
+		
 		mav.addObject("localBoard", localBoard);
 		mav.setViewName("productintro/LocalProductView");
 		return mav;
@@ -370,7 +370,7 @@ public class ProductintroController {
 		
 		//리스트 갖고오기
 		LocalProductBoard localBoard = piService.LocalProductView(localProductNo);
-		System.out.println(localBoard);
+		
 		mav.addObject("localBoard", localBoard);
 		mav.setViewName("productintro/LocalProductUpdate");
 		return mav;

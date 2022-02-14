@@ -61,7 +61,7 @@ body {
 
 .contentwrap{
 	width: 60%;
-	height: 70%;
+	min-height: 80%;
 	margin: 100px auto;
 	padding: 10px;
 	background-color: white;
@@ -81,7 +81,7 @@ body {
 
 .insert_zone{
 	width: 80%;
-	min-height: 700px;
+	min-height: 750px;
 }
 
 .empty{
@@ -108,7 +108,7 @@ body {
 
 .content{
 	width: 100%;
-	min-height: 400px;
+	min-height: 450px;
 	text-align: left;
 	border: none;
 	resize: none;
@@ -128,7 +128,7 @@ body {
 	width: 100px;
 	height: 30px;
 	background-color: #3BBD5A;
-	font : normal bold 17.5px "고딕체";
+	font : normal 17.5px "Nanum Gothic",sans-serif;
 	color: #ffffff;
 	border-radius: 15px;
 	border : none;
@@ -136,11 +136,12 @@ body {
 }
 
 .Btnform{
-	width: 100%;
+	width: 95%;
 	height: 40px;
 	padding: 10px;
 	margin-top: 40px;
 	text-align: center;
+	border-top: 1px solid #2a2a2a;
 }
 
 .listbtn{
@@ -228,20 +229,18 @@ body {
 				<div class="imgForm">
 					<input type="file" name="file"/>
 					<button id="img_Submit">업로드하기</button>
-				</div>
-				
-				<%-- 빈 공간 --%>		
-				<div class="empty"></div>	
+				</div>	
 				
 				<%-- 버튼 폼 --%>
 				<div class="Btnform">
 					<button type="button" class="listbtn">리스트</button>
 					<button type="submit" class="submitbtn">글 작성하기</button>
 				</div>
-				
+
 				<%-- 빈 공간 --%>		
 				<div class="empty"></div>
-	
+				<div class="empty"></div>
+				
 			</div>
 		</div>
 	</div>

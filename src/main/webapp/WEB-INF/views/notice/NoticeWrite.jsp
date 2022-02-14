@@ -143,12 +143,13 @@ body {
 	outline: none;
 }
 
-.btnform{
-	width: 100%;
+.Btnform{
+	width: 95%;
 	height: 40px;
 	padding: 10px;
 	margin-top: 40px;
 	text-align: center;
+	border-top: 1px solid #2a2a2a;
 }
 
 .listbtn{
@@ -254,7 +255,7 @@ body {
 				<%-- 버튼 폼 --%>
 				<div class="Btnform">
 					<button type="button" class="listbtn">리스트</button>
-					<button type="submit" class="submitbtn">글 작성하기</button>
+					<button type="submit" class="submitbtn">작성하기</button>
 				</div>
 				
 			</form>

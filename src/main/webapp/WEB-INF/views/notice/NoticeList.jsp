@@ -259,6 +259,7 @@ body {
 					 <thead>
 					    <tr>
 					      <th scope="col">글 번호</th>
+					      <th scope="col">대상</th>
 					      <th scope="col">분류</th>
 					      <th scope="col">글 제목</th>
 					      <th scope="col">작성일</th>
@@ -269,6 +270,7 @@ body {
 					<c:forEach items="${map.list}" var="notice">				
 						<tr class="view" onclick="location.href='/notice/NoticeView.do?noticeNo=${notice.noticeNo}&currentPage=${currentPage}&type=${map.type}&keyword=${keyword}'">
 					      <th scope="row">${notice.noticeNo}</th>
+					      <td>${notice.noticeCode}</td>
 					      <c:choose>
 						      <c:when test="${notice.noticeCategory eq 'Category-1' }">					
 								  <td>[기타]</td>
@@ -291,7 +293,7 @@ body {
 			
 			<%-- 네비 공간 --%>
 			<div class="pageNavi" align="center">
-				${map.pageNavi }
+				${map.pageNavi}
 			</div>
 			
 			<%-- 버튼 공간 --%>
