@@ -111,10 +111,11 @@
         width: 100%;
         height: 10%;
         margin: 0 auto;
-        font-size: 14px;
+        font-size: 16px;
         padding-top: 28px;
         padding-bottom: 15px;
         border-top: 1px solid black;
+        font-family: 'Nanum Gothic';
     }
     
 
@@ -123,11 +124,13 @@
     {
         width: 100%;
         margin: 0 auto;
-        font-size: 14px;
+        font-size: 16px;
         padding-top: 30px;
         padding-bottom: 30px;
         border-top: 1px solid rgba(0, 0, 0, 0.2);
         background-color: rgba(246 246 246);
+        font-family: 'Nanum Gothic';
+        letter-spacing:1px;
     }
 
     
