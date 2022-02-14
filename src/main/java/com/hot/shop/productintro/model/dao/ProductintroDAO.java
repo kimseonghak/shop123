@@ -58,7 +58,7 @@ public class ProductintroDAO {
 					if(startNavi!=1)
 					{	
 						sb.append("<li class='page-item'>");
-						sb.append("<a style='color:#5D9A71' class='page-link' href='/productintro/SeasonProductSearchListPage.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
+						sb.append("<a style='color:#5D9A71' class='page-link' href='/productintro/SeasonProductListPage.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
 						sb.append("<span aria-hidden='true'>&laquo;</span>");
 						sb.append("</a>");
 						sb.append("</li>");
@@ -70,12 +70,12 @@ public class ProductintroDAO {
 						if(i==currentPage)
 						{
 							sb.append("<li class='page-item'>");
-							sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/productintro/SeasonProductSearchListPage.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");
+							sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/productintro/SeasonProductListPage.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");
 							sb.append("</li>");
 							
 						}else
 						{	sb.append("<li class='page-item'>");
-							sb.append("<a class='page-link' style='color:#5D9A71' href='/productintro/SeasonProductSearchListPage.do?currentPage="+ i +"'>"+ i +"</a> ");
+							sb.append("<a class='page-link' style='color:#5D9A71' href='/productintro/SeasonProductListPage.do?currentPage="+ i +"'>"+ i +"</a> ");
 							sb.append("</li>");
 						}
 					}
@@ -83,7 +83,7 @@ public class ProductintroDAO {
 					if(endNavi != pageTotalCount)	
 					{
 						sb.append("<li class='page-item'>");
-						sb.append("<a class='page-link' style='color:#5D9A71' href='/productintro/SeasonProductSearchListPage.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
+						sb.append("<a class='page-link' style='color:#5D9A71' href='/productintro/SeasonProductListPage.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
 						sb.append("<span aria-hidden='true'>&raquo;</span>");
 						sb.append("</a>");
 						sb.append("</li>");
