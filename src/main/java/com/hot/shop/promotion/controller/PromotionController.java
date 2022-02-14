@@ -46,6 +46,7 @@ public class PromotionController {
 			@RequestParam(required = false, defaultValue = "") String keyword,
 			@RequestParam(required = false, defaultValue = "default") String type,
 			@SessionAttribute(required = false) Farm farm) 
+	
 	{	
 		if(member==null&&farm==null) {
 			mav.setViewName("member/login");
