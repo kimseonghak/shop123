@@ -1,102 +1,106 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+    
+<%-- jstl 라이브러리 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 
- <!--부트스트랩-->
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
- 
-
-<!-- jQuery 라이브러리 -->
+<%--jQuery 라이브러리 --%>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-	integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
-	crossorigin="anonymous">
+<%-- 폰트 설정 라이브러리 --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">
 
+<%-- 부트스트랩 라이브러리 --%>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<%-- css import --%>
+
+<!DOCTYPE html>
+<html>
+<head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<style type="text/css">
-
+<style>
 *{
 	
 	box-sizing: border-box;
 }
 
-#warpForm{
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
+}
+
+.wrapForm{
 	width: 100%;
 	height: 1617px;
 }
 
-#headerFrom{
+.headerForm{
 	width: 100%;
 	height: 175px;
 }
 
-#contentForm{
-	padding: 20px;
+.contentForm{
+	padding: 30px;
 	width: 100%;
-	height: 1200px;
-	background-color: #f0f0f0;
 }
 
-#footerFrom{
+.footerForm{
 	width: 100%;
 	height: 242px;
 }
 
-#noticeWrap{
-	width: 60%;
-	height: 65%;
+.contentwrap{
+	width: 80%;
+	height: 75%;
 	margin: 100px auto;
-	background-color: white;
-	border-radius: 5px/5px;
+	border-radius: 15px;
+	border: 2px solid #3BBD5A;
 }
 
-#notice_name{
-	width: 20%;
-	height: 50px;
+.page_name{
+	width: 25%;
+	height: 60px;
 	text-align: center;
-	margin: 0 auto;
-	color: #08E200;
+	padding: 50px 20px 0px;
+	margin: 5% 75% 5% 5%;
+	color: #3BBD5A;
+	font : normal bold 30px "Nanum Gothic",sans-serif;
 }
 
-#notice_table_form{
-	width: 100%;
-	height: 65%;
-	margin: 0 auto;
-	margin-top: 10px;
-	border: 1px solid rgba(0, 0, 0, .15);
-}
-
-#notice_pageNavi{
-	width: 100%;
-	height: 50px;
-	margin: 0 auto;
-}
-
-
-#notice_searchWrap{
+.page_search_zone{
+	width: 90%;
+	height: 80px;
+	padding: 10px;
+	text-align: right;
+	font : normal bold 17px "Nanum Gothic",sans-serif;
 	
-	width: 100%;
-	height: 40px;
 }
 
-#notice_search_textFrom{
-	float: right;
-	width: 165px;
-	height: 40px;
+.search_select{
+	width: 10%;
+	height: 35px;
 	margin: 5px auto;
+	border: 0.5px solid #3BBD5A;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+	
 }
 
+.searchkeyword{
+	width: 20%;
+	height: 35px;
+	margin: 5px auto;
+	background-color: #f0f0f0;
+	border: none;
+}
 
-
-/*버튼 폼*/
-#submitBtn{
+.searchBtn{
 	width: 130px;
 	height: 40px;
 	background-color: #3BBD5A;
@@ -105,137 +109,181 @@
 	border-radius: 5px / 5px;	
 	border : none;
 	cursor : pointer;
-	margin-left: -70px;
+	margin-right: 30px;
 }
 
-#notice_search_btnFrom{
-	float: right;
-	width: 140px;
+.table_zone{
+	width: 80%;
+	height: 55%;
+	border: 1px solid black;
+	border-radius: 15px;
+
+}
+
+.table>thead{
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+}
+
+.view{
+	cursor: pointer;
+}
+
+.boardtitle{
+	font : normal bold 1rem "Nanum Gothic",sans-serif;
+}
+
+.pageNavi{
+	width: 100%;
+	height: 50px;
+	margin-top: 40px;
+	text-align: center;
+}
+
+.empty{
+	width: 100%;
+	height: 30px;
+}
+
+.buttonform{
+	width: 100%;
 	height: 40px;
+	margin-top: 40px;
+	margin-right: 40px;
+	text-align: right;
 }
 
-#notice_search_writeFrom{
-	float: right;
-	width: 100px;
-	height: 30px;
-	margin: 5px auto;
-	
-}
-
-#notice_search_select{
-	float: right;
-	width: 100px;
-	height: 30px;
-	margin: 5px 10px auto;
-	
-}
-
-#serachBtn{
-	width: 100px;
-	height: 30px;
+.writeBtn{
+	width: 130px;
+	height: 40px;
 	background-color: #3BBD5A;
 	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 	color: #ffffff;
 	border-radius: 5px / 5px;	
 	border : none;
+	margin-right: 20px;
 	cursor : pointer;
 }
-/*버튼 폼끝*/
 
-#keyword{
-	width: 300px;
-	height: 30px;
-	font-size: 20px;
+.mainBtin{
+	width: 130px;
+	height: 40px;
+	background-color: gray;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+	color: #ffffff;
+	border-radius: 5px / 5px;	
+	border : none;
+	margin-right: 60px;
+	cursor : pointer;
 }
 
-
 </style>
-
-
-
+<!-- 위 오른쪽 아래 왼쪽 순 -->
 </head>
 <body>
 
-<div id="warpForm" align="center">
-	<div id="headerFrom">
+<div class="wrapForm" align="center">
+	<div class="headerForm">
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
 	
-	<div id="contentForm" align="left">
-		<div id="noticeWrap"><br>
-			<div id="notice_name">
-				<span style="font-size: 30px; color: #3BBD5A;">공지 사항</span>
+	<div class="contentForm">
+		<div class="contentwrap">
+			
+			<%-- 제목 공간 --%>
+			<div class="page_name">
+				<span>공지 사항</span>
 			</div>
 			
-			<!-- 검색 공간 -->
-			<form action="/notice/noticeListPage.do" method="get">
-			<div id="notice_searchWrap">
+			<%-- 검색 공간 --%>
+			<form action="" method="get">
+				<div class="page_search_zone">
 				
-				<div id="notice_search_btnFrom" align="center">
-					<button type="submit" id="serachBtn">글 검색</button>
-				</div>
-				
-				<div id="notice_search_textFrom">
-					<input type="text" name="keyWord" id=searchkeyword style="font-size: 14px;" placeholder="${requestScope.keyWord}"/>
-				</div>
-				
-				<div id="notice_search_select">
-					<select name="type" style="font-size: 14px;">
+					<select name="type" class="search_select">
 						<option value="subject">제목</option>
 						<option value="content">내용</option>
 						<option value="all">제목+내용</option>
 					</select>
-				</div>
-
-			</div>
-			</form>
-			<!-- 검색 공간 -->
-			
-
-			<div id="notice_table_form" align="center">
-				<table>
-					<tr>
-						<th>글 번호</th>
-						<th>글 제목</th>
-					</tr>
-					<!-- 반복문 -->
-					<c:forEach items="${requestScope.list}" var="vo">
-						<tr>
-							<td>${vo.noticeNo}</td>
-							<td><a href="/notice/NoticeView.do?noticeNo=${vo.noticeNo}">${vo.noticeTitle}</a></td>
-						</tr>
-					</c:forEach>
 					
+					<input type="text" name="keyword" class="searchkeyword" placeholder=""/>
+
+					<button class="searchBtn">글 검색</button>
+				</div>
+			</form>
+			
+			<%-- 빈 공간 --%>		
+			<div class="empty"></div>
+			
+			<%-- 테이블 공간 --%>
+			<div class="table_zone" align="center">
+				<table class="table">
+					 <thead>
+					    <tr>
+					      <th scope="col">글 번호</th>
+					      <th scope="col">분류</th>
+					      <th scope="col">글 제목</th>
+					      <th scope="col">작성일</th>
+					      <th scope="col">조회수</th>
+					    </tr>
+					  </thead>
+					<!-- 반복문 -->
+					<c:forEach items="${map.list}" var="notice">				
+						<tr class="view" onclick="location.href='/notice/NoticeView.do?noticeNo=${notice.noticeNo}&currentPage=${currentPage}&type=${map.type}&keyword=${keyword}'">
+					      <th scope="row">${notice.noticeNo}</th>
+					      <c:if test="${notice.noticeCategory eq 'Category-1' }">					
+							  <td>[기타]</td>
+						  </c:if>
+						  <c:if test="${notice.noticeCategory eq 'Category-2' }">					
+							  <td>[회원가입]</td>
+						  </c:if>
+						  <c:if test="${notice.noticeCategory eq 'Category-3' }">					
+							  <td>[경매]</td>
+						  </c:if>
+					      <td class="boardtitle">${notice.noticeTitle}</td>
+					      <td>${notice.noticeRegdate}</td>
+					      <td>${notice.noticeCount}</td>
+					    </tr>
+					</c:forEach>				
 				</table>
 			</div>
 			
-
-			<!-- 페이지 네비게이션 -->
-			<div id="notice_pageNavi" align="center">
-				<c:choose>
-	            	<c:when test="${!requestScope.list.isEmpty()}">
-	            			${requestScope.pageNavi}
-	            	</c:when>
-	            </c:choose>
+			<%-- 네비 공간 --%>
+			<div class="pageNavi" align="center">
+				${map.pageNavi }
 			</div>
 			
-			<!-- 글 쓰기 버튼 -->
-			<c:if test="${farm != null && (farm.rating eq 'admin' or farm.rating eq 'root')}">
-				<form action="/notice/noticeWritePage.do">
-					<div id="notice_search_writeFrom">
-						<input type="submit" value="글 쓰기" id="submitBtn">
-					</div>
-				</form>
-			</c:if>
-			<!-- 글 쓰기 버튼 -->
+			<%-- 버튼 공간 --%>
+			
+			<div class="buttonform">
+				<c:if test="${farm != null && (farm.rating eq 'admin' or farm.rating eq 'root')}"> 
+					<input type="submit" value="글 쓰기" class="writeBtn" onclick="location.href='/notice/noticeWritePage.do'">
+				</c:if> 
+					<input type="button" value="메인으로" class="mainBtin" onclick="location.href='/'">
+			</div>
+			
 		</div>
 	</div>
 	
-	
-	<div id="footerFrom">
+	<div class="footerForm">
 		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
 	</div>
 </div>
+
+<script>
+	<%-- 네비화살표 hover시 투명도 조절 --%>
+	$('.naviArrow').hover(function() {
+		$(this).css('opacity', '1');
+	}, function() {
+		$(this).css('opacity', '0.3');
+	});
+	<%-- 현재페이지가 10페이지 이하일 경우 이전 페이지목록 비활성화 --%>
+	$(function() {
+		var currentPage = ${currentPage};
+		if (currentPage < 11) {
+			$('#prev').removeAttr('href');
+			$('#prev').unbind('mouseenter mouseleave');
+		}
+	});
+</script>
 
 </body>
 </html>

@@ -14,17 +14,22 @@
 				NOTICE_END_YN as noticeEndYN,
 				NOTICE_CODE as noticeCode,
 				NOTICE_CATEGORY as noticeCategory
-			from (select row_number() over(order by 1 desc)as num, notice.* from notice LEFT JOIN farm on (notice.FARM_NO=farm.FARM_NO)) 
-			where NOTICE_CODE IN ('A','F') AND NOTICE_END_YN='N'
-			<if test="type!=null and type.equals('subject')">
-				AND NOTICE_TITLE like '%'||#{keyWord}||'%'
-			</if>
-			<if test="type!=null and type.equals('content')">
-				AND NOTICE_CONTENT like '%'||#{keyWord}||'%'
-			</if>
-			<if test="type!=null and type.equals('all')">
-				AND (NOTICE_TITLE like '%'||#{keyWord}||'%' or NOTICE_CONTENT like '%'||#{keyWord}||'%')
-			</if>
+			from (select row_number() over(order by 1 desc)as num, notice.* from notice LEFT JOIN farm on (notice.FARM_NO=farm.FARM_NO)
+			where NOTICE_CODE IN ('A','F','U') AND NOTICE_END_YN='N'
+			<choose>
+				<when test="type!=null and type.equals('subject')">
+					AND NOTICE_TITLE like '%'||#{keyword}||'%'
+				</when>
+				<when test="type!=null and type.equals('content')">
+					AND NOTICE_CONTENT like '%'||#{keyword}||'%'
+				</when>
+				<when test="type!=null and type.equals('all')">
+					AND (NOTICE_TITLE like '%'||#{keyword}||'%' or NOTICE_CONTENT like '%'||#{keyword}||'%')
+				</when>
+				<otherwise></otherwise>
+			</choose>
+			)
+			where num between #{start} and #{end}
 		</select>
 		
 		<!-- 공지사항 글 총 개수 -->
@@ -32,16 +37,21 @@
 			
 			SELECT COUNT(*)
 			FROM NOTICE 
-			WHERE NOTICE_CODE IN ('A','F') AND NOTICE_END_YN='N'
-			<if test="type!=null and type.equals('subject')">
-				AND NOTICE_TITLE like '%'||#{keyWord}||'%'
-			</if>
-			<if test="type!=null and type.equals('content')">
-				AND NOTICE_CONTENT like '%'||#{keyWord}||'%'
-			</if>
+			WHERE NOTICE_CODE IN ('A','F','U') AND NOTICE_END_YN='N'
+			<choose>
+				<when test="type.equals('title')">
+					AND NOTICE_TITLE like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('content')">
+					AND NOTICE_CONTENT like '%'||#{keyword}||'%'
+				</when>
+				<when test="type.equals('all')">
+					AND NOTICE_TITLE like '%'||#{keyword}||'%' or NOTICE_CONTENT like '%'||#{keyword}||'%'
+				</when>
+				<otherwise></otherwise>
+			</choose>	
 		
 		</select>
-		
 		
 		<!-- 공지사항 글 쓰기 -->
 		<insert id="insertWrite" parameterType="notice">
@@ -50,7 +60,7 @@
 		</insert>
 		
 		<!-- 공지사항 글 보기(뷰) -->
-		<select id="NoticeViewPage" parameterType="integer" resultType="notice">
+		<select id="noticeView" parameterType="integer" resultType="notice">
 			select
 				NOTICE_NO as noticeNo,
 				NOTICE_TITLE as noticeTitle,
@@ -65,9 +75,9 @@
 			where notice_no = #{_parameter}
 		</select>
 		
-		<!-- 공지사황 조회수 업데이트 -->
-		<update id="NoticeCountUpdate" parameterType="integer">
-			update NOTICE set NOTICE_COUNT = NOTICE_COUNT+1 where NOTICE.notice_no = #{_parameter}		
+		<!-- 공지사항 조회수 -->
+		<update id="noticeViewCount" parameterType="notice">
+			update notice set NOTICE_COUNT = NOTICE_COUNT+1 where NOTICE_NO = #{_parameter}
 		</update>
 		
 		<!-- 공지사항 수정 -->

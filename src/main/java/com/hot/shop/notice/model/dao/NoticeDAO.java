@@ -18,81 +18,56 @@ public class NoticeDAO {
 	@Qualifier(value="sqlSessionTemplate")
 	private SqlSessionTemplate sqlSession;
 
-	//공지사항 리스트
-	public ArrayList<Notice> noticeList(int currentPage, int recordCountPerPage, HashMap<String, Object> searchMap) {
+	//공지사항 리스트 불러오기
+	public ArrayList<Notice> getNoticeList(int recordCountPerPage, HashMap<String, Object> map) {
+		int start = (int)map.get("currentPage")*recordCountPerPage-(recordCountPerPage-1);
+		int end = (int)map.get("currentPage")*recordCountPerPage;
 		
-		int offset = ((currentPage-1)*recordCountPerPage);
-		int limit = recordCountPerPage;
-		
-		RowBounds rb = new RowBounds(offset,limit);
-		
-		return new ArrayList<Notice>(sqlSession.selectList("notice.noticeList",searchMap,rb));
+		map.put("start", start);
+		map.put("end",end);
+		return new ArrayList<Notice>(sqlSession.selectList("notice.noticeList",map));
 	}
 
 	//페이지네비
-	public String NoticeListPageNavi(int recordCountPerPage, int currentPage, int naviCountPerPage,HashMap<String, Object> searchMap) {
-			
-		//공지사항 총 게시물 개수
-		int recordTotalCount = noticeListToTalCount(searchMap);
+	public String getNoticeNavi(int recordCountPerPage, int naviCountPerPage, HashMap<String, Object> map) {
 		
-		//pageNavi 계산
+		int recordTotalCount = noticeTotalCount(map);
 		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
+		int currentPage = (int)map.get("currentPage");
 		
-		int startNavi = ((currentPage-1)/naviCountPerPage) * naviCountPerPage+1;
-		int endNavi = startNavi + naviCountPerPage-1;
+		int startNavi = ((currentPage-1)/naviCountPerPage) *naviCountPerPage+1;
+		int endNavi = startNavi+naviCountPerPage-1;
 		
-		//endNavi 예외처리
-		if(endNavi>pageTotalCount){
+		if(endNavi>pageTotalCount) {
 			endNavi=pageTotalCount;
 		}
 		
 		StringBuilder sb = new StringBuilder();
+		sb.append("<a href='/notice/noticeListPage.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/notice/noticeListPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
 		
-		sb.append("<nav aria-label='Page navigation example'>");
-		sb.append("<ul class='pagination'>");
-		
-		if(startNavi!=1)
-		{	
-			sb.append("<li class='page-item'>");
-			sb.append("<a style='color:#5D9A71' class='page-link' href='/farm/farmNoticePage.do?currentPage="+(startNavi-1)+"' aria-label='Previous'>");
-			sb.append("<span aria-hidden='true'>&laquo;</span>");
-			sb.append("</a>");
-			sb.append("</li>");
-		}
-		
-		for(int i=startNavi;i<=endNavi;i++)
-		{
-			
-			if(i==currentPage)
-			{
-				sb.append("<li class='page-item'>");
-				sb.append("<a class='page-link' style='color:white; background-color:#48BB78' href='/farm/farmNoticePage.do?currentPage="+ i +"' ><B>"+ i +"</B></a> ");
-				sb.append("</li>");
-				
-			}else
-			{	sb.append("<li class='page-item'>");
-				sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmNoticePage.do?currentPage="+ i +"'>"+ i +"</a> ");
-				sb.append("</li>");
+		for(int i= startNavi; i<=endNavi; i++) {
+			if(i==currentPage) {
+				sb.append("<a href='/notice/noticeListPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='currentNavi'>"+i+"</a>");
+			}else {
+				sb.append("<a href='/notice/noticeListPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='otherNavi'>"+i+"</a>");
 			}
 		}
 		
-		if(endNavi != pageTotalCount)	
-		{
-			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' style='color:#5D9A71' href='/farm/farmNoticePage.do?currentPage="+(endNavi+1)+"' aria-label='Next'");
-			sb.append("<span aria-hidden='true'>&raquo;</span>");
-			sb.append("</a>");
-			sb.append("</li>");
-			sb.append(" </ul>");
-			sb.append("</nav>");
+		if((currentPage+10)>pageTotalCount) {
+			sb.append("<a href='/notice/noticeListPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+		}else {
+			sb.append("<a href='/notice/noticeListPage.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
 		}
-		
+		sb.append("<a href='/notice/noticeListPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&gt;&gt;</a>");
+
 		return sb.toString();
-	};
-	
-	private int noticeListToTalCount(HashMap<String, Object> searchMap) {
+	}
+
+	//페이지 네비 총 갯수
+	private int noticeTotalCount(HashMap<String, Object> map) {
 		
-		return sqlSession.selectOne("notice.selectNoticeListTotalCount",searchMap);
+		return sqlSession.selectOne("notice.selectNoticeListTotalCount",map);
 	}
 
 	//공지사항 글쓰기
@@ -102,9 +77,12 @@ public class NoticeDAO {
 	}
 
 	//공지사항 글 보기(뷰)
-	public Notice NoticeViewPage(int noticeNo) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("notice.NoticeViewPage",noticeNo);
+	public HashMap<String, Object> NoticeViewPage(int noticeNo) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("notice", sqlSession.selectOne("notice.noticeView",noticeNo));
+		map.put("noticeViewCountResult", sqlSession.update("notice.noticeViewCount",noticeNo));
+		return map;
 	}
 
 	//공지사항 수정
@@ -118,13 +96,4 @@ public class NoticeDAO {
 		
 		return sqlSession.update("notice.deleteNotice", noticeNo);
 	}
-
-	
-	
-	/*
-	//공지사항 조회수 업데이트
-	public int NoticeCountUpdate(int noticeNo) {
-		return sqlSession.update("notice.NoticeCountUpdate",noticeNo);
-	}
-	*/
 }

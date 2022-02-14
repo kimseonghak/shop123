@@ -104,8 +104,9 @@ body {
 }
 
 .icon{
-	width:17.5px;
-	height:17.5px;
+	width:17px;
+	height:17px;
+	margin-bottom: -3px;
 }
 
 .time{
@@ -132,6 +133,7 @@ body {
 	width: 85%;
 	min-height: 200px;
 	margin-top: 50px;
+	text-align: left;
 }
 
 .empty{
@@ -207,7 +209,9 @@ body {
 	<div class="contentForm">
 		<div class="contentwrap">
 			
-			<
+			<%-- 필요한 name 데이터 --%>
+			<input type="hidden" name="promotionNo" value="${map.promotion.promotionNo }">
+			
 			<%-- 태그, 제목, 작성자 영역 --%>
 			<div class="titleform1">
 				<div class="tag-select">
@@ -236,7 +240,7 @@ body {
 			<%-- 게시글 영역 --%>
 			<div class="content_zone">
 				<div class="img">
-					<img src="${map.promotion.promotionFilePath}"/>
+					<img src="${map.promotion.promotionFilePath}" width="100%" height="100%"/>
 				</div>
 				<div class="context">
 					<p>${map.promotion.promotionContent }</p>
@@ -274,7 +278,7 @@ body {
 		var currentPage = ${currentPage};
 		var type = "${type}";
 		var keyword = "${keyword}";
-		location.replace('/promotion/promotionViewPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
+		location.replace('/promotion/promotionListPage.do?currentPage='+currentPage+'&type='+type+'&keyword='+keyword);
 	});
 	
 	<%-- 글 수정 버튼 --%>
@@ -283,9 +287,26 @@ body {
 		location.replace('/promotion/promotionUpdatePage.do?promotionNo='+promotionNo);
 	});
 	
+	<%-- 글 삭제 버튼 --%>
+	$('.deleteBtn').click(function(){
+		if(window.confirm('게시글을 삭제하시겠습니까?')){
+	        var formTag = document.createElement("form");
+	        formTag.setAttribute("action",'/promotion/promotionDelete.do');
+	        formTag.setAttribute("method",'post');
 	
-	console.log('${farm}')
-	console.log('${farm.farmId }')
+	        var inputTag = document.createElement("input");
+	        inputTag.setAttribute("type","hidden");
+	        inputTag.setAttribute("name","promotionNo");
+	        inputTag.setAttribute("value","${map.promotion.promotionNo}");
+	
+	        formTag.appendChild(inputTag);//폼 테그안에 인풋 태그 넣고
+	        document.body.appendChild(formTag);//폼 테그를 연결시켜준다
+	        formTag.submit();
+	    }else{
+	        alert('삭제를 취소하셨습니다.');
+	    }
+	});
+	
 </script>
 
 </body>

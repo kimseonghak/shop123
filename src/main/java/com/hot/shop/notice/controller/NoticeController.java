@@ -27,25 +27,31 @@ public class NoticeController {
 	
 	//공지사항 리스트 페이지
 	@RequestMapping(value = "/notice/noticeListPage.do",method = RequestMethod.GET)
-	public ModelAndView noticeListPage(ModelAndView mav, HttpServletRequest request,
-									@RequestParam(required = false, defaultValue = "1") int currentPage) 
+	public ModelAndView noticeListPage(ModelAndView mav,
+			@SessionAttribute(required = false) Member member,
+			@RequestParam(required = false,defaultValue = "1") int currentPage,
+			@RequestParam(required = false, defaultValue = "") String keyword,
+			@RequestParam(required = false, defaultValue = "default") String type,
+			@SessionAttribute(required = false) Farm farm) 
 	{
+		if(member==null&&farm==null) {
+			mav.setViewName("member/login");
+			return mav;
+		}else {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("farm", farm);
+			map.put("currentPage", currentPage);
+			map.put("keyword", keyword);
+			map.put("type", type);
+			HashMap<String, Object> returnMap = nService.selectNoticeList(map);
+			returnMap.put("keyword", keyword);
+			returnMap.put("type", type);
+			mav.addObject("map",returnMap);
+			mav.addObject("currentPage",currentPage);
+			mav.setViewName("notice/NoticeList");
+			return mav;
+		}
 		
-		//검색 값이 있다면
-		String type = request.getParameter("type");
-		String keyWord = request.getParameter("keyWord");
-		
-		HashMap<String, Object> searchMap = new HashMap<String, Object>();
-		searchMap.put("type",type);
-		searchMap.put("keyWord", keyWord);
-		
-		HashMap<String, Object> map = nService.noticeList(currentPage,searchMap);
-		mav.addObject("list", map.get("list"));
-		mav.addObject("pageNavi", map.get("pageNavi"));
-		mav.addObject("type", type);
-		mav.addObject("keyWord", keyWord);
-		mav.setViewName("notice/NoticeList");
-		return mav;
 	}
 	
 	//공지사항 글쓰기 페이지
@@ -72,19 +78,30 @@ public class NoticeController {
 	
 	//공지사항 조회(뷰) 페이지
 	@RequestMapping(value = "/notice/NoticeView.do",method = RequestMethod.GET)
-	public ModelAndView NoticeViewPage(@RequestParam int noticeNo,ModelAndView mav) {
-		Notice n = nService.NoticeViewPage(noticeNo);
+	public ModelAndView NoticeViewPage(@RequestParam int noticeNo,
+					@RequestParam(required = false, defaultValue = "1") int currentPage,
+					@RequestParam(required = false, defaultValue = "") String keyword,
+					@RequestParam(required = false, defaultValue = "default") String type,
+					@SessionAttribute(required = false) Member member,
+					@SessionAttribute(required = false) Farm farm,
+					ModelAndView mav) 
+	{
+		HashMap<String, Object> map = nService.NoticeViewPage(noticeNo);
 		
-		mav.addObject("notice", n);
+		mav.addObject("currentPage",currentPage);
+		mav.addObject("type",type);
+		mav.addObject("keyword",keyword);
+		mav.addObject("map", map);
 		mav.setViewName("notice/NoticeView");
 		return mav;
 	}
 	
-	//공지사항 페이지로 이동
-	@RequestMapping(value="/notice/noticeUpdatePage.do", method = RequestMethod.POST)
-	public ModelAndView NoticeUpdatePage(Notice n, ModelAndView mav, @SessionAttribute Farm farm) {		
-		//System.out.println(n);		
-		mav.addObject("notice", n);
+	//공지사항 수정 페이지로 이동
+	@RequestMapping(value="/notice/noticeUpdatePage.do", method = RequestMethod.GET)
+	public ModelAndView NoticeUpdatePage(ModelAndView mav, @RequestParam int noticeNo, @SessionAttribute Farm farm) {			
+		
+		HashMap<String, Object> map = nService.NoticeViewPage(noticeNo);
+		mav.addObject("map", map);
 		mav.setViewName("notice/NoticeUpdate");
 		return mav;
 	};
@@ -94,7 +111,7 @@ public class NoticeController {
 	public ModelAndView NoticeUpdate(Notice n, ModelAndView mav, @SessionAttribute Farm farm) {
 		
 		int result = nService.updateWrite(n);
-		//System.out.println(n);
+		System.out.println(n);
 		
 		if(result > 0) {
 			mav.addObject("location", "/notice/noticeListPage.do");
@@ -105,19 +122,21 @@ public class NoticeController {
 		return mav;
 	};
 	
+	
+	
 	//공지사항 삭제
 	@RequestMapping(value="/notice/noticeDelete.do", method = RequestMethod.POST)
-	public ModelAndView NoticeDelete(HttpServletRequest request, ModelAndView mav, @SessionAttribute Farm farm) {
+	public ModelAndView NoticeDelete(HttpServletRequest request, ModelAndView mav) {
 		
-		int NoticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 		
-		System.out.println(NoticeNo);
-		
-		int result = nService.noticeDelete(NoticeNo);
+		int result = nService.noticeDelete(noticeNo);
 		
 		if(result > 0) {
+			mav.addObject("msg", "글 삭제에 성공했습니다." );
 			mav.addObject("location", "/notice/noticeListPage.do");
 		}else {
+			mav.addObject("msg", "글 삭제에 실패했습니다." );
 			mav.addObject("location", "/notice/noticeView.do");
 		}
 		mav.setViewName("commons/msg");

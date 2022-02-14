@@ -17,7 +17,7 @@
 
 #content {
 	width: 100%;
-	height: 1500px;
+	height: 210vh;
 }
 .background-box {
 	width: 100%;
@@ -43,7 +43,7 @@
 
 .mypage-main {
 	width: 100%;
-	height: 6.9%;
+	height: 5%;
 	border-bottom: 0.5px solid #ABABAB; 
 }
 #dateSelect-btn{
@@ -87,7 +87,7 @@
     line-height: 100%;
 	width: 65%;
 	margin-bottom: 3.5%;
-	border: 0.5px solid rgba(213,208,208,0.7);
+	
 }
 .background {
     background-color: #D5D0D0;

@@ -225,7 +225,7 @@
 	width: 100%;
 	height: 86.1%;
 	background-color: black;
-	margin-top: -108.5%;
+	margin-top: -51.7vmin;
 	border-radius: 0 0 10px 10px;
 	opacity: 0.65;
 	color: #FFFFFF;
@@ -487,7 +487,7 @@
                      <div class="spanBox">
 	                     <span class="spanLeft">종료일 :</span>
 	                     <span class="spanmiddel endDate2">${map.au2.sellEnd}</span>
-	                     <span class="spanLast">&nbsp;&nbsp;23:59:59</span>
+	                     <span class="spanLast">&nbsp;&nbsp;</span>
                      </div>
                      <div class="spanBox">
                      	 <span class="spanLeft">남은시간 :</span>
@@ -499,7 +499,7 @@
 					 </div>
 					 <div class="spanBox">
 						 <span class="spanLeft">낙찰된 가격 :</span>
-						 <span class="spanRight font-style">${map.au2.auctionPrice}&nbsp;원</span>
+						 <span class="spanRight font-style">${map.au2.auctionPrice}&nbsp;</span>
 					 </div>
 					 <div class="spanBox">
 						 <span class="spanLeft">구매 수량 :</span>
@@ -766,12 +766,12 @@
          var auctionNo = $(this).parent().parent().find('input[name=auctionNo]').val();
          
          //회원인지 ,수량 제대로 입력했는지 유효성 검사
-         if(userNo==''){
-            alert('로그인 후 이용 가능합니다.');
-            return false;
-         }
          if(farmNum!=''){   
             alert('일반 회원만 이용 가능합니다.');
+            return false;
+         }
+         if(userNo==''){
+            alert('로그인 후 이용 가능합니다.');
             return false;
          }
          if(auctionCount1==0){
@@ -906,7 +906,6 @@
                $('.status3').html('판매종료');
                $('.auctionCount3').html('품절되었습니다.');
                $('#block3').css('display','block');
-               $('.auctionCount3').html('');
             }
          });
       });

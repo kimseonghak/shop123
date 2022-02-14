@@ -46,6 +46,24 @@ public class PromotionServiceImpl implements PromotionService{
 		return pDAO.promotionView(promotionNo);
 	}
 
+	@Override
+	public PromotionPhoto deleteFileCheck(int originalPromotionphotoNo) {
+		
+		return pDAO.deleteFileCheck(originalPromotionphotoNo);
+	}
+
+	@Override
+	public int promotionUpdate(Promotion promotion) {
+		
+		return pDAO.promotionUpdate(promotion);
+	}
+
+	@Override
+	public int promotionDelete(int promotionNo) {
+		// TODO Auto-generated method stub
+		return pDAO.promotionDelete(promotionNo);
+	}
+
 	
 	
 	
