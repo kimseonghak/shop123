@@ -312,14 +312,6 @@
 			$('#prev').unbind('mouseenter mouseleave');
 		}
 	});
-	
-	
-		
-		$('#option').val('2021').click(function(){
-			alert('aa');
-			
-		});
-		
 		
 	});
 	

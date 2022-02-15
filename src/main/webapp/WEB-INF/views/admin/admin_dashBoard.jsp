@@ -276,7 +276,7 @@
 <%-- tr 클릭시 해당 글로 이동하는 로직 --%>
 		$('.userQNA').click(function(){
 			var qBoardNo = $(this).children().eq(0).html();
-			location.replace("/admin/admin_")
+			location.replace("/admin/adminUserQNAContent.do?questionUserNo="+qBoardNo)
 		});
 		$('.farmQNA').click(function(){
 			var qBoardNo = $(this).children().eq(0).html();
