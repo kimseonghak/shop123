@@ -13,25 +13,26 @@
 <meta charset="UTF-8">
 <title>공지사항 페이지</title>
 
-	 <!--부트스트랩-->
+	 <%--부트스트랩--%>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
  
-    <!--font-->
+    <%--font--%>
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">
  
-	<!-- css 파일 -->
+	<%-- css 파일 --%>
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmMain.css">
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmNoticeContent.css">
 
 <style>
-	 #naviArea
-	 {
-	 	display:inline-block;
-	 	margin-left:43vw;
-	 	text-align: center;
-	 }
+
+	.pagination
+	{
+		display: flex;
+		justify-content: center;
+	}
+
 </style>
 
 
