@@ -1,306 +1,209 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+
+<%-- jstl 라이브러리 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+
+<%--jQuery 라이브러리 --%>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<%-- 폰트 설정 라이브러리 --%>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap"
-	rel="stylesheet">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@1&family=Lobster&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@700&family=Pacifico&display=swap" rel="stylesheet">
 
-<title>문의 사항 조회하기</title>
+<%-- 부트스트랩 라이브러리 --%>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-<style type="text/css">
+<%-- css import --%>
+
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<style>
+
 *{
 	box-sizing: border-box;
 }
 
-#warpForm{
-	width: 100%;
-	height: 1617px;
-	
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
 }
 
-#headerForm{
+.wrapForm{
+	width: 100%;
+	min-height: 100%;
+}
+
+.headerForm{
 	width: 100%;
 	height: 175px;
 }
 
-#contentForm{
+.contentForm{
+	padding: 30px;
 	width: 100%;
-	height: 1200px;
-	background-color: #f0f0f0;
+	
 }
 
-#footerForm{
+.footerForm{
 	width: 100%;
 	height: 242px;
 }
 
-#question_background{
-	width: 80%;
+.contentwrap{
+	width: 60%;
 	height: 80%;
-	border: 2px solid white;
-	border-radius: 20px;
-	margin : 100px auto;
+	margin: 100px auto;
+	padding: 10px;
 	background-color: white;
+	border-radius: 5px/5px;
+	box-shadow: 3px 3px 10px #aeaeae;
 }
 
-#question_name{
-	width: 90%;
-	height: 80px;
+.page_name{
+	width: 40%;
+	height: 60px;
+	text-align: center;
+	padding: 40px 20px 0px;
+	margin: 5% 75% 5% 7%;
 	color: #3BBD5A;
-	font-size: 30px;
-	margin: 30px auto;
+	font : normal bold 30px "Nanum Gothic",sans-serif;
 }
 
-
-/*문의 대상 폼*/
-#question_farmForm{
+.insert_zone{
 	width: 80%;
-	height: 30px;
-	text-align: left;
+	min-height: 650px;
 }
 
-#question_farmForm02{
-	width: 20%;
-	height: 30px;
-	text-align: left;
-	display : inline-block;
-}
-
-#question_farmForm03{
-	width: 80%;
-	height: 60px;
-	text-align: left;
-	display : inline-block;
-	margin: 20px auto;
-}
-/*문의 대상 폼 끝*/
-
-
-#farmNo{
-	width: 50%;
-	height: 30px;
-	border: none;
-	border-radious: 5px;
-	background-color: #f0f0f0;
-	outline: none;
-}
-
-#GoodsNo{
-	width: 50%;
-	height: 30px;
-	border: none;
-	border-radious: 5px;
-	background-color: #f0f0f0;
-	outline: none;
-}
-
-
-/*문의 카테코리 폼*/
-#question_CategorieForm{
-	width: 80%;
-	height: 30px;
-	text-align: left;
-	margin: 20px auto;
-}
-
-#question_CategorieForm02{
-	width: 20%;
-	height: 30px;
-	text-align: left;
-	display : inline-block;
-}
-
-#question_CategorieForm03{
-	width: 80%;
-	height: 60px;
-	text-align: left;
-	display : inline-block;
-	margin: 10px auto;
-}
-/*문의 카테코리 폼 끝*/
-
-
-#question_titleForm{
-	width: 80%;
-	height: 30px;
-	text-align: left;
-}
-
-#question_title{
+.empty{
 	width: 100%;
-	height: 100%;
-	border: none;
-	border-radius: 5px;
-	background-color: #f0f0f0;
-	font-size: 20px;
-	outline: none;
+	height: 30px;
 }
 
-#question_contentForm{
-	width: 80%;
-	height: 400px;
-	text-align: left;
-}
-
-#question_content{
+.title{
 	width: 100%;
-	height: 100%;
-	font-size: 20px;
+	height: 40px;
+	border-radius: 5px / 5px;
 	border: none;
-	border-radius: 5px;
 	background-color: #f0f0f0;
-	resize: none;
+	font : normal 20px "Nanum Gothic",sans-serif;
 	outline: none;
 }
 
-#img_Form{
-	width: 80%;
-	height: 30px;
-	text-align: left;
-}
-
-#img_Submit{
-	float: right;
-	width: 100px;
-	height: 30px;
-	background-color: #3BBD5A;
-	font : normal bold 17.5px "고딕체";
-	color: #ffffff;
-	border-radius: 15px;
-	border : none;
-	cursor : pointer;
-}
-
-#write_Btn_form{
-	width: 80%;
-	height: 40px;
-}
-
-#submit_btn{
-	width: 100px;
-	height: 40px;
-	float: right;
-}
-#list_btn{
-	width: 100px;
-	height: 40px;
-	float: right;
-}
-#reset_btn{
-	width: 100px;
-	height: 40px;
-	float: right;
-}
-
-#submitBtn{
-	width: 90px;
-	height: 40px;
-	background-color: #3BBD5A;
-	font : normal bold 17.5px "고딕체";
-	color: #ffffff;
-	border-radius: 30px / 30px;	
-	border : none;
-	cursor : pointer;
-}
-
-#listBtn{
-	width: 90px;
-	height: 40px;
-	background-color: #3BBD5A;
-	font : normal bold 17.5px "고딕체";
-	color: #ffffff;
-	border-radius: 30px / 30px;
-	border : none;
-	cursor : pointer;	
+.contextForm{
+	width: 100%;
+	min-height: 400px;
+	margin-top: 30px;
 	
 }
 
-#resetBtn{
-	width: 90px;
-	height: 40px;
-	background-color: #08E200;
-	font : normal bold 17.5px "고딕체";
-	color: #ffffff;
-	border-radius: 30px / 30px;	
-	border : none;
-	cursor : pointer;
-}
-
-
-select{
+.content{
 	width: 100%;
-	height: 100%;
-	-webkit-appearance:none; /* 크롬 화살표 없애기 */
-    -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
-    appearance:none; /* 화살표 없애기 */
-    font-size: 20px;
-    background-color: #f0f0f0;
+	min-height: 400px;
+	text-align: left;
+	border: none;
+	resize: none;
+	font : normal 20px "Nanum Gothic",sans-serif;
+	background-color: #f0f0f0;
+	outline: none;
 }
 
-select option[value=""][disabled] {
-	display: none;
+.Btnform{
+	width: 95%;
+	height: 40px;
+	padding: 10px;
+	margin-top: 40px;
+	text-align: center;
+}
+
+.listbtn{
+	width: 100px;
+	height: 40px;
+	border: none;
+	border-radius: 5px;
+	background-color: gray;
+	color: white;
+	margin: 15px;
+	cursor: pointer;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
+}
+
+.submitbtn{
+	width: 100px;
+	height: 40px;
+	border: none;
+	border-radius: 5px;
+	background-color:#3BBD5A;
+	color: white;
+	margin: 15px;
+	cursor: pointer;
+	font : normal bold 17.5px "Nanum Gothic",sans-serif;
 }
 
 </style>
 
-</head>
 <body>
 
-<div id="warpForm" align="center">
-	<div id="headerForm">
+<div id="wrapForm" align="center">
+	
+	<div class="headerForm">
 		<c:import url="/WEB-INF/views/commons/header.jsp"/>
 	</div>
-	<div id="contentForm">
-	<form action='/question/questionFarmUpdate.do' method="post">
-	<input type="hidden" name="questionFarmNo" value="${map.qFarm.questionFarmNo }">
-	<input type="hidden" name="farmNo" value="${map.qFarm.farmNo }">
 	
-		<div id="question_background">
-				<div id="question_name">
-					<h3>불편 사항을 적어주세요</h3>
-				</div>
-
-
-<%-- 본문 시작 --%>
-				<br>
-				<div id="question_titleForm">
-					<input type="text" name="questionFarmTitle" value="${map.qFarm.questionFarmTitle }" id="question_title" placeholder="글 제목을 적어주세요">
-				</div><br>
+	<div class="contentForm">
+		<div class="contentwrap">
+			
+			<%-- 제목 공간 --%>
+			<div class="page_name">
+				<span>문의 사항을 수정하세요</span>
+			</div>
+			
+			<%-- 빈 공간 --%>		
+			<div class="empty"></div>
+			
+			<%-- 입력 폼 --%>
+			<div class="insert_zone">
+			<form action='/question/questionFarmUpdate.do' method="post">
+			<input type="hidden" name="questionFarmNo" value="${map.qFarm.questionFarmNo }">
+			<input type="hidden" name="farmNo" value="${map.qFarm.farmNo }">
+		
+				<%-- 빈 공간 --%>		
+				<div class="empty"></div>	
+						
+				<%-- 글 제목 입력 --%>
+				<input type="text" class="title" name="questionFarmTitle" placeholder="제목을 입력하시오" value="${map.qFarm.questionFarmTitle }"/>
 				
-				<div id="question_contentForm">
-					<textarea placeholder="글 내용을 적어주세요" name="questionFarmContent" id="question_content" style="resize: none;">${map.qFarm.questionFarmContent }</textarea>
-				</div><br>
-
-			<br>
-			<br>
-<%-- 버튼 목록 --%>
-			<div id="write_Btn_form">
-				<div id="submit_btn">
-					<input type="submit" id="submitBtn" value="글수정"/>
+				<%-- 글 제목 입력 --%>
+				<div class="contextForm">
+					<textarea class="content" name="questionFarmContent" placeholder="내용을 입력하시오" style="resize: none;">${map.qFarm.questionFarmContent }</textarea>
 				</div>
-				<div id="list_btn">
-					<input type="button" id="listBtn" value="리스트" onclick="location='/question/QuestionFarmPage.do'">
+				
+				<%-- 버튼 폼 --%>
+				<div class="Btnform">
+					<button type="button" class="listbtn" onclick="location='/question/QuestionFarmPage.do'">리스트</button>
+					<button type="submit" class="submitbtn">글 수정</button>
 				</div>
-				<div id="reset_btn">
-					<input type="reset" value="다시쓰기" id="resetBtn"/>
-				</div>
+				
+			</form>
+			
 			</div>
 		</div>
-	</form>	
 	</div>
-<%-- footer --%>
-	<div id="footerFrom">
+	
+	<div class="footerForm">
 		<c:import url="/WEB-INF/views/commons/footer.jsp"/>
-	</div>
+	</div>	
+
 </div>
-
-
 
 </body>
 </html>

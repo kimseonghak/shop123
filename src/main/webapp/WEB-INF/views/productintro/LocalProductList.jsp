@@ -100,7 +100,7 @@ body {
 	border-radius: 5px;
 }
 
-.empty{
+.empty1{
 	width: 100%;
 	height: 40px;
 }
@@ -118,13 +118,13 @@ body {
 }
 
 .list_contentForm{
-	width : 31%;
-	height: 450px;
+	width : 32%;
+	height: 400px;
 	float: left;
 	position: relative;
 	left: 10px;
-	border-radius: 15px / 15px;
-	margin: 10px;
+	border-radius: 15px;
+	padding: 10px;
 	box-shadow: 5px 5px 2px #f0f0f0;
 }
 
@@ -195,10 +195,9 @@ body {
 }
 
 #navi{
-	width: 100%;
 	display:inline-block;
-	margin-left:28vw;
 	text-align: center;
+	justify-content: center;
 }
 </style>
 <!-- 위 오른쪽 아래 왼쪽 순 -->
@@ -219,7 +218,7 @@ body {
 			</div>
 			
 			<%-- 빈 공간 --%>
-			<div class="empty"></div>
+			<div class="empty1"></div>
 			
 			<%-- 지역 선택 공간 --%>
 			<div class="select_form" align="center">
@@ -237,7 +236,7 @@ body {
 			</div>
 			
 			<%-- 빈 공간 --%>
-			<div class="empty"></div>
+			<div class="empty1"></div>
 			
 			<%-- 리스트 공간 --%>
 			<div class="listForm" align="center">	
@@ -296,11 +295,11 @@ body {
 					</div>
 					</c:forEach>
 				<!-- for문 -->	
-	</div>
+			</div>
 			
 			<%-- 빈 공간 --%>
 			<div class="empty2"></div>
-			<div class="empty"></div>
+			<div class="empty2"></div>
 			
 			<div id="navi" align="center">
 				${requestScope.pageNavi }
