@@ -158,6 +158,7 @@
     border: 2px solid #E9E9E9;
     border-radius: 3px;
     padding-left: 5px;
+    font-size: 1.9vmin;
 }
 
 .addr-box {

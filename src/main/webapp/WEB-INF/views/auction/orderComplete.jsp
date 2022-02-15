@@ -12,7 +12,7 @@
 <style>
 .bg-color {
 	width: 100%;
-	height: 100vh;
+	height: 120vh;
 	background-color: #F2F2F2;
 	display: flex;
     align-items: center;
