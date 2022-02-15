@@ -277,12 +277,7 @@
         border-bottom: 1px solid white;
         font-size: 1.7vmin;
     }
-    #sideFooterNaviWrap>ul>li>a
-    {
-		color:white;
-		text-decoration: none;
-    }
-    
+
     #farmUpdate
     {
         cursor: pointer
@@ -310,6 +305,8 @@
     }
     #farmLogout
     {
+    	color:white;
+		text-decoration: none;
         cursor: pointer
     }
     #farmLogout:hover
