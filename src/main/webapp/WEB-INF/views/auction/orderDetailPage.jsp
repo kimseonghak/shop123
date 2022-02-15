@@ -171,7 +171,18 @@ wrap {
                                 <td colspan="1" class="data border font width">
                                 	${pur.productCount }&nbsp; 상자
                                 </td>
-                                <td colspan="2" class="center border font text-align delivery">${pur.dName }</td>
+                                 <c:choose>
+	                                <c:when test="${String.valueOf(pur.refundYN) eq 'N'}">
+	                                <td colspan="2" class="center border font text-align delivery">
+		                                <span class="dName">${pur.dName }</span>
+	                                </td>
+		                            </c:when>
+		                            <c:otherwise>
+		                            <td colspan="2" class="center border font text-align delivery">
+		                               <span class="dName">환불완료</span>
+	                                </td>
+		                            </c:otherwise>
+		                            </c:choose>
                             </tr>
                           
 							</table>
