@@ -101,6 +101,7 @@ body {
 /* 사이드바 메인 UL */
 #mainUl {
 	list-style: none;
+	height:100%;
 	margin: 0px;
 	padding: 0px;
 	font-size: 1.1vw;
@@ -110,13 +111,14 @@ body {
 
 #mainUl>li {
 	width: 100%;
-	height: 35px;
+	height: 8%;
 	text-align: left;
 	padding-left:1vw;
-	line-height: 35px;
+	line-height: 200%;
 	border-bottom-left-radius: 10px;
 	border-top-left-radius: 10px;
-	margin: 10px 0px;
+	margin-top: 2vh;
+	margin-top: 2vh;
 	color:white;
 	transition:all ease 0.5s;
 }
@@ -127,6 +129,8 @@ body {
 }
 
 #mainUl>li>a{
+	width:100%;
+	height:100%;
 	display:block;
 	text-decoration: none;
 	color:inherit;

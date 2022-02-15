@@ -1,12 +1,13 @@
 package com.hot.shop.productintro.model.vo;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class LocalProductBoard {
 	private int LocalProductNo;
 	private String LocalProductTitle;
 	private String LocalProductContent;
-	private Timestamp LocalProductRegDate;
+	private Date LocalProductRegDate;
 	private int LocalProductPhotoNo;//사진 번호
 	private char LocalProductDelYN;
 	private String LocalProductClassify;
@@ -21,7 +22,7 @@ public class LocalProductBoard {
 
 
 	public LocalProductBoard(int localProductNo, String localProductTitle, String localProductContent,
-			Timestamp localProductRegDate, int localProductPhotoNo, char localProductDelYN, String localProductClassify,
+			Date localProductRegDate, int localProductPhotoNo, char localProductDelYN, String localProductClassify,
 			String localProductPhotoFilePath, int originalLocalphotoNo) {
 		super();
 		LocalProductNo = localProductNo;
@@ -54,10 +55,10 @@ public class LocalProductBoard {
 	public void setLocalProductContent(String localProductContent) {
 		LocalProductContent = localProductContent;
 	}
-	public Timestamp getLocalProductRegDate() {
+	public Date getLocalProductRegDate() {
 		return LocalProductRegDate;
 	}
-	public void setLocalProductRegDate(Timestamp localProductRegDate) {
+	public void setLocalProductRegDate(Date localProductRegDate) {
 		LocalProductRegDate = localProductRegDate;
 	}
 	public int getLocalProductPhotoNo() {

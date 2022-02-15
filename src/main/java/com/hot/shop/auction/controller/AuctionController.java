@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,26 +35,16 @@ public class AuctionController {
 	
 	//경매 중인 경매폼 데이터 가져오기
 	@RequestMapping(value="/auction/auctionPage.do", method = RequestMethod.GET)
-	public ModelAndView auctionPage(ModelAndView mav, @SessionAttribute(required = false) Member member,
-								    @SessionAttribute(required = false) Farm farm){
+	public ModelAndView auctionPage(ModelAndView mav){
 		
-		if(member==null || farm==null) {
+		HashMap<String, Object> map = aucService.selectAuction();
 		
-			mav.addObject("msg","잘못된 접근입니다. 다시 확인해주세요.");
-			mav.addObject("location","/");
-			mav.setViewName("commons/msg");
+		mav.addObject("map",map);
 		
-		}else {
-			
-			HashMap<String, Object> map = aucService.selectAuction();
-			
-			mav.addObject("map",map);
-			
-			mav.setViewName("auction/auctionPage");
-		}
+		mav.setViewName("auction/auctionPage");
+		
 		return mav;
 	}
-	
 	
 	@RequestMapping(value="/auction/auctionSale.do")
 	public String auctionSale(){
@@ -62,29 +54,33 @@ public class AuctionController {
 	
 	//수량,최저가 입력 시 비교하여 로직 처리
 	@RequestMapping(value="/auction/auctionInputPrice.do", method = RequestMethod.POST)
-	public void auctionInputPrice(Auction auc, @SessionAttribute(required = false) Farm farm,
+	@ResponseBody
+	public boolean auctionInputPrice(Auction auc, @SessionAttribute(required = false) Farm farm,
 								  HttpServletResponse response, @RequestParam int currentPrice,
-								  ModelAndView mav,@SessionAttribute(required = false) Member member)throws IOException {
+								  ModelAndView mav,HttpServletRequest request)throws IOException, ServletException{
+		if(farm == null) {
+			return false;
+			
+		}
 		
 		int farmNo = farm.getFarmNo();
 		int auctionCount1 = auc.getAuctionCount1();
 		int auctionPrice = auc.getAuctionPrice();
 		
 		if(auctionCount1>49 && auctionPrice<currentPrice) {
-		
+			
 			int result = aucService.inputLowestPrice(auc, farmNo);
-			
+
 			if(result>0) {
-			
-				response.getWriter().print(true);
 				
+				return true;
+					
 			}else {
-				
-				response.getWriter().print(false);
+					
+				return false;
 			}
-			
 		}
-		
+		return false;
 	}
 	
 	//진행 중인 구매 폼 찾아서 데이터 가져오기
@@ -103,39 +99,31 @@ public class AuctionController {
 	
 	//구매하기 누를 경우 수량 비교하고, 해당 유저 데이터 가져와서 주문 하기 페이지로 이동
 	@RequestMapping(value="/auction/orderPage.do", method = RequestMethod.POST)
-	public ModelAndView orderPage(SellForm sf, Farm f,
+	public ModelAndView orderPage(SellForm sf, Member member, Farm f,
 							@RequestParam int currentCount,
-							ModelAndView mav, @SessionAttribute(required = false) Member member) {
+							ModelAndView mav) {
 		
-		if(member==null) {
+		
+		int auctionCount = sf.getAuctionCount1();
+		
+		if(currentCount<auctionCount) {
 			
 			mav.addObject("msg","잘못된 접근입니다. 다시 확인해주세요.");
-			mav.addObject("location","/");
-			mav.setViewName("commons/msg");
-			
-		}else {
 		
-			int auctionCount = sf.getAuctionCount1();
+		}else {
 			
-			if(currentCount<auctionCount) {
-				
-				mav.addObject("msg","잘못된 접근입니다. 다시 확인해주세요.");
-				mav.setViewName("commons/msg");
+			Member m = aucService.selectMember(member);
+			f = aucService.selectFarm(f);
 			
-			}else {
-				
-				Member m = aucService.selectMember(member);
-				f = aucService.selectFarm(f);
-				
-				mav.addObject("m",m);
-				mav.addObject("f",f);
-				mav.addObject("sf",sf);
-				
+			mav.addObject("m",m);
+			mav.addObject("f",f);
+			mav.addObject("sf",sf);
 			
-				mav.setViewName("auction/orderPage");
-				
-			}
-	   }
+		
+			mav.setViewName("auction/orderPage");
+			
+		}
+		
 		return mav;
 	}
 	
@@ -144,6 +132,7 @@ public class AuctionController {
 	public void orderPay(Purchaselist p, HttpServletResponse response,
 						 @RequestParam int auctionNo)throws IOException {
 		
+		System.out.println(p.getRecipient());
 		
 		int auctionCount  = p.getProductCount();
 		int insertResult = aucService.insertOrder(p);

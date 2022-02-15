@@ -25,13 +25,19 @@
 
 <style>
 *{
-	
 	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
 }
 
 .wrapForm{
 	width: 100%;
-	height: 1817px;
+	min-height: 100%;
 }
 
 .headerForm{
@@ -42,8 +48,6 @@
 .contentForm{
 	padding: 30px;
 	width: 100%;
-	height: 1400px;
-	background-color: #f0f0f0;
 }
 
 .footerForm{
@@ -52,19 +56,19 @@
 }
 
 .contentwrap{
-	width: 80%;
-	height: 80%;
+	width: 70%;
+	height: 100%;
 	margin: 100px auto;
-	background-color: white;
-	border-radius: 5px/5px;
+	border-radius: 15px;
+	box-shadow: 3px 3px 10px #aeaeae;
 }
 
 .page_name{
 	width: 25%;
 	height: 60px;
 	text-align: center;
-	padding: 50px 10px 0px;
-	margin: 5% 75% 5% 0%;
+	padding: 80px 10px 0px;
+	margin: 5% 70% 5% 0%;
 	color: #3BBD5A;
 	font : normal bold 30px "Nanum Gothic",sans-serif;
 }
@@ -78,7 +82,7 @@
 }
 
 .select_local{
-	width: 8%;
+	width: 7%;
 	height: 40px;
 	background-color: #3BBD5A;
 	font : normal bold 17.5px "Nanum Gothic",sans-serif;
@@ -98,12 +102,17 @@
 
 .empty{
 	width: 100%;
+	height: 40px;
+}
+
+.empty2{
+	width: 100%;
 	height: 80px;
 }
 
 .listForm{
-	width: 90%;
-	height: 45%;
+	width: 80%;
+	height: 40%;
 	border-radius: 15px;
 
 }
@@ -114,8 +123,7 @@
 	float: left;
 	position: relative;
 	left: 10px;
-	border: 0.5px solid gray;
-	border-radius: 15px / 15px;
+	border-radius: 15px;
 	margin: 10px;
 	box-shadow: 5px 5px 2px #f0f0f0;
 }
@@ -124,20 +132,20 @@
 	width : 100%;
 	height: 65%;
 	margin: 0 auto;
-	border-radius: 15px / 15px;
+	border-radius: 15px;
 }
 
 .list_loaction_Form{
-	width : 40%;
+	width : 35%;
 	height: 5%;
 	position: relative;
-	left: -110px;
+	left: -80px;
 	border: none;
 	border-radius: 5px;
 	background-color: #3BBD5A;
 	color: #ffffff;
 	font : normal bold 17.5px "Nanum Gothic",sans-serif;
-	margin-top: 10px;
+	margin-top: 20px;
 }
 
 .list_titleForm{
@@ -186,10 +194,16 @@
 }
 
 #navi{
-	width: 5%;
-	height: 30px;
-	margin: 0 auto;
+	width: 100%;
+	display:inline-block;
+	margin-left:28vw;
+	text-align: center;
 }
+
+.navibar{
+	
+}
+
 </style>
 <!-- 위 오른쪽 아래 왼쪽 순 -->
 </head>
@@ -213,6 +227,7 @@
 			
 			<%-- 지역 선택 공간 --%>
 			<div class="select_form" align="center">
+				<button class="select_local">전체</button>
 				<button class="select_local">1월</button>
 				<button class="select_local">2월</button>
 				<button class="select_local">3월</button>
@@ -249,12 +264,13 @@
 					</div>
 					</c:forEach>
 				<!-- for문 -->	
-	</div>
+			</div>
 			
 			<%-- 빈 공간 --%>
+			<div class="empty2"></div>
 			<div class="empty"></div>
 			
-			<div id="navi">
+			<div id="navi" align="center">
 				${requestScope.pageNavi }
 			</div><br>
 			
@@ -290,8 +306,8 @@ $(".select_local").click(function () {
      inputTag.setAttribute("name","seasonProductClassify");
      
      var text = $(this).text();
-     
      switch(text){
+     	case "전체" :  inputTag.setAttribute("value","0");break;
      	case "1월" :  inputTag.setAttribute("value","1");break;
      	case "2월" :  inputTag.setAttribute("value","2");break;
      	case "3월" :  inputTag.setAttribute("value","3");break;

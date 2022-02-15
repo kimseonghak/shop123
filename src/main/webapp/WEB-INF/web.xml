@@ -3,6 +3,19 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	
+	<!-- Error Page  -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/commons/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/views/commons/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>400</error-code>
+		<location>/WEB-INF/views/commons/error.jsp</location>
+	</error-page>
 	<!-- filter 설정 UTF-8 -->
 	<filter>
 		<filter-name>characterEncoding</filter-name>

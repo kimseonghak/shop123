@@ -57,7 +57,7 @@
 }
 
 #auction-wrapBox {
-   height: 59%;
+   height: 52.5%;
    margin-left: 12.5%;
 }
 
@@ -224,6 +224,17 @@
    text-align: center;
    vertical-align: middle;
 }
+#kgInfo-box{
+	width: 100%;
+	height: 5%;
+}
+#kgInfo-box>p{
+	padding-top : 1%;
+	padding-left: 79%;
+	font-size: 1.9vmin;
+	font-family: 'NanumSquare';
+	opacity: 0.8;
+}
 </style>
 </head>
 <body>
@@ -275,12 +286,14 @@
                      	<span class="spanRight-test">
                         	 <input type="number" min="0" name="auctionCount" class="auctionCount-input margin" value="0"/>
                      	</span>
+                     	<span class="font-style text-span">KG</span>
                      </div>
                      <div class="spanBox">  
                      	<span class="spanLeft">현재 최저가 :</span>
                      	<span class="spanRight-test margin-bottom font-style">
                         	 <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au1.auctionPrice }"/>
                      	</span> 
+                     	<span class="text-span font-style">원</span>
                      </div>
                      <div class="btnBox">
                      	<input type="submit" class="btn" id="aucBtn1" value="입찰하기"/>
@@ -330,7 +343,7 @@
                      	<span class="spanRight-test">
                         	 <input type="number" min="0" name="auctionCount1" class="auctionCount-input margin" value="0"/>
                      	</span>
-                     	<span class="font-style text-span">상자</span>
+                     	<span class="font-style text-span">KG</span>
                      </div>
                      <div class="spanBox">  
                      	<span class="spanLeft">현재 최저가 :</span>
@@ -381,12 +394,12 @@
                      	<span class="spanRight-test">
                         	 <input type="number" min="0" name="auctionCount" class="auctionCount-input margin"/>
                      	</span>
-                     	<span class="font-style text-span">상자</span>
+                     	<span class="font-style text-span">KG</span>
                      </div>
                      <div class="spanBox">  
                      	<span class="spanLeft">현재 최저가 :</span>
                      	<span class="spanRight-test margin-bottom font-style">
-                        	 <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au3.auctionPrice }"/>
+                        	 <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au2.auctionPrice }"/>
                      	</span>
                      	<span class="text-span font-style">원</span> 
                      </div>
@@ -437,14 +450,14 @@
                      <div class="spanBox">  
                      	<span class="spanLeft">판매수량 :</span>
                      	<span class="spanRight-test">
-                        	 <input type="number" min="0" name="auctionCount" class="auctionCount-input margin" value="0"/>
+                        	 <input type="number" min="0" name="auctionCount1" class="auctionCount-input margin"/>
                      	</span>
-                     	<span class="font-style text-span">상자</span>
+                     	<span class="font-style text-span">KG</span>
                      </div>
                      <div class="spanBox">  
                      	<span class="spanLeft">현재 최저가 :</span>
                      	<span class="spanRight-test margin-bottom font-style">
-                        	 <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au3.auctionPrice }"/>
+                        	 <input type="number" name="auctionPrice" class="auctionCount-input" value="${map.au2.auctionPrice }"/>
                      	</span>
                      	<span class="text-span font-style">원</span> 
                      </div>
@@ -490,7 +503,7 @@
                      	<span class="spanRight-test">
                         	 <input type="number" min="0" name="auctionCount1" class="auctionCount-input margin"/>
                      	</span>
-                     	<span class="font-style text-span">상자</span>
+                     	<span class="font-style text-span">KG</span>
                      </div>
                     
                      <div class="spanBox">  
@@ -550,7 +563,7 @@
                      	<span class="spanRight-test">
                         	 <input type="number" min="0" name="auctionCount1" class="auctionCount-input margin"/>
                      	</span>
-                     	<span class="font-style text-span">상자</span>
+                     	<span class="font-style text-span">KG</span>
                      </div>
                     
                      <div class="spanBox">  
@@ -570,6 +583,9 @@
          </c:choose>
             
          </div>
+         <div id="kgInfo-box">
+         	<p>(판매 단위는 KG 당입니다.)</p>
+         </div>
       </div>
       <c:import url="/WEB-INF/views/commons/footer.jsp"/>
    </div>
@@ -587,7 +603,8 @@
       var auctionProduct = $(this).parent().parent().find('input[name=auctionProduct]').val();  			  //상품
       var farmNo = $(this).parent().parent().find('input[name=farmNo]').val();               			  //농가번호
       var currentPrice = $(this).parent().parent().find('input[name=currentPrice]').val();      			  //현재 최저가
-      var userNo = $(this).parent().parent().find('input[name=userNo]').val();
+      var userNo = $(this).parent().parent().find('input[name=userNo]').val();							  //일반 회원 번호
+      
       
       //회원인지 유효성 검사
       if(userNo!=''){
@@ -620,12 +637,14 @@
                   "auctionProduct" : auctionProduct,
                   "currentPrice" : currentPrice },  
             type : "post",
+            dataType : "json",
             success : function(result){
-               if(result=="true"){
+               if(result){
                   alert('최저가로 입찰되었습니다.');
                   window.location.reload(true);
                }else{
-                  alert('잘못된 접근입니다');
+                  alert('다시 로그인해주세요.');
+                  window.location.reload(true);
                }
             },
             error : function(){

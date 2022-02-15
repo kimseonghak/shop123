@@ -51,7 +51,6 @@ body {
 .contentForm{
 	padding: 30px;
 	width: 100%;
-	background-color: #f0f0f0;
 	
 }
 
@@ -61,12 +60,13 @@ body {
 }
 
 .contentwrap{
-	width: 90%;
+	width: 65%;
 	height: 80%;
 	margin: 100px auto;
 	padding: 10px;
 	background-color: white;
-	border-radius: 5px/5px;
+	border-radius: 5px;
+	box-shadow: 3px 3px 10px #aeaeae;
 }
 
 .titleform1{
@@ -93,10 +93,6 @@ body {
 	margin-left: 10px;
 }
 
-.user{
-	float: right;
-}
-
 .titleform2{
 	width: 95%;
 	height: 40px;
@@ -104,15 +100,16 @@ body {
 }
 
 .icon{
-	width:17.5px;
-	height:17.5px;
+	width:17px;
+	height:17px;
+	margin-bottom: -3px;
 }
 
 .time{
 	text-align: left;
 	float: left;
 	margin-left: 20px;
-	margin-top:5px;
+	margin-top: 10px;
 }
 
 .hit{
@@ -132,6 +129,7 @@ body {
 	width: 85%;
 	min-height: 200px;
 	margin-top: 50px;
+	text-align: left;
 }
 
 .empty{
@@ -140,23 +138,12 @@ body {
 }
 
 .btnform{
-	width: 100%;
+	width: 90%;
 	height: 40px;
 	padding: 10px;
 	margin-top: 40px;
 	text-align: center;
-}
-
-.promotionBtn{
-	width: 130px;
-	height: 40px;
-	background-color: #3BBD5A;
-	font : normal bold 17.5px "Nanum Gothic",sans-serif;
-	color: #ffffff;
-	border-radius: 5px / 5px;	
-	border : none;
-	margin-right: 20px;
-	cursor : pointer;
+	border-top: 1px solid #2a2a2a;
 }
 
 .mainBtn{
@@ -258,9 +245,6 @@ body {
 				<div class="title">
 					<span>${localBoard.localProductTitle }</span>
 				</div>
-				<div class="user">
-					<span>작성자</span>
-				</div>
 			</div>
 			
 			<%-- 작성일, 조회수 영역 --%>
@@ -286,12 +270,11 @@ body {
 			
 			<%-- 버튼 영역 --%>
 			<div class="btnForm">
-			
-					<button type="button" class="promotionBtn">홍보요청</button>
+				<c:if test="${farm != null && (farm.rating eq 'admin' or farm.rating eq 'root')}">
 					<button type="button" class="deleteBtn">글 삭제</button>
 					<button class="updateBtn">글 수정</button>
-
-				<input type="button" class="mainBtn" value="리스트" onclick="location='/productintro/LocalProductListPage.do'">
+				</c:if>
+					<input type="button" class="mainBtn" value="리스트" onclick="location='/productintro/LocalProductListPage.do'">
 			</div>
 		</form>
 			

@@ -13,6 +13,7 @@ import com.hot.shop.admin.model.vo.Refund;
 import com.hot.shop.admin.model.vo.SellForm;
 import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.promotion.model.vo.Promotion;
 import com.hot.shop.question.model.vo.QuestionAnswer;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionUser;
@@ -45,7 +46,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public HashMap<String, Integer> sugWork() {
+	public HashMap<String, Object> sugWork() {
 		return aDAO.sugWork();
 	}
 
@@ -235,6 +236,24 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public QuestionAnswer questionFarmAnswer(int questionFarmNo) {
 		return aDAO.questionFarmAnswer(questionFarmNo);
+	}
+	
+// 게시판 관련 기능
+	@Override
+	public HashMap<String, Object> adminBoard(HashMap<String, Object> map) {
+		int recordCountPerPage=10;
+		ArrayList<Promotion> list = aDAO.promotionList(recordCountPerPage,map);
+		int naviCountPerPage=10;
+		String pageNavi = aDAO.getPromotionPageNavi(recordCountPerPage,map,naviCountPerPage);
+		map.put("list", list);
+		map.put("pageNavi", pageNavi);
+		
+		return map;
+	}
+
+	@Override
+	public boolean promotionEndYNUpdate(HashMap<String, Object> map) {
+		return aDAO.promotionEndYNUpdate(map);
 	}
 
 }

@@ -62,13 +62,14 @@ public class AdminController {
 		HashMap<String, Integer> map = aService.countOutput();
 		HashMap<String, Integer> joinMap = aService.joinOutput();
 		HashMap<String, Integer> farmMap = aService.farmOutput();
-		HashMap<String, Integer> sugMap = aService.sugWork();
+		HashMap<String, Object> sugMap = aService.sugWork();
 		ArrayList<QuestionUser> qUser = aService.questionUser();
 		ArrayList<QuestionFarm> qFarm = aService.questionFarm();
 		ArrayList<Refund> refund = aService.refund();
 		mav.addObject("dayMap",map);
 		mav.addObject("joinMap",joinMap);
 		mav.addObject("farmMap",farmMap);
+		mav.addObject("sugMap",sugMap);
 		mav.addObject("qUser",qUser);
 		mav.addObject("qFarm",qFarm);
 		mav.addObject("refund",refund);
@@ -582,15 +583,67 @@ public class AdminController {
 		mav.setViewName("admin/admin_member_info");
 		return mav;
 	}
-
-//기타 로직 모음
+// 게시판 관련 기능
+	// 게시판 페이지
+	@RequestMapping(value = "/admin/adminBoardPage.do", method = RequestMethod.GET)
+	public ModelAndView adminBoardPage(ModelAndView mav,
+			@RequestParam(required = false, defaultValue = "default") String type, 
+			@RequestParam(required = false, defaultValue = "") String keyword, 
+			@RequestParam(required = false, defaultValue = "1") int currentPage,
+			@SessionAttribute(required = false) Farm farm) {
 		
-		// 방문자 카운트 더하는 로직
-		@RequestMapping(value = "/admin/countInput.do", method = RequestMethod.GET)
-		@ResponseBody
-		public String countInput() {
-			aService.countInput();
-			return "1";
+		// 관리자 확인 코드
+		if(farm == null || farm.getRating().equals("FARM")) {
+			mav.setViewName("commons/error");
+			return mav;
 		}
+		HashMap<String,Object>map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		map.put("currentPage", currentPage);
+		map = aService.adminBoard(map);
 		
+		mav.addObject("map",map);
+		mav.setViewName("admin/admin_board");
+		
+		return mav;
+	}
+	// 홍보게시판 삭제 복구
+	@RequestMapping(value = "/admin/adminPromotionEndYNUpdate.do", method = RequestMethod.GET)
+	public ModelAndView promotionEndYNUpdate(ModelAndView mav,
+			@RequestParam String endYN,
+			@RequestParam String promotionNo,
+			@RequestParam(required = false, defaultValue = "1") int currentPage,
+			@RequestParam(required = false, defaultValue = "default") String type, 
+			@RequestParam(required = false, defaultValue = "") String keyword) {
+		
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		map.put("endYN", endYN);
+		map.put("promotionNo",promotionNo);
+		
+		boolean result = aService.promotionEndYNUpdate(map);
+		HashMap<String, Object> map2 = new HashMap<String, Object>();
+		
+		if(result) {
+			if(endYN.equals("Y")) mav.addObject("msg","게시판이 삭제되었습니다.");
+			else mav.addObject("msg","게시판이 복구되었습니다.");
+			mav.addObject("location", "/admin/adminBoardPage.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword);
+		}else {
+			mav.addObject("msg","오류가 발생하였습니다.");
+			mav.addObject("location", "/admin/adminBoardPage.do?currentPage="+currentPage+"&type="+type+"&keyword="+keyword);
+		}
+		mav.setViewName("commons/msg");
+		
+		return mav;
+	}
+	
+// 기타 로직 모음
+		
+	// 방문자 카운트 더하는 로직
+	@RequestMapping(value = "/admin/countInput.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String countInput() {
+		aService.countInput();
+		return "1";
+	}
 }

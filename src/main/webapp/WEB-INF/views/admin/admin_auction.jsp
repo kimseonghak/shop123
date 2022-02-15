@@ -554,7 +554,7 @@
 			for(var i=0; i<3; i++){
 				if($('input[name=auctionStart]').eq(i).val()==''){
 					$('input[name=auctionStart]').eq(i).val(date);
-					$('input[name=auctionEnd]').eq(i).val(date);
+					$('input[name=auctionEnd]').eq(i).val(date3.toISOString().substring(0,10));
 				};
 			}
 			for(var i=0; i<3; i++){

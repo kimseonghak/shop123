@@ -300,8 +300,19 @@
 			var endYN = $(this).attr('data');
 			var userNo = $(this).parent().siblings().eq(0).html();
 			var currentPage = ${currentPage };
-			
-			location.replace("/admin/adminMemberEndYNUpdate.do?endYN="+endYN+"&userNo="+userNo+"&currentPage="+currentPage);
+			if(endYN=='N'){
+				if(window.confirm("탈퇴 처리 하시겠습니까?")){
+					location.replace("/admin/adminMemberEndYNUpdate.do?endYN="+endYN+"&userNo="+userNo+"&currentPage="+currentPage);
+				}else{
+					alert("취소하였습니다.")
+				};
+			}else if(endYN=='Y'){
+				if(window.confirm("복구 처리 하시겠습니까?")){
+					location.replace("/admin/adminMemberEndYNUpdate.do?endYN="+endYN+"&userNo="+userNo+"&currentPage="+currentPage);
+				}else{
+					alert("취소하였습니다.")
+				};
+			}
 		});
 <%-- 해당 페이지 최초 페이지 이동 --%>
 		$('#title').click(function(){

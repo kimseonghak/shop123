@@ -271,6 +271,7 @@
 								</c:choose>
 							</td>
 						</tr>
+						<tr class="listSpace"></tr>
 					</c:forEach>
 					<tr>
 						<td colspan="8" align="center">${map.pageNavi }</td>
@@ -344,8 +345,6 @@
 			}else{
 				alert('취소하였습니다.');
 			}
-			
-			
 		});
 <%-- 문의 번호 클릭시 해당 게시글 팝업 --%>
 	$('.questionUser').click(function(){

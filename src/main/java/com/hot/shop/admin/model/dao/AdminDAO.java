@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 
-import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,6 +17,7 @@ import com.hot.shop.admin.model.vo.Refund;
 import com.hot.shop.admin.model.vo.SellForm;
 import com.hot.shop.farm.model.vo.Farm;
 import com.hot.shop.member.model.vo.Member;
+import com.hot.shop.promotion.model.vo.Promotion;
 import com.hot.shop.question.model.vo.QuestionAnswer;
 import com.hot.shop.question.model.vo.QuestionFarm;
 import com.hot.shop.question.model.vo.QuestionPhoto;
@@ -462,7 +462,56 @@ public class AdminDAO {
 		return sql.update("admin.auctionUpdate",au);
 	}
 
-	public HashMap<String, Integer> sugWork() {
-		return null;
+	public HashMap<String, Object> sugWork() {
+		HashMap<String, Object> sugMap = sql.selectOne("admin.sugWork");
+		return sugMap;
+	}
+
+	public ArrayList<Promotion> promotionList(int recordCountPerPage, HashMap<String, Object> map) {
+		int currentPage = (int) map.get("currentPage");
+		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
+		int end = currentPage*recordCountPerPage;
+		map.put("start", start);
+		map.put("end", end);
+		return new ArrayList<Promotion>(sql.selectList("admin.promotionList",map));
+	}
+
+	public String getPromotionPageNavi(int recordCountPerPage, HashMap<String, Object> map, int naviCountPerPage) {
+		int recordTotalCount = promotionTotalCount(map); 
+		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
+		int currentPage = (int) map.get("currentPage");
+		int startNavi = ((currentPage-1)/naviCountPerPage) *naviCountPerPage+1;
+		int endNavi = startNavi+naviCountPerPage-1;
+		
+		if(endNavi>pageTotalCount) {
+			endNavi=pageTotalCount;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<a href='/admin/adminBoardPage.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&lt;&lt;</a>");
+		sb.append("<a href='/admin/adminBoardPage.do?currentPage="+(currentPage-10)+"' class='naviArrow' id='prev'>&lt;</a>");
+		for(int i= startNavi; i<=endNavi; i++) {
+			if(i==currentPage) {
+				sb.append("<a href='/admin/adminBoardPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='currentNavi'>"+i+"</a>");
+			}else {
+				sb.append("<a href='/admin/adminBoardPage.do?currentPage="+i+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='otherNavi'>"+i+"</a>");
+			}
+		}
+		if((currentPage+10)>pageTotalCount) {
+			sb.append("<a href='/admin/adminBoardPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+		}else {
+			sb.append("<a href='/admin/adminBoardPage.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow' id='next'>&gt;</a>");
+		}
+		sb.append("<a href='/admin/adminBoardPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' class='naviArrow'>&gt;&gt;</a>");
+		
+		return sb.toString();
+	}
+
+	private int promotionTotalCount(HashMap<String, Object> map) {
+		return sql.selectOne("admin.promotionTotalCount",map);
+	}
+
+	public boolean promotionEndYNUpdate(HashMap<String, Object> map) {
+		return sql.update("admin.promotionYNUpdate",map)>0;
 	}
 }
