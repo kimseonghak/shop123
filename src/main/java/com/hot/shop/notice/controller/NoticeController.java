@@ -33,6 +33,7 @@ public class NoticeController {
 			@RequestParam(required = false, defaultValue = "") String keyword,
 			@RequestParam(required = false, defaultValue = "default") String type,
 			@SessionAttribute(required = false) Farm farm) 
+	
 	{
 		
 			HashMap<String, Object> map = new HashMap<String, Object>();

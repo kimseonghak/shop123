@@ -40,19 +40,21 @@
 	
 		<!-- 페이지 네비 갯수 로직 -->
 		<select id="promotionTotalCount" parameterType="hashmap" resultType="integer">
-			select count(*) from promotion  
+			select count(*) from promotion where PROMOTION_END_YN='N'and
 			<choose>
 				<when test="type.equals('title')">
-					where PROMOTION_TITLE like '%'||#{keyword}||'%'
+					PROMOTION_TITLE like '%'||#{keyword}||'%'
 				</when>
 				<when test="type.equals('content')">
-					where PROMOTION_CONTENT like '%'||#{keyword}||'%'
+				    PROMOTION_CONTENT like '%'||#{keyword}||'%'
 				</when>
 				<when test="type.equals('all')">
-					where PROMOTION_TITLE like '%'||#{keyword}||'%' or PROMOTION_CONTENT like '%'||#{keyword}||'%'
+					PROMOTION_TITLE like '%'||#{keyword}||'%' or PROMOTION_CONTENT like '%'||#{keyword}||'%'
 				</when>
-				<otherwise></otherwise>
-			</choose>		
+				<otherwise>
+				</otherwise>
+			</choose>
+			PROMOTION_END_YN='N' 		
 		</select>
 		
 		<!-- 여기 사실 뭔가 이상함, promotion where 했을때는 오류나는데, where을 choose 문 아래 같다붙이니 에러가 안남, 사실 쟤가 

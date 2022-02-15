@@ -123,7 +123,8 @@ body {
 .list{
 	width: 100%;
 	height: 20%;
-	margin: 5px auto;
+	margin: 0 auto;
+	padding: 5px;
 	box-shadow: 3px 3px 10px #aeaeae;
 	border-radius: 10px;
 	cursor: pointer;

@@ -259,7 +259,6 @@ body {
 					 <thead>
 					    <tr>
 					      <th scope="col">글 번호</th>
-					      <th scope="col">대상</th>
 					      <th scope="col">분류</th>
 					      <th scope="col">글 제목</th>
 					      <th scope="col">작성일</th>
@@ -267,27 +266,29 @@ body {
 					    </tr>
 					  </thead>
 					<!-- 반복문 -->
-					<c:forEach items="${map.list}" var="notice">				
-						<tr class="view" onclick="location.href='/notice/NoticeView.do?noticeNo=${notice.noticeNo}&currentPage=${currentPage}&type=${map.type}&keyword=${keyword}'">
-					      <th scope="row">${notice.noticeNo}</th>
-					      <td>${notice.noticeCode}</td>
-					      <c:choose>
-						      <c:when test="${notice.noticeCategory eq 'Category-1' }">					
-								  <td>[기타]</td>
-							  </c:when>
-							  <c:when test="${notice.noticeCategory eq 'Category-2' }">					
-								  <td>[회원가입]</td>
-							  </c:when>
-							  <c:when test="${notice.noticeCategory eq 'Category-3' }">					
-								  <td>[경매]</td>
-							  </c:when>
-							  <c:otherwise></c:otherwise>
-						  </c:choose>
-					      <td class="boardtitle">${notice.noticeTitle}</td>
-					      <td>${notice.noticeRegdate}</td>
-					      <td>${notice.noticeCount}</td>
-					    </tr>
-					</c:forEach>				
+
+						<c:forEach items="${map.list}" var="notice">
+							<tr class="view"
+								onclick="location.href='/notice/NoticeView.do?noticeNo=${notice.noticeNo}&currentPage=${currentPage}&type=${map.type}&keyword=${keyword}'">
+								<th scope="row">${notice.noticeNo}</th>
+								<c:choose>
+									<c:when test="${notice.noticeCategory eq 'Category-1' }">
+										<td>[기타]</td>
+									</c:when>
+									<c:when test="${notice.noticeCategory eq 'Category-2' }">
+										<td>[회원가입]</td>
+									</c:when>
+									<c:when test="${notice.noticeCategory eq 'Category-3' }">
+										<td>[경매]</td>
+									</c:when>
+									<c:otherwise></c:otherwise>
+								</c:choose>
+								<td class="boardtitle">${notice.noticeTitle}</td>
+								<td>${notice.noticeRegdate}</td>
+								<td>${notice.noticeCount}</td>
+							</tr>
+						</c:forEach>
+							
 				</table>
 			</div>
 			

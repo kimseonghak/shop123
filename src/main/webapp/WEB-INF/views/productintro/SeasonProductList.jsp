@@ -118,13 +118,13 @@ body {
 }
 
 .list_contentForm{
-	width : 31%;
-	height: 450px;
+	width : 32%;
+	min-height: 400px;
 	float: left;
 	position: relative;
 	left: 10px;
 	border-radius: 15px;
-	margin: 10px;
+	padding: 10px;
 	box-shadow: 5px 5px 2px #f0f0f0;
 }
 
@@ -194,14 +194,10 @@ body {
 }
 
 #navi{
-	width: 100%;
-	display:inline-block;
-	margin-left:28vw;
-	text-align: center;
-}
 
-.navibar{
-	
+	display:inline-block;
+	text-align: center;
+	justify-content: center;
 }
 
 </style>
@@ -223,7 +219,7 @@ body {
 			</div>
 			
 			<%-- 빈 공간 --%>
-			<div class="empty"></div>
+			<div class="empty1"></div>
 			
 			<%-- 지역 선택 공간 --%>
 			<div class="select_form" align="center">
@@ -243,7 +239,7 @@ body {
 			</div>
 			
 			<%-- 빈 공간 --%>
-			<div class="empty"></div>
+			<div class="empty1"></div>
 			
 			<%-- 리스트 공간 --%>
 			<div class="listForm" align="center">	
@@ -268,7 +264,6 @@ body {
 			
 			<%-- 빈 공간 --%>
 			<div class="empty2"></div>
-			<div class="empty"></div>
 			
 			<div id="navi" align="center">
 				${requestScope.pageNavi }
