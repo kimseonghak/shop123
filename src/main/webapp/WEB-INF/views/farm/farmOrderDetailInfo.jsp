@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주문 상세 내역</title>
+<title>Insert title here</title>
 
 <!--부트스트랩-->
 <link
@@ -43,19 +43,19 @@
 			<tbody>
 				<tr>
 					<td class="fixWord">주문번호</td>
-					<td>B1234AD23</td>
+					<td>${list.get(0).getOrderNo()}</td>
 				</tr>
 				<tr>
 					<td class="fixWord">상품명</td>
-					<td>감귤3KG</td>
+					<td>${list.get(0).getProductName()}</td>
 				</tr>
 				<tr>
 					<td class="fixWord">구매수량</td>
-					<td>1</td>
+					<td>${list.get(0).getProductCount()}</td>
 				</tr>
 				<tr>
 					<td class="fixWord">결제금액</td>
-					<td>25000</td>
+					<td>${list.get(0).getPayAmount()}</td>
 				</tr>
 			</tbody>
 		</table>

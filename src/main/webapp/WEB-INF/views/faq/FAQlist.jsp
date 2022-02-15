@@ -162,7 +162,6 @@
 		border: none;
         position: relative;
         left: 57vw;
-        bottom: 0.5vh;
     }
     .deleteBtn
     {
@@ -174,7 +173,6 @@
 		border: none;
         position: relative;
         left: 58vw;
-        bottom: 0.5vh;
     }
     
 </style>

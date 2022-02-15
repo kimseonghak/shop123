@@ -136,3 +136,7 @@ table {
 #liGraph{
 	height:70%;
 }
+.graphInfo{
+	font-size:1.7vmin;
+	font-family: 'Nanum Gothic', 'sans-serif';
+}

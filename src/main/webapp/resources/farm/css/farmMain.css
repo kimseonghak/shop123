@@ -277,7 +277,7 @@
         border-bottom: 1px solid white;
         font-size: 1.7vmin;
     }
-    
+
     #farmUpdate
     {
         cursor: pointer
@@ -305,6 +305,8 @@
     }
     #farmLogout
     {
+    	color:white;
+		text-decoration: none;
         cursor: pointer
     }
     #farmLogout:hover

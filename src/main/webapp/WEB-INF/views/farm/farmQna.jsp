@@ -26,12 +26,11 @@
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmQnaContent.css">
 
 <style>
-	 #naviArea
-	 {
-	 	display:inline-block;
-	 	margin-left:43vw;
-	 	text-align: center;
-	 }
+	.pagination
+	{
+		display: flex;
+		justify-content: center;
+	}
 </style>
 
 

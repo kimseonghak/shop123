@@ -546,9 +546,11 @@
 	<select id="sugWork" resultType="hashMap">
 		select * from 
 			(select count(*) as bid_Sell_YN from bid where bid_sell_yn = 'N'),
-			(select count(*) as qUser_Answer_YN from question_user where question_user_answer_yn='N'),
+			(select count(*) as qUser_Answer_YN from question_user where question_user_answer_yn='N' and question_user_classify='A'),
 			(select count(*) as qFarm_Answer_YN from question_farm where question_farm_answer_yn='N'),
-			(select count(*) as refund_YN from refund where farm_yn='Y' and admin_yn='N')
+			(select count(*) as refund_YN from refund where farm_yn='Y' and admin_yn='N'),
+			(select count(*) as purchase from purchaselist),
+			(select count(*) as refund from refund where admin_yn='Y')
 	</select>
 	<select id="promotionList" parameterType="hashmap" resultType="promotion">
 			select

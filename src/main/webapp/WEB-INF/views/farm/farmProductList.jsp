@@ -27,12 +27,11 @@
 
 
 <style>
-	 #naviArea
-	 {
-	 	display:inline-block;
-	 	margin-left:43vw;
-	 	text-align: center;
-	 }
+	.pagination
+	{
+		display: flex;
+		justify-content: center;
+	}
 </style>
 
 

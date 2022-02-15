@@ -107,7 +107,6 @@ public class AdminController {
 		}
 		
 		au.setFarmNo(1);
-		System.out.println(au.toString());
 		if(au.getAuctionEndYN()=='Y') {
 			int result = aService.auctionUpdate(au);
 			if(result>0) {
@@ -163,12 +162,6 @@ public class AdminController {
 			@SessionAttribute(required = false) Farm farm,
 			HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException{
-		
-		// 관리자 확인 코드
-		if(farm == null || farm.getRating().equals("FARM")) {
-			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/commons/error.jsp");
-			view.forward(request, response);
-		}
 		
 		Auction au = aService.outputAucionInfo(auctionNo);
 		/*
@@ -383,8 +376,7 @@ public class AdminController {
 		
 		// 관리자 확인 코드
 		if(farm == null || farm.getRating().equals("FARM")) {
-			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/commons/error.jsp");
-			view.forward(request, response);
+			return false;
 		}
 		
 		setup();
