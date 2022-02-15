@@ -406,7 +406,6 @@
                             <div class="name"><span class="star" style="color: darksalmon">*</span>
                             <span class="name-span">주소</span></div>
                             <div class="name-box">
-                                <input type="text" name="userPhone" class="addr-box" disabled="true" />
                                 <input type="button" class="addr-box" onclick="sample4_execDaumPostcode()" value="주소찾기" />
                             </div>
 
