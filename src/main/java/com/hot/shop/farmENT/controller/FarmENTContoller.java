@@ -3,6 +3,7 @@ package com.hot.shop.farmENT.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -130,8 +131,6 @@ public class FarmENTContoller {
 							mv.addObject("productName5",null);
 							mv.addObject("productCount5",null);
 				}
-
-				
 				
 				mv.addObject("noticeList",noticeList);
 				mv.addObject("qnaList",qnaList);

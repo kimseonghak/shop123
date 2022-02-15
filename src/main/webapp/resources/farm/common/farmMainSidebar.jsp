@@ -33,7 +33,7 @@
                         <li><span id="farmUpdate">회원정보수정</span></li>
                         <li><span id="farmPwUpdate">비밀번호수정</span></li>
                         <li><span id="farmWithDraw">회원탈퇴</span></li>
-                        <li><a href="/farm/farmENTlogout.do">로그아웃</a></li>
+                        <li><a id="farmLogout" href="/farm/farmENTlogout.do">로그아웃</a></li>
                     </ul>
                 </div>    
 	        </div>

@@ -57,7 +57,7 @@
                          <tbody>
                          		<c:forEach items="${requestScope.noticeList}" var="n" varStatus="i">
 		                           <tr>
-		                                <td class="boardSubject"><span class="noticeTitle" noticeContent="${n.getNoticeContent()}">${n.getNoticeTitle()}</span></td>
+		                                <td class="boardSubject"><span id="new" style="color: red; display: none">new</span><span class="noticeTitle" noticeContent="${n.getNoticeContent()}">${n.getNoticeTitle()}</span></td>
 		                                <td class="writeDate">${n.getNoticeRegdate()}</td>
 		                           </tr>
 		                         </c:forEach>  
@@ -259,7 +259,6 @@
   			
   		});
   </script>
-
 
 
 
