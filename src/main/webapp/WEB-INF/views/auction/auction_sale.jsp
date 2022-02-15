@@ -286,11 +286,11 @@
                      </div>
                      <div class="spanBox">
                      	<span class="spanLeft">남은시간 :</span>
-                     	<span class="spanRight fontWeight remainTime1" style="color: #FE0011"></span>
+                     	<span class="spanRight fontWeight" style="color: #FE0011"></span>
                      </div>
                      <div class="spanBox">
 						<span class="spanLeft">현재 상품 수량 :</span>
-						<span class="spanRight font-style auctionCount1">${map.au1.auctionCount1}&nbsp;KG</span>
+						<span class="spanRight font-style">${map.au1.auctionCount1}&nbsp;KG</span>
 					 </div>
 					 <div class="spanBox">
 						<span class="spanLeft">낙찰된 가격 :</span>
@@ -453,11 +453,11 @@
                      </div>
                      <div class="spanBox">
                      	 <span class="spanLeft">남은시간 :</span>
-                     	 <span class="spanRight fontWeight remainTime2" style="color: #FE0011"></span>
+                     	 <span class="spanRight fontWeight" style="color: #FE0011"></span>
                      </div>
                      <div class="spanBox">
 						 <span class="spanLeft">현재 상품 수량 :</span>
-						 <span class="spanRight font-style auctionCount2">${map.au2.auctionCount1}&nbsp;KG</span>
+						 <span class="spanRight font-style ">${map.au2.auctionCount1}&nbsp;KG</span>
 					 </div>
 					 <div class="spanBox">
 						 <span class="spanLeft">낙찰된 가격 :</span>
@@ -620,11 +620,11 @@
                     </div>
                     <div class="spanBox">
                			<span class="spanLeft">남은시간 :</span>
-               			<span class="spanRight fontWeight remainTime3" style="color: #FE0011"></span>
+               			<span class="spanRight fontWeight" style="color: #FE0011"></span>
                		</div>
                		<div class="spanBox">
 						<span class="spanLeft">현재 상품 수량 :</span>
-						<span class="spanRight font-style auctionCount3">${map.au3.auctionCount1}&nbsp;KG</span>
+						<span class="spanRight font-style">${map.au3.auctionCount1}&nbsp;KG</span>
 					</div>
 					<div class="spanBox">
 						<span class="spanLeft">낙찰된 가격 :</span>

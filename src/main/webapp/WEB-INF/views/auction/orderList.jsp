@@ -315,13 +315,7 @@
 	
 	
 		
-		$('#option').val('2021').click(function(){
-			alert('aa');
-			
-		});
 		
-		
-	});
 	
 	$('#mypageBtn').click(function(){
 		
