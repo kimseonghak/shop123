@@ -140,7 +140,7 @@
 	font-weight: bold;
 }
 .auctionSaleCount-input{
-   width : 60%;
+   width : 90%;
    height: 80%;
    border : none;
    text-align: center;
@@ -149,14 +149,15 @@
    color : #3BBD5A;
    font-size: 2.3vmin;
    padding-left : 5%;
-   margin-top: -2%;
+   margin-top: -4%;
 }
 .spanRight-test {
-   width: 63%;
+   width: 43%;
    height: 100%;
    text-align: center;
    float : left;
    font-family: 'NanumSquare';
+   padding-left : 8%;
 }
 .spanmiddel{
    width: 35%;
@@ -174,6 +175,15 @@
    font-size: 2.2vmin;
    font-family: 'NanumSquare';
    text-align: left;
+}
+.text-span{
+	width: 11%;
+	height: 100%;
+	float :left;
+	font-size: 2.2vmin;
+   	font-family: 'NanumSquare';
+   	color : #3BBD5A;
+   	padding-top: 0.4%;
 }
 #btnBox{
 	width: 100%;
@@ -280,7 +290,7 @@
                      </div>
                      <div class="spanBox">
 						<span class="spanLeft">현재 상품 수량 :</span>
-						<span class="spanRight font-style auctionCount1">${map.au1.auctionCount1}&nbsp;상자</span>
+						<span class="spanRight font-style auctionCount1">${map.au1.auctionCount1}&nbsp;KG</span>
 					 </div>
 					 <div class="spanBox">
 						<span class="spanLeft">낙찰된 가격 :</span>
@@ -339,6 +349,7 @@
 						<span class="spanRight-test margin-bottom">
 			            	<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
 			            </span> 
+			            <span class="font-style text-span">KG</span>
 		             </div>
 		             <div id="btnBox">
 		                <input type="button" class="btn" value="구매하기"/> 
@@ -392,7 +403,7 @@
                      </div>
                      <div class="spanBox">
 						<span class="spanLeft">현재 상품 수량 :</span>
-						<span class="spanRight font-style auctionCount1">${map.au1.auctionCount1}&nbsp;상자</span>
+						<span class="spanRight font-style auctionCount1">${map.au1.auctionCount1}&nbsp;KG</span>
 					 </div>
 					 <div class="spanBox">
 						<span class="spanLeft">낙찰된 가격 :</span>
@@ -403,6 +414,7 @@
 						<span class="spanRight-test margin-bottom">
 			            	<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
 			            </span> 
+			            <span class="font-style text-span">KG</span>
 		             </div>
 		             <div id="btnBox">
 		                <input type="button" class="btn" value="구매하기"/> 
@@ -445,7 +457,7 @@
                      </div>
                      <div class="spanBox">
 						 <span class="spanLeft">현재 상품 수량 :</span>
-						 <span class="spanRight font-style auctionCount2">${map.au2.auctionCount1}&nbsp;상자</span>
+						 <span class="spanRight font-style auctionCount2">${map.au2.auctionCount1}&nbsp;KG</span>
 					 </div>
 					 <div class="spanBox">
 						 <span class="spanLeft">낙찰된 가격 :</span>
@@ -454,8 +466,9 @@
 					 <div class="spanBox">
 						 <span class="spanLeft">구매 수량 :</span>
 						 <span class="spanRight-test margin-bottom">
-			             	<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
-			             </span> 
+			            	<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
+			            </span> 
+			            <span class="font-style text-span">KG</span>
 		             </div>
 		             <div id="btnBox">
 		                  <input type="button" class="btn" value="구매하기"/> 
@@ -557,7 +570,7 @@
                      </div>
                      <div class="spanBox">
 						 <span class="spanLeft">현재 상품 수량 :</span>
-						 <span class="spanRight font-style auctionCount2">${map.au2.auctionCount1}&nbsp;상자</span>
+						 <span class="spanRight font-style auctionCount2">${map.au2.auctionCount1}&nbsp;KG</span>
 					 </div>
 					 <div class="spanBox">
 						 <span class="spanLeft">낙찰된 가격 :</span>
@@ -566,8 +579,9 @@
 					 <div class="spanBox">
 						 <span class="spanLeft">구매 수량 :</span>
 						 <span class="spanRight-test margin-bottom">
-			             	<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
-			             </span> 
+			            	<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
+			            </span> 
+			            <span class="font-style text-span">KG</span>
 		             </div>
 		             <div id="btnBox">
 		                  <input type="button" class="btn" value="구매하기"/> 
@@ -610,7 +624,7 @@
                		</div>
                		<div class="spanBox">
 						<span class="spanLeft">현재 상품 수량 :</span>
-						<span class="spanRight font-style auctionCount3">${map.au3.auctionCount1}&nbsp;상자</span>
+						<span class="spanRight font-style auctionCount3">${map.au3.auctionCount1}&nbsp;KG</span>
 					</div>
 					<div class="spanBox">
 						<span class="spanLeft">낙찰된 가격 :</span>
@@ -619,8 +633,9 @@
 					<div class="spanBox">
 						<span class="spanLeft">구매 수량 :</span>
 						<span class="spanRight-test margin-bottom">
-                 		<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
-                 		</span> 
+			            	<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
+			            </span> 
+			            <span class="font-style text-span">KG</span>
                 	</div>
                 	<div id="btnBox">
                 		<input type="button" class="btn" value="구매하기"/> 
@@ -668,7 +683,7 @@
 					<div class="spanBox">
 						<span class="spanLeft">구매 수량 :</span>
 						<span class="spanRight-test margin-bottom">
-                 		<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
+                 			<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
                  		</span> 
                 	</div>
                 	<div id="btnBox">
@@ -721,7 +736,7 @@
                		</div>
                		<div class="spanBox">
 						<span class="spanLeft">현재 상품 수량 :</span>
-						<span class="spanRight font-style auctionCount3">${map.au3.auctionCount1}&nbsp;상자</span>
+						<span class="spanRight font-style auctionCount3">${map.au3.auctionCount1}&nbsp;KG</span>
 					</div>
 					<div class="spanBox">
 						<span class="spanLeft">낙찰된 가격 :</span>
@@ -730,8 +745,9 @@
 					<div class="spanBox">
 						<span class="spanLeft">구매 수량 :</span>
 						<span class="spanRight-test margin-bottom">
-                 		<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
-                 		</span> 
+			            	<input type="number" min="0" name="auctionCount1" class="auctionSaleCount-input margin" value="0"/>
+			            </span> 
+			            <span class="font-style text-span">KG</span>
                 	</div>
                 	<div id="btnBox">
                 		<input type="button" class="btn" value="구매하기"/> 

@@ -119,6 +119,10 @@
 				and to_date('19/01/01') &lt;= to_date(PURCHASE_DATE)
 				and to_date(PURCHASE_DATE) &lt;= to_date('19/12/31')
 			</when>
+			<when test="type.equals('2018')">
+				and to_date('18/01/01') &lt;= to_date(PURCHASE_DATE)
+				and to_date(PURCHASE_DATE) &lt;= to_date('18/12/31')
+			</when>
 			<otherwise></otherwise>
 	</choose>
 	
@@ -144,6 +148,10 @@
 			<when test="type.equals('2019')">
 				and to_date('19/01/01') &lt;= to_date(PURCHASE_DATE)
 				and to_date(PURCHASE_DATE) &lt;= to_date('19/12/31')
+			</when>
+			<when test="type.equals('2018')">
+				and to_date('18/01/01') &lt;= to_date(PURCHASE_DATE)
+				and to_date(PURCHASE_DATE) &lt;= to_date('18/12/31')
 			</when>
 			<otherwise></otherwise>
 	</choose>

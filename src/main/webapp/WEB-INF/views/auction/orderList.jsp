@@ -50,8 +50,20 @@
 	width: 100%;
 	height: 4%;
 	padding-top : 2.5%;
-	padding-left: 70%;
+	padding-left : 10%;
 	font-size: 2vmin;
+}
+#mypageBtn{
+	width: 10.5%;
+    height: 55%;
+	color : white;
+    border: none;
+    border-radius: 5px;
+    background-color: #3BBD5A;
+    text-align: center;
+    cursor:pointer;
+    font-size: 2vmin;
+    margin-right: 46.5%;
 }
 #option {
     width: 10.5%;
@@ -219,8 +231,9 @@
 				 <form action="/auction/orderListPage.do" method="get">
 				 	<input type="hidden" name="userNo" value="${sessionScope.member.userNo }"/>
 					<div id="dateSelect-btn">
+						<input type="button" onclick="myPage()" id="mypageBtn" value="목록"/>
 						<select name='type' id="option">
-                           <option value='2022' selected>2022</option>
+                           <option value='2022' >2022</option>
                            <option value='2021' >2021</option>
                            <option value='2020' >2020</option>
                            <option value='2019' >2019</option>
@@ -300,6 +313,20 @@
 		}
 	});
 	
+	
+		
+		$('#option').val('2021').click(function(){
+			alert('aa');
+			
+		});
+		
+		
+	});
+	
+	$('#mypageBtn').click(function(){
+		
+		location.replace('/memberMypage/memberMypageListPage.do');
+	});
 
 </script>
 </body>
