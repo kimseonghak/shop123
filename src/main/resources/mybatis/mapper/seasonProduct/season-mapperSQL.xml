@@ -13,7 +13,7 @@
 				        SeasonProduct.SeasonProduct_CLASSIFY as SeasonProductClassify,
 				        SeasonProductPHOTO.SeasonProductPHOTO_FILEPATH as SeasonProductPhotoFilePath
 				from    SeasonProduct left join SeasonProductPHOTO on (SeasonProduct.SeasonProductPhoto_no=SeasonProductPHOTO.SeasonProductPhoto_no)
-				where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+				where 	SeasonProduct.SeasonProduct_DEL_YN = 'N' order by SeasonProduct_NO desc
 			</select>
 			
 			<!-- 총 글 수 -->
@@ -168,7 +168,59 @@
 		  <select id="SeasonProductListToTalSearchCount" parameterType="string" resultType="integer">
 		 	SELECT 		COUNT(*)
 			FROM 		SEASONPRODUCT
-			where 		SeasonProduct.SeasonProduct_DEL_YN = 'N' 
+			<choose>
+					   <when test="_parameter == 1 and _parameter != 11">
+						where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+					   	and SeasonProduct.SeasonProduct_CLASSIFY = 1
+					   </when>
+					   <when test="_parameter == 2 and _parameter != 12">
+						where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+					   	and SeasonProduct.SeasonProduct_CLASSIFY = 2
+					   </when>
+					   <when test="_parameter == 3">
+						where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+					   	and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'
+					   </when>
+					   <when test="_parameter == 4">
+						where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+					   	and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'
+					   </when>
+					   <when test="_parameter == 5">
+						where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+					   	and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'
+					   </when>
+					   <when test="_parameter == 6">
+						where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+					   	and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'
+					   </when>
+					   <when test="_parameter == 7">
+						where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+					   	and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'
+					   </when>
+					   <when test="_parameter == 8">
+						where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+					   	and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'
+					   </when>
+					   <when test="_parameter == 9">
+						where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+					   	and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'
+					   </when>
+					   <when test="_parameter == 10">
+						where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+					   	and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'
+					   </when>
+					   <when test="_parameter == 11">
+						where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+					   	and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'
+					   </when>
+					   <when test="_parameter == 12">
+						where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+					   	and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'
+					   </when>
+						   <otherwise>
+							where 	SeasonProduct.SeasonProduct_DEL_YN = 'N'
+						   </otherwise>
+				   </choose>
 			
 			<if test="_parameter != 0">
 				and SeasonProduct.SeasonProduct_CLASSIFY like '%'||#{seasonProductClassify}||'%'

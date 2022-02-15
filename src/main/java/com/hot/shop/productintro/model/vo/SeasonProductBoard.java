@@ -1,12 +1,13 @@
 package com.hot.shop.productintro.model.vo;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class SeasonProductBoard {
 	private int SeasonProductNo;
 	private String SeasonProductTitle;
 	private String SeasonProductContent;
-	private Timestamp SeasonProductRegDate;
+	private Date SeasonProductRegDate;
 	private int SeasonProductPhotoNo;//사진 번호
 	private char SeasonProductDelYN;
 	private String SeasonProductClassify;
@@ -20,7 +21,7 @@ public class SeasonProductBoard {
 	
 
 	public SeasonProductBoard(int seasonProductNo, String seasonProductTitle, String seasonProductContent,
-			Timestamp seasonProductRegDate, int seasonProductPhotoNo, char seasonProductDelYN,
+			Date seasonProductRegDate, int seasonProductPhotoNo, char seasonProductDelYN,
 			String seasonProductClassify, String seasonProductPhotoFilePath, int originalSeasonphotoNo) {
 		super();
 		SeasonProductNo = seasonProductNo;
@@ -58,10 +59,10 @@ public class SeasonProductBoard {
 	public void setSeasonProductContent(String seasonProductContent) {
 		SeasonProductContent = seasonProductContent;
 	}
-	public Timestamp getSeasonProductRegDate() {
+	public Date getSeasonProductRegDate() {
 		return SeasonProductRegDate;
 	}
-	public void setSeasonProductRegDate(Timestamp seasonProductRegDate) {
+	public void setSeasonProductRegDate(Date seasonProductRegDate) {
 		SeasonProductRegDate = seasonProductRegDate;
 	}
 	public int getSeasonProductPhotoNo() {
