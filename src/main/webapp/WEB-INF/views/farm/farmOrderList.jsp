@@ -26,12 +26,11 @@
 	<link rel="stylesheet" type="text/css" href="/resources/farm/css/farmOrderList.css">
 
 <style>
-	 #naviArea
-	 {
-	 	display:inline-block;
-	 	margin-left:43vw;
-	 	text-align: center;
-	 }
+	.pagination
+	{
+		display: flex;
+		justify-content: center;
+	}
 </style>
 
 
@@ -135,7 +134,7 @@
     </div>
     
 
-  <!-- sidebar 효과 -->
+  <%-- sidebar 효과 --%>
    <script>
 	    $(function() {
 	        $('#mainUl>li').eq(2).css('background-color', '#34734e');
@@ -146,7 +145,7 @@
   </script>    
     
     
-    <!--회원번호 클릭 시 회원정보 띄우기-->
+    <%--회원번호 클릭 시 회원정보 띄우기--%>
     <script>
         
         $('.userNo').click(function(){
@@ -168,7 +167,7 @@
     
     </script>    
     
-    <!--상품명 클릭 시 상품정보 띄우기-->
+    <%--상품명 클릭 시 상품정보 띄우기--%>
     <script>
         
         $('.productName').click(function(){
@@ -189,7 +188,7 @@
     </script> 
     
     
-    <!--배송입력 버튼 클릭 시 배송정보 입력-->
+    <%--배송입력 버튼 클릭 시 배송정보 입력--%>
     <script>
         
         $('.btn-success').click(function(){
