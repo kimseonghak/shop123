@@ -35,7 +35,8 @@
 			</div>
 			<div class="countWrap">
 				<div class="count-graphWrap">
-					
+					<div style="height:10%; width:100%;"><span class="graphInfo">구매 : ${sugMap.PURCHASE } 환불 : ${sugMap.REFUND }</span> <span id="refundPer" class="graphInfo"></span></div>
+					<div style="height:90%; width:100%;"><canvas id="refundData"></canvas></div>
 				</div>
 			</div>
 			<div class="countWrap">
@@ -49,8 +50,8 @@
 						<ul id="sugWorkUL">
 							<li id="liText">
 								판매 대기 중인 낙찰건 : ${sugMap.BID_SELL_YN }<br>
-								답변 대기 중인 농가 문의 : ${sugMap.QUSER_ANSWER_YN }<br>
-								답변 대기 중인 유저 문의 : ${sugMap.QFARM_ANSWER_YN }<br>
+								답변 대기 중인 유저 문의 : ${sugMap.QUSER_ANSWER_YN }<br>
+								답변 대기 중인 농가 문의 : ${sugMap.QFARM_ANSWER_YN }<br>
 								환불 대기 중인 환불 건 : ${sugMap.REFUND_YN }<br>
 							</li>
 							<li id="liGraph">
@@ -272,6 +273,30 @@
 					}
 				},
 			});
+		});
+		$(function(){
+			var context = document.getElementById('refundData').getContext('2d');
+			var purchase = ${sugMap.PURCHASE};
+			var refund = ${sugMap.REFUND};
+			$('#refundPer').html("&nbsp&nbsp환불 비율 : "+Math.round(refund/purchase*100)+"%");
+			var test = new Chart(context, {
+					type:'pie',
+					data:{
+					labels:['구매수','환불수'],
+					datasets:[{
+						label: '환불 비율',
+						data:[purchase, refund],
+						backgroundColor: [
+							'rgba(75, 192, 192, 0.4)',
+							'rgb(255, 99, 132, 0.4)'
+						],
+						hoverOffset:2
+					}]
+				},
+				options:{
+					maintainAspectRatio: false,
+				}
+			})
 		});
 <%-- tr 클릭시 해당 글로 이동하는 로직 --%>
 		$('.userQNA').click(function(){
