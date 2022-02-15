@@ -79,6 +79,7 @@ body {
 	padding: 10px;
 	margin: 0px auto;
 	text-align: center;
+	white-space: nowrap;
 }
 
 .select_local{
@@ -90,6 +91,8 @@ body {
 	border: none;
 	margin: -4px;
 	cursor: pointer;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .select_local:first-child{
