@@ -222,7 +222,7 @@
 						<td>${q.questionFarmNo }</td>
 						<td class="title" style="font-weight:bolder;">${q.questionFarmTitle }</td>
 						<td>${q.farmNo }</td>
-						<td id="farm" style="font-weight:bolder;">${q.farmName }</td>
+						<td class="farm" style="font-weight:bolder;">${q.farmName }</td>
 						<td>${q.questionFarmRegdate }</td>
 						<c:if test="${String.valueOf(q.questionFarmAnswerYN) eq 'N'}">
 							<td class="answerImgTd"><img class="answerImg" alt="" src="/resources/admin/img/답변 대기.png"></td>
@@ -281,7 +281,7 @@
 			location.replace('/admin/adminFarmQNAPage.do');
 		});
 <%-- 농가 번호 클릭시 해당 농가 정보 창 띄우기 --%>
-		$('#farm').click(function(){
+		$('.farm').click(function(){
 			var farmNo = $(this).prev().html();
 			window.open("/admin/adminFarmInfoPage.do?farmNo="+farmNo,"_blank","width=500px, height=430px");
 		});

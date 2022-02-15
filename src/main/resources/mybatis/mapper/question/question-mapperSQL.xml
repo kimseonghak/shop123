@@ -235,7 +235,7 @@
 		</insert>
 		<update id="questionAnswerYN" parameterType="qAnswer">
 			<choose>
-				<when test='questionBoardCode.equals("U")'>
+				<when test="questionBoardCode=='U'">
 					update question_user set question_user_answer_yn='Y' where question_user_no=#{questionBoardNo}
 				</when>
 				<otherwise>
