@@ -43,7 +43,7 @@
         width: 100%;
         height: 14vh;
         border-bottom: 1px solid #767977;
-        font-size: 3.5vmin;
+        font-size: 20px;
         font-weight: bold;
         text-align: center;
         line-height: 13vh;
@@ -78,7 +78,7 @@
     }
     .titleText
     {
-        font-size: 2.2vmin;
+        font-size: 16px;
         display: inline-block;
         width: 50%;
         font-weight: bold;
@@ -90,7 +90,7 @@
     {
         height: 3vh;
         width: 30vw;
-        font-size: 2.2vmin;
+        font-size: 16px;
         text-align: center;
         color: #2A2A2A;
         padding: 18px;
@@ -110,7 +110,8 @@
         position: relative;
         top: 7vh;
         left: 24vw;
-        font-size: 1.8vmin;
+        font-size: 14px;
+        line-height: 8px;
     }
 
 
