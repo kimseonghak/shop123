@@ -119,7 +119,7 @@ body {
 .hit{
 	float: left;
 	margin-left: 20px;
-	margin-top: 5px;
+	margin-top: 10px;
 }
 
 .img{
