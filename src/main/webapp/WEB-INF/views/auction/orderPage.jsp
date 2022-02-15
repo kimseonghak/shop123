@@ -516,10 +516,10 @@
 
 		
 		
-		var auctionPrice = ${requestScope.sf.auctionPrice };     
-		var productCount = ${requestScope.sf.auctionCount1 };	 //수량
-		var payAmount = auctionPrice * productCount;			 //총 금액
-		//var payAmount = 100;
+		//var auctionPrice = ${requestScope.sf.auctionPrice };     
+		//var productCount = ${requestScope.sf.auctionCount1 };	 //수량
+		//var payAmount = auctionPrice * productCount;			 //총 금액
+		var payAmount = 100;
 //총 금액 구해서 값 넣어주기
 		$(function(){
 				

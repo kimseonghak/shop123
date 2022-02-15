@@ -313,7 +313,7 @@
 		}
 	});
 		
-	});
+	
 	
 	$('#mypageBtn').click(function(){
 		
