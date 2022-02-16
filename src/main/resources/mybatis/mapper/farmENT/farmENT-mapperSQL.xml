@@ -262,7 +262,8 @@
 		</if>    
 		<if test="type!=null and type.equals('userNo')">
 			AND R.USER_NO like '%'||#{keyWord}||'%'
-		</if>   
+		</if>
+		ORDER BY 1 DESC  
 	
 	</select>
 	
