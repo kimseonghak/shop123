@@ -155,7 +155,7 @@ public class FarmENTServiceImpl implements FarmENTService{
 	public HashMap<String, Object> selectRefundList(int currentPage, HashMap<String, Object> searchMap) {
 		
 		//환불 리스트
-		int recordCountPerPage = 5;
+		int recordCountPerPage = 10;
 		ArrayList<FarmENTRefund> list =fENTdao.selectRefundList(recordCountPerPage,currentPage,searchMap);
 		
 		//pagrNavi
