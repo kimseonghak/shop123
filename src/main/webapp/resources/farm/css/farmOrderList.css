@@ -74,15 +74,18 @@
     table
     {   
         width: 100%;
+        height:100%;
         font-size: 1.8vmin;    
         text-align: center;
         border-top: 2px solid #5D9A71;
         border-bottom: 2px solid #5D9A71;
         border-spacing: 0px;
-        margin-top: 5px;
         line-height: 25px;
-       
-        
+        white-space: nowrap;
+    }
+    table th,td{
+    	overflow: hidden;
+    	text-overflow: ellipsis;
     }
     
     tbody>tr:first-child>td
@@ -96,47 +99,12 @@
     
     /*<td> 위치조정*/
     
-    .productName
-    {
-        position: relative;
-        left: 80px;
-        text-overflow: ellipsis; white-space: nowrap; max-width: 50px;
-    }
-    
-    .count
-    {
-        position: relative;
-        left: 160px;
-    }
-    
-    .amount
-    {
-        position: relative;
-        left: 160px;
-    }
-    
-    .payDate
-    {
-        position: relative;
-        left: 130px;
-    }
-    
-    .shopStatus
-    {
-        position: relative;
-        left: 100px;
-    }
-    .inputBtn
-    {
-        position: relative;
-        left: 40px;
-    }
    
     /*부트스트랩 버튼*/
     .btn-success
     {
         font-size: 1.6vmin;
-        width: 70px; 
+        width: 80%
     }
     
     /*hover 효과*/
@@ -160,4 +128,7 @@
     {
        font-weight: bolder;
        color: #21C967;      
+    }
+    #farmContentFooter{
+    	padding-top: 1%;
     }
