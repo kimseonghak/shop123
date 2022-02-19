@@ -51,11 +51,13 @@ public class AdminDAO {
 	public void BIDScheduler() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		// 경매가 종료된 날을 기준으로 제일 마지막(낙찰된) 경매 정보를 가져와서 맵에 저장
+		/*
 		for(int i=1; i<=3; i++) {
 			Auction au = new Auction();
 			au = sql.selectOne("admin.BIDScheduler",i);
 			map.put("bid"+i, au);
 		}
+		*/
 		System.out.println("낙찰 정보 저장 완료");
 		for(int i=1; i<=3; i++) {
 			if(map.get("bid"+i)!=null) {
@@ -80,6 +82,7 @@ public class AdminDAO {
 		System.out.println("찌꺼기 파일 제거");
 		System.out.println("예약 작업 종료");
 	}
+	
 	// BID 목록과 정보 가져오는 로직
 	public ArrayList<BID> BIDList(int recordCountPerPage, int currentPage) {
 		int start = currentPage*recordCountPerPage-(recordCountPerPage-1);
@@ -90,6 +93,7 @@ public class AdminDAO {
 		map.put("end",end);
 		return new ArrayList<BID>(sql.selectList("admin.BIDList",map));
 	}
+	
 	public String getPageNavi(int recordCountPerPage, int currentPage, int naviCountPerPage,int formNo) {
 		int recordTotalCount = totalCount();
 		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
@@ -151,11 +155,22 @@ public class AdminDAO {
 	public int sellUpdate(SellForm sf) {
 		return sql.update("admin.sellUpdate",sf);
 	}
-
+	
 	public HashMap<String, Integer> countOutput() {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("yester", ((Count)sql.selectOne("admin.countOutput", 1)).getCountSum());
-		map.put("today", ((Count)sql.selectOne("admin.countOutput", 0)).getCountSum());
+		Count yester = sql.selectOne("admin.countOutput", 1);
+		Count today = sql.selectOne("admin.countOutput", 0);
+		if(yester!=null) {
+			map.put("yester", yester.getCountSum());
+		}else {
+			map.put("yester", 0);
+		}
+		if(today!=null) {
+			map.put("today", today.getCountSum());
+		}else {
+			map.put("today", 0);
+		}
+		
 		return map;
 	}
 
@@ -513,5 +528,11 @@ public class AdminDAO {
 
 	public boolean promotionEndYNUpdate(HashMap<String, Object> map) {
 		return sql.update("admin.promotionYNUpdate",map)>0;
+	}
+
+	public void test() {
+		int[] arr = {1,2,3};
+		ArrayList<BID>list = new ArrayList<BID>(sql.selectList("admin.bidTest",arr));
+		System.out.println(list.toString());
 	}
 }

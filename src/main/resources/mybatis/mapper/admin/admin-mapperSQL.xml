@@ -4,6 +4,8 @@
 	<insert id="auctionInput" parameterType="auction">
 		INSERT INTO AUCTION VALUES(AUCTION_SEQ.NEXTVAL,#{auctionStart},#{auctionEnd},#{auctionProduct},#{auctionPrice},#{auctionCount1},#{farmNo},#{auctionFormNo},#{farmNo2},#{farmNo3},#{auctionCount2},#{auctionCount3},#{auctionEndYN})
 	</insert>
+<!-- 경매 모음 -->
+<!-- 경매 정보 확인 -->
 	<select id="auctionCheck" parameterType="integer" resultType="auction">
 		select
 			auction_no as auctionNo,
@@ -23,9 +25,11 @@
 		where auction_form_no=#{_parameter} and to_date(auction_end)>=to_date(sysdate) and auction_endyn='N')
 		where num=1
 	</select>
+<!-- 경매 종료 로직 -->
 	<update id="auctionUpdate" parameterType="auction">
 		update auction set auction_endyn='Y' where auction_form_no=#{auctionFormNo} and auction_endyn='N'
 	</update>
+<!-- 낙찰된 경매 정보 가져오기 -->
 	<select id="BIDScheduler" parameterType="integer" resultType="auction">
 		select auction_no as auctionNo,
 			auction_start as auctionStart,
@@ -41,7 +45,8 @@
 			auction_Count3 as auctionCount3,
 			auction_EndYN as auctionEndYN 
 		from (select row_number() over (order by auction_no desc) as num, auction.* from auction 
-		where auction_form_no=#{_parameter} and to_date(auction_end) &lt; to_date(sysdate) and auction_endYN='N') 
+		where auction_form_no=#{_parameter}
+		and to_date(auction_end) &lt; to_date(sysdate) and auction_endYN='N') 
 		where num = 1
 	</select>
 	<insert id="BIDinsert" parameterType="auction">
@@ -603,4 +608,25 @@
 	<update id="promotionYNUpdate" parameterType="hashmap">
 		update promotion set promotion_end_yn=#{endYN} where promotion_no = #{promotionNo}
 	</update>
+	<select id="bidTest" resultType="auction">
+		<foreach collection="array" item="arr">
+		select auction_no as auctionNo,
+			auction_start as auctionStart,
+			auction_end as auctionEnd,
+			auction_product as auctionProduct,
+			auction_Price as auctionPrice,
+			auction_Count1 as auctionCount1,
+			farm_No as farmNo,
+			auction_Form_No as auctionFormNo,
+			farm_No2 as farmNo2,
+			farm_No3 as farmNo3,
+			auction_Count2 as auctionCount2,
+			auction_Count3 as auctionCount3,
+			auction_EndYN as auctionEndYN 
+		from (select row_number() over (order by auction_no desc) as num, auction.* from auction 
+			where auction_form_no=#{arr}
+		and to_date(auction_end) &lt; to_date(sysdate) and auction_endYN='N') 
+		where num = 1
+		</foreach>
+	</select>
 </mapper>

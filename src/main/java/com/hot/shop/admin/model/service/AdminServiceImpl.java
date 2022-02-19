@@ -256,4 +256,9 @@ public class AdminServiceImpl implements AdminService{
 		return aDAO.promotionEndYNUpdate(map);
 	}
 
+	@Override
+	public void test() {
+		aDAO.test();
+	}
+
 }

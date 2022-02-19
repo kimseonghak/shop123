@@ -638,4 +638,9 @@ public class AdminController {
 		aService.countInput();
 		return "1";
 	}
+	
+	@RequestMapping(value = "/admin/test.do", method = RequestMethod.GET)
+	public void test() {
+		aService.test();
+	}
 }

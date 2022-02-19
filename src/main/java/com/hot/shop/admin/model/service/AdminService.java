@@ -79,4 +79,6 @@ public interface AdminService {
 	HashMap<String, Object> adminBoard(HashMap<String, Object> map);
 
 	boolean promotionEndYNUpdate(HashMap<String, Object> map);
+
+	void test();
 }
