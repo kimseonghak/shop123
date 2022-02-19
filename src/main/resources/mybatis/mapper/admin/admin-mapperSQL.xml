@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
+	
+<!-- 경매 모음 -->
+	<!-- 경매 시작 정보 넣기 -->
 	<insert id="auctionInput" parameterType="auction">
 		INSERT INTO AUCTION VALUES(AUCTION_SEQ.NEXTVAL,#{auctionStart},#{auctionEnd},#{auctionProduct},#{auctionPrice},#{auctionCount1},#{farmNo},#{auctionFormNo},#{farmNo2},#{farmNo3},#{auctionCount2},#{auctionCount3},#{auctionEndYN})
 	</insert>
-<!-- 경매 모음 -->
-<!-- 경매 정보 확인 -->
+	<!-- 경매 정보 확인 -->
 	<select id="auctionCheck" parameterType="integer" resultType="auction">
 		select
 			auction_no as auctionNo,
@@ -25,36 +27,12 @@
 		where auction_form_no=#{_parameter} and to_date(auction_end)>=to_date(sysdate) and auction_endyn='N')
 		where num=1
 	</select>
-<!-- 경매 종료 로직 -->
+	<!-- 경매 종료 로직 -->
 	<update id="auctionUpdate" parameterType="auction">
 		update auction set auction_endyn='Y' where auction_form_no=#{auctionFormNo} and auction_endyn='N'
 	</update>
-<!-- 낙찰된 경매 정보 가져오기 -->
-	<select id="BIDScheduler" parameterType="integer" resultType="auction">
-		select auction_no as auctionNo,
-			auction_start as auctionStart,
-			auction_end as auctionEnd,
-			auction_product as auctionProduct,
-			auction_Price as auctionPrice,
-			auction_Count1 as auctionCount1,
-			farm_No as farmNo,
-			auction_Form_No as auctionFormNo,
-			farm_No2 as farmNo2,
-			farm_No3 as farmNo3,
-			auction_Count2 as auctionCount2,
-			auction_Count3 as auctionCount3,
-			auction_EndYN as auctionEndYN 
-		from (select row_number() over (order by auction_no desc) as num, auction.* from auction 
-		where auction_form_no=#{_parameter}
-		and to_date(auction_end) &lt; to_date(sysdate) and auction_endYN='N') 
-		where num = 1
-	</select>
-	<insert id="BIDinsert" parameterType="auction">
-		insert into BID values(BID_SEQ.NEXTVAL,#{auctionNo},sysdate,'N')
-	</insert>
-	<update id="auctionEndYN" parameterType="auction">
-		update auction set auction_endyn='Y' where to_date(auction_end) &lt; to_date(sysdate)
-	</update>
+<!-- 판매 기능 모음 -->
+	<!-- 낙찰 정보 가져오기 -->
 	<select id="BIDList" parameterType="map" resultType="bid">
 		select 
 			bid_no as BIDNo,
@@ -64,9 +42,11 @@
 		from (select row_number() over (order by bid_no desc) as num, bid.* from bid)
 		where num between #{start} and #{end}
 	</select>
+	<!-- 낙찰 토탈 카운트 -->
 	<select id="BIDTotalCount" resultType="int">
 		select count(*) from bid
 	</select>
+	<!-- 경매 정보 가져오기(판매 폼에 입력하기 위한 정보) -->
 	<select id="selectOneAuction" parameterType="integer" resultType="auction">
 		select
 			auction_no as auctionNo,
@@ -84,12 +64,15 @@
 			auction_EndYN as auctionEndYN
 		from auction where auction_no=#{_parameter}
 	</select>
+	<!-- 판매 정보 입력 -->
 	<insert id="sellInput" parameterType="sellForm">
 		insert into sell_form values(sell_form_seq.nextval,#{sellStart},#{sellEnd},#{auctionNo},#{sellFormNo},#{boardNo},#{sellEndYN})
 	</insert>
+	<!-- 판매 유무 업데이트 -->
 	<update id="BIDEndYNUpdate" parameterType="integer">
 		update BID set bid_sell_yn='Y' where auction_no=#{_parameter}
 	</update>
+	<!-- 판매 중인 경우 판매 정보 가져오기 -->
 	<select id="sellFormCheck" parameterType="integer" resultType="sellForm">
 		select
 			sell_no as sellNo,
@@ -101,74 +84,13 @@
 			sell_end_yn as sellEndYN
 		from sell_form where sell_form_no=#{_parameter} and to_date(sell_end) >= to_date(sysdate) and sell_end_yn='N'
 	</select>
+	<!-- 판매 중인 상품 업데이트 -->
 	<update id="sellUpdate" parameterType="sellForm">
 		update sell_form set sell_start=#{sellStart}, sell_end=#{sellEnd}, board_no=#{boardNo}, sell_end_yn=#{sellEndYN}
 		where auction_no=#{auctionNo} and sell_form_no=#{sellFormNo}
 	</update>
-	<update id="sellFormEndYN">
-		update sell_form set sell_end_yn='Y' where to_date(sell_end) &lt; to_date(sysdate)
-	</update>
-	<select id="countCheck" resultType="count">
-		select
-			count_no as countNo,
-			count_sum as countSum,
-			count_date as countDate
-		from count_tbl
-		where to_date(count_date) = to_date(sysdate) 
-	</select>
-	<insert id="countInsert">
-		insert into count_tbl values(count_seq.nextval,1,sysdate)
-	</insert>
-	<update id="countUpdate">
-		update count_tbl set count_sum=(count_sum+1) where to_date(count_date)=to_date(sysdate)
-	</update>
-	<select id="countOutput" parameterType="integer" resultType="count">
-		select
-			count_no as countNo,
-			count_sum as countSum,
-			count_date as countDate
-		from count_tbl
-		where to_date(count_date) = to_date(sysdate-#{_parameter}) 
-	</select>
-	<select id="joinOutput" parameterType="integer" resultType="integer">
-		select
-			count(*)
-		from member
-		where to_date(user_enrolldate) = to_date(sysdate-#{_parameter})
-	</select>
-	<select id="farmOutput" parameterType="integer" resultType="integer">
-		select
-			count(*)
-		from farm
-		where to_date(farm_enrolldate) = to_date(sysdate-#{_parameter})
-	</select>
-	<select id="questionUserListMain" resultType="qUser">
-		select
-			question_User_no as questionUserNo,
-			question_User_Title as questionUserTitle,
-			question_User_Content as questionUserContent,
-			question_User_Regdate as questionUserRegdate,
-			user_No as userNo,
-			question_User_End_YN as questionUserEndYN,
-			questionphoto_No as questionphoto_No,
-			question_User_Code as questionUserCode,
-			question_User_Classify as questionUserClassify,
-			farm_No as farmNo,
-			user_nick as userNick,
-			order_No as orderNo
-		from (select row_number() over (order by question_user_no desc) as num, question_user.*,user_nick from question_user left join member on(question_user.user_no = member.user_no) where question_User_Classify='A') where num between 1 and 5
-	</select>
-	<select id="questionFarmListMain" resultType="qFarm">
-		select
-			question_Farm_No as questionFarmNo,
-			question_Farm_Title as questionFarmTitle,
-			question_Farm_Content as questionFarmContent,
-			question_Farm_Regdate as questionFarmRegdate,
-			farm_No as farmNo,
-			question_Farm_End_YN as questionFarmEndYN,
-			farm_Name as farmName
-		from (select row_number() over (order by question_farm_no desc) as num, question_farm.*,farm_name from question_farm left join farm on(question_farm.farm_no = farm.farm_no) where question_farm_end_yn='N') where num between 1 and 5
-	</select>
+<!-- 농가 문의 모음 -->
+	<!-- 농가 문의 목록 가져오기 -->
 	<select id="questionFarmSearchList" parameterType="hashmap" resultType="qFarm">
 		select
 			question_Farm_No as questionFarmNo,
@@ -199,6 +121,7 @@
 		</choose>
 		) where num between #{start} and #{end}
 	</select>
+	<!-- 농가 문의 목록 카운트 -->
 	<select id="farmQNASearchTotalCount" parameterType="hashmap" resultType="integer">
 		select count(*) from question_farm left join farm on(question_farm.farm_no = farm.farm_no)
 		where question_farm.question_farm_end_yn='N'
@@ -218,6 +141,7 @@
 			<otherwise></otherwise>
 		</choose>
 	</select>
+	<!-- 농가 문의 내용 가져오기 -->
 	<select id="questionFarmContent" parameterType="integer" resultType="qFarm">
 		select
 			question_Farm_No as questionFarmNo,
@@ -230,6 +154,20 @@
 			question_Farm_Answer_YN as questionFarmAnswerYN
 		from question_farm left join farm on(question_farm.farm_no = farm.farm_no) where question_farm_no=#{_parameter}
 	</select>
+	<!-- 농가 문의 답변 내용 가져오기 -->
+		<select id="questionFarmAnswer" parameterType="integer" resultType="qAnswer">
+		select
+			question_Answer_No as questionAnswerNo,
+			question_Answer_Content as questionAnswerContent,
+			question_Answer_Regdate as questionAnswerRegdate,
+			question_Board_No as questionBoardNo,
+			question_Board_Code as questionBoardCode,
+			question_Answer_End_YN as questionAnswerEndYN
+		from question_Answer
+		where question_Board_code='F' and question_board_no=#{_parameter}
+	</select>
+<!-- 유저 문의 기능 모음 -->
+	<!-- 유저 문의 목록 -->
 	<select id="questionUserSearchList" parameterType="hashmap" resultType="qUser">
 		select
 			question_User_No as questionUserNo,
@@ -265,6 +203,7 @@
 		</choose>
 		) where num between #{start} and #{end}
 	</select>
+	<!-- 유저 문의 목록 카운트 -->
 	<select id="userQNASearchTotalCount" parameterType="hashmap" resultType="integer">
 		select count(*) from question_user left join member on(question_user.user_no = member.user_no)
 		where question_user_classify='A' and question_user_end_yn='N'
@@ -284,6 +223,40 @@
 			<otherwise></otherwise>
 		</choose>
 	</select>
+	<!-- 유저 문의 내용 가져오기 -->
+	<select id="questionUserContent" parameterType="integer" resultType="qUser">
+		select
+			question_User_No as questionUserNo,
+			question_User_Title as questionUserTitle,
+			question_User_Content as questionUserContent,
+			question_User_Regdate as questionUserRegdate,
+			question_user.user_No as userNo,
+			question_User_End_YN as questionUserEndYN,
+			questionphoto_No as questionphotoNo,
+			question_User_Code as questionUserCode,
+			question_User_Classify as questionUserClassify,
+			farm_No as farmNo,
+			order_No as orderNo,
+			member.user_Nick as userNick,
+			question_User_Answer_YN as questionUserAnswerYN
+		from question_user left join member on(question_user.user_no = member.user_no)
+		where question_user_end_yn='N' and question_user_classify='A' and question_user_no=#{_parameter}
+	</select>
+	<!-- 유저 문의 답변 내용 가져오기 -->
+	<select id="questionUserAnswer" parameterType="integer" resultType="qAnswer">
+		select
+			question_Answer_No as questionAnswerNo,
+			question_Answer_Content as questionAnswerContent,
+			question_Answer_Regdate as questionAnswerRegdate,
+			question_Board_No as questionBoardNo,
+			question_Board_Code as questionBoardCode,
+			question_Answer_End_YN as questionAnswerEndYN
+		from question_Answer
+		where question_Board_code='U' and question_board_no=#{_parameter}
+	</select>
+
+<!-- 유저 정보 관련 기능 -->
+	<!-- 유저 정보 가져오기 -->
 	<select id="selectMember" parameterType="integer" resultType="member">
 		SELECT
 			user_no as userNo,
@@ -300,6 +273,7 @@
 			rating as rating
 		from member where user_no = #{_parameter}
 	</select>
+	<!-- 유저 탈퇴 / 복구 시키기 -->
 	<update id="memberEndYNUpdate" parameterType="hashmap">
 		update member set 
 		<if test='endYN.equals("N")'>
@@ -310,6 +284,7 @@
 		</if>
 		where user_no = #{userNo}
 	</update>
+	<!-- 유저 목록 가져오기 -->
 	<select id="memberSearchList" parameterType="hashmap" resultType="member">
 		SELECT
 			user_no as userNo,
@@ -343,6 +318,7 @@
 		)
 		where num between #{start} and #{end}
 	</select>
+	<!-- 유저 목록 카운트 -->
 	<select id="memberSearchTotalCount" parameterType="hashmap" resultType="integer">
 		select count(*) from member
 			<choose>
@@ -361,66 +337,9 @@
 				<otherwise></otherwise>
 			</choose>
 	</select>
-	<select id="fileCheck" resultType="qPhoto">
-		select 
-			questionphoto_no as questionPhotoNo,
-			questionPhoto_FilePath as questionPhotoFilePath 
-		from questionPhoto where questionphoto_use_yn='N' and questionphoto_del_yn='N'
-	</select>
-	<update id="fileDelYNUpdate" parameterType="integer">
-		update questionphoto set questionphoto_del_yn='Y' and questionphoto_use_yn='Y' where questionphoto_no = #{_parameter}
-	</update>
-	<select id="refundList" parameterType="hashmap" resultType="refund">
-		select
-			refund_No as refundNo,
-			buy_No as buyNo,
-			user_No as userNo,
-			farm_No as farmNo,
-			farm_YN as farmYN,
-			admin_YN as adminYN,
-			del_YN as delYN,
-			question_User_No as questionUserNo,
-			order_no as orderNo
-		from (select row_number() over (order by refund_no desc) as num,refund.*,purchaselist.order_no from refund left join purchaselist on (refund.buy_no = purchaselist.buy_no)
-		where refund.farm_yn='Y'
-		<choose>
-			<when test="type.equals('userNo')">
-				and refund.user_no like '%'||#{keyword}||'%'
-			</when>
-			<when test="type.equals('farmNo')">
-				and refund.farm_no like '%'||#{keyword}||'%'
-			</when>
-			<when test="type.equals('buyNo')">
-				and refund.buy_no like '%'||#{keyword}||'%'
-			</when>
-			<when test="type.equals('orderNo')">
-				and purchaselist.order_no like '%'||#{keyword}||'%'
-			</when>
-			<otherwise></otherwise>
-		</choose>
-		) where num between #{start} and #{end}
-	</select>
-	<select id="refundTotalCount" parameterType="hashmap" resultType="integer">
-		select count(*) from refund left join purchaselist on (refund.buy_no = purchaselist.buy_no) where farm_yn='Y'
-		<choose>
-			<when test="type.equals('userNo')">
-				and refund.user_no like '%'||#{keyword}||'%'
-			</when>
-			<when test="type.equals('farmNo')">
-				and refund.farm_no like '%'||#{keyword}||'%'
-			</when>
-			<when test="type.equals('buyNo')">
-				and refund.buy_no like '%'||#{keyword}||'%'
-			</when>
-			<when test="type.equals('orderNo')">
-				and purchaselist.order_no like '%'||#{keyword}||'%'
-			</when>
-			<otherwise></otherwise>
-		</choose>
-	</select>
-	<update id="refundUpdate" parameterType="hashmap">
-		update refund set admin_yn=#{adminYN} where refund_no = #{refundNo}
-	</update>
+
+<!-- 농가 관련 기능 모음 -->
+	<!-- 농가 정보 가져오기 -->
 	<select id="farmInfo" parameterType="integer" resultType="farm">
 		select 
 			farm_No as farmNo,
@@ -437,6 +356,7 @@
 			rating as rating
 		from farm where farm_no=#{_parameter}
 	</select>
+	<!-- 농가 목록 가져오기 -->
 	<select id="farmSearchList" parameterType="hashmap" resultType="farm">
 		select 
 			farm_No as farmNo,
@@ -468,6 +388,7 @@
 		)
 		where num between #{start} and #{end}
 	</select>
+	<!-- 농가 목록 카운트 -->
 	<select id="farmSearchTotalCount" parameterType="hashmap" resultType="integer">
 		select count(*) from farm where farm_no not in(1,2,3)
 			<choose>
@@ -483,6 +404,7 @@
 				<otherwise></otherwise>
 			</choose>
 	</select>
+	<!-- 농가 탈퇴 / 복구 처리 -->
 	<update id="farmEndYNUpdate" parameterType="hashmap">
 		update farm set 
 		<if test='endYN.equals("N")'>
@@ -493,7 +415,10 @@
 		</if>
 		where farm_no = #{farmNo}
 	</update>
-	<select id="refund" resultType="refund">
+	
+<!-- 환불 관련 기능 모음 -->
+	<!-- 환불 목록 가져오기 -->	
+	<select id="refundList" parameterType="hashmap" resultType="refund">
 		select
 			refund_No as refundNo,
 			buy_No as buyNo,
@@ -505,58 +430,50 @@
 			question_User_No as questionUserNo,
 			order_no as orderNo
 		from (select row_number() over (order by refund_no desc) as num,refund.*,purchaselist.order_no from refund left join purchaselist on (refund.buy_no = purchaselist.buy_no)
-		where refund.farm_yn='Y')
-		where num between 1 and 5
+		where refund.farm_yn='Y'
+		<choose>
+			<when test="type.equals('userNo')">
+				and refund.user_no like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('farmNo')">
+				and refund.farm_no like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('buyNo')">
+				and refund.buy_no like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('orderNo')">
+				and purchaselist.order_no like '%'||#{keyword}||'%'
+			</when>
+			<otherwise></otherwise>
+		</choose>
+		) where num between #{start} and #{end}
 	</select>
-	<select id="questionUserContent" parameterType="integer" resultType="qUser">
-		select
-			question_User_No as questionUserNo,
-			question_User_Title as questionUserTitle,
-			question_User_Content as questionUserContent,
-			question_User_Regdate as questionUserRegdate,
-			question_user.user_No as userNo,
-			question_User_End_YN as questionUserEndYN,
-			questionphoto_No as questionphotoNo,
-			question_User_Code as questionUserCode,
-			question_User_Classify as questionUserClassify,
-			farm_No as farmNo,
-			order_No as orderNo,
-			member.user_Nick as userNick,
-			question_User_Answer_YN as questionUserAnswerYN
-		from question_user left join member on(question_user.user_no = member.user_no)
-		where question_user_end_yn='N' and question_user_classify='A' and question_user_no=#{_parameter}
+	<!-- 환불 목록 카운트 -->
+	<select id="refundTotalCount" parameterType="hashmap" resultType="integer">
+		select count(*) from refund left join purchaselist on (refund.buy_no = purchaselist.buy_no) where farm_yn='Y'
+		<choose>
+			<when test="type.equals('userNo')">
+				and refund.user_no like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('farmNo')">
+				and refund.farm_no like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('buyNo')">
+				and refund.buy_no like '%'||#{keyword}||'%'
+			</when>
+			<when test="type.equals('orderNo')">
+				and purchaselist.order_no like '%'||#{keyword}||'%'
+			</when>
+			<otherwise></otherwise>
+		</choose>
 	</select>
-	<select id="questionUserAnswer" parameterType="integer" resultType="qAnswer">
-		select
-			question_Answer_No as questionAnswerNo,
-			question_Answer_Content as questionAnswerContent,
-			question_Answer_Regdate as questionAnswerRegdate,
-			question_Board_No as questionBoardNo,
-			question_Board_Code as questionBoardCode,
-			question_Answer_End_YN as questionAnswerEndYN
-		from question_Answer
-		where question_Board_code='U' and question_board_no=#{_parameter}
-	</select>
-	<select id="questionFarmAnswer" parameterType="integer" resultType="qAnswer">
-		select
-			question_Answer_No as questionAnswerNo,
-			question_Answer_Content as questionAnswerContent,
-			question_Answer_Regdate as questionAnswerRegdate,
-			question_Board_No as questionBoardNo,
-			question_Board_Code as questionBoardCode,
-			question_Answer_End_YN as questionAnswerEndYN
-		from question_Answer
-		where question_Board_code='F' and question_board_no=#{_parameter}
-	</select>
-	<select id="sugWork" resultType="hashMap">
-		select * from 
-			(select count(*) as bid_Sell_YN from bid where bid_sell_yn = 'N'),
-			(select count(*) as qUser_Answer_YN from question_user where question_user_answer_yn='N' and question_user_classify='A'),
-			(select count(*) as qFarm_Answer_YN from question_farm where question_farm_answer_yn='N'),
-			(select count(*) as refund_YN from refund where farm_yn='Y' and admin_yn='N'),
-			(select count(*) as purchase from purchaselist),
-			(select count(*) as refund from refund where admin_yn='Y')
-	</select>
+	<!-- 환불 승인 및 거절 업데이트 -->
+	<update id="refundUpdate" parameterType="hashmap">
+		update refund set admin_yn=#{adminYN} where refund_no = #{refundNo}
+	</update>
+
+<!-- 홍보 게시판 기능 모음 -->
+	<!-- 홍보 게시판 목록 가져오기 -->
 	<select id="promotionList" parameterType="hashmap" resultType="promotion">
 			select
 				PROMOTION_NO as promotionNo,
@@ -590,6 +507,7 @@
 				)
 			where num between #{start} and #{end}
 	</select>
+	<!-- 홍보 게시판 목록 카운트 -->
 	<select id="promotionTotalCount" parameterType="hashmap" resultType="integer">
 		select count(*) from promotion
 			<choose>
@@ -605,11 +523,13 @@
 				<otherwise></otherwise>
 			</choose>
 	</select>
+	<!-- 홍보 게시판 삭제 / 복구 기능 -->
 	<update id="promotionYNUpdate" parameterType="hashmap">
 		update promotion set promotion_end_yn=#{endYN} where promotion_no = #{promotionNo}
 	</update>
-	<select id="bidTest" resultType="auction">
-		<foreach collection="array" item="arr">
+<!-- 자동 예약 기능 모음 -->
+	<!-- 낙찰된 경매 정보 가져오기 -->
+	<select id="BIDScheduler" parameterType="integer" resultType="auction">
 		select auction_no as auctionNo,
 			auction_start as auctionStart,
 			auction_end as auctionEnd,
@@ -624,9 +544,130 @@
 			auction_Count3 as auctionCount3,
 			auction_EndYN as auctionEndYN 
 		from (select row_number() over (order by auction_no desc) as num, auction.* from auction 
-			where auction_form_no=#{arr}
+		where auction_form_no=#{_parameter}
 		and to_date(auction_end) &lt; to_date(sysdate) and auction_endYN='N') 
 		where num = 1
+	</select>
+	<!-- 낙찰된 경매 정보 저장  -->
+	<insert id="BIDinsert" parameterType="auction">
+		insert into BID values(BID_SEQ.NEXTVAL,#{auctionNo},sysdate,'N')
+	</insert>
+	<!-- 날짜 지난 경매 전부 종료 -->
+	<update id="auctionEndYN" parameterType="auction">
+		update auction set auction_endyn='Y' where to_date(auction_end) &lt; to_date(sysdate)
+	</update>
+	<!-- 날짜 지난 판매 전부 종료 -->
+	<update id="sellFormEndYN">
+		update sell_form set sell_end_yn='Y' where to_date(sell_end) &lt; to_date(sysdate)
+	</update>
+	<!-- 사용되지 않은 이미지 파일 체크 -->
+	<select id="fileCheck" resultType="qPhoto">
+		select 
+			questionphoto_no as questionPhotoNo,
+			questionPhoto_FilePath as questionPhotoFilePath 
+		from questionPhoto where questionphoto_use_yn='N' and questionphoto_del_yn='N'
+	</select>
+	<!-- 문의게시판 사용되지 않은 사진 삭제 업데이트 -->
+	<update id="fileDelYNUpdate">
+		update questionphoto set questionphoto_del_yn='Y', questionphoto_use_yn='Y' where questionphoto_no in
+		<foreach collection="list" open="(" separator="," close=")" item="qPhoto">
+			#{qPhoto.questionPhotoNo}
 		</foreach>
+	</update>
+<!-- 카운트 기능 모음 -->
+	<!-- 카운트행 있는지 확인 -->
+	<select id="countCheck" resultType="count">
+		select
+			count_no as countNo,
+			count_sum as countSum,
+			count_date as countDate
+		from count_tbl
+		where to_date(count_date) = to_date(sysdate) 
+	</select>
+	<!-- 카운트 넣기  -->
+	<insert id="countInsert">
+		insert into count_tbl values(count_seq.nextval,1,sysdate)
+	</insert>
+	<!-- 카운트 업데이트 -->
+	<update id="countUpdate">
+		update count_tbl set count_sum=(count_sum+1) where to_date(count_date)=to_date(sysdate)
+	</update>
+	<!-- 카운트 가져오기 -->
+	<select id="countOutput" parameterType="integer" resultType="count">
+		select
+			count_no as countNo,
+			count_sum as countSum,
+			count_date as countDate
+		from count_tbl
+		where to_date(count_date) = to_date(sysdate-#{_parameter}) 
+	</select>
+	<!-- 유저 가입수 가져오기 -->
+	<select id="joinOutput" parameterType="integer" resultType="integer">
+		select
+			count(*)
+		from member
+		where to_date(user_enrolldate) = to_date(sysdate-#{_parameter})
+	</select>
+	<!-- 농가 가입수 가져오기 -->
+	<select id="farmOutput" parameterType="integer" resultType="integer">
+		select
+			count(*)
+		from farm
+		where to_date(farm_enrolldate) = to_date(sysdate-#{_parameter})
+	</select>
+	<!-- 유저문의 최신 5개 가져오기 -->
+	<select id="questionUserListMain" resultType="qUser">
+		select
+			question_User_no as questionUserNo,
+			question_User_Title as questionUserTitle,
+			question_User_Content as questionUserContent,
+			question_User_Regdate as questionUserRegdate,
+			user_No as userNo,
+			question_User_End_YN as questionUserEndYN,
+			questionphoto_No as questionphoto_No,
+			question_User_Code as questionUserCode,
+			question_User_Classify as questionUserClassify,
+			farm_No as farmNo,
+			user_nick as userNick,
+			order_No as orderNo
+		from (select row_number() over (order by question_user_no desc) as num, question_user.*,user_nick from question_user left join member on(question_user.user_no = member.user_no) where question_User_Classify='A') where num between 1 and 5
+	</select>
+	<!-- 농가문의 최신 5개 가져오기 -->
+	<select id="questionFarmListMain" resultType="qFarm">
+		select
+			question_Farm_No as questionFarmNo,
+			question_Farm_Title as questionFarmTitle,
+			question_Farm_Content as questionFarmContent,
+			question_Farm_Regdate as questionFarmRegdate,
+			farm_No as farmNo,
+			question_Farm_End_YN as questionFarmEndYN,
+			farm_Name as farmName
+		from (select row_number() over (order by question_farm_no desc) as num, question_farm.*,farm_name from question_farm left join farm on(question_farm.farm_no = farm.farm_no) where question_farm_end_yn='N') where num between 1 and 5
+	</select>
+	<!-- 환불문의 최신 5개 가져오기 -->
+	<select id="refund" resultType="refund">
+		select
+			refund_No as refundNo,
+			buy_No as buyNo,
+			user_No as userNo,
+			farm_No as farmNo,
+			farm_YN as farmYN,
+			admin_YN as adminYN,
+			del_YN as delYN,
+			question_User_No as questionUserNo,
+			order_no as orderNo
+		from (select row_number() over (order by refund_no desc) as num,refund.*,purchaselist.order_no from refund left join purchaselist on (refund.buy_no = purchaselist.buy_no)
+		where refund.farm_yn='Y')
+		where num between 1 and 5
+	</select>
+	<!-- 추천 작업 목록 가져오기 -->
+	<select id="sugWork" resultType="hashMap">
+		select * from 
+			(select count(*) as bid_Sell_YN from bid where bid_sell_yn = 'N'),
+			(select count(*) as qUser_Answer_YN from question_user where question_user_answer_yn='N' and question_user_classify='A'),
+			(select count(*) as qFarm_Answer_YN from question_farm where question_farm_answer_yn='N'),
+			(select count(*) as refund_YN from refund where farm_yn='Y' and admin_yn='N'),
+			(select count(*) as purchase from purchaselist),
+			(select count(*) as refund from refund where admin_yn='Y')
 	</select>
 </mapper>

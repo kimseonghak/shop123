@@ -27,6 +27,7 @@
 					<img alt="메인사진" src="/resources/main/main/img/main1-1.jpg">
 				</div>	
 				<div class="main-text">
+					<button id="testBtn">test</button>
 					<p>전국 산지의 제철 특산물,<br>
 					농가에서 직접 배송받아 믿을 수 있는<br>
 					123상회에서 만나보세요.</p>
@@ -87,6 +88,9 @@
 			<script>
 				$(function(){
 					$.get("/admin/countInput.do");
+				});
+				$('#testBtn').click(function(){
+					location.replace("/admin/test.do");
 				});
 			</script>
 		
